@@ -6,7 +6,7 @@
 #    By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/16 17:04:55 by aviholai          #+#    #+#              #
-#    Updated: 2022/11/01 18:03:16 by aviholai         ###   ########.fr        #
+#    Updated: 2022/11/02 16:35:31 by aviholai         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ RM				= /bin/rm -rf
 LISTSRC	=	$(foreach part,$(SRC), 	$(PL)		${G}| $(part)						${PR})
 
 #SDL2
-SDL_SRC_DIR			= SDL2-2.24.2
+SDL_SRC_DIR			= SDL2-2.0.8
 SDL_DIR				= libSDL2
 SDL_BUILD_DIR_PATH	= $(CURDIR)/$(SDL_DIR)
 SDL_CFLAGS			= `$(SDL_DIR)/bin/sdl2-config --cflags --libs`
@@ -46,7 +46,7 @@ all : HEAD $(SDL) $(NAME) TAIL
 
 $(SDL) :
 	@printf "	${PL}		${G} Etracting SDL archives. \n ${NOC}"
-	tar xzf SDL2-2.24.2.tar.gz
+	tar xzf SDL2-2.0.8.tar.gz
 	mkdir -p $(SDL_DIR)
 	cd $(SDL_SRC_DIR); ./configure --prefix=$(SDL_BUILD_DIR_PATH); make -j6; make install
 
