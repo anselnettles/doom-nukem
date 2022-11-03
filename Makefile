@@ -6,7 +6,7 @@
 #    By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/16 17:04:55 by aviholai          #+#    #+#              #
-#    Updated: 2022/11/02 16:35:31 by aviholai         ###   ########.fr        #
+#    Updated: 2022/11/03 15:10:18 by aviholai         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,7 @@ SDL					= $(SDL_DIR)/lib/libSDL2.a
 
 #.SILENT:
 
-all : HEAD $(SDL) $(NAME) TAIL
+all : HEAD  $(NAME) TAIL
 
 $(SDL) :
 	@printf "	${PL}		${G} Etracting SDL archives. \n ${NOC}"
@@ -57,7 +57,7 @@ $(NAME) : $(OBJ)
 	@printf "	$(PL)		${G}| following source files:				${PR}"
 	@printf "$(LISTSRC)"
 	@printf "	${PL}									${PR}"
-	@cc ${CLAGS} -I $(SDL_DIR)/include/SDL2 ${OBJ} -o ${NAME}
+	@cc ${CFLAGS} -I$(SDL_DIR)/include/SDL2/ -lm  `$(SDL_DIR)/bin/sdl2-config --cflags --libs`  ${OBJ} -o ${NAME}
 	@printf "	${PL}									${PR}"
 	@printf "	${PL}	${O}Ｆｉｎｉｓｈｅｄ ｂｉｎａｒｙ.					${PR}"
 	@printf "	${PL}		${G}| Executable '$(NAME)' compiled with 'cc'.		${PR}"
@@ -74,8 +74,8 @@ fclean : clean
 	@echo "${GN}Cleaning binary and debug files.${NOC}"
 	@rm -v -f $(NAME)
 	@rm -v -f *.dSYM
-	@rm -v -f -r $(SDL_SRC_DIR)
-	@rm -v -f -r $(SDL_DIR)
+	#@rm -v -f -r $(SDL_SRC_DIR)
+	#@rm -v -f -r $(SDL_DIR)
 
 re : fclean all
 
