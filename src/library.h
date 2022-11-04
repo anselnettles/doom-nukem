@@ -1,0 +1,49 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   library.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
+/*   Updated: 2022/11/04 18:07:06 by aviholai         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef LIBRARY_H
+# define LIBRARY_H
+
+# include <unistd.h>						// UNIX Standard library.
+# include <stdlib.h>						// Standard library.
+# include "../libSDL2/include/SDL2/SDL.h"	// Simple DirectMedia Layer library.
+
+// Graphic window definitions.
+# define TITLE "Bitter Cold Droplets in Autumn Rain | github.com/AnselNettles"
+# define NAME "doom-nukem"				// Rename when necessary.
+# define WIDTH 640						// Window resolution width.
+# define HEIGHT 480						// Window resolution height.
+
+//System-wise global definitions
+# define RUN_GAME 1						// User request for running the game.
+# define RUN_LEVEL_EDITOR 2				// User request for running the editor.
+
+# define T_NUL "\033[0m"				// Default terminal type color.
+# define T_ORANGE "\033[1;33m"			// Bold orange terminal type color.
+# define T_RED "\033[0;31m"				// A red terminal type color.
+
+//System-wise variables for run and check-up calls through the two programs.
+typedef struct s_system {
+	int		user_request;
+}	t_system;
+
+// Listed error types
+typedef enum e_error
+{
+	BAD_ARGS,
+}	t_error;
+
+int		main(int argc, char **argv);	// The main function.
+int		error(int code);				// Error management function.
+size_t	ft_strlen(const char *s);		// Measure the length of applied string.
+
+#endif
