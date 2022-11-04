@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/04 18:07:06 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/04 18:56:05 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,21 @@ typedef struct s_system {
 	int		user_request;
 }	t_system;
 
+//Editor-wise variables used mainly for resolving the level editor program.
+typedef struct s_editor {
+	char	*file;
+}	t_editor;
+
 // Listed error types
 typedef enum e_error
 {
 	BAD_ARGS,
 }	t_error;
 
-int		main(int argc, char **argv);	// The main function.
 int		error(int code);				// Error management function.
+int		main(int argc, char **argv);	// The main function.
+int		read_file(t_system *system, t_editor *editor);
+
 size_t	ft_strlen(const char *s);		// Measure the length of applied string.
 
 #endif
