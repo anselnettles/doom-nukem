@@ -6,7 +6,7 @@
 #    By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/16 17:04:55 by aviholai          #+#    #+#              #
-#    Updated: 2022/11/03 18:41:39 by aviholai         ###   ########.fr        #
+#    Updated: 2022/11/04 17:49:20 by aviholai         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,9 @@
 NAME			= doom-nukem
 
 SRC				= \
-				main.c 
+				src/error_management.c\
+				src/main.c\
+				src/utility_functions.c
 
 OBJ				= $(SRC:.c=.o)
 
@@ -37,7 +39,7 @@ SDL_CFLAGS			= `$(SDL_DIR)/bin/sdl2-config --cflags --libs`
 
 .SILENT:
 
-all : SDL $(NAME)
+all : $(NAME)
 
 SDL :
 	@${RUN_HEAD}
@@ -77,8 +79,8 @@ fclean : clean
 	@echo "${GN}Cleaning binary and debug files. ${Y}"
 	@rm -v -f $(NAME)
 	@rm -v -f *.dSYM
-	@rm -v -f -r $(SDL_SRC_DIR)
-	@rm -v -f -r $(SDL_DIR); echo "${Nul}"
+	#@rm -v -f -r $(SDL_SRC_DIR)
+	#@rm -v -f -r $(SDL_DIR); echo "${Nul}"
 
 #	Instead of a huge list, it would be nicer to get all the removed items
 #	for a single line, refreshing as it moves on to the next file.
