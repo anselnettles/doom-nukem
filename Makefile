@@ -6,7 +6,7 @@
 #    By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/16 17:04:55 by aviholai          #+#    #+#              #
-#    Updated: 2022/11/04 17:49:20 by aviholai         ###   ########.fr        #
+#    Updated: 2022/11/04 19:02:05 by aviholai         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ NAME			= doom-nukem
 SRC				= \
 				src/error_management.c\
 				src/main.c\
+				src/parse_level.c\
 				src/utility_functions.c
 
 OBJ				= $(SRC:.c=.o)
