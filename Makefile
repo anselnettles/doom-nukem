@@ -6,7 +6,7 @@
 #    By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/16 17:04:55 by aviholai          #+#    #+#              #
-#    Updated: 2022/11/04 19:02:05 by aviholai         ###   ########.fr        #
+#    Updated: 2022/11/04 20:30:45 by aviholai         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,21 +14,22 @@
 ### VARIABLES ###
 #################
 
-NAME			= doom-nukem
+NAME				= doom-nukem
 
-SRC				= \
-				src/error_management.c\
-				src/main.c\
-				src/parse_level.c\
-				src/utility_functions.c
+SRC_DIR				= src
+SRC					= 	\
+						error_management.c\
+						main.c\
+						parse_level.c\
+						utility_functions.c
 
-OBJ				= $(SRC:.c=.o)
+OBJ					= $(SRC:.c=.o)
 
-CFLAGS			= -Wall -Wextra -Werror -Wconversion
-INC				= -I $(SDL_DIR)/include/SDL2
+CFLAGS				= -Wall -Wextra -Werror -Wconversion
 
 LISTSRC	=	$(foreach part,$(SRC), 	$(PL)		${G}| $(part)						${PR})
 
+INC					= -I $(SDL_DIR)/include/SDL2
 SDL_SRC_DIR			= SDL2-2.0.8
 SDL_DIR				= libSDL2
 SDL_BUILD_DIR_PATH	= $(CURDIR)/$(SDL_DIR)
@@ -38,7 +39,7 @@ SDL_CFLAGS			= `$(SDL_DIR)/bin/sdl2-config --cflags --libs`
 ### RULES ###
 #############
 
-.SILENT:
+# Remember to add SDL rule to 'all.'
 
 all : $(NAME)
 
@@ -55,7 +56,7 @@ SDL :
 	@printf "	${PL}		${G}| This will take a moment ...				${PR}${Nul}"
 	@cd $(SDL_SRC_DIR); ./configure --prefix=$(SDL_BUILD_DIR_PATH); make -j6; make install
 
-$(NAME) : $(OBJ)
+$(NAME) : $(OBJ) $(SDL_BUILD_DIR_PATH)/lib/libSDL2.a
 	@printf "	${PL}									${PR}"
 	@printf "	${PL}	${Yb}Ｃｏｍｐｉｌｉｎｇ.		 				${PR}"
 	@printf "	${PL}		${G}| Creating objects and archives with the		${PR}"
@@ -68,6 +69,9 @@ $(NAME) : $(OBJ)
 	@printf "	${PL}		${G}| Executable '$(NAME)' compiled with 'cc'.		${PR}"
 	@printf "	${PL}									${PR}${Nul}"
 	@${RUN_TAIL}
+
+$(OBJ) : %.o:$(SRC_DIR)/%.c Makefile
+	$(CC) $(CFLAGS) -I $(SRC_DIR) -c -o $@ $<
 
 clean :
 	@echo "${GN}Cleaning object files. ${Y}"
