@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/04 18:56:05 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/04 21:15:23 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ typedef struct s_editor {
 typedef enum e_error
 {
 	BAD_ARGS,
+	NO_FILE,
+	BAD_FILENAME,
 }	t_error;
 
 int		error(int code);				// Error management function.
