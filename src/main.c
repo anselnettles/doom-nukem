@@ -6,12 +6,11 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 18:24:05 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/04 21:15:37 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/06 16:27:40 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "library.h"
-#include <stdio.h>
 
 /*static int	practice(void)
 {
@@ -59,11 +58,14 @@ int	main(int argc, char **argv)
 	if (system.user_request == RUN_GAME)
 	{
 		write(1, "run game. ", 10);
+		//if (run_game == ERROR)
+		//return (ERROR);
 	}
 	else if (system.user_request == RUN_LEVEL_EDITOR)
 	{
 		write(1, "run editor. ", 12);
-		read_file(&system, &editor);
+		if (read_file(&system, &editor) == ERROR)
+			return (ERROR);
 	}
 	else
 		return (error(BAD_ARGS));
