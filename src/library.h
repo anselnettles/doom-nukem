@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/04 21:15:23 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/06 16:29:59 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <unistd.h>						// UNIX Standard library.
 # include <stdlib.h>						// Standard library.
+# include <fcntl.h>							// File Control library.
 # include "../libSDL2/include/SDL2/SDL.h"	// Simple DirectMedia Layer library.
 
 // Graphic window definitions.
@@ -26,6 +27,8 @@
 //System-wise global definitions
 # define RUN_GAME 1						// User request for running the game.
 # define RUN_LEVEL_EDITOR 2				// User request for running the editor.
+# define ERROR 1						// Reference to return value.
+# define MAX_READ 5000
 
 # define T_NUL "\033[0m"				// Default terminal type color.
 # define T_ORANGE "\033[1;33m"			// Bold orange terminal type color.
@@ -38,7 +41,8 @@ typedef struct s_system {
 
 //Editor-wise variables used mainly for resolving the level editor program.
 typedef struct s_editor {
-	char	*file;
+	char		*file;
+	char		buffer[MAX_READ + 1];
 }	t_editor;
 
 // Listed error types
@@ -47,6 +51,10 @@ typedef enum e_error
 	BAD_ARGS,
 	NO_FILE,
 	BAD_FILENAME,
+	OPEN_FAIL,
+	READ_FAIL,
+	FILE_MAX,
+	CLOSE_FAIL,
 }	t_error;
 
 int		error(int code);				// Error management function.
