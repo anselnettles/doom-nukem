@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/07 13:35:35 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/07 17:31:25 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # define RUN_GAME 1						// User request for running the game.
 # define RUN_LEVEL_EDITOR 2				// User request for running the editor.
 # define ERROR 1						// Reference to return value.
-# define MAX_READ 5000					// Irrelevant level size maximum.
+# define MAX_READ 1000					// Irrelevant level size maximum.
 
 //Terminal output color codes.
 # define T_NUL "\033[0m"				// Default terminal type color.
@@ -44,6 +44,7 @@ typedef struct s_system {
 typedef struct s_editor {
 	char		*file;
 	char		buffer[MAX_READ + 1];
+	char		array[MAX_READ + 1][MAX_READ + 1];
 }	t_editor;
 
 // Listed error types
