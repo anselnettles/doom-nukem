@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 18:33:26 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/07 10:56:35 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/07 12:14:27 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,14 @@
 
 int	validate_file(t_editor *editor)
 {
+	int	i;
 
+	i = 0;
+	while (editor->buffer[i++])
+	{
+		write (1, &editor->buffer[i], 1);
+	}
+	return (0);
 }
 
 static int	filename_check(t_editor *editor)
@@ -51,8 +58,10 @@ int	read_file(t_system *system, t_editor *editor)
 	if (ret > MAX_READ)
 		return (error(FILE_MAX));
 	editor->buffer[ret] = '\0';
-	validate_file(editor);
-	//open editor?
+	if (validate_file(editor) == ERROR)
+		return (ERROR);
+	if (system->user_request)
+		//open editor?
 	if (close(fd) == -1)
 		return (error(CLOSE_FAIL));
 	return (0);
