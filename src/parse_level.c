@@ -6,11 +6,16 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 18:33:26 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/06 16:42:22 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/07 10:56:35 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "library.h"
+
+int	validate_file(t_editor *editor)
+{
+
+}
 
 static int	filename_check(t_editor *editor)
 {
@@ -40,15 +45,14 @@ int	read_file(t_system *system, t_editor *editor)
 	fd = open(editor->file, O_RDONLY);
 	if (fd == -1)
 		return (error(OPEN_FAIL));
-	ret = read(fd, editor->buffer, MAX_READ + 1);
+	ret = read(fd, editor->buffer, MAX_READ);
 	if (ret < 0)
 		return (error(READ_FAIL));
 	if (ret > MAX_READ)
 		return (error(FILE_MAX));
-	if (system->user_request)
-	{
-		//requested.
-	}
+	editor->buffer[ret] = '\0';
+	validate_file(editor);
+	//open editor?
 	if (close(fd) == -1)
 		return (error(CLOSE_FAIL));
 	return (0);
