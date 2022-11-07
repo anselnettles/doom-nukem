@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 18:24:05 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/07 17:59:46 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/07 19:23:18 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int	main(int argc, char **argv)
 {
 	t_system	system;
 	t_editor	editor;
+	t_index		index;
 
 	system.user_request = argc;
 	editor.file = argv[1];
@@ -64,7 +65,7 @@ int	main(int argc, char **argv)
 	else if (system.user_request == RUN_LEVEL_EDITOR)
 	{
 		write(1, "run editor. \n", 13);
-		if (read_file(&system, &editor) == ERROR)
+		if (read_file(&system, &editor, &index) == ERROR)
 			return (ERROR);
 	}
 	else
