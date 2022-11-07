@@ -6,22 +6,36 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 18:33:26 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/07 17:58:11 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/07 18:50:16 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "library.h"
 
+// Comments are allowed in level files within braces.
+
+static int	check_comments(t_editor *editor, int i)
+{
+	if (editor->buffer[i] == '{')
+	{
+		while (editor->buffer[i] && editor->buffer[i] != '}')
+			i++;
+		if (editor->buffer[i])
+			i++;
+	}
+	return (i);
+}
+
 //	List all the allowed ASCII characters in a level file.
 
-int	validate_symbol(t_editor *editor, int i)
+static int	validate_symbol(t_editor *editor, int i)
 {
-	if (!(editor->buffer[i] == 0 || editor->buffer[i] == '\n' ||
-		editor->buffer[i] == ' ' || editor->buffer[i] == '#' ||
-		editor->buffer[i] == '*' || editor->buffer[i] == '\\' ||
-		(editor->buffer[i] >= '/' && editor->buffer[i] <= '9') ||
-		(editor->buffer[i] >= 'A' && editor->buffer[i] <= 'Z') ||
-		(editor->buffer[i] >= 'a' && editor->buffer[i] <= 'j')))
+	if (!(editor->buffer[i] == 0 || editor->buffer[i] == '\n'
+			|| editor->buffer[i] == ' ' || editor->buffer[i] == '#'
+			|| editor->buffer[i] == '*' || editor->buffer[i] == '\\'
+			|| (editor->buffer[i] >= '/' && editor->buffer[i] <= '9')
+			|| (editor->buffer[i] >= 'A' && editor->buffer[i] <= 'Z')
+			|| (editor->buffer[i] >= 'a' && editor->buffer[i] <= 'j')))
 	{
 		write(1, "\n" T_RED "Error: ", 15);
 		write(1, &editor->buffer[i], 1);
@@ -30,7 +44,7 @@ int	validate_symbol(t_editor *editor, int i)
 	return (0);
 }
 
-//	Level file parsing function. A margin for comments is allowed within braces.
+//	Level file parsing function.
 
 int	validate_file(t_editor *editor)
 {
@@ -43,47 +57,25 @@ int	validate_file(t_editor *editor)
 	k = 0;
 	while (editor->buffer[i])
 	{
-		if (editor->buffer[i] == '{')
-		{
-			while (editor->buffer[i] && editor->buffer[i] != '}')
-				i++;
-			if (editor->buffer[i])
-				i++;
-		}
+		i = check_comments(editor, i);
 		write(1, &editor->buffer[i], 1);
 		if (validate_symbol(editor, i) == ERROR)
 			return (ERROR);
-		if (editor->buffer[i] != '\n')
-		{
-			editor->array[k][j] = editor->buffer[i];
-			j++;
-		}
-		else
+		if (editor->buffer[i] == '\n')
 		{
 			editor->array[k][j] = '\0';
 			j = 0;
 			k++;
 		}
+		else
+			editor->array[k][j] = editor->buffer[i];
+			j++;
 		i++;
 	}
-	k = 0;
-	j = 0;
-	while (k != 50)
-	{
-		write(1, &editor->array[k][j], 1);
-		if (editor->array[k][j] != '\0')
-			j++;
-		else
-		{
-			j = 0;
-			k++;
-		}
-	}
-
 	return (0);
 }
 
-// Checks the validity of the level file's filename. Filename must end in '.dn'.
+// Checks the validity of the level's filename. Filename must end in '.dn'.
 
 static int	filename_check(t_editor *editor)
 {
