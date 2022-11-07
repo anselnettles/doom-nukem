@@ -6,12 +6,12 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 16:40:37 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/07 10:25:53 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/07 13:56:04 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "library.h"
-#define NUMBER 7
+#define NUMBER 8
 
 int	error(int code)
 {
@@ -25,6 +25,7 @@ int	error(int code)
 	error_message[4] = T_RED "Error: File read failure." T_NUL;
 	error_message[5] = T_RED "Error: File too large." T_NUL;
 	error_message[6] = T_RED "Error: File close failure." T_NUL;
+	error_message[7] = T_RED " is an illegal character in level file." T_NUL;
 	write(1, error_message[code], ft_strlen(error_message[code]));
 	return (ERROR);
 }
