@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/07 17:31:25 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/07 19:47:54 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,15 @@ typedef struct s_editor {
 	char		array[MAX_READ + 1][MAX_READ + 1];
 }	t_editor;
 
+
+//Index-wise variables used for counts.
+typedef struct s_index {
+	int			i;
+	int			j;
+	int			rows;
+	int			width;
+}	t_index;
+
 // Listed error types
 typedef enum e_error
 {
@@ -58,12 +67,14 @@ typedef enum e_error
 	FILE_MAX,
 	CLOSE_FAIL,
 	BAD_SYMBOL,
+	EDITOR_FAIL,
 }	t_error;
 
-int		error(int code);				// Error management function.
-int		main(int argc, char **argv);	// The main function.
-int		read_file(t_system *system, t_editor *editor);	// Level file reader.
+int		error(int code);
+int		main(int argc, char **argv);
+int		read_file(t_system *system, t_editor *editor, t_index *index);
+int		editor_sequence(t_system *system, t_editor *editor, t_index *index);
 
-size_t	ft_strlen(const char *s);		// Measure the length of applied string.
+size_t	ft_strlen(const char *s);
 
 #endif
