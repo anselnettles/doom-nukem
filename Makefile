@@ -6,7 +6,7 @@
 #    By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/16 17:04:55 by aviholai          #+#    #+#              #
-#    Updated: 2022/11/04 20:30:45 by aviholai         ###   ########.fr        #
+#    Updated: 2022/11/07 11:13:43 by aviholai         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -85,7 +85,8 @@ fclean : clean
 	@rm -v -f $(NAME)
 	@rm -v -f *.dSYM
 	#@rm -v -f -r $(SDL_SRC_DIR)
-	#@rm -v -f -r $(SDL_DIR); echo "${Nul}"
+	#@rm -v -f -r $(SDL_DIR)
+	echo "${Nul}"
 
 #	Instead of a huge list, it would be nicer to get all the removed items
 #	for a single line, refreshing as it moves on to the next file.
