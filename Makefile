@@ -6,7 +6,7 @@
 #    By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/16 17:04:55 by aviholai          #+#    #+#              #
-#    Updated: 2022/11/07 17:35:56 by aviholai         ###   ########.fr        #
+#    Updated: 2022/11/07 19:48:23 by aviholai         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,8 @@ SRC					= 	\
 						error_management.c\
 						main.c\
 						parse_level.c\
-						utility_functions.c
+						utility_functions.c\
+						level_editor.c
 
 OBJ					= $(SRC:.c=.o)
 
