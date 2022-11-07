@@ -6,7 +6,7 @@
 #    By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/16 17:04:55 by aviholai          #+#    #+#              #
-#    Updated: 2022/11/07 11:13:43 by aviholai         ###   ########.fr        #
+#    Updated: 2022/11/07 17:35:56 by aviholai         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,7 +56,7 @@ SDL :
 	@printf "	${PL}		${G}| This will take a moment ...				${PR}${Nul}"
 	@cd $(SDL_SRC_DIR); ./configure --prefix=$(SDL_BUILD_DIR_PATH); make -j6; make install
 
-$(NAME) : $(OBJ) $(SDL_BUILD_DIR_PATH)/lib/libSDL2.a
+$(NAME) : $(OBJ) $(SDL_BUILD_DIR_PATH)/lib/libSDL2.a 
 	@printf "	${PL}									${PR}"
 	@printf "	${PL}	${Yb}Ｃｏｍｐｉｌｉｎｇ.		 				${PR}"
 	@printf "	${PL}		${G}| Creating objects and archives with the		${PR}"
@@ -70,7 +70,7 @@ $(NAME) : $(OBJ) $(SDL_BUILD_DIR_PATH)/lib/libSDL2.a
 	@printf "	${PL}									${PR}${Nul}"
 	@${RUN_TAIL}
 
-$(OBJ) : %.o:$(SRC_DIR)/%.c Makefile
+$(OBJ) : %.o:$(SRC_DIR)/%.c Makefile $(SRC_DIR)/library.h
 	$(CC) $(CFLAGS) -I $(SRC_DIR) -c -o $@ $<
 
 clean :
