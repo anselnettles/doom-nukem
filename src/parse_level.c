@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 18:33:26 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/07 18:50:16 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/07 20:48:50 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,30 @@
 
 // Comments are allowed in level files within braces.
 
-static int	check_comments(t_editor *editor, int i)
+void	check_comments(t_editor *editor, t_index *i)
 {
-	if (editor->buffer[i] == '{')
+	if (editor->buffer[i->i] == '{')
 	{
-		while (editor->buffer[i] && editor->buffer[i] != '}')
-			i++;
-		if (editor->buffer[i])
-			i++;
+		while (editor->buffer[i->i] && editor->buffer[i->i] != '}')
+			i->i++;
+		if (editor->buffer[i->i])
+			i->i++;
 	}
-	return (i);
 }
 
 //	List all the allowed ASCII characters in a level file.
 
-static int	validate_symbol(t_editor *editor, int i)
+static int	validate_symbol(t_editor *editor, t_index *i)
 {
-	if (!(editor->buffer[i] == 0 || editor->buffer[i] == '\n'
-			|| editor->buffer[i] == ' ' || editor->buffer[i] == '#'
-			|| editor->buffer[i] == '*' || editor->buffer[i] == '\\'
-			|| (editor->buffer[i] >= '/' && editor->buffer[i] <= '9')
-			|| (editor->buffer[i] >= 'A' && editor->buffer[i] <= 'Z')
-			|| (editor->buffer[i] >= 'a' && editor->buffer[i] <= 'j')))
+	if (!(editor->buffer[i->i] == 0 || editor->buffer[i->i] == '\n'
+			|| editor->buffer[i->i] == ' ' || editor->buffer[i->i] == '#'
+			|| editor->buffer[i->i] == '*' || editor->buffer[i->i] == '\\'
+			|| (editor->buffer[i->i] >= '/' && editor->buffer[i->i] <= '9')
+			|| (editor->buffer[i->i] >= 'A' && editor->buffer[i->i] <= 'Z')
+			|| (editor->buffer[i->i] >= 'a' && editor->buffer[i->i] <= 'j')))
 	{
 		write(1, "\n" T_RED "Error: ", 15);
-		write(1, &editor->buffer[i], 1);
+		write(1, &editor->buffer[i->i], 1);
 		return (ERROR);
 	}
 	return (0);
@@ -46,31 +45,30 @@ static int	validate_symbol(t_editor *editor, int i)
 
 //	Level file parsing function.
 
-int	validate_file(t_editor *editor)
+static int	validate_file(t_editor *editor, t_index *i)
 {
-	int	i;
-	int	j;
-	int	k;
-
-	i = 0;
-	j = 0;
-	k = 0;
-	while (editor->buffer[i])
+	i->i = 0;
+	i->j = 0;
+	i->rows = 0;
+	i->width = 0;
+	while (editor->buffer[i->i])
 	{
-		i = check_comments(editor, i);
-		write(1, &editor->buffer[i], 1);
+		check_comments(editor, i);
+		write(1, &editor->buffer[i->i], 1);
 		if (validate_symbol(editor, i) == ERROR)
 			return (ERROR);
-		if (editor->buffer[i] == '\n')
+		if (editor->buffer[i->i] == '\n')
 		{
-			editor->array[k][j] = '\0';
-			j = 0;
-			k++;
+			if (!(i->width))
+					i->width = i->i;
+			editor->array[i->rows][i->j] = '\0';
+			i->j = 0;
+			i->rows++;
 		}
 		else
-			editor->array[k][j] = editor->buffer[i];
-			j++;
-		i++;
+			editor->array[i->rows][i->j] = editor->buffer[i->i];
+			i->j++;
+		i->i++;
 	}
 	return (0);
 }
@@ -96,7 +94,7 @@ static int	filename_check(t_editor *editor)
 // Commits the level file through error management checks and ultimately
 // passes it on to the editor function.
 
-int	read_file(t_system *system, t_editor *editor)
+int	read_file(t_system *system, t_editor *editor, t_index *index)
 {
 	int		fd;
 	ssize_t	ret;
@@ -114,11 +112,11 @@ int	read_file(t_system *system, t_editor *editor)
 	if (ret > MAX_READ)
 		return (error(FILE_MAX));
 	editor->buffer[ret] = '\0';
-	if (validate_file(editor) == ERROR)
+	if (validate_file(editor, index) == ERROR)
 		return (error(BAD_SYMBOL));
-	if (system->user_request)
-		//open editor?
 	if (close(fd) == -1)
 		return (error(CLOSE_FAIL));
+	if (editor_sequence(system, editor, index) == ERROR)
+		return (error(EDITOR_FAIL));
 	return (0);
 }
