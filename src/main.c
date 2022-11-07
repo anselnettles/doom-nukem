@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 18:24:05 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/06 16:27:40 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/07 12:07:19 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,13 @@ int	main(int argc, char **argv)
 	editor.file = argv[1];
 	if (system.user_request == RUN_GAME)
 	{
-		write(1, "run game. ", 10);
+		write(1, "run game. \n", 11);
 		//if (run_game == ERROR)
 		//return (ERROR);
 	}
 	else if (system.user_request == RUN_LEVEL_EDITOR)
 	{
-		write(1, "run editor. ", 12);
+		write(1, "run editor. \n", 13);
 		if (read_file(&system, &editor) == ERROR)
 			return (ERROR);
 	}
