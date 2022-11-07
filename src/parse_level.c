@@ -6,11 +6,24 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 18:33:26 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/07 12:14:27 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/07 14:09:31 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "library.h"
+
+int	validate_symbol(t_editor *editor, int i)
+{
+	if (!(editor->buffer[i] == 0 || editor->buffer[i] == 10 ||
+		editor->buffer[i] == 13 ||
+		(editor->buffer[i] >= 32 && editor->buffer[i] <= 126)))
+	{
+		write(1, "\n" T_RED "Error: ", 15);
+		write(1, &editor->buffer[i], 1);
+		return (ERROR);
+	}
+	return (0);
+}
 
 int	validate_file(t_editor *editor)
 {
@@ -19,7 +32,9 @@ int	validate_file(t_editor *editor)
 	i = 0;
 	while (editor->buffer[i++])
 	{
-		write (1, &editor->buffer[i], 1);
+		write(1, &editor->buffer[i], 1);
+		if (validate_symbol(editor, i) == ERROR)
+			return (ERROR);
 	}
 	return (0);
 }
@@ -59,7 +74,7 @@ int	read_file(t_system *system, t_editor *editor)
 		return (error(FILE_MAX));
 	editor->buffer[ret] = '\0';
 	if (validate_file(editor) == ERROR)
-		return (ERROR);
+		return (error(BAD_SYMBOL));
 	if (system->user_request)
 		//open editor?
 	if (close(fd) == -1)
