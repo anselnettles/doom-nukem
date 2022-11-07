@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/07 11:51:35 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/07 13:35:35 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ typedef enum e_error
 	READ_FAIL,
 	FILE_MAX,
 	CLOSE_FAIL,
-	BAD_FILE,
+	BAD_SYMBOL,
 }	t_error;
 
 int		error(int code);				// Error management function.
