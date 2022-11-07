@@ -6,17 +6,22 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 18:33:26 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/07 14:09:31 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/07 17:58:11 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "library.h"
 
+//	List all the allowed ASCII characters in a level file.
+
 int	validate_symbol(t_editor *editor, int i)
 {
-	if (!(editor->buffer[i] == 0 || editor->buffer[i] == 10 ||
-		editor->buffer[i] == 13 ||
-		(editor->buffer[i] >= 32 && editor->buffer[i] <= 126)))
+	if (!(editor->buffer[i] == 0 || editor->buffer[i] == '\n' ||
+		editor->buffer[i] == ' ' || editor->buffer[i] == '#' ||
+		editor->buffer[i] == '*' || editor->buffer[i] == '\\' ||
+		(editor->buffer[i] >= '/' && editor->buffer[i] <= '9') ||
+		(editor->buffer[i] >= 'A' && editor->buffer[i] <= 'Z') ||
+		(editor->buffer[i] >= 'a' && editor->buffer[i] <= 'j')))
 	{
 		write(1, "\n" T_RED "Error: ", 15);
 		write(1, &editor->buffer[i], 1);
@@ -25,19 +30,60 @@ int	validate_symbol(t_editor *editor, int i)
 	return (0);
 }
 
+//	Level file parsing function. A margin for comments is allowed within braces.
+
 int	validate_file(t_editor *editor)
 {
 	int	i;
+	int	j;
+	int	k;
 
 	i = 0;
-	while (editor->buffer[i++])
+	j = 0;
+	k = 0;
+	while (editor->buffer[i])
 	{
+		if (editor->buffer[i] == '{')
+		{
+			while (editor->buffer[i] && editor->buffer[i] != '}')
+				i++;
+			if (editor->buffer[i])
+				i++;
+		}
 		write(1, &editor->buffer[i], 1);
 		if (validate_symbol(editor, i) == ERROR)
 			return (ERROR);
+		if (editor->buffer[i] != '\n')
+		{
+			editor->array[k][j] = editor->buffer[i];
+			j++;
+		}
+		else
+		{
+			editor->array[k][j] = '\0';
+			j = 0;
+			k++;
+		}
+		i++;
 	}
+	k = 0;
+	j = 0;
+	while (k != 50)
+	{
+		write(1, &editor->array[k][j], 1);
+		if (editor->array[k][j] != '\0')
+			j++;
+		else
+		{
+			j = 0;
+			k++;
+		}
+	}
+
 	return (0);
 }
+
+// Checks the validity of the level file's filename. Filename must end in '.dn'.
 
 static int	filename_check(t_editor *editor)
 {
@@ -54,6 +100,9 @@ static int	filename_check(t_editor *editor)
 	}
 	return (0);
 }
+
+// Commits the level file through error management checks and ultimately
+// passes it on to the editor function.
 
 int	read_file(t_system *system, t_editor *editor)
 {
