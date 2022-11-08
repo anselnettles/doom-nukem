@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/08 16:47:23 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/08 17:26:24 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # define RUN_LEVEL_EDITOR 2				// User request for running the editor.
 # define ERROR 1						// Reference to return value.
 # define MAX_READ 1000					// Irrelevant level size maximum.
+# define ENDLESS 1						// SDL loop.
 
 //Terminal output color codes.
 # define T_NUL "\033[0m"				// Default terminal type color.
@@ -59,9 +60,9 @@ typedef struct s_index {
 	int			width;
 }	t_index;
 
+//Graphical-wise variables used for SDL.
 typedef struct s_graph {
 	SDL_Event		e;
-	SDL_Renderer	*ren;
 	SDL_Window		*win;
 }	t_graph;
 
