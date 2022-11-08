@@ -6,12 +6,12 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 16:40:37 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/08 15:25:33 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/08 18:42:02 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "library.h"
-#define NUMBER 11
+#define NUMBER 12
 
 int	error(int code)
 {
@@ -29,6 +29,7 @@ int	error(int code)
 	error_message[8] = T_RED "Error: File width inconsistent." T_NUL;
 	error_message[9] = T_RED "Error: Level editor failure." T_NUL;
 	error_message[10] = T_RED "Error: Simple DirectMedia Layer failure." T_NUL;
+	error_message[11] = T_RED "Error: Graphics rendering failure." T_NUL;
 	write(1, error_message[code], ft_strlen(error_message[code]));
 	return (ERROR);
 }
