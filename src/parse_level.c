@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 18:33:26 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/08 19:35:21 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/08 21:01:13 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ static int	filename_check(t_editor *editor)
 // Commits the level file through error management checks and ultimately
 // passes it on to the editor function.
 
-int	read_file(t_graph graph, t_system *system, t_editor *editor, t_index *index)
+int	read_file(t_graph *graph, t_system *system, t_editor *editor, t_index *index)
 {
 	int		fd;
 	ssize_t	ret;
