@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 18:33:26 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/08 14:32:09 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/08 17:17:34 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,6 @@ static int	validate_symbol(t_editor *editor, t_index *i)
 
 static int	validate_file(t_editor *editor, t_index *i)
 {
-	i->i = 0;
-	i->x = 0;
-	i->y = 0;
-	i->width = 0;
 	while (editor->buffer[i->i])
 	{
 		check_comments(editor, i);
