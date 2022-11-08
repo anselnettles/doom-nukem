@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 17:50:06 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/08 16:39:35 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/08 19:51:14 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,25 @@ void	*ft_memset(void *b, int c, size_t len)
 	}
 	return (b);
 }
+
+/*
+**	'Memalloc()' (memory allocation) allocates a section of memory the size
+**	of argument 'size' with the 'string.h' function 'malloc()' and uses the
+**	library function 'memset()' to set its area to '0'. 
+**	The first process is a failsafe. If allocation fails, returns NULL.
+*/
+
+void	*ft_memalloc(size_t size)
+{
+	void	*area;
+
+	area = malloc(size);
+	if (area == NULL)
+		return (NULL);
+	ft_memset(area, 0, size);
+	return (area);
+}
+
 
 //'Bzero()' (byte zero) writes an amount of 'n' zeroed bytes to the string 's'.
 
