@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 18:56:40 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/08 17:10:26 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/08 19:35:35 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ void	print_array(t_editor *editor, t_index *index)
 	//write(1, T_NUL, 7);
 }
 
-int	editor_sequence(t_system *system, t_editor *editor, t_index *index)
+int	editor_sequence(t_graph graph, t_system *system, t_editor *editor, t_index *index)
 {
 	print_array(editor, index);
-	if (render(system, editor, index) == ERROR)
+	if (render(graph, editor, index) == ERROR)
 		return (ERROR);
 	if (system->user_request)
 	{
