@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 18:33:26 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/07 20:48:50 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/08 14:20:56 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,21 @@
 
 void	check_comments(t_editor *editor, t_index *i)
 {
+	write(1, &editor->buffer[i->i], 1);
 	if (editor->buffer[i->i] == '{')
 	{
 		while (editor->buffer[i->i] && editor->buffer[i->i] != '}')
+		{
 			i->i++;
+			i->x++;
+			write(1, &editor->buffer[i->i], 1);
+		}
 		if (editor->buffer[i->i])
+		{
 			i->i++;
+			i->x++;
+		}
+		write(1, &editor->buffer[i->i], 1);
 	}
 }
 
@@ -48,26 +57,27 @@ static int	validate_symbol(t_editor *editor, t_index *i)
 static int	validate_file(t_editor *editor, t_index *i)
 {
 	i->i = 0;
-	i->j = 0;
-	i->rows = 0;
+	i->x = 0;
+	i->y = 0;
 	i->width = 0;
 	while (editor->buffer[i->i])
 	{
 		check_comments(editor, i);
-		write(1, &editor->buffer[i->i], 1);
 		if (validate_symbol(editor, i) == ERROR)
-			return (ERROR);
+			return (error(BAD_SYMBOL));
 		if (editor->buffer[i->i] == '\n')
 		{
 			if (!(i->width))
 					i->width = i->i;
-			editor->array[i->rows][i->j] = '\0';
-			i->j = 0;
-			i->rows++;
+			else if (i->width != i->x - 1)
+				return (error(BAD_WIDTH));
+			editor->array[i->y][i->x] = '\0';
+			i->x = 0;
+			i->y++;
 		}
 		else
-			editor->array[i->rows][i->j] = editor->buffer[i->i];
-			i->j++;
+			editor->array[i->y][i->x] = editor->buffer[i->i];
+			i->x++;
 		i->i++;
 	}
 	return (0);
@@ -113,7 +123,7 @@ int	read_file(t_system *system, t_editor *editor, t_index *index)
 		return (error(FILE_MAX));
 	editor->buffer[ret] = '\0';
 	if (validate_file(editor, index) == ERROR)
-		return (error(BAD_SYMBOL));
+		return (ERROR);
 	if (close(fd) == -1)
 		return (error(CLOSE_FAIL));
 	if (editor_sequence(system, editor, index) == ERROR)
