@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 18:24:05 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/08 19:40:24 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/08 20:57:52 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,13 @@ int	main(int argc, char **argv)
 	if (system.user_request == RUN_GAME)
 	{
 		write(1, "run game. \n", 11);
-		if (graphic_interface(graph, &system, &editor, &index) == ERROR)
+		if (graphic_interface(&graph, &system, &editor, &index) == ERROR)
 			return (ERROR);
 	}
 	else if (system.user_request == RUN_LEVEL_EDITOR)
 	{
 		write(1, "run editor. \n", 13);
-		if (read_file(graph, &system, &editor, &index) == ERROR)
+		if (read_file(&graph, &system, &editor, &index) == ERROR)
 			return (ERROR);
 	}
 	else
