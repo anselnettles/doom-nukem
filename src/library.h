@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/08 17:26:24 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/08 19:52:19 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,10 @@ typedef struct s_index {
 typedef struct s_graph {
 	SDL_Event		e;
 	SDL_Window		*win;
+	SDL_Surface		*surf;
+	int				x;
+	int				y;
+	uint32_t		color;
 }	t_graph;
 
 // Listed error types
@@ -80,14 +84,17 @@ typedef enum e_error
 	BAD_WIDTH,
 	EDITOR_FAIL,
 	SDL_FAIL,
+	RENDER_FAIL,
 }	t_error;
 
 int		error(int code);
 int		main(int argc, char **argv);
-int		read_file(t_system *system, t_editor *editor, t_index *index);
-int		editor_sequence(t_system *system, t_editor *editor, t_index *index);
-int		render(t_system *system, t_editor *editor, t_index *index);
+int		read_file(t_graph graph, t_system *system, t_editor *editor, t_index *index);
+int		editor_sequence(t_graph graph, t_system *system, t_editor *editor, t_index *index);
+int		graphic_interface(t_graph graph, t_system *system, t_editor *editor, t_index *index);
+int		render(t_graph graph, t_editor *editor, t_index *index);
 
+void	*ft_memalloc(size_t size);
 void	*ft_memset(void *b, int c, size_t len);
 void	ft_bzero(void *s, size_t n);
 size_t	ft_strlen(const char *s);
