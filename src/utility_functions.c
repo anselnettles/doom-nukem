@@ -6,11 +6,35 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 17:50:06 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/04 17:56:51 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/08 16:39:35 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "library.h"
+
+//Memset (memory set) copies the argument 'len' amount of argument value 'c'
+//to a newly created char string 's' pointed by the argument '*b'.
+//Returns the argument 'b'.
+
+void	*ft_memset(void *b, int c, size_t len)
+{
+	char	*s;
+
+	s = (char *)b;
+	while (len > 0)
+	{
+		s[len - 1] = (char )c;
+		len--;
+	}
+	return (b);
+}
+
+//'Bzero()' (byte zero) writes an amount of 'n' zeroed bytes to the string 's'.
+
+void	ft_bzero(void *s, size_t n)
+{
+	ft_memset(s, 0, n);
+}
 
 //'Ft_StrLen()' (String length) measures the length of the applied string '*s'.
 
