@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/08 13:58:53 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/08 16:47:23 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@
 # define T_ORANGE "\033[1;33m"			// Bold orange terminal type color.
 # define T_ORANGES "\033[0;33m"			// A slim orange terminal type color.
 # define T_RED "\033[0;31m"				// A red terminal type color.
-# define T_DGRAY "\033[0;90m"				// A dark gray terminal type color.
 # define T_LGRAY "\033[0;37m"				// A light gray terminal type color.
 
 //System-wise variables for run and check-up calls through the two programs.
@@ -50,7 +49,6 @@ typedef struct s_editor {
 	char		array[MAX_READ + 1][MAX_READ + 1];
 }	t_editor;
 
-
 //Index-wise variables used for counts. Index 'i' is used for the level file's
 //buffer string, while variables 'x' and 'y' are for the array of the extracted
 //level.
@@ -60,6 +58,12 @@ typedef struct s_index {
 	int			y;
 	int			width;
 }	t_index;
+
+typedef struct s_graph {
+	SDL_Event		e;
+	SDL_Renderer	*ren;
+	SDL_Window		*win;
+}	t_graph;
 
 // Listed error types
 typedef enum e_error
@@ -74,13 +78,16 @@ typedef enum e_error
 	BAD_SYMBOL,
 	BAD_WIDTH,
 	EDITOR_FAIL,
+	SDL_FAIL,
 }	t_error;
 
 int		error(int code);
 int		main(int argc, char **argv);
 int		read_file(t_system *system, t_editor *editor, t_index *index);
 int		editor_sequence(t_system *system, t_editor *editor, t_index *index);
+int		render(t_system *system, t_editor *editor, t_index *index);
 
+void	*ft_memset(void *b, int c, size_t len);
+void	ft_bzero(void *s, size_t n);
 size_t	ft_strlen(const char *s);
-
 #endif
