@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/07 19:47:54 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/08 13:58:53 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,10 @@
 //Terminal output color codes.
 # define T_NUL "\033[0m"				// Default terminal type color.
 # define T_ORANGE "\033[1;33m"			// Bold orange terminal type color.
+# define T_ORANGES "\033[0;33m"			// A slim orange terminal type color.
 # define T_RED "\033[0;31m"				// A red terminal type color.
+# define T_DGRAY "\033[0;90m"				// A dark gray terminal type color.
+# define T_LGRAY "\033[0;37m"				// A light gray terminal type color.
 
 //System-wise variables for run and check-up calls through the two programs.
 typedef struct s_system {
@@ -48,11 +51,13 @@ typedef struct s_editor {
 }	t_editor;
 
 
-//Index-wise variables used for counts.
+//Index-wise variables used for counts. Index 'i' is used for the level file's
+//buffer string, while variables 'x' and 'y' are for the array of the extracted
+//level.
 typedef struct s_index {
 	int			i;
-	int			j;
-	int			rows;
+	int			x;
+	int			y;
 	int			width;
 }	t_index;
 
@@ -67,6 +72,7 @@ typedef enum e_error
 	FILE_MAX,
 	CLOSE_FAIL,
 	BAD_SYMBOL,
+	BAD_WIDTH,
 	EDITOR_FAIL,
 }	t_error;
 
