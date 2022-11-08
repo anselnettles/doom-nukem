@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 18:24:05 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/08 15:51:28 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/08 17:17:21 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int	main(int argc, char **argv)
 
 	system.user_request = argc;
 	editor.file = argv[1];
+	ft_bzero(&index, sizeof(t_index));
 	if (system.user_request == RUN_GAME)
 	{
 		write(1, "run game. \n", 11);
