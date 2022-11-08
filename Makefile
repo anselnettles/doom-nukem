@@ -6,7 +6,7 @@
 #    By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/16 17:04:55 by aviholai          #+#    #+#              #
-#    Updated: 2022/11/08 17:11:05 by aviholai         ###   ########.fr        #
+#    Updated: 2022/11/08 19:41:51 by aviholai         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ SRC					= 	\
 
 OBJ					= $(SRC:.c=.o)
 
-CFLAGS				= -Wall -Wextra -Werror -Wconversion
+CFLAGS				= -Wall -Wextra -Werror -Wconversion -g
 
 LISTSRC	=	$(foreach part,$(SRC), 	$(PL)		${G}| $(part)						${PR})
 
