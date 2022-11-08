@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 18:33:26 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/08 14:20:56 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/08 14:32:09 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 // Comments are allowed in level files within braces.
 
-void	check_comments(t_editor *editor, t_index *i)
+static void	check_comments(t_editor *editor, t_index *i)
 {
 	write(1, &editor->buffer[i->i], 1);
 	if (editor->buffer[i->i] == '{')
