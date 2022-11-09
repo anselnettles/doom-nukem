@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 14:16:37 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/09 16:47:11 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/09 16:55:59 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	keyboard(t_graph *graph)
 	{
 		if (graph->e.type == SDL_KEYDOWN)
 		{
-			if (graph->e.key.keysym.sym == SDLK_ESCAPE)
+			if (graph->e.key.keysym.sym == ESC)
 			{
 				SDL_DestroyWindow(graph->win);
 				SDL_Quit();
