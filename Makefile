@@ -6,7 +6,7 @@
 #    By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/16 17:04:55 by aviholai          #+#    #+#              #
-#    Updated: 2022/11/09 13:43:45 by aviholai         ###   ########.fr        #
+#    Updated: 2022/11/09 16:37:15 by aviholai         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ NAME				= doom-nukem
 
 SRC_DIR				= src
 SRC					= 	\
+						controls_keyboard.c\
 						error_management.c\
 						graphic_render.c\
 						level_editor.c\
