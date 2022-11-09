@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/09 16:36:48 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/09 17:01:44 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,16 @@
 # define WIDTH 640						// Window resolution width.
 # define HEIGHT 480						// Window resolution height.
 
-//System-wise global definitions
+//System-wise global definitions.
 # define RUN_GAME 1						// User request for running the game.
 # define RUN_LEVEL_EDITOR 2				// User request for running the editor.
 # define ERROR 1						// Reference to return value.
 # define SDL_ERROR -1					// Reference to SDL function's return.
 # define MAX_READ 1000					// Irrelevant level size maximum.
 # define ENDLESS 1						// SDL loop.
+
+//Control global definitions.
+# define ESC SDLK_ESCAPE				// SDL Keysym definition for ESC.
 
 //Terminal output color codes.
 # define T_NUL "\033[0m"				// Default terminal type color.
