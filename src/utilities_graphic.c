@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 13:35:22 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/09 13:58:47 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/09 16:46:17 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	sdl_loop(t_graph *graph)
 {
 	while (ENDLESS)
 	{
+		keyboard(graph);
 		if (SDL_PollEvent(&graph->e) && graph->e.type == SDL_QUIT)
 			break ;
 	}
