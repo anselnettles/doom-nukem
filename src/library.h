@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/08 21:00:36 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/09 13:21:47 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,14 @@ typedef struct s_graph {
 	uint32_t		color;
 }	t_graph;
 
+//We're making a mother of all structs here, Jack. Can't fret over every rule.
+typedef struct s_rain {
+	t_system	system;
+	t_editor	editor;
+	t_index		index;
+	t_graph		graph;
+}	t_rain;
+
 // Listed error types
 typedef enum e_error
 {
@@ -89,10 +97,10 @@ typedef enum e_error
 
 int		error(int code);
 int		main(int argc, char **argv);
-int		read_file(t_graph *graph, t_system *system, t_editor *editor, t_index *index);
-int		editor_sequence(t_graph *graph, t_system *system, t_editor *editor, t_index *index);
-int		graphic_interface(t_graph *graph, t_system *system, t_editor *editor, t_index *index);
-int		render(t_graph *graph, t_editor *editor, t_index *index);
+int		read_file(t_rain *rain);
+int		editor_sequence(t_rain *rain);
+int		graphic_interface(t_rain *rain);
+int		render(t_rain *r);
 
 void	*ft_memalloc(size_t size);
 void	*ft_memset(void *b, int c, size_t len);
