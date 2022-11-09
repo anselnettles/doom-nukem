@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 16:53:39 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/09 14:05:41 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/09 16:41:04 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,5 @@ int	graphic_interface(t_rain *rain)
 	if (render(rain) == ERROR)
 		return (error(RENDER_FAIL));
 	sdl_loop(&rain->graph);
-	//SDL_DestroyWindow(graph.win);
-	//SDL_Quit();
 	return (0);
 }
