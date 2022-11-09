@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/09 13:21:47 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/09 14:02:10 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # define RUN_GAME 1						// User request for running the game.
 # define RUN_LEVEL_EDITOR 2				// User request for running the editor.
 # define ERROR 1						// Reference to return value.
+# define SDL_ERROR -1					// Reference to SDL function's return.
 # define MAX_READ 1000					// Irrelevant level size maximum.
 # define ENDLESS 1						// SDL loop.
 
@@ -102,6 +103,8 @@ int		editor_sequence(t_rain *rain);
 int		graphic_interface(t_rain *rain);
 int		render(t_rain *r);
 
+void	pixel_put(SDL_Surface *surf, int x, int y, uint32_t color);
+void	sdl_loop(t_graph *graph);
 void	*ft_memalloc(size_t size);
 void	*ft_memset(void *b, int c, size_t len);
 void	ft_bzero(void *s, size_t n);
