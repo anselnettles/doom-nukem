@@ -6,18 +6,36 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 16:53:39 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/09 16:41:04 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/09 17:51:22 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "library.h"
+#include <stdio.h>
 
 int	render(t_rain *r)
 {
-	r->graph.x = WIDTH / 2;
-	r->graph.y = HEIGHT / 2;
+	r->index.i = 0;
+	int row = 0;
+	r->graph.x = 5;
+	r->graph.y = 5;
 	r->graph.color = 0xFFFFFF;
-	pixel_put(r->graph.surf, r->graph.x, r->graph.y, r->graph.color);
+	pixel_put(r->graph.surf, r->graph.y, r->graph.x, r->graph.color);
+	printf("rows: %d. \n", r->index.y);
+	while (row != r->index.y)
+	{
+		while (r->index.i != r->index.width)
+		{
+			pixel_put(r->graph.surf, r->graph.y, r->graph.x, r->graph.color);
+			r->graph.x += 5;
+			r->index.i++;
+		}
+		row++;
+		r->graph.x = 5;
+		r->index.i = 0;
+		r->graph.y += 5;
+	}
+
 	SDL_UpdateWindowSurface(r->graph.win);
 	return (0);
 }
