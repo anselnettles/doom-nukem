@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/09 14:02:10 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/09 16:36:48 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,8 @@ int		read_file(t_rain *rain);
 int		editor_sequence(t_rain *rain);
 int		graphic_interface(t_rain *rain);
 int		render(t_rain *r);
+
+void	keyboard(t_graph *graph);
 
 void	pixel_put(SDL_Surface *surf, int x, int y, uint32_t color);
 void	sdl_loop(t_graph *graph);
