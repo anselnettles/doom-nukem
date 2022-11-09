@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 17:50:06 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/08 19:51:14 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/09 16:54:51 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ void	*ft_memalloc(size_t size)
 	ft_memset(area, 0, size);
 	return (area);
 }
-
 
 //'Bzero()' (byte zero) writes an amount of 'n' zeroed bytes to the string 's'.
 
