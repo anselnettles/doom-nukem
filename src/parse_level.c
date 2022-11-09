@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 18:33:26 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/08 21:01:13 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/09 13:21:23 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,29 +100,29 @@ static int	filename_check(t_editor *editor)
 // Commits the level file through error management checks and ultimately
 // passes it on to the editor function.
 
-int	read_file(t_graph *graph, t_system *system, t_editor *editor, t_index *index)
+int	read_file(t_rain *rain)
 {
 	int		fd;
 	ssize_t	ret;
 
-	if (!(editor->file))
+	if (!(rain->editor.file))
 		return (error(NO_FILE));
-	if (filename_check(editor) == ERROR)
+	if (filename_check(&rain->editor) == ERROR)
 		return (error(BAD_FILENAME));
-	fd = open(editor->file, O_RDONLY);
+	fd = open(rain->editor.file, O_RDONLY);
 	if (fd == -1)
 		return (error(OPEN_FAIL));
-	ret = read(fd, editor->buffer, MAX_READ);
+	ret = read(fd, rain->editor.buffer, MAX_READ);
 	if (ret < 0)
 		return (error(READ_FAIL));
 	if (ret > MAX_READ)
 		return (error(FILE_MAX));
-	editor->buffer[ret] = '\0';
-	if (validate_file(editor, index) == ERROR)
+	rain->editor.buffer[ret] = '\0';
+	if (validate_file(&rain->editor, &rain->index) == ERROR)
 		return (ERROR);
 	if (close(fd) == -1)
 		return (error(CLOSE_FAIL));
-	if (editor_sequence(graph, system, editor, index) == ERROR)
+	if (editor_sequence(rain) == ERROR)
 		return (error(EDITOR_FAIL));
 	return (0);
 }
