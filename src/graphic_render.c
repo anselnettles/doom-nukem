@@ -6,16 +6,11 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 16:53:39 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/09 13:22:36 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/09 14:05:41 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "library.h"
-
-void	pixel_put(SDL_Surface *surf, int x, int y, uint32_t color)
-{
-	((uint32_t *)surf->pixels)[x + (y * WIDTH)] = color;
-}
 
 int	render(t_rain *r)
 {
@@ -29,7 +24,7 @@ int	render(t_rain *r)
 
 int	initialize(t_graph *graph)
 {
-	if (SDL_Init(SDL_INIT_VIDEO) || SDL_Init(SDL_INIT_EVENTS) == -1)
+	if (SDL_Init(SDL_INIT_VIDEO) || SDL_Init(SDL_INIT_EVENTS) <= SDL_ERROR)
 		return (ERROR);
 	graph->win = SDL_CreateWindow(TITLE, 0, 0, WIDTH, HEIGHT, 0);
 	if (graph->win == NULL)
@@ -40,22 +35,13 @@ int	initialize(t_graph *graph)
 	return (0);
 }
 
-void	SDL_loop(t_graph *graph)
-{
-	while (ENDLESS)
-	{
-		if (SDL_PollEvent(&graph->e) && graph->e.type == SDL_QUIT)
-			break ;
-	}
-}
-
 int	graphic_interface(t_rain *rain)
 {
 	if (initialize(&rain->graph) == ERROR)
 		return (error(SDL_FAIL));
 	if (render(rain) == ERROR)
 		return (error(RENDER_FAIL));
-	SDL_loop(&rain->graph);
+	sdl_loop(&rain->graph);
 	//SDL_DestroyWindow(graph.win);
 	//SDL_Quit();
 	return (0);
