@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/10 12:19:25 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/10 17:26:47 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,15 @@
 # define TRUE 1							// Set to true.
 # define FALSE 0						// Set to false.
 # define ERROR 1						// Reference to return value.
+# define SCALE 1						// Resolution scale.
 # define SDL_ERROR -1					// Reference to SDL function's return.
 # define MAX_READ 1000					// Irrelevant level size maximum.
 # define ENDLESS 1						// SDL loop.
 
 //Control global definitions.
 # define ESC SDLK_ESCAPE				// SDL Keysym definition for ESC.
+# define NUMPAD_PLUS SDLK_PLUS			// SDL Keysym definition for plus.
+# define NUMPAD_MINUS SDLK_MINUS		// SDL Keysym definition for minus.
 
 //Terminal output color codes.
 # define T_NUL "\033[0m"				// Default terminal type color.
@@ -71,6 +74,8 @@ typedef struct s_graph {
 	SDL_Event		e;
 	SDL_Window		*win;
 	SDL_Surface		*surf;
+	int				width;
+	int				height;
 	int				x;
 	int				y;
 	uint32_t		color;
@@ -109,10 +114,10 @@ int		editor_sequence(t_rain *rain);
 int		graphic_interface(t_rain *rain);
 int		render(t_rain *r);
 
-void	keyboard(t_graph *graph);
+void	keyboard(t_rain *r);
 
 void	pixel_put(t_graph *graph);
-void	sdl_loop(t_graph *graph);
+void	sdl_loop(t_rain *rain);
 void	*ft_memalloc(size_t size);
 void	*ft_memset(void *b, int c, size_t len);
 void	ft_bzero(void *s, size_t n);
