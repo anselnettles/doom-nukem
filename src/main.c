@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 18:24:05 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/09 13:08:32 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/10 17:33:10 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,11 @@ int	main(int argc, char **argv)
 	rain.editor.file = argv[1];
 	if (rain.system.user_request == RUN_GAME)
 	{
-		write(1, "run game. \n", 11);
 		if (graphic_interface(&rain) == ERROR)
 			return (ERROR);
 	}
 	else if (rain.system.user_request == RUN_LEVEL_EDITOR)
 	{
-		write(1, "run editor. \n", 13);
 		if (read_file(&rain) == ERROR)
 			return (ERROR);
 	}
