@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 16:53:39 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/09 17:51:22 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/10 12:32:22 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,12 @@ int	render(t_rain *r)
 	r->graph.x = 5;
 	r->graph.y = 5;
 	r->graph.color = 0xFFFFFF;
-	pixel_put(r->graph.surf, r->graph.y, r->graph.x, r->graph.color);
 	printf("rows: %d. \n", r->index.y);
 	while (row != r->index.y)
 	{
 		while (r->index.i != r->index.width)
 		{
-			pixel_put(r->graph.surf, r->graph.y, r->graph.x, r->graph.color);
+			pixel_put(&r->graph);
 			r->graph.x += 5;
 			r->index.i++;
 		}
@@ -35,20 +34,20 @@ int	render(t_rain *r)
 		r->index.i = 0;
 		r->graph.y += 5;
 	}
-
 	SDL_UpdateWindowSurface(r->graph.win);
 	return (0);
 }
 
-int	initialize(t_graph *graph)
+int	initialize(t_graph *g)
 {
 	if (SDL_Init(SDL_INIT_VIDEO) || SDL_Init(SDL_INIT_EVENTS) <= SDL_ERROR)
 		return (ERROR);
-	graph->win = SDL_CreateWindow(TITLE, 0, 0, WIDTH, HEIGHT, 0);
-	if (graph->win == NULL)
+	g->scaler = 2;
+	g->win = SDL_CreateWindow(TITLE, 0, 0, WIDTH * g->scaler, HEIGHT * g->scaler, 0);
+	if (g->win == NULL)
 		return (ERROR);
-	graph->surf = SDL_GetWindowSurface(graph->win);
-	if (graph->surf == NULL)
+	g->surf = SDL_GetWindowSurface(g->win);
+	if (g->surf == NULL)
 		return (ERROR);
 	return (0);
 }
