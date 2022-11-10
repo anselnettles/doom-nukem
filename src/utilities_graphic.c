@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 13:35:22 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/10 17:30:14 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/10 17:51:36 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void	pixel_put(t_graph *g)
 	int	y;
 	int	width;
 
-	x = g->x * g->scaler;
-	y = g->y * g->scaler;
+	x = g->x * g->scale;
+	y = g->y * g->scale;
 	width = g->width;
 	((uint32_t *)g->surf->pixels)[x + (y * (width))] = g->color;
 }
