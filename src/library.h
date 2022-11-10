@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/09 17:01:44 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/10 12:19:25 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 //System-wise global definitions.
 # define RUN_GAME 1						// User request for running the game.
 # define RUN_LEVEL_EDITOR 2				// User request for running the editor.
+# define TRUE 1							// Set to true.
+# define FALSE 0						// Set to false.
 # define ERROR 1						// Reference to return value.
 # define SDL_ERROR -1					// Reference to SDL function's return.
 # define MAX_READ 1000					// Irrelevant level size maximum.
@@ -72,6 +74,7 @@ typedef struct s_graph {
 	int				x;
 	int				y;
 	uint32_t		color;
+	int				scaler;
 }	t_graph;
 
 //We're making a mother of all structs here, Jack. Can't fret over every rule.
@@ -108,7 +111,7 @@ int		render(t_rain *r);
 
 void	keyboard(t_graph *graph);
 
-void	pixel_put(SDL_Surface *surf, int x, int y, uint32_t color);
+void	pixel_put(t_graph *graph);
 void	sdl_loop(t_graph *graph);
 void	*ft_memalloc(size_t size);
 void	*ft_memset(void *b, int c, size_t len);
