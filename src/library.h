@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/10 17:26:47 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/10 17:51:38 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ typedef struct s_graph {
 	int				x;
 	int				y;
 	uint32_t		color;
-	int				scaler;
+	int				scale;
 }	t_graph;
 
 //We're making a mother of all structs here, Jack. Can't fret over every rule.
