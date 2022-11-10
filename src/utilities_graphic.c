@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 13:35:22 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/09 16:46:17 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/10 12:28:16 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 //A pixel drawing function for the SDL surface, created to make the rendering
 //process more simpler.
-void	pixel_put(SDL_Surface *surf, int x, int y, uint32_t color)
+void	pixel_put(t_graph *g)
 {
-	((uint32_t *)surf->pixels)[x + (y * WIDTH)] = color;
+	((uint32_t *)g->surf->pixels)[(g->x * g->scaler) + ((g->y * g->scaler) * (WIDTH * g->scaler))] = g->color;
 }
 
 //'sdl_loop()' keeps Simple Direct MediaLayer's PollEvent consistently running.
