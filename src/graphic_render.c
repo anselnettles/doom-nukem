@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 16:53:39 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/10 17:26:42 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/10 18:14:58 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,35 @@
 
 static void	draw_minimap(t_rain *r)
 {
+	int	i;
+
 	if (r->editor.array[0] != '\0')
 	{
-		r->graph.y = 5;
-		r->graph.x = 600 * r->graph.scaler;
-		while (r->graph.x < (r->graph.width - 5))
+		r->graph.y = 10;
+		r->graph.x = 480;
+		i = 0;
+		while (i <= (r->index.width * 2))
 		{
 			pixel_put(&r->graph);
-			r->graph.y = ((r->index.y * r->graph.scaler) * 2);
+			r->graph.y = (10 + (r->index.y * 2));
 			pixel_put(&r->graph);
-			r->graph.y = 5;
+			r->graph.y = 10;
 			r->graph.x++;
+			i++;
 		}
-		r->graph.x = 600 * r->graph.scaler;
-		while (r->graph.y < (((r->index.y * r->graph.scaler) * 2) + 5))
+		r->graph.y = 10;
+		r->graph.x = 480;
+		i = 0;
+		while (i <= (r->index.y * 2))
 		{
 			pixel_put(&r->graph);
-			r->graph.x += ((r->index.width * r->graph.scaler) * 1.30);
+			r->graph.x = (480 + (r->index.width * 2));
 			pixel_put(&r->graph);
-			r->graph.x = 600 * r->graph.scaler;
+			r->graph.x = 480;
 			r->graph.y++;
+			i++;
 		}
 	}
-	//draw slots;
 }
 
 int	render(t_rain *r)
@@ -71,9 +77,9 @@ int	initialize(t_graph *g)
 {
 	if (SDL_Init(SDL_INIT_VIDEO) || SDL_Init(SDL_INIT_EVENTS) <= SDL_ERROR)
 		return (ERROR);
-	g->scaler = SCALE;
-	g->width = WIDTH * g->scaler;
-	g->height = HEIGHT * g->scaler;
+	g->scale = SCALE;
+	g->width = WIDTH * g->scale;
+	g->height = HEIGHT * g->scale;
 	g->win = SDL_CreateWindow(TITLE, 0, 0, g->width, g->height, 0);
 	if (g->win == NULL)
 		return (ERROR);
