@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 14:16:37 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/11 16:11:01 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/11 17:40:27 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,13 @@ void	keyboard(t_rain *r)
 				SDL_SetWindowSize(r->graph.win, r->graph.width,
 						r->graph.height);
 			}
-			if (r->graph.e.key.keysym.sym == SDLK_m && r->graph.map == TRUE)
-					r->graph.map = FALSE;
-			else if (r->graph.e.key.keysym.sym == SDLK_m && r->graph.map == FALSE)
-				r->graph.map = TRUE;
+			if (r->graph.e.key.keysym.sym == SDLK_m)
+			{
+				if (r->graph.map == BLOCK_MAP)
+					r->graph.map = ARRAY_MAP;
+				else if (r->graph.map == ARRAY_MAP)
+					r->graph.map = BLOCK_MAP;
+			}
 			render(r);
 		}
 		write(1, ".", 1);
