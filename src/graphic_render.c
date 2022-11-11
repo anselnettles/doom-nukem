@@ -6,16 +6,11 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 16:53:39 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/11 16:23:11 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/11 18:23:17 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "library.h"
-
-static void	draw_blockmap(t_rain *r)
-{
-	(void) r;
-}
 
 static void	draw_slot(t_rain *r)
 {
@@ -65,6 +60,38 @@ static void	draw_slot(t_rain *r)
 		r->graph.y -= 3;
 }
 
+static uint32_t check_blockmap_tiles(t_editor *e, int x, int y)
+{
+	if (e->array[y][x] == '#' || e->array[y][x] == '/'
+			|| e->array[y][x] == '\\' || e->array[y][x] == '*'
+			|| e->array[y + 1][x] == '#' || e->array[y + 1][x] == '/'
+			|| e->array[y + 1][x] == '\\' || e->array[y + 1][x] == '*'
+			|| e->array[y][x + 1] == '#' || e->array[y][x + 1] == '/'
+			|| e->array[y][x + 1] == '\\' || e->array[y][x + 1] == '*'
+			|| e->array[y + 1][x + 1] == '#' || e->array[y + 1][x + 1] == '/'
+			|| e->array[y + 1][x + 1] == '\\' || e->array[y + 1][x + 1] == '*')
+		return (WALL);
+	else
+		return (EMPTY);
+}
+
+static uint32_t	check_environment_tiles(t_editor *e, int x, int y)
+{
+	if (e->array[y][x] == '#' || e->array[y][x] == '/'
+			|| e->array[y][x] == '\\' || e->array[y][x] == '*')
+		return (WALL);
+	else if (e->array[y][x] == '0')
+		return (PIT);
+	else if (e->array[y][x] >= '1' && e->array[y][x] <= '9')
+		return (FLOOR);
+	else if (e->array[y][x] == 'a')
+		return (SKY);
+	else if (e->array[y][x] >= 'b' && e->array[y][x] <= 'j')
+		return (CEILING);
+	else
+		return (EMPTY);
+}
+
 static void	draw_arraymap(t_rain *r)
 {
 	int	x;
@@ -74,33 +101,30 @@ static void	draw_arraymap(t_rain *r)
 	{
 		r->graph.y = 10;
 		r->graph.x = 460;			// default location for the map?
-		x = 0;
-		y = 0;
-		while (y != r->index.y)
+		x = 1;
+		y = 1;
+		while (y <= r->index.y)
 		{
-			while (x != r->index.width)
+			while (x <= r->index.width)
 			{
-				if (r->editor.array[y][x] == '#' || r->editor.array[y][x] == '/'
-						|| r->editor.array[y][x] == '\\'
-						|| r->editor.array[y][x] == '*')
-					r->graph.color = WALL;
-				else if (r->editor.array[y][x] == '0')
-					r->graph.color = PIT;
-				else if (r->editor.array[y][x] >= '1' && r->editor.array[y][x] <= '9')
-					r->graph.color = FLOOR;
-				else if (r->editor.array[y][x] == 'a')
-					r->graph.color = SKY;
-				else if (r->editor.array[y][x] >= 'b' && r->editor.array[y][x] <= 'j')
-					r->graph.color = CEILING;
-				else
-					r->graph.color = EMPTY;
+				if (r->graph.map == BLOCK_MAP)
+					r->graph.color = check_blockmap_tiles(&r->editor, x, y);
+				else if (r->graph.map == ARRAY_MAP)
+				{
+					r->graph.color = check_environment_tiles(&r->editor, x, y);
+					//r->graph.color = check_event_tiles.
+				}
 				draw_slot(r);
 				x++;
+				if (r->graph.map == BLOCK_MAP)
+					x++;
 				r->graph.x += 6;
 			}
 			x = 0;
 			r->graph.x = 460;
 			y++;
+			if (r->graph.map == BLOCK_MAP)
+				y++;
 			r->graph.y += 6;
 		}
 	}
@@ -109,10 +133,10 @@ static void	draw_arraymap(t_rain *r)
 int	render(t_rain *r)
 {
 	SDL_FillRect(r->graph.surf, NULL, 0);
-	if (r->graph.map == TRUE)
-		draw_blockmap(r);
-	else if (r->graph.map == FALSE)
-		draw_arraymap(r);
+	//if (r->graph.map == TRUE)
+	//	draw_blockmap(r);
+	//else if (r->graph.map == FALSE)
+	draw_arraymap(r);
 	SDL_UpdateWindowSurface(r->graph.win);
 	write(1, "render", 6);
 	return (0);
@@ -131,7 +155,7 @@ int	initialize(t_graph *g)
 	g->surf = SDL_GetWindowSurface(g->win);
 	if (g->surf == NULL)
 		return (ERROR);
-	g->map = TRUE;
+	g->map = BLOCK_MAP;
 	return (0);
 }
 
