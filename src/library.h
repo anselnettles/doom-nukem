@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/11 13:12:02 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/11 16:03:35 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@
 # define SDL_ERROR -1					// Reference to SDL function's return.
 # define MAX_READ 1000					// Irrelevant level size maximum.
 # define ENDLESS 1						// SDL loop.
+# define BLOCK_MAP 1					// Block map definition.
+# define ARRAY_MAP 2					// Array map definition.
 
 //Control global definitions.
 # define ESC SDLK_ESCAPE				// SDL Keysym definition for ESC.
@@ -89,6 +91,7 @@ typedef struct s_graph {
 	int				y;
 	uint32_t		color;
 	int				scale;
+	int				map;
 }	t_graph;
 
 //We're making a mother of all structs here, Jack. Can't fret over every rule.
