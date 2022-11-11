@@ -6,22 +6,92 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 16:53:39 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/10 18:14:58 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/11 12:25:18 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "library.h"
 
+static void	draw_slot(t_rain *r)
+{
+	int i;
+	i = 0;
+	while (i != 3)
+	{
+		pixel_put(&r->graph);
+		r->graph.x++;
+		pixel_put(&r->graph);
+		r->graph.x++;
+		pixel_put(&r->graph);
+		i++;
+		r->graph.y++;
+		r->graph.x -= 2;
+	}
+	r->graph.y -= 3;
+	i = 0;
+	r->graph.color = 0x303030;
+		r->graph.x--;
+		r->graph.y--;
+		pixel_put(&r->graph);
+		r->graph.x++;
+		pixel_put(&r->graph);
+		r->graph.x += 2;
+		pixel_put(&r->graph);
+		r->graph.x++;
+		pixel_put(&r->graph);
+		r->graph.y++;
+		pixel_put(&r->graph);
+		r->graph.x -= 4;
+		pixel_put(&r->graph);
+		r->graph.y += 2;
+		pixel_put(&r->graph);
+		r->graph.x += 4;
+		pixel_put(&r->graph);
+		r->graph.x -= 4;
+		r->graph.y++;
+		pixel_put(&r->graph);
+		r->graph.x++;
+		pixel_put(&r->graph);
+		r->graph.x += 2;
+		pixel_put(&r->graph);
+		r->graph.x++;
+		pixel_put(&r->graph);
+		r->graph.x -= 3;
+		r->graph.y -= 3;
+}
+
 static void	draw_minimap(t_rain *r)
 {
-	int	i;
+	int	x;
+	int	y;
 
-	if (r->editor.array[0] != '\0')
+	if (r->editor.array[0] != NULL) //how to make this check more useful?
 	{
 		r->graph.y = 10;
-		r->graph.x = 480;
-		i = 0;
-		while (i <= (r->index.width * 2))
+		r->graph.x = 460;			// default location for the map?
+		x = 0;
+		y = 0;
+		while (y != r->index.y)
+		{
+			while (x != r->index.width)
+			{
+				if (r->editor.array[y][x] != ' ')
+					r->graph.color = 0xffb080;
+				//else if (r->editor.array[y][x] == ' ')
+				//	r->graph.color = 0xFFFFFF1A;
+				else
+					r->graph.color = 0x141414;
+				draw_slot(r);
+				x++;
+				r->graph.x += 6;
+			}
+			x = 0;
+			r->graph.x = 460;
+			y++;
+			r->graph.y += 6;
+		}
+		
+		/*while (i <= (r->index.width * 2))
 		{
 			pixel_put(&r->graph);
 			r->graph.y = (10 + (r->index.y * 2));
@@ -41,35 +111,19 @@ static void	draw_minimap(t_rain *r)
 			r->graph.x = 480;
 			r->graph.y++;
 			i++;
-		}
+		}*/
 	}
 }
 
 int	render(t_rain *r)
 {
 	r->index.i = 0;
-	int row = 0;
 	r->graph.x = 5;
 	r->graph.y = 5;
 	r->graph.color = 0xFFFFFF;
 	draw_minimap(r);
-	r->graph.x = 5;
-	r->graph.y = 5;
-	while (row != r->index.y)
-	{
-		while (r->index.i != r->index.width)
-		{
-			pixel_put(&r->graph);
-			r->graph.x += 5;
-			r->index.i++;
-		}
-		row++;
-		r->graph.x = 5;
-		r->index.i = 0;
-		r->graph.y += 5;
-	}
 	SDL_UpdateWindowSurface(r->graph.win);
-	write(1, "update. \n", 9);
+	write(1, "render", 6);
 	return (0);
 }
 
