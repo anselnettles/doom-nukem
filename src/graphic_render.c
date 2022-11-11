@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 16:53:39 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/11 12:25:18 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/11 13:12:07 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	draw_slot(t_rain *r)
 	}
 	r->graph.y -= 3;
 	i = 0;
-	r->graph.color = 0x303030;
+	r->graph.color = SLOT;
 		r->graph.x--;
 		r->graph.y--;
 		pixel_put(&r->graph);
@@ -75,12 +75,20 @@ static void	draw_minimap(t_rain *r)
 		{
 			while (x != r->index.width)
 			{
-				if (r->editor.array[y][x] != ' ')
-					r->graph.color = 0xffb080;
-				//else if (r->editor.array[y][x] == ' ')
-				//	r->graph.color = 0xFFFFFF1A;
+				if (r->editor.array[y][x] == '#' || r->editor.array[y][x] == '/'
+						|| r->editor.array[y][x] == '\\'
+						|| r->editor.array[y][x] == '*')
+					r->graph.color = WALL;
+				else if (r->editor.array[y][x] == '0')
+					r->graph.color = PIT;
+				else if (r->editor.array[y][x] >= '1' && r->editor.array[y][x] <= '9')
+					r->graph.color = FLOOR;
+				else if (r->editor.array[y][x] == 'a')
+					r->graph.color = SKY;
+				else if (r->editor.array[y][x] >= 'b' && r->editor.array[y][x] <= 'j')
+					r->graph.color = CEILING;
 				else
-					r->graph.color = 0x141414;
+					r->graph.color = EMPTY;
 				draw_slot(r);
 				x++;
 				r->graph.x += 6;
@@ -90,28 +98,6 @@ static void	draw_minimap(t_rain *r)
 			y++;
 			r->graph.y += 6;
 		}
-		
-		/*while (i <= (r->index.width * 2))
-		{
-			pixel_put(&r->graph);
-			r->graph.y = (10 + (r->index.y * 2));
-			pixel_put(&r->graph);
-			r->graph.y = 10;
-			r->graph.x++;
-			i++;
-		}
-		r->graph.y = 10;
-		r->graph.x = 480;
-		i = 0;
-		while (i <= (r->index.y * 2))
-		{
-			pixel_put(&r->graph);
-			r->graph.x = (480 + (r->index.width * 2));
-			pixel_put(&r->graph);
-			r->graph.x = 480;
-			r->graph.y++;
-			i++;
-		}*/
 	}
 }
 
