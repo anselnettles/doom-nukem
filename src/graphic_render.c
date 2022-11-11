@@ -6,11 +6,16 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 16:53:39 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/11 13:12:07 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/11 16:23:11 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "library.h"
+
+static void	draw_blockmap(t_rain *r)
+{
+	(void) r;
+}
 
 static void	draw_slot(t_rain *r)
 {
@@ -60,7 +65,7 @@ static void	draw_slot(t_rain *r)
 		r->graph.y -= 3;
 }
 
-static void	draw_minimap(t_rain *r)
+static void	draw_arraymap(t_rain *r)
 {
 	int	x;
 	int	y;
@@ -103,11 +108,11 @@ static void	draw_minimap(t_rain *r)
 
 int	render(t_rain *r)
 {
-	r->index.i = 0;
-	r->graph.x = 5;
-	r->graph.y = 5;
-	r->graph.color = 0xFFFFFF;
-	draw_minimap(r);
+	SDL_FillRect(r->graph.surf, NULL, 0);
+	if (r->graph.map == TRUE)
+		draw_blockmap(r);
+	else if (r->graph.map == FALSE)
+		draw_arraymap(r);
 	SDL_UpdateWindowSurface(r->graph.win);
 	write(1, "render", 6);
 	return (0);
@@ -126,6 +131,7 @@ int	initialize(t_graph *g)
 	g->surf = SDL_GetWindowSurface(g->win);
 	if (g->surf == NULL)
 		return (ERROR);
+	g->map = TRUE;
 	return (0);
 }
 
