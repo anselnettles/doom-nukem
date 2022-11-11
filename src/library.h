@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/11 11:29:53 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/11 13:12:02 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,21 @@
 # define NUMPAD_PLUS SDLK_PLUS			// SDL Keysym definition for plus.
 # define NUMPAD_MINUS SDLK_MINUS		// SDL Keysym definition for minus.
 
+//Map output color codes.
+# define WALL 0xFF772E
+# define SKY 0x004744
+# define CEILING 0x11736E
+# define PIT 0x364007
+# define FLOOR 0x6f8410
+# define EMPTY 0x171717
+# define SLOT 0x303030 
+
 //Terminal output color codes.
 # define T_NUL "\033[0m"				// Default terminal type color.
 # define T_ORANGE "\033[1;33m"			// Bold orange terminal type color.
 # define T_ORANGES "\033[0;33m"			// A slim orange terminal type color.
 # define T_RED "\033[0;31m"				// A red terminal type color.
-# define T_LGRAY "\033[0;37m"				// A light gray terminal type color.
+# define T_LGRAY "\033[0;37m"			// A light gray terminal type color.
 
 //System-wise variables for run and check-up calls through the two programs.
 typedef struct s_system {
