@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 14:16:37 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/10 17:53:22 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/11 10:40:52 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,9 @@ void	keyboard(t_rain *r)
 				r->graph.height = HEIGHT * r->graph.scale;
 				SDL_SetWindowSize(r->graph.win, r->graph.width,
 						r->graph.height);
+				render(r);
 			}
+			write(1, ".", 1);
 		}
-		render(r);
 	}
 }
