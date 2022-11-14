@@ -144,14 +144,16 @@ int	render(t_rain *r)
 
 int	initialize(t_graph *g)
 {
-	if (SDL_Init(SDL_INIT_VIDEO) || SDL_Init(SDL_INIT_EVENTS) <= SDL_ERROR)
+	if (SDL_Init(SDL_INIT_VIDEO || SDL_INIT_EVENTS) <= SDL_ERROR)
 		return (ERROR);
+	write(1, "noper.", 6);
 	g->scale = SCALE;
 	g->width = WIDTH * g->scale;
 	g->height = HEIGHT * g->scale;
 	g->win = SDL_CreateWindow(TITLE, 0, 0, g->width, g->height, 0);
 	if (g->win == NULL)
-		return (ERROR);
+		fprintf(stderr, "SDL_CreateWindow failed: %s\n", SDL_GetError());
+	//return (ERROR);
 	g->surf = SDL_GetWindowSurface(g->win);
 	if (g->surf == NULL)
 		return (ERROR);
