@@ -33,7 +33,7 @@ CFLAGS				= -Wall -Wextra -Werror -Wconversion -g
 
 LISTSRC	=	$(foreach part,$(SRC), 	$(PL)		${G}| $(part)						${PR})
 
-INC					= -I $(SDL_DIR)/include/SDL2
+INC					= -L$(SDL_DIR)/include/SDL2
 SDL_SRC_DIR			= SDL2-2.0.8
 SDL_DIR				= libSDL2
 SDL_BUILD_DIR_PATH	= $(CURDIR)/$(SDL_DIR)
@@ -64,10 +64,10 @@ $(NAME) : $(OBJ) $(SDL_BUILD_DIR_PATH)/lib/libSDL2.a
 	@printf "	${PL}									${PR}"
 	@printf "	${PL}	${Yb}Ｃｏｍｐｉｌｉｎｇ.		 				${PR}"
 	@printf "	${PL}		${G}| Creating objects and archives with the		${PR}"
-	@printf "	$(PL)		${G}| following source files:				${PR}"
+	@printf "	$(PL)		${G}| following source files:				${PR}${Nul}"
 	@printf "$(LISTSRC)"
-	@printf "	${PL}									${PR}"
-	@cc $(CFLAGS) $(INC) -lm $(SDL_CFLAGS) $(OBJ) -o $(NAME)
+	@printf "	${PL}									${PR}${Nul}"
+	gcc ${OBJ} -o $(NAME) $(SDL_CFLAGS) $(INC) $(CFLAGS) -lSDL2
 	@printf "	${PL}									${PR}"
 	@printf "	${PL}	${Yb}Ｆｉｎｉｓｈｅｄ ｂｉｎａｒｙ.					${PR}"
 	@printf "	${PL}		${G}| Executable '$(NAME)' compiled with 'cc'.		${PR}"
