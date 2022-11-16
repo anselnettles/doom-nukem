@@ -67,7 +67,7 @@ $(NAME) : $(OBJ) $(SDL_BUILD_DIR_PATH)/lib/libSDL2.a
 	@printf "	$(PL)		${G}| following source files:				${PR}${Nul}"
 	@printf "$(LISTSRC)"
 	@printf "	${PL}									${PR}${Nul}"
-	gcc ${OBJ} -o $(NAME) $(SDL_CFLAGS) $(INC) $(CFLAGS) -lSDL2
+	gcc ${OBJ} -o $(NAME) $(SDL_CFLAGS) $(INC) $(CFLAGS) -lSDL2 -lm
 	@printf "	${PL}									${PR}"
 	@printf "	${PL}	${Yb}Ｆｉｎｉｓｈｅｄ ｂｉｎａｒｙ.					${PR}"
 	@printf "	${PL}		${G}| Executable '$(NAME)' compiled with 'cc'.		${PR}"
