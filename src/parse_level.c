@@ -73,7 +73,7 @@ static int	validate_file(t_editor *editor, t_index *i)
 		}
 		else
 			editor->array[i->y][i->x] = editor->buffer[i->i];
-			i->x++;
+		i->x++;
 		i->i++;
 	}
 	return (0);
