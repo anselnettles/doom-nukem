@@ -13,32 +13,32 @@
 #ifndef LIBRARY_H
 # define LIBRARY_H
 
-# include <unistd.h>						// UNIX Standard library.
-# include <stdlib.h>						// Standard library.
-# include <fcntl.h>							// File Control library.
+# include <unistd.h>				// UNIX Standard library.
+# include <stdlib.h>				// Standard library.
+# include <fcntl.h>				// File Control library.
 # include "../libSDL2/include/SDL2/SDL.h"	// Simple DirectMedia Layer library.
 
 // Graphic window definitions.
 # define TITLE "Bitter Cold Droplets in Autumn Rain | github.com/AnselNettles"
-# define NAME "doom-nukem"				// Rename when necessary.
-# define WIDTH 640						// Window resolution width.
-# define HEIGHT 480						// Window resolution height.
+# define NAME "doom-nukem"			// Rename when necessary.
+# define WIDTH 640				// Window resolution width.
+# define HEIGHT 480				// Window resolution height.
 
 //System-wise global definitions.
-# define RUN_GAME 1						// User request for running the game.
+# define RUN_GAME 1					// User request for running the game.
 # define RUN_LEVEL_EDITOR 2				// User request for running the editor.
-# define TRUE 1							// Set to true.
-# define FALSE 0						// Set to false.
-# define ERROR 1						// Reference to return value.
-# define SCALE 1						// Resolution scale.
+# define TRUE 1						// Set to true.
+# define FALSE 0					// Set to false.
+# define ERROR 1					// Reference to return value.
+# define SCALE 1					// Resolution scale.
 # define SDL_ERROR -1					// Reference to SDL function's return.
 # define MAX_READ 1000					// Irrelevant level size maximum.
-# define ENDLESS 1						// SDL loop.
+# define ENDLESS 1					// SDL loop.
 # define BLOCK_MAP 1					// Block map definition.
 # define ARRAY_MAP 2					// Array map definition.
 
 //Control global definitions.
-# define ESC SDLK_ESCAPE				// SDL Keysym definition for ESC.
+# define ESC SDLK_ESCAPE			// SDL Keysym definition for ESC.
 # define NUMPAD_PLUS SDLK_PLUS			// SDL Keysym definition for plus.
 # define NUMPAD_MINUS SDLK_MINUS		// SDL Keysym definition for minus.
 
@@ -52,10 +52,10 @@
 # define SLOT 0x303030 
 
 //Terminal output color codes.
-# define T_NUL "\033[0m"				// Default terminal type color.
+# define T_NUL "\033[0m"			// Default terminal type color.
 # define T_ORANGE "\033[1;33m"			// Bold orange terminal type color.
 # define T_ORANGES "\033[0;33m"			// A slim orange terminal type color.
-# define T_RED "\033[0;31m"				// A red terminal type color.
+# define T_RED "\033[0;31m"			// A red terminal type color.
 # define T_LGRAY "\033[0;37m"			// A light gray terminal type color.
 
 //System-wise variables for run and check-up calls through the two programs.
@@ -85,13 +85,14 @@ typedef struct s_graph {
 	SDL_Event		e;
 	SDL_Window		*win;
 	SDL_Surface		*surf;
-	int				width;
-	int				height;
-	int				x;
-	int				y;
+	const char		*SDL_error_string;
+	int			width;
+	int			height;
+	int			x;
+	int			y;
 	uint32_t		color;
-	int				scale;
-	int				map;
+	int			scale;
+	int			map;
 }	t_graph;
 
 //We're making a mother of all structs here, Jack. Can't fret over every rule.
@@ -125,7 +126,7 @@ int		read_file(t_rain *rain);
 int		editor_sequence(t_rain *rain);
 int		graphic_interface(t_rain *rain);
 int		render(t_rain *r);
-void	print_array(t_editor *editor, t_index *index);
+void		print_array(t_editor *editor, t_index *index);
 
 void	keyboard(t_rain *r);
 
