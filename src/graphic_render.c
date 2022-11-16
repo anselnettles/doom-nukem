@@ -145,18 +145,22 @@ int	render(t_rain *r)
 int	initialize(t_graph *g)
 {
 	if (SDL_Init(SDL_INIT_VIDEO || SDL_INIT_EVENTS) <= SDL_ERROR)
+	{
+		g->SDL_error_string = SDL_GetError();
+		write(1, g->SDL_error_string, ft_strlen(g->SDL_error_string));
 		return (ERROR);
-	write(1, "noper.", 6);
+	}
 	g->scale = SCALE;
 	g->width = WIDTH * g->scale;
 	g->height = HEIGHT * g->scale;
 	g->win = SDL_CreateWindow(TITLE, 0, 0, g->width, g->height, 0);
-	if (g->win == NULL)
-		fprintf(stderr, "SDL_CreateWindow failed: %s\n", SDL_GetError());
-	//return (ERROR);
 	g->surf = SDL_GetWindowSurface(g->win);
-	if (g->surf == NULL)
+	if (g->win == NULL || g->surf == NULL)
+	{
+		g->SDL_error_string = SDL_GetError();
+		write(1, g->SDL_error_string, ft_strlen(g->SDL_error_string));
 		return (ERROR);
+	}
 	g->map = BLOCK_MAP;
 	return (0);
 }
