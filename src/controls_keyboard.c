@@ -35,6 +35,7 @@ void	keyboard(t_rain *r)
 				r->graph.height = (HEIGHT * r->graph.scale);
 				SDL_SetWindowSize(r->graph.win, r->graph.width,
 						r->graph.height);
+				r->graph.surf = SDL_GetWindowSurface(r->graph.win);
 			}
 			if (r->graph.e.key.keysym.sym == SDLK_m)
 			{
