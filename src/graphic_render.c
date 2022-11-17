@@ -33,8 +33,13 @@ static int	draw_map_tile(t_rain *r, int color)
 {
 	pixel_put(&r->graph, r->graph.x, r->graph.y, color);
 	pixel_put(&r->graph, r->graph.x + 1, r->graph.y, color);
+	pixel_put(&r->graph, r->graph.x + 2, r->graph.y, color);
 	pixel_put(&r->graph, r->graph.x, r->graph.y + 1, color);
 	pixel_put(&r->graph, r->graph.x + 1, r->graph.y + 1, color);
+	pixel_put(&r->graph, r->graph.x + 2, r->graph.y + 1, color);
+	pixel_put(&r->graph, r->graph.x, r->graph.y + 2, color);
+	pixel_put(&r->graph, r->graph.x + 1, r->graph.y + 2, color);
+	pixel_put(&r->graph, r->graph.x + 2, r->graph.y + 2, color);
 	return (0);
 }
 
@@ -79,8 +84,8 @@ static int	draw_arraymap(t_rain *r)
 
 	if (r->editor.array[0] != NULL) //how to make this check more useful?
 	{
-		r->graph.y = 10;
-		r->graph.x = 460;			// default location for the map?
+		r->graph.y = TOP_MARGIN;
+		r->graph.x = MAP_MARGIN;			// default location for the map?
 		x = 0;
 		y = 0;
 		while (y <= r->index.y)
@@ -98,7 +103,7 @@ static int	draw_arraymap(t_rain *r)
 				r->graph.x += 6;
 			}
 			x = 0;
-			r->graph.x = 460;
+			r->graph.x = MAP_MARGIN;
 			y++;
 			if (r->graph.map == PLAYER_MAP)
 				y++;
@@ -114,7 +119,7 @@ int	render(t_rain *r)
 	if (draw_arraymap(r) == ERROR)
 		return (ERROR);
 	//draw_space(r);
-	if (SDL_UpdateWindowSurface(r->graph.win) <= 0)
+	if (SDL_UpdateWindowSurface(r->graph.win) == 0)
 		write(1, "[Ren'd]", 7);
 	return (0);
 }
