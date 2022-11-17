@@ -14,14 +14,14 @@
 
 //A pixel drawing function for the SDL surface, created to make the rendering
 //process more simpler.
-void	pixel_put(t_graph *g, int xs, int ys, int color)
+void	pixel_put(t_graph *g, int x_source, int y_source, int color)
 {
 	int	x;
 	int	y;
 	int	width;
 
-	x = xs * g->scale;
-	y = ys * g->scale;
+	x = (x_source * g->scale);
+	y = (y_source * g->scale);
 	width = g->width;
 	((uint32_t *)g->surf->pixels)[x + (y * (width))] = (uint32_t)color;
 }
