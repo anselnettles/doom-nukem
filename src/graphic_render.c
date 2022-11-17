@@ -12,7 +12,28 @@
 
 #include "library.h"
 
-static void	draw_slot(t_rain *r)
+static void	draw_slot_outline(t_rain *r)
+{
+	pixel_put(&r->graph, r->graph.x - 1, r->graph.y - 1, SLOT);
+	pixel_put(&r->graph, r->graph.x, r->graph.y - 1, SLOT);
+	pixel_put(&r->graph, r->graph.x + 2, r->graph.y - 1, SLOT);
+	pixel_put(&r->graph, r->graph.x + 3, r->graph.y - 1, SLOT);
+	pixel_put(&r->graph, r->graph.x - 1, r->graph.y, SLOT);
+	pixel_put(&r->graph, r->graph.x + 3, r->graph.y, SLOT);
+	pixel_put(&r->graph, r->graph.x - 1, r->graph.y + 2, SLOT);
+	pixel_put(&r->graph, r->graph.x + 3, r->graph.y + 2, SLOT);
+	pixel_put(&r->graph, r->graph.x - 1, r->graph.y + 3, SLOT);
+	pixel_put(&r->graph, r->graph.x, r->graph.y + 3, SLOT);
+	pixel_put(&r->graph, r->graph.x + 2, r->graph.y + 3, SLOT);
+	pixel_put(&r->graph, r->graph.x + 3, r->graph.y + 3, SLOT);
+}
+/*
+static void	draw_slot_filling(t_rain *r)
+{
+
+}*/
+
+/*static void	draw_slot(t_rain *r)
 {
 	int i;
 	i = 0;
@@ -58,13 +79,41 @@ static void	draw_slot(t_rain *r)
 		pixel_put(&r->graph);
 		r->graph.x -= 3;
 		r->graph.y -= 3;
+}*/
+
+static int	draw_playermap_tile(t_rain *r, char a[MAX_READ + 1][MAX_READ + 1], int x, int y)
+{
+	if (a[y][x] == '#' || a[y + 1][x] == '#' || a[y][x + 1] == '#'
+			|| a[y +1][x + 1] == '#' || a[y][x] == '/'
+			|| a[y + 1][x] == '/' || a[y][x + 1] == '/'
+			|| a[y + 1][x + 1] == '/' || a[y][x] == '\\'
+			|| a[y + 1][x] == '\\' || a[y][x + 1] == '\\'
+			|| a[y + 1][x + 1] == '\\' || a[y][x] == '*'
+			|| a[y + 1][x] == '*' || a[y][x + 1] == '*'
+			|| a[y + 1][x + 1] == '*')
+		pixel_put(&r->graph, r->graph.x, r->graph.y, WALL);
+	else
+		pixel_put(&r->graph, r->graph.x, r->graph.y, EMPTY);
+	return (0);
 }
 
+static int	draw_devmap_tile(t_rain *r, char a[MAX_READ + 1][MAX_READ + 1], int x, int y)
+{
+	if (a[y][x] == '#' || a[y][x] == '/' || a[y][x] == '\\'
+			|| a[y][x] == '*')
+		pixel_put(&r->graph, r->graph.x, r->graph.y, WALL);
+	else
+		pixel_put(&r->graph, r->graph.x, r->graph.y, EMPTY);
+	return (0);
+}
+
+
+/*
 static uint32_t check_blockmap_tiles(t_editor *e, int x, int y)
 {
 	if (e->array[y][x] == '#' || e->array[y][x] == '/'
 			|| e->array[y][x] == '\\' || e->array[y][x] == '*'
-			|| e->array[y + 1][x] == '#' || e->array[y + 1][x] == '/'
+			|| e->array[y + 1][x] == '#' || e->array[y + 1][x] == '/
 			|| e->array[y + 1][x] == '\\' || e->array[y + 1][x] == '*'
 			|| e->array[y][x + 1] == '#' || e->array[y][x + 1] == '/'
 			|| e->array[y][x + 1] == '\\' || e->array[y][x + 1] == '*'
@@ -73,9 +122,9 @@ static uint32_t check_blockmap_tiles(t_editor *e, int x, int y)
 		return (WALL);
 	else
 		return (EMPTY);
-}
+}*/
 
-static uint32_t	check_environment_tiles(t_editor *e, int x, int y)
+/*static uint32_t	dev_map_tiles(t_editor *e, int x, int y)
 {
 	if (e->array[y][x] == '#' || e->array[y][x] == '/'
 			|| e->array[y][x] == '\\' || e->array[y][x] == '*')
@@ -90,55 +139,59 @@ static uint32_t	check_environment_tiles(t_editor *e, int x, int y)
 		return (CEILING);
 	else
 		return (EMPTY);
-}
+}*/
 
-static void	draw_arraymap(t_rain *r)
+static int	draw_arraymap(t_rain *r)
 {
 	int	x;
 	int	y;
 
+	write(1, "i wanna draw. ", 14);
 	if (r->editor.array[0] != NULL) //how to make this check more useful?
 	{
 		r->graph.y = 10;
 		r->graph.x = 460;			// default location for the map?
-		x = 1;
-		y = 1;
+		x = 0;
+		y = 0;
 		while (y <= r->index.y)
 		{
 			while (x <= r->index.width)
 			{
-				if (r->graph.map == BLOCK_MAP)
-					r->graph.color = check_blockmap_tiles(&r->editor, x, y);
-				else if (r->graph.map == ARRAY_MAP)
+				write(1, "drawing. ", 9);
+				if (r->graph.map == PLAYER_MAP)
 				{
-					r->graph.color = check_environment_tiles(&r->editor, x, y);
-					//r->graph.color = check_event_tiles.
+					write(1, "player map. ", 12);
+					draw_playermap_tile(r, (char **)r->editor.array, x, y);
 				}
-				draw_slot(r);
+				else if (r->graph.map == DEV_MAP)
+					draw_devmap_tile(r, (char **)r->editor.array, x, y);
+				write(1, " fun.", 5);
+				draw_slot_outline(r);
+				write(1, " outline managed.", 17);
 				x++;
-				if (r->graph.map == BLOCK_MAP)
+				if (r->graph.map == PLAYER_MAP)
 					x++;
 				r->graph.x += 6;
 			}
 			x = 0;
 			r->graph.x = 460;
 			y++;
-			if (r->graph.map == BLOCK_MAP)
+			if (r->graph.map == PLAYER_MAP)
 				y++;
 			r->graph.y += 6;
 		}
 	}
+	return (0);
 }
 
 int	render(t_rain *r)
 {
 	SDL_FillRect(r->graph.surf, NULL, 0);
-	//if (r->graph.map == TRUE)
-	//	draw_blockmap(r);
-	//else if (r->graph.map == FALSE)
-	draw_arraymap(r);
+	if (draw_arraymap(r) == ERROR)
+		return (ERROR);
+	//draw_space(r);
 	SDL_UpdateWindowSurface(r->graph.win);
-	write(1, "render", 6);
+	write(1, "[Ren'd]", 7);
 	return (0);
 }
 
@@ -161,7 +214,7 @@ int	initialize(t_graph *g)
 		write(1, g->SDL_error_string, ft_strlen(g->SDL_error_string));
 		return (ERROR);
 	}
-	g->map = BLOCK_MAP;
+	g->map = PLAYER_MAP;
 	return (0);
 }
 
