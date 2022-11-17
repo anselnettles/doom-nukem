@@ -12,7 +12,7 @@
 
 #include "library.h"
 
-static void	draw_slot_outline(t_rain *r)
+static int	draw_slot_outline(t_rain *r)
 {
 	pixel_put(&r->graph, r->graph.x - 1, r->graph.y - 1, SLOT);
 	pixel_put(&r->graph, r->graph.x, r->graph.y - 1, SLOT);
@@ -26,60 +26,17 @@ static void	draw_slot_outline(t_rain *r)
 	pixel_put(&r->graph, r->graph.x, r->graph.y + 3, SLOT);
 	pixel_put(&r->graph, r->graph.x + 2, r->graph.y + 3, SLOT);
 	pixel_put(&r->graph, r->graph.x + 3, r->graph.y + 3, SLOT);
+	return (0);
 }
-/*
-static void	draw_slot_filling(t_rain *r)
-{
 
-}*/
-
-/*static void	draw_slot(t_rain *r)
+static int	draw_map_tile(t_rain *r, int color)
 {
-	int i;
-	i = 0;
-	while (i != 3)
-	{
-		pixel_put(&r->graph);
-		r->graph.x++;
-		pixel_put(&r->graph);
-		r->graph.x++;
-		pixel_put(&r->graph);
-		i++;
-		r->graph.y++;
-		r->graph.x -= 2;
-	}
-	r->graph.y -= 3;
-	i = 0;
-	r->graph.color = SLOT;
-		r->graph.x--;
-		r->graph.y--;
-		pixel_put(&r->graph);
-		r->graph.x++;
-		pixel_put(&r->graph);
-		r->graph.x += 2;
-		pixel_put(&r->graph);
-		r->graph.x++;
-		pixel_put(&r->graph);
-		r->graph.y++;
-		pixel_put(&r->graph);
-		r->graph.x -= 4;
-		pixel_put(&r->graph);
-		r->graph.y += 2;
-		pixel_put(&r->graph);
-		r->graph.x += 4;
-		pixel_put(&r->graph);
-		r->graph.x -= 4;
-		r->graph.y++;
-		pixel_put(&r->graph);
-		r->graph.x++;
-		pixel_put(&r->graph);
-		r->graph.x += 2;
-		pixel_put(&r->graph);
-		r->graph.x++;
-		pixel_put(&r->graph);
-		r->graph.x -= 3;
-		r->graph.y -= 3;
-}*/
+	pixel_put(&r->graph, r->graph.x, r->graph.y, color);
+	pixel_put(&r->graph, r->graph.x + 1, r->graph.y, color);
+	pixel_put(&r->graph, r->graph.x, r->graph.y + 1, color);
+	pixel_put(&r->graph, r->graph.x + 1, r->graph.y + 1, color);
+	return (0);
+}
 
 static int	draw_playermap_tile(t_rain *r, char a[MAX_READ + 1][MAX_READ + 1], int x, int y)
 {
@@ -91,9 +48,9 @@ static int	draw_playermap_tile(t_rain *r, char a[MAX_READ + 1][MAX_READ + 1], in
 			|| a[y + 1][x + 1] == '\\' || a[y][x] == '*'
 			|| a[y + 1][x] == '*' || a[y][x + 1] == '*'
 			|| a[y + 1][x + 1] == '*')
-		pixel_put(&r->graph, r->graph.x, r->graph.y, WALL);
+		draw_map_tile(r, WALL);
 	else
-		pixel_put(&r->graph, r->graph.x, r->graph.y, EMPTY);
+		draw_map_tile(r, EMPTY);
 	return (0);
 }
 
@@ -101,52 +58,25 @@ static int	draw_devmap_tile(t_rain *r, char a[MAX_READ + 1][MAX_READ + 1], int x
 {
 	if (a[y][x] == '#' || a[y][x] == '/' || a[y][x] == '\\'
 			|| a[y][x] == '*')
-		pixel_put(&r->graph, r->graph.x, r->graph.y, WALL);
+		draw_map_tile(r, WALL);
+	else if (a[y][x] == '0')
+		draw_map_tile(r, PIT);
+	else if (a[y][x] >= '1' && a[y][x] <= '9')
+		draw_map_tile(r, FLOOR);
+	else if (a[y][x] == 'a')
+		draw_map_tile(r, SKY);	
+	else if (a[y][x] >= 'b' && a[y][x] <= 'j')
+		draw_map_tile(r, CEILING);
 	else
-		pixel_put(&r->graph, r->graph.x, r->graph.y, EMPTY);
+		draw_map_tile(r, EMPTY);
 	return (0);
 }
-
-
-/*
-static uint32_t check_blockmap_tiles(t_editor *e, int x, int y)
-{
-	if (e->array[y][x] == '#' || e->array[y][x] == '/'
-			|| e->array[y][x] == '\\' || e->array[y][x] == '*'
-			|| e->array[y + 1][x] == '#' || e->array[y + 1][x] == '/
-			|| e->array[y + 1][x] == '\\' || e->array[y + 1][x] == '*'
-			|| e->array[y][x + 1] == '#' || e->array[y][x + 1] == '/'
-			|| e->array[y][x + 1] == '\\' || e->array[y][x + 1] == '*'
-			|| e->array[y + 1][x + 1] == '#' || e->array[y + 1][x + 1] == '/'
-			|| e->array[y + 1][x + 1] == '\\' || e->array[y + 1][x + 1] == '*')
-		return (WALL);
-	else
-		return (EMPTY);
-}*/
-
-/*static uint32_t	dev_map_tiles(t_editor *e, int x, int y)
-{
-	if (e->array[y][x] == '#' || e->array[y][x] == '/'
-			|| e->array[y][x] == '\\' || e->array[y][x] == '*')
-		return (WALL);
-	else if (e->array[y][x] == '0')
-		return (PIT);
-	else if (e->array[y][x] >= '1' && e->array[y][x] <= '9')
-		return (FLOOR);
-	else if (e->array[y][x] == 'a')
-		return (SKY);
-	else if (e->array[y][x] >= 'b' && e->array[y][x] <= 'j')
-		return (CEILING);
-	else
-		return (EMPTY);
-}*/
 
 static int	draw_arraymap(t_rain *r)
 {
 	int	x;
 	int	y;
 
-	write(1, "i wanna draw. ", 14);
 	if (r->editor.array[0] != NULL) //how to make this check more useful?
 	{
 		r->graph.y = 10;
@@ -157,17 +87,11 @@ static int	draw_arraymap(t_rain *r)
 		{
 			while (x <= r->index.width)
 			{
-				write(1, "drawing. ", 9);
 				if (r->graph.map == PLAYER_MAP)
-				{
-					write(1, "player map. ", 12);
 					draw_playermap_tile(r, (char **)r->editor.array, x, y);
-				}
 				else if (r->graph.map == DEV_MAP)
 					draw_devmap_tile(r, (char **)r->editor.array, x, y);
-				write(1, " fun.", 5);
 				draw_slot_outline(r);
-				write(1, " outline managed.", 17);
 				x++;
 				if (r->graph.map == PLAYER_MAP)
 					x++;
