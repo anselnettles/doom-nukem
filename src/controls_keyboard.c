@@ -18,6 +18,7 @@ void	keyboard(t_rain *r)
 	{
 		if (r->graph.e.type == SDL_KEYDOWN)
 		{
+			write(1, ".", 1);
 			if (r->graph.e.key.keysym.sym == ESC)
 			{
 				SDL_DestroyWindow(r->graph.win);
@@ -28,10 +29,10 @@ void	keyboard(t_rain *r)
 			{
 				if (r->graph.scale == 1)
 					r->graph.scale++;
-				else if (r->graph.scale == 2)
-					r->graph.scale--;
-				r->graph.width = WIDTH * r->graph.scale;
-				r->graph.height = HEIGHT * r->graph.scale;
+				else
+					r->graph.scale = 1;
+				r->graph.width = (WIDTH * r->graph.scale);
+				r->graph.height = (HEIGHT * r->graph.scale);
 				SDL_SetWindowSize(r->graph.win, r->graph.width,
 						r->graph.height);
 			}
@@ -39,11 +40,10 @@ void	keyboard(t_rain *r)
 			{
 				if (r->graph.map == PLAYER_MAP)
 					r->graph.map = DEV_MAP;
-				else if (r->graph.map == PLAYER_MAP)
-					r->graph.map = DEV_MAP;
+				else
+					r->graph.map = PLAYER_MAP;
 			}
 			render(r);
 		}
-		write(1, ".", 1);
 	}
 }
