@@ -114,8 +114,8 @@ int	render(t_rain *r)
 	if (draw_arraymap(r) == ERROR)
 		return (ERROR);
 	//draw_space(r);
-	SDL_UpdateWindowSurface(r->graph.win);
-	write(1, "[Ren'd]", 7);
+	if (SDL_UpdateWindowSurface(r->graph.win) <= 0)
+		write(1, "[Ren'd]", 7);
 	return (0);
 }
 
@@ -128,8 +128,8 @@ int	initialize(t_graph *g)
 		return (ERROR);
 	}
 	g->scale = SCALE;
-	g->width = WIDTH * g->scale;
-	g->height = HEIGHT * g->scale;
+	g->width = (WIDTH * g->scale);
+	g->height = (HEIGHT * g->scale);
 	g->win = SDL_CreateWindow(TITLE, 0, 0, g->width, g->height, 0);
 	g->surf = SDL_GetWindowSurface(g->win);
 	if (g->win == NULL || g->surf == NULL)
