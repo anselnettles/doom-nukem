@@ -34,8 +34,8 @@
 # define SDL_ERROR -1					// Reference to SDL function's return.
 # define MAX_READ 1000					// Irrelevant level size maximum.
 # define ENDLESS 1					// SDL loop.
-# define BLOCK_MAP 1					// Block map definition.
-# define ARRAY_MAP 2					// Array map definition.
+# define PLAYER_MAP 1					// Block map definition.
+# define DEV_MAP 2					// Array map definition.
 
 //Control global definitions.
 # define ESC SDLK_ESCAPE			// SDL Keysym definition for ESC.
@@ -130,7 +130,7 @@ void		print_array(t_editor *editor, t_index *index);
 
 void	keyboard(t_rain *r);
 
-void	pixel_put(t_graph *graph);
+void	pixel_put(t_graph *g, int xs, int ys, int color);
 void	sdl_loop(t_rain *rain);
 void	*ft_memalloc(size_t size);
 void	*ft_memset(void *b, int c, size_t len);
