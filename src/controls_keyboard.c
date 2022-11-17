@@ -37,10 +37,10 @@ void	keyboard(t_rain *r)
 			}
 			if (r->graph.e.key.keysym.sym == SDLK_m)
 			{
-				if (r->graph.map == BLOCK_MAP)
-					r->graph.map = ARRAY_MAP;
-				else if (r->graph.map == ARRAY_MAP)
-					r->graph.map = BLOCK_MAP;
+				if (r->graph.map == PLAYER_MAP)
+					r->graph.map = DEV_MAP;
+				else if (r->graph.map == PLAYER_MAP)
+					r->graph.map = DEV_MAP;
 			}
 			render(r);
 		}
