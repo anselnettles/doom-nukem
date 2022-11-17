@@ -112,10 +112,10 @@ int	read_file(t_rain *rain)
 	fd = open(rain->editor.file, O_RDONLY);
 	if (fd == -1)
 		return (error(OPEN_FAIL));
-	ret = read(fd, rain->editor.buffer, MAX_READ);
+	ret = read(fd, rain->editor.buffer, MAX);
 	if (ret < 0)
 		return (error(READ_FAIL));
-	if (ret > MAX_READ)
+	if (ret > MAX)
 		return (error(FILE_MAX));
 	rain->editor.buffer[ret] = '\0';
 	if (validate_file(&rain->editor, &rain->index) == ERROR)
