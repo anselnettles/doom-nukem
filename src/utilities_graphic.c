@@ -14,16 +14,16 @@
 
 //A pixel drawing function for the SDL surface, created to make the rendering
 //process more simpler.
-void	pixel_put(t_graph *g)
+void	pixel_put(t_graph *g, int xs, int ys, int color)
 {
 	int	x;
 	int	y;
 	int	width;
 
-	x = g->x * g->scale;
-	y = g->y * g->scale;
+	x = xs * g->scale;
+	y = ys * g->scale;
 	width = g->width;
-	((uint32_t *)g->surf->pixels)[x + (y * (width))] = g->color;
+	((uint32_t *)g->surf->pixels)[x + (y * (width))] = (uint32_t)color;
 }
 
 //'sdl_loop()' keeps Simple Direct MediaLayer's PollEvent consistently running.
