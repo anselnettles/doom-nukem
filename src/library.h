@@ -32,7 +32,7 @@
 # define ERROR 1					// Reference to return value.
 # define SCALE 1					// Resolution scale.
 # define SDL_ERROR -1					// Reference to SDL function's return.
-# define MAX_READ 1000					// Irrelevant level size maximum.
+# define MAX 1000					// Irrelevant level size maximum.
 # define ENDLESS 1					// SDL loop.
 # define PLAYER_MAP 1					// Block map definition.
 # define DEV_MAP 2					// Array map definition.
@@ -66,8 +66,8 @@ typedef struct s_system {
 //Editor-wise variables used mainly for resolving the level editor program.
 typedef struct s_editor {
 	char		*file;
-	char		buffer[MAX_READ + 1];
-	char		array[MAX_READ + 1][MAX_READ + 1];
+	char		buffer[MAX + 1];
+	char		array[MAX + 1][MAX + 1];
 }	t_editor;
 
 //Index-wise variables used for counts. Index 'i' is used for the level file's
