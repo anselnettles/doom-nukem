@@ -38,7 +38,7 @@ static int	draw_map_tile(t_rain *r, int color)
 	return (0);
 }
 
-static int	draw_playermap_tile(t_rain *r, char a[MAX_READ + 1][MAX_READ + 1], int x, int y)
+static int	draw_pl_tile(t_rain *r, char a[MAX + 1][MAX + 1], int x, int y)
 {
 	if (a[y][x] == '#' || a[y + 1][x] == '#' || a[y][x + 1] == '#'
 			|| a[y +1][x + 1] == '#' || a[y][x] == '/'
@@ -54,7 +54,7 @@ static int	draw_playermap_tile(t_rain *r, char a[MAX_READ + 1][MAX_READ + 1], in
 	return (0);
 }
 
-static int	draw_devmap_tile(t_rain *r, char a[MAX_READ + 1][MAX_READ + 1], int x, int y)
+static int	draw_dev_tile(t_rain *r, char a[MAX + 1][MAX + 1], int x, int y)
 {
 	if (a[y][x] == '#' || a[y][x] == '/' || a[y][x] == '\\'
 			|| a[y][x] == '*')
@@ -88,9 +88,9 @@ static int	draw_arraymap(t_rain *r)
 			while (x <= r->index.width)
 			{
 				if (r->graph.map == PLAYER_MAP)
-					draw_playermap_tile(r, (char **)r->editor.array, x, y);
+					draw_pl_tile(r, (char **)r->editor.array, x, y);
 				else if (r->graph.map == DEV_MAP)
-					draw_devmap_tile(r, (char **)r->editor.array, x, y);
+					draw_dev_tile(r, (char **)r->editor.array, x, y);
 				draw_slot_outline(r);
 				x++;
 				if (r->graph.map == PLAYER_MAP)
