@@ -14,8 +14,6 @@
 
 void	keyboard(t_rain *r)
 {
-	while (SDL_PollEvent(&r->graph.e))
-	{
 		if (r->graph.e.type == SDL_KEYDOWN)
 		{
 			write(1, ".", 1);
@@ -46,5 +44,4 @@ void	keyboard(t_rain *r)
 			}
 			render(r);
 		}
-	}
 }
