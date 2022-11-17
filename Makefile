@@ -29,7 +29,7 @@ SRC					= 	\
 
 OBJ					= $(SRC:.c=.o)
 
-CFLAGS				= -Wall -Wextra -Werror -Wconversion -g
+CFLAGS				= -Wall -Wextra -Wconversion -g
 
 LISTSRC	=	$(foreach part,$(SRC), 	$(PL)		${G}| $(part)						${PR})
 
