@@ -26,7 +26,7 @@ void	keyboard(t_rain *r)
 			if (r->graph.e.key.keysym.sym == NUMPAD_MINUS)
 			{
 				if (r->graph.scale == 1)
-					r->graph.scale++;
+					r->graph.scale = 2;
 				else
 					r->graph.scale = 1;
 				r->graph.width = (WIDTH * r->graph.scale);
