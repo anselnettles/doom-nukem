@@ -129,6 +129,7 @@ int		read_file(t_rain *rain);
 int		editor_sequence(t_rain *rain);
 int		graphic_interface(t_rain *rain);
 int		render(t_rain *r);
+int		draw_map_slot(r, x, y);
 void		print_array(t_editor *editor, t_index *index);
 
 void	keyboard(t_rain *r);
