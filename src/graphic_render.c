@@ -86,7 +86,7 @@ static int	draw_arraymap(t_rain *r)
 	{
 		r->graph.y = TOP_MARGIN;
 		r->graph.x = MAP_MARGIN;			// default location for the map?
-		x = 0;
+		x = 1;
 		y = 0;
 		while (y <= r->index.y)
 		{
@@ -102,7 +102,7 @@ static int	draw_arraymap(t_rain *r)
 					x++;
 				r->graph.x += 6;
 			}
-			x = 0;
+			x = 1;
 			r->graph.x = MAP_MARGIN;
 			y++;
 			if (r->graph.map == PLAYER_MAP)
