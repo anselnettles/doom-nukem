@@ -21,6 +21,7 @@ SRC					= 	\
 						controls_keyboard.c\
 						error_management.c\
 						graphic_render.c\
+						graphic_render_map_slot.c\
 						level_editor.c\
 						main.c\
 						parse_level.c\
