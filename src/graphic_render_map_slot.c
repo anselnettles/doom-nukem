@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 10:06:00 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/11 18:23:17 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/21 12:09:54 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static int	draw_dev_tile(t_rain *r, char a[MAX + 1][MAX + 1], int x, int y)
 	else if (a[y][x] >= '1' && a[y][x] <= '9')
 		draw_map_tile(r, FLOOR);
 	else if (a[y][x] == 'a')
-		draw_map_tile(r, SKY);	
+		draw_map_tile(r, SKY);
 	else if (a[y][x] >= 'b' && a[y][x] <= 'j')
 		draw_map_tile(r, CEILING);
 	else
@@ -77,7 +77,7 @@ static int	draw_dev_tile(t_rain *r, char a[MAX + 1][MAX + 1], int x, int y)
 	return (0);
 }
 
-int		draw_map_slot(t_rain *r, int x, int y)
+int	draw_map_slot(t_rain *r, int x, int y)
 {
 	if (r->graph.map == PLAYER_MAP)
 		draw_pl_tile(r, (char **)r->editor.array, x, y);
