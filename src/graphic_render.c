@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 10:05:39 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/21 09:47:01 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/21 12:15:46 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ int	initialize(t_graph *g)
 {
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS) <= SDL_ERROR)
 	{
-		g->SDL_error_string = SDL_GetError();
-		write(1, g->SDL_error_string, ft_strlen(g->SDL_error_string));
+		g->sdl_error_string = SDL_GetError();
+		write(1, g->sdl_error_string, ft_strlen(g->sdl_error_string));
 		return (ERROR);
 	}
 	g->scale = SCALE;
@@ -64,8 +64,8 @@ int	initialize(t_graph *g)
 	g->surf = SDL_GetWindowSurface(g->win);
 	if (g->win == NULL || g->surf == NULL)
 	{
-		g->SDL_error_string = SDL_GetError();
-		write(1, g->SDL_error_string, ft_strlen(g->SDL_error_string));
+		g->sdl_error_string = SDL_GetError();
+		write(1, g->sdl_error_string, ft_strlen(g->sdl_error_string));
 		return (ERROR);
 	}
 	g->map = PLAYER_MAP;
