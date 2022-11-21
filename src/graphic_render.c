@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 10:05:39 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/11 18:23:17 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/21 09:47:01 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	render(t_rain *r)
 
 int	initialize(t_graph *g)
 {
-	if (SDL_Init(SDL_INIT_VIDEO || SDL_INIT_EVENTS) <= SDL_ERROR)
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS) <= SDL_ERROR)
 	{
 		g->SDL_error_string = SDL_GetError();
 		write(1, g->SDL_error_string, ft_strlen(g->SDL_error_string));
