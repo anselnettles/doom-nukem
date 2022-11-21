@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/11 16:03:35 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/21 09:46:18 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,12 +129,12 @@ int		read_file(t_rain *rain);
 int		editor_sequence(t_rain *rain);
 int		graphic_interface(t_rain *rain);
 int		render(t_rain *r);
-int		draw_map_slot(r, x, y);
-void		print_array(t_editor *editor, t_index *index);
+int		draw_map_slot(t_rain *r, int x, int y);
+void	print_array(t_editor *editor, t_index *index);
 
 void	keyboard(t_rain *r);
 
-void	pixel_put(t_graph *g, int xs, int ys, int color);
+void	pixel_put(t_graph *g, int x_source, int y_source, int c);
 void	sdl_loop(t_rain *rain);
 void	*ft_memalloc(size_t size);
 void	*ft_memset(void *b, int c, size_t len);
