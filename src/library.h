@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/21 09:46:18 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/21 12:12:23 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,14 +88,14 @@ typedef struct s_graph {
 	SDL_Event		e;
 	SDL_Window		*win;
 	SDL_Surface		*surf;
-	const char		*SDL_error_string;
-	int			width;
-	int			height;
-	int			x;
-	int			y;
+	const char		*sdl_error_string;
+	int				width;
+	int				height;
+	int				x;
+	int				y;
 	uint32_t		color;
-	int			scale;
-	int			map;
+	int				scale;
+	int				map;
 }	t_graph;
 
 //We're making a mother of all structs here, Jack. Can't fret over every rule.
