@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 13:35:22 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/10 17:51:36 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/21 09:47:37 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	pixel_put(t_graph *g, int x_source, int y_source, int c)
 	int	x;
 	int	y;
 	int	w;
-	int	s;
 
 	x = (x_source * g->scale);
 	y = (y_source * g->scale);
