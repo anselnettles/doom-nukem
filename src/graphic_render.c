@@ -12,6 +12,11 @@
 
 #include "library.h"
 
+static int	draw_space(t_rain *r)
+{
+	return (0);
+}
+
 static int	draw_arraymap(t_rain *r)
 {
 	int	x;
@@ -41,9 +46,10 @@ static int	draw_arraymap(t_rain *r)
 int	render(t_rain *r)
 {
 	SDL_FillRect(r->graph.surf, NULL, 0);
+	if (draw_space(r) == ERROR)
+		return (ERROR);
 	if (draw_arraymap(r) == ERROR)
 		return (ERROR);
-	//draw_space(r);
 	if (SDL_UpdateWindowSurface(r->graph.win) == 0)
 		write(1, "[Ren'd]", 7);
 	return (0);
