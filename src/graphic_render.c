@@ -6,11 +6,17 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 10:05:39 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/21 12:15:46 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/23 16:20:45 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "library.h"
+
+static int	draw_space(t_rain *r)
+{
+	(void)r;
+	return (0);
+}
 
 static int	draw_arraymap(t_rain *r)
 {
@@ -41,9 +47,10 @@ static int	draw_arraymap(t_rain *r)
 int	render(t_rain *r)
 {
 	SDL_FillRect(r->graph.surf, NULL, 0);
+	if (draw_space(r) == ERROR)
+		return (ERROR);
 	if (draw_arraymap(r) == ERROR)
 		return (ERROR);
-	//draw_space(r);
 	if (SDL_UpdateWindowSurface(r->graph.win) == 0)
 		write(1, "[Ren'd]", 7);
 	return (0);
