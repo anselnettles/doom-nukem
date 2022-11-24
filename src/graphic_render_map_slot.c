@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 10:06:00 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/21 12:09:54 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/24 14:33:18 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,9 @@ static int	draw_dev_tile(t_rain *r, char a[MAX + 1][MAX + 1], int x, int y)
 int	draw_map_slot(t_rain *r, int x, int y)
 {
 	if (r->graph.map == PLAYER_MAP)
-		draw_pl_tile(r, (char **)r->editor.array, x, y);
+		draw_pl_tile(r, r->editor.array, x, y);
 	else if (r->graph.map == DEV_MAP)
-		draw_dev_tile(r, (char **)r->editor.array, x, y);
+		draw_dev_tile(r, r->editor.array, x, y);
 	draw_slot_outline(r);
 	x++;
 	if (r->graph.map == PLAYER_MAP)
