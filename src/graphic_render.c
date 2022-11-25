@@ -72,6 +72,7 @@ int	initialize(t_graph *g)
 	if (g->win == NULL || g->surf == NULL)
 	{
 		g->SDL_error_string = SDL_GetError();
+		write(1, "SDL Error: ", 11);
 		write(1, g->SDL_error_string, ft_strlen(g->SDL_error_string));
 		return (ERROR);
 	}
