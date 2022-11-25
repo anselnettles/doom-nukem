@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 10:05:39 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/23 16:14:44 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/23 16:20:45 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ int	initialize(t_graph *g)
 {
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS) <= SDL_ERROR)
 	{
-		g->SDL_error_string = SDL_GetError();
-		write(1, g->SDL_error_string, ft_strlen(g->SDL_error_string));
+		g->sdl_error_string = SDL_GetError();
+		write(1, g->sdl_error_string, ft_strlen(g->sdl_error_string));
 		return (ERROR);
 	}
 	g->scale = SCALE;
