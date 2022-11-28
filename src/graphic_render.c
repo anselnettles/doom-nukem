@@ -28,7 +28,7 @@ static int	draw_arraymap(t_rain *r)
 		r->graph.y = TOP_MARGIN;
 		r->graph.x = MAP_MARGIN;
 		x = 1;
-		y = 0;
+		y = 1;
 		while (y <= r->index.y)
 		{
 			while (x <= r->index.width)

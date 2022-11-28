@@ -46,13 +46,17 @@ static int	draw_map_tile(t_rain *r, int color)
 static int	draw_pl_tile(t_rain *r, char a[MAX + 1][MAX + 1], int x, int y)
 {
 	if (a[y][x] == '#' || a[y + 1][x] == '#' || a[y][x + 1] == '#'
-			|| a[y +1][x + 1] == '#' || a[y][x] == '/'
+			|| a[y + 1][x + 1] == '#' || a[y][x] == '/'
 			|| a[y + 1][x] == '/' || a[y][x + 1] == '/'
 			|| a[y + 1][x + 1] == '/' || a[y][x] == '\\'
 			|| a[y + 1][x] == '\\' || a[y][x + 1] == '\\'
 			|| a[y + 1][x + 1] == '\\' || a[y][x] == '*'
 			|| a[y + 1][x] == '*' || a[y][x + 1] == '*'
-			|| a[y + 1][x + 1] == '*')
+			|| a[y + 1][x + 1] == '*' || a[y][x] == '['
+			|| a[y + 1][x] == '[' || a[y][x + 1] == '['
+			|| a[y + 1][x + 1] == '[' || a[y][x] == ']'
+			|| a[y + 1][x] == ']' || a[y][x + 1] == ']'
+			|| a[y + 1][x + 1] == ']')
 		draw_map_tile(r, WALL);
 	else
 		draw_map_tile(r, EMPTY);
@@ -62,7 +66,8 @@ static int	draw_pl_tile(t_rain *r, char a[MAX + 1][MAX + 1], int x, int y)
 static int	draw_dev_tile(t_rain *r, char a[MAX + 1][MAX + 1], int x, int y)
 {
 	if (a[y][x] == '#' || a[y][x] == '/' || a[y][x] == '\\'
-			|| a[y][x] == '*')
+			|| a[y][x] == '*' || a[y][x] == '['
+			|| a[y][x] == ']')
 		draw_map_tile(r, WALL);
 	else if (a[y][x] == '0')
 		draw_map_tile(r, PIT);
