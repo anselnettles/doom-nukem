@@ -43,7 +43,8 @@ static int	validate_symbol(t_editor *editor, t_index *i)
 			|| editor->buffer[i->i] == '*' || editor->buffer[i->i] == '\\'
 			|| (editor->buffer[i->i] >= '/' && editor->buffer[i->i] <= '9')
 			|| (editor->buffer[i->i] >= 'A' && editor->buffer[i->i] <= 'Z')
-			|| (editor->buffer[i->i] >= 'a' && editor->buffer[i->i] <= 'j')))
+			|| (editor->buffer[i->i] >= 'a' && editor->buffer[i->i] <= 'j')
+			|| (editor->buffer[i->i] == '[' || editor->buffer[i->i] == ']')))
 	{
 		write(1, "\n" T_RED "Error: ", 15);
 		write(1, &editor->buffer[i->i], 1);
