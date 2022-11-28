@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 16:40:37 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/10 17:26:40 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/28 12:19:32 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	error(int code)
 	error_message[7] = T_RED " is an illegal character in level file. " T_NUL;
 	error_message[8] = T_RED "Error: File width inconsistent. " T_NUL;
 	error_message[9] = T_RED "Error: Level editor failure. " T_NUL;
-	error_message[10] = T_RED 
+	error_message[10] = T_RED
 		"\n Error: Simple DirectMedia Layer failure. " T_NUL;
 	error_message[11] = T_RED "Error: Graphics rendering failure. " T_NUL;
 	write(1, error_message[code], ft_strlen(error_message[code]));
