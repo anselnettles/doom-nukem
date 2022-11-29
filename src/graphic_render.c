@@ -14,7 +14,7 @@
 
 static int	draw_space(t_rain *r)
 {
-	(void)r;
+	SDL_FillRect(r->graph.surf, NULL, 0x433a59);
 	return (0);
 }
 
