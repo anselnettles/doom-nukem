@@ -83,7 +83,20 @@ typedef struct s_index {
 	int			width;
 }	t_index;
 
-//Graphical-wise variables used for SDL.
+/* Player location struct. */
+typedef struct s_player {
+	struct	xyz { float	x;
+		float	y;
+		float	z; } where,
+		    velocity;
+	float	angle;
+	float	anglesin;
+	float	anglecos;
+	float	yaw;
+	unsigned	sector;
+}	t_player;
+
+/* Graphical-wise variables used for SDL and graphical drawing. */
 typedef struct s_graph {
 	SDL_Event		e;
 	SDL_Window		*win;
@@ -96,6 +109,12 @@ typedef struct s_graph {
 	uint32_t		color;
 	int				scale;
 	int				map;
+	float			floor;
+	float			ceiling;
+	struct	xy { float x;
+		float	y; } *vertex;
+	signed char	*neighbours;
+	unsigned	npoints;
 }	t_graph;
 
 //We're making a mother of all structs here, Jack. Can't fret over every rule.
@@ -103,6 +122,7 @@ typedef struct s_rain {
 	t_system	system;
 	t_editor	editor;
 	t_index		index;
+	t_player	player;
 	t_graph		graph;
 }	t_rain;
 
