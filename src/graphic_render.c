@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 10:05:39 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/28 12:18:35 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/30 12:50:13 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static int	draw_space(t_rain *r)
 {
 	SDL_FillRect(r->graph.surf, NULL, 0x433a59);
+	vline(&r->graph, 50, 50, 100);
 	return (0);
 }
 
