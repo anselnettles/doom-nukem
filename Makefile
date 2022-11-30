@@ -6,7 +6,7 @@
 #    By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/16 17:04:55 by aviholai          #+#    #+#              #
-#    Updated: 2022/11/24 14:34:02 by aviholai         ###   ########.fr        #
+#    Updated: 2022/11/30 13:13:53 by aviholai         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ SRC					= 	\
 						main.c\
 						parse_level.c\
 						utilities_graphic.c\
+						utilities_math.c\
 						utilities_system.c
 
 OBJ					= $(SRC:.c=.o)
