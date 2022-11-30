@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/30 10:54:25 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/30 12:49:41 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,10 @@
 # define ESC SDLK_ESCAPE			/*SDL Keysym definition for ESC.*/
 # define NUMPAD_PLUS SDLK_PLUS		/*SDL Keysym definition for plus.*/
 # define NUMPAD_MINUS SDLK_MINUS	/*SDL Keysym definition for minus.*/
+
+# define TOP_COLOUR 0x01315a
+# define MIDDLE_COLOUR 0x345625
+# define BOTTOM_COLOUR 0x979d53
 
 /*ARRAY MAP COLOR DEFINITIONS*/
 # define WALL 0xFF772E
@@ -157,8 +161,12 @@ void	print_array(t_editor *editor, t_index *index);
 
 void	keyboard(t_rain *r);
 
-void	pixel_put(t_graph *g, int x_source, int y_source, int c);
+void	pixel_put(t_graph *g, int x_source, int y_source, int colour);
+void	vline(t_graph *g, int x_source, int y_source1, int y_source2);
 void	sdl_loop(t_rain *rain);
+int		max(int a, int b);
+int		min(int a, int b);
+int		clamp(int a, int lower, int upper);
 void	*ft_memalloc(size_t size);
 void	*ft_memset(void *b, int c, size_t len);
 void	ft_bzero(void *s, size_t n);
