@@ -6,15 +6,17 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 17:50:06 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/10 17:26:54 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/30 13:07:32 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "library.h"
 
-//Memset (memory set) copies the argument 'len' amount of argument value 'c'
-//to a newly created char string 's' pointed by the argument '*b'.
-//Returns the argument 'b'.
+/*	
+**	Memset (memory set) copies the argument 'len' amount of argument value 'c'
+**	to a newly created char string 's' pointed by the argument '*b'.
+**	Returns the argument 'b'.
+*/
 
 void	*ft_memset(void *b, int c, size_t len)
 {
@@ -47,14 +49,14 @@ void	*ft_memalloc(size_t size)
 	return (area);
 }
 
-//'Bzero()' (byte zero) writes an amount of 'n' zeroed bytes to the string 's'.
+/*'Bzero()' (byte zero) writes an amount of 'n' zeroed bytes to the string 's'*/
 
 void	ft_bzero(void *s, size_t n)
 {
 	ft_memset(s, 0, n);
 }
 
-//'Ft_StrLen()' (String length) measures the length of the applied string '*s'.
+/*'Ft_StrLen()' (String length) measures the length of the applied string '*s'*/
 
 size_t	ft_strlen(const char *s)
 {
