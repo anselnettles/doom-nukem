@@ -6,19 +6,21 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 10:05:39 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/30 12:50:13 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/30 17:20:43 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "library.h"
 
+//	Beginning of drawing the three-dimensional space.
 static int	draw_space(t_rain *r)
 {
 	SDL_FillRect(r->graph.surf, NULL, 0x433a59);
-	vline(&r->graph, 50, 50, 100);
+	vline(&r->graph, 320, 160, 320);
 	return (0);
 }
 
+//	Draws the user array map in the corner of the screen.
 static int	draw_arraymap(t_rain *r)
 {
 	int	x;
@@ -45,6 +47,8 @@ static int	draw_arraymap(t_rain *r)
 	return (0);
 }
 
+//	The graphical render order: Fill in black, draw the 3D space, draw the
+//	array map in the window corner, update the window.
 int	render(t_rain *r)
 {
 	SDL_FillRect(r->graph.surf, NULL, 0);
@@ -57,6 +61,8 @@ int	render(t_rain *r)
 	return (0);
 }
 
+//	Initializes the SDL (Simple DirectMedia Layer) library functions and sets
+//	all the necessary variables for graphical rendering.
 int	initialize(t_graph *g)
 {
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS) <= SDL_ERROR)
@@ -81,6 +87,8 @@ int	initialize(t_graph *g)
 	return (0);
 }
 
+// Beginning of graphical function calls. Runs the graphical sequences in the
+// order of: initialization, rendering, looping.
 int	graphic_interface(t_rain *rain)
 {
 	if (initialize(&rain->graph) == ERROR)
