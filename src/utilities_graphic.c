@@ -6,14 +6,14 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 13:35:22 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/30 13:13:40 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/30 17:21:45 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "library.h"
 
-/*	A pixel drawing function for the SDL surface, created to make the rendering
-	process more simpler. */
+//	A pixel drawing function for the SDL surface, created to make the rendering
+//	process more simpler.
 void	pixel_put(t_graph *g, int x_source, int y_source, int colour)
 {
 	int	x;
@@ -32,8 +32,8 @@ void	pixel_put(t_graph *g, int x_source, int y_source, int colour)
 	}
 }
 
-/*	'Vline()' (vertical line) function draws a line of three colors on the
- 	graphical window. */
+//	'Vline()' (vertical line) function draws a line of three colors on the
+//	graphical window.
 void	vline(t_graph *g, int x_source, int y_source1, int y_source2)
 {
 	uint32_t	*pix;
@@ -59,9 +59,8 @@ void	vline(t_graph *g, int x_source, int y_source1, int y_source2)
 	}
 }
 
-/*
-'sdl_loop()' keeps Simple Direct MediaLayer's PollEvent consistently running.
-*/
+//	'sdl_loop()' keeps Simple Direct MediaLayer's PollEvent constantly
+//	running and checks for control calls.
 void	sdl_loop(t_rain *rain)
 {
 	while (ENDLESS)
