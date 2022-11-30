@@ -6,13 +6,13 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 17:50:06 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/30 13:06:06 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/30 17:22:04 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "library.h"
 
-/*Return the greater of the applied values*/
+//Return the greater of the applied values
 int	max(int a, int b)
 {
 	if (a >= b)
@@ -21,7 +21,7 @@ int	max(int a, int b)
 		return (b);
 }
 
-/*Return the smaller of the applied values*/
+//Return the smaller of the applied values
 int	min(int a, int b)
 {
 	if (a <= b)
@@ -30,7 +30,7 @@ int	min(int a, int b)
 		return (b);
 }
 
-/*Clamp value into set range.*/
+//Clamp value into set range.
 int	clamp(int a, int lower, int upper)
 {
 	return (min(max(a, lower), upper));
