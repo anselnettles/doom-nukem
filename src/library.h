@@ -45,9 +45,17 @@
 # define NUMPAD_PLUS SDLK_PLUS		/*SDL Keysym definition for plus.*/
 # define NUMPAD_MINUS SDLK_MINUS	/*SDL Keysym definition for minus.*/
 
+//New implementation defines
 # define TOP_COLOUR 0x01315a
 # define MIDDLE_COLOUR 0x345625
 # define BOTTOM_COLOUR 0x979d53
+
+# define EYE_HEIGHT 6
+# define DUCK_HEIGHT 2.5
+# define HEAD_MARGIN 1
+# define KNEE_HEIGHT 2
+# define HOR_FOV 0.73f
+# define VER_FOV 0.2f
 
 /*ARRAY MAP COLOR DEFINITIONS*/
 # define WALL 0xFF772E
@@ -114,15 +122,19 @@ typedef struct s_graph {
 	uint32_t		color;
 	int				scale;
 	int				map;
-	float			floor;
-	float			ceiling;
+}	t_graph;
+
+//Sectors: Areas of floor and ceiling and listing of applied edges and neighbor.
+struct s_sector {
+	float		floor;
+	float		ceiling;
 	struct s_xy {
 		float	x;
 		float	y;
 	} *vertex;
 	signed char		*neighbours;
 	unsigned int	npoints;
-}	t_graph;
+}	*sectors;
 
 /*Mother struct*/
 typedef struct s_rain {
@@ -131,6 +143,7 @@ typedef struct s_rain {
 	t_index		index;
 	t_player	player;
 	t_graph		graph;
+	*sectors	sector;
 }	t_rain;
 
 /*Listed error types*/
