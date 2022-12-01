@@ -177,6 +177,8 @@ void	keyboard(t_rain *r);
 void	pixel_put(t_graph *g, int x_source, int y_source, int colour);
 void	vline(t_graph *g, int x_source, int y_source1, int y_source2);
 void	sdl_loop(t_rain *rain);
+int	overlap(int a0, int a1, int b0, int b1);
+int	vxs(int x0, int y0, int x1, int y1);
 int		max(int a, int b);
 int		min(int a, int b);
 int		clamp(int a, int lower, int upper);
