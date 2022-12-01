@@ -17,6 +17,9 @@ static int	draw_space(t_rain *r)
 {
 	SDL_FillRect(r->graph.surf, NULL, 0x433a59);
 	vline(&r->graph, 320, 160, 320);
+
+	static unsigned	numsectors;
+	numsectors = 0;
 	return (0);
 }
 
