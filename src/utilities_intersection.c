@@ -12,11 +12,14 @@
 
 #include "library.h"
 
-int	intersect(t_graph &graph)
+int	intersect(t_intersect &i)
 {
-	(struct xy) { \
-		vxs(vxs(x1, y1, x2, y2), (x1) - (x2), vxs(x3, y3, x4, y4), (x3) - (x4))
-			/ vxs((x1) - (x2), (y1) - (y2), (x3) - (x4), (y3) - (y4)), \
-			vxs(vxs(x1, y1, x2, y2), (y1) - (y2), vxs(x3, y3, x4, y4), (y3) - (y4))
-				/ vxs((x1) - (x2), (y1) - (y2), (x3) - (x4), (y3) - (y4)) }
+	i.x = (vxs(vxs(i.x1, i.y1, i.x2, i.y2), (i.x1) - (i.x2),
+			vxs(i.x3, i.y3, i.x4, i.y4), (i.x3) - (i.x4))
+		/ vxs((i.x1) - (i.x2), (i.y1) - (i.y2),
+			(i.x3) - (i.x4), (i.y3) - (i.y4)));
+	i.y = (vxs(vxs(i.x1, i.y1, i.x2, i.y2), (i.y1) - (i.y2),
+			vxs(i.x3, i.y3, i.x4, i.y4), (i.y3) - (i.y4))
+		/ vxs((i.x1) - (i.x2), (i.y1) - (i.y2),
+			(i.x3) - (i.x4), (i.y3) - (i.y4)));
 }
