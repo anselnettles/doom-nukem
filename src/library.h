@@ -136,6 +136,19 @@ struct s_sector {
 	unsigned int	npoints;
 }	*sectors;
 
+typedef struct s_intersect {
+	int	x;
+	int	y;
+	int	x1;
+	int	y1;
+	int	x2;
+	int	y2;
+	int	x3;
+	int	y3;
+	int	x4;
+	int	y4;
+}	t_intersect;
+
 /*Mother struct*/
 typedef struct s_rain {
 	t_system	system;
@@ -144,6 +157,7 @@ typedef struct s_rain {
 	t_player	player;
 	t_graph		graph;
 	*sectors	sector;
+	t_intersect	intersect;
 }	t_rain;
 
 /*Listed error types*/
