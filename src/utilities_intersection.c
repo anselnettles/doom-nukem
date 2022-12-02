@@ -12,7 +12,7 @@
 
 #include "library.h"
 
-int	intersect(t_intersect &i)
+void	intersect(t_intersect *i)
 {
 	i.x = (vxs(vxs(i.x1, i.y1, i.x2, i.y2), (i.x1) - (i.x2),
 			vxs(i.x3, i.y3, i.x4, i.y4), (i.x3) - (i.x4))
