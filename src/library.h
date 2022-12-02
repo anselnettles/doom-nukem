@@ -124,8 +124,21 @@ typedef struct s_graph {
 	int				map;
 }	t_graph;
 
+typedef struct s_intersect {
+	int		x;
+	int		y;
+	int		x1;
+	int		y1;
+	int		x2;
+	int		y2;
+	int		x3;
+	int		y3;
+	int		x4;
+	int		y4;
+}	t_intersect;
+
 //Sectors: Areas of floor and ceiling and listing of applied edges and neighbor.
-struct s_sector {
+typedef struct s_sector {
 	float		floor;
 	float		ceiling;
 	struct s_xy {
@@ -134,20 +147,8 @@ struct s_sector {
 	} *vertex;
 	signed char		*neighbours;
 	unsigned int	npoints;
-}	*sectors;
+}	t_sector;
 
-typedef struct s_intersect {
-	int	x;
-	int	y;
-	int	x1;
-	int	y1;
-	int	x2;
-	int	y2;
-	int	x3;
-	int	y3;
-	int	x4;
-	int	y4;
-}	t_intersect;
 
 /*Mother struct*/
 typedef struct s_rain {
@@ -156,8 +157,8 @@ typedef struct s_rain {
 	t_index		index;
 	t_player	player;
 	t_graph		graph;
-	*sectors	sector;
 	t_intersect	intersect;
+	t_sector	sector;
 }	t_rain;
 
 /*Listed error types*/
@@ -196,6 +197,7 @@ int	vxs(int x0, int y0, int x1, int y1);
 int		max(int a, int b);
 int		min(int a, int b);
 int		clamp(int a, int lower, int upper);
+void	intersect(t_intersect *i);
 void	*ft_memalloc(size_t size);
 void	*ft_memset(void *b, int c, size_t len);
 void	ft_bzero(void *s, size_t n);
