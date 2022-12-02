@@ -12,38 +12,14 @@
 
 #include "library.h"
 
-//Return the greater of the applied values
-int	max(int a, int b)
+void	intersect(t_intersect *i)
 {
-	if (a >= b)
-		return (a);
-	else
-		return (b);
-}
-
-//Return the smaller of the applied values
-int	min(int a, int b)
-{
-	if (a <= b)
-		return (a);
-	else
-		return (b);
-}
-
-//Clamp value into set range.
-int	clamp(int a, int lower, int upper)
-{
-	return (min(max(a, lower), upper));
-}
-
-//Determine whether the two number ranges overlap.
-int	overlap(int a0, int a1, int b0, int b1)
-{
-	return (min(a0, a1) <= max(b0, b1) && min(b0, b1) <= max(a0, a1));
-}
-
-//Vector cross product.
-int	vxs(int x0, int y0, int x1, int y1)
-{
-	return ((x0) * (y1) - (x1) * (y0));
+	i.x = (vxs(vxs(i.x1, i.y1, i.x2, i.y2), (i.x1) - (i.x2),
+			vxs(i.x3, i.y3, i.x4, i.y4), (i.x3) - (i.x4))
+		/ vxs((i.x1) - (i.x2), (i.y1) - (i.y2),
+			(i.x3) - (i.x4), (i.y3) - (i.y4)));
+	i.y = (vxs(vxs(i.x1, i.y1, i.x2, i.y2), (i.y1) - (i.y2),
+			vxs(i.x3, i.y3, i.x4, i.y4), (i.y3) - (i.y4))
+		/ vxs((i.x1) - (i.x2), (i.y1) - (i.y2),
+			(i.x3) - (i.x4), (i.y3) - (i.y4)));
 }

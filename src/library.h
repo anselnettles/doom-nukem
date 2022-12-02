@@ -45,9 +45,17 @@
 # define NUMPAD_PLUS SDLK_PLUS		/*SDL Keysym definition for plus.*/
 # define NUMPAD_MINUS SDLK_MINUS	/*SDL Keysym definition for minus.*/
 
+//New implementation defines
 # define TOP_COLOUR 0x01315a
 # define MIDDLE_COLOUR 0x345625
 # define BOTTOM_COLOUR 0x979d53
+
+# define EYE_HEIGHT 6
+# define DUCK_HEIGHT 2.5
+# define HEAD_MARGIN 1
+# define KNEE_HEIGHT 2
+# define HOR_FOV 0.73f
+# define VER_FOV 0.2f
 
 /*ARRAY MAP COLOR DEFINITIONS*/
 # define WALL 0xFF772E
@@ -114,15 +122,33 @@ typedef struct s_graph {
 	uint32_t		color;
 	int				scale;
 	int				map;
-	float			floor;
-	float			ceiling;
+}	t_graph;
+
+typedef struct s_intersect {
+	int		x;
+	int		y;
+	int		x1;
+	int		y1;
+	int		x2;
+	int		y2;
+	int		x3;
+	int		y3;
+	int		x4;
+	int		y4;
+}	t_intersect;
+
+//Sectors: Areas of floor and ceiling and listing of applied edges and neighbor.
+typedef struct s_sector {
+	float		floor;
+	float		ceiling;
 	struct s_xy {
 		float	x;
 		float	y;
 	} *vertex;
 	signed char		*neighbours;
 	unsigned int	npoints;
-}	t_graph;
+}	t_sector;
+
 
 /*Mother struct*/
 typedef struct s_rain {
@@ -131,6 +157,8 @@ typedef struct s_rain {
 	t_index		index;
 	t_player	player;
 	t_graph		graph;
+	t_intersect	intersect;
+	t_sector	sector;
 }	t_rain;
 
 /*Listed error types*/
@@ -164,9 +192,12 @@ void	keyboard(t_rain *r);
 void	pixel_put(t_graph *g, int x_source, int y_source, int colour);
 void	vline(t_graph *g, int x_source, int y_source1, int y_source2);
 void	sdl_loop(t_rain *rain);
+int	overlap(int a0, int a1, int b0, int b1);
+int	vxs(int x0, int y0, int x1, int y1);
 int		max(int a, int b);
 int		min(int a, int b);
 int		clamp(int a, int lower, int upper);
+void	intersect(t_intersect *i);
 void	*ft_memalloc(size_t size);
 void	*ft_memset(void *b, int c, size_t len);
 void	ft_bzero(void *s, size_t n);
