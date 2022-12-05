@@ -45,17 +45,17 @@ void	vline(t_graph *g, int x_source, int y_source1, int y_source2)
 	y1 = clamp(y_source1, 0, HEIGHT - 1);
 	y2 = clamp(y_source2, 0, HEIGHT - 1);
 	if (y2 == y1)
-		pix[y1 * WIDTH + x_source] = MIDDLE_COLOUR;
+		pix[y1 * WIDTH + x_source] = g->top_color;
 	else if (y2 > y1)
 	{
-		pix[y1 * WIDTH + x_source] = TOP_COLOUR;
+		pix[y1 * WIDTH + x_source] = g->top_color;
 		y = y1 + 1;
 		while (y < y2)
 		{
 			y++;
-			pix[y * WIDTH + x_source] = MIDDLE_COLOUR;
+			pix[y * WIDTH + x_source] = g->middle_color;
 		}
-		pix[y2 * WIDTH + x_source] = BOTTOM_COLOUR;
+		pix[y2 * WIDTH + x_source] = g->bottom_color;
 	}
 }
 
