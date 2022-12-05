@@ -28,7 +28,7 @@ static int	draw_space(t_rain *r)
 	r->graph.bottom_color = CEILING_TEXTURE;
 	while (i != (WIDTH * r->graph.scale))
 	{
-		vline(&r->graph, i, 0, ((HEIGHT) / 2));
+		vline(&r->graph, i, 0, ((HEIGHT * r->graph.scale) / 2));
 		i++;
 	}
 	r->graph.top_color = FLOOR_TEXTURE;
@@ -36,14 +36,14 @@ static int	draw_space(t_rain *r)
 	r->graph.bottom_color = FLOOR_TEXTURE;
 	while (i2 != (WIDTH * r->graph.scale))
 	{
-		vline(&r->graph, i2, ((HEIGHT) / 2), HEIGHT);
+		vline(&r->graph, i2, ((HEIGHT * r->graph.scale) / 2), HEIGHT * r->graph.scale);
 		i2++;
 	}
 	r->graph.top_color = CEILING_TEXTURE;
 	r->graph.middle_color = WALL_TEXTURE;
 	while (i3 != (WIDTH * r->graph.scale))
 	{
-		vline(&r->graph, i3, (int)r->player.where.y, ((int)r->player.where.y) * 2);
+		vline(&r->graph, i3, (int)r->player.where.y * r->graph.scale, ((int)r->player.where.y) * 2 * r->graph.scale);
 		i3++;
 	}
 	//static unsigned	numsectors;
