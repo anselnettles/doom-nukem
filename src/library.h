@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/30 12:49:41 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/12/02 14:56:55 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,8 +144,8 @@ typedef struct s_intersect {
 
 //Sectors: Areas of floor and ceiling and listing of applied edges and neighbor.
 typedef struct s_sector {
-	float		floor;
-	float		ceiling;
+	float			floor;
+	float			ceiling;
 	struct s_xy {
 		float	x;
 		float	y;
@@ -154,16 +154,15 @@ typedef struct s_sector {
 	unsigned int	npoints;
 }	t_sector;
 
-
 /*Mother struct*/
 typedef struct s_rain {
-	t_system	system;
-	t_editor	editor;
-	t_index		index;
-	t_player	player;
-	t_graph		graph;
-	t_intersect	intersect;
-	t_sector	sector;
+	t_system		system;
+	t_editor		editor;
+	t_index			index;
+	t_player		player;
+	t_graph			graph;
+	t_intersect		intersect;
+	t_sector		sector;
 }	t_rain;
 
 /*Listed error types*/
@@ -197,8 +196,8 @@ void	keyboard(t_rain *r);
 void	pixel_put(t_graph *g, int x_source, int y_source, int colour);
 void	vline(t_graph *g, int x_source, int y_source1, int y_source2);
 void	sdl_loop(t_rain *rain);
-int	overlap(int a0, int a1, int b0, int b1);
-int	vxs(int x0, int y0, int x1, int y1);
+int		overlap(int a0, int a1, int b0, int b1);
+int		vxs(int x0, int y0, int x1, int y1);
 int		max(int a, int b);
 int		min(int a, int b);
 int		clamp(int a, int lower, int upper);

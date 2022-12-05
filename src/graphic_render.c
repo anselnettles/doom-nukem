@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 10:05:39 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/30 17:20:43 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/12/02 14:55:38 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 //	Beginning of drawing the three-dimensional space.
 static int	draw_space(t_rain *r)
 {
-	//int	i;
+  //int	i;
 	//int	i2;
 	//int	i3;
 
@@ -55,6 +55,7 @@ static int	draw_space(t_rain *r)
 		i3++;
 	}
 	*/
+	//vline(&r->graph, 320, 160, 320);
 	//static unsigned	numsectors;
 	//numsectors = 0;
 	}
