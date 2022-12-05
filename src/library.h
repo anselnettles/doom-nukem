@@ -46,9 +46,9 @@
 # define NUMPAD_MINUS SDLK_MINUS	/*SDL Keysym definition for minus.*/
 
 //New implementation defines
-# define TOP_COLOUR 0x01315a
-# define MIDDLE_COLOUR 0x345625
-# define BOTTOM_COLOUR 0x979d53
+# define CEILING_TEXTURE 0x01315a
+# define WALL_TEXTURE 0x345625
+# define FLOOR_TEXTURE 0x979d53
 
 # define EYE_HEIGHT 6
 # define DUCK_HEIGHT 2.5
@@ -120,6 +120,9 @@ typedef struct s_graph {
 	int				x;
 	int				y;
 	uint32_t		color;
+	uint32_t		top_color;
+	uint32_t		middle_color;
+	uint32_t		bottom_color;
 	int				scale;
 	int				map;
 }	t_graph;
