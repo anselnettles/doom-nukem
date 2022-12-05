@@ -38,6 +38,11 @@ static void	check_comments(t_editor *editor, t_index *i)
 
 static int	validate_symbol(t_editor *editor, t_index *i)
 {
+	if (editor->buffer[i->i] == 'S')
+	{
+		editor->start_x = i->x;
+		editor->start_y = i->y;
+	}
 	if (!(editor->buffer[i->i] == 0 || editor->buffer[i->i] == '\n'
 			|| editor->buffer[i->i] == ' ' || editor->buffer[i->i] == '#'
 			|| editor->buffer[i->i] == '*' || editor->buffer[i->i] == '\\'
@@ -80,7 +85,7 @@ static int	validate_file(t_editor *editor, t_index *i)
 	return (0);
 }
 
-// Checks the validity of the level's filename. Filename must end in '.dn'.
+// CheckS the validity of the level's filename. Filename must end in '.dn'.
 
 static int	filename_check(t_editor *editor)
 {
