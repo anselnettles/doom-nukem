@@ -15,10 +15,50 @@
 //	Beginning of drawing the three-dimensional space.
 static int	draw_space(t_rain *r)
 {
+  //int	i;
+	//int	i2;
+	//int	i3;
+
+	//i = 0;
+	//i2 = 0;
+	//i3 = 0;
 	SDL_FillRect(r->graph.surf, NULL, 0x433a59);
-	vline(&r->graph, 320, 160, 320);
+	if(r->editor.start_x == 0 || r->editor.start_y == 0)
+		return (ERROR);
+	else
+	{
+		write(1, "Start X pos: ", 13);
+		write(1, &r->editor.start_x, sizeof(r->editor.start_x));
+		write(1, " Start Y pos: ", 14);
+		write(1, &r->editor.start_y, sizeof(r->editor.start_y));
+	/*r->graph.top_color = CEILING_TEXTURE;
+	r->graph.middle_color = CEILING_TEXTURE;
+	r->graph.bottom_color = CEILING_TEXTURE;
+	while (i != (WIDTH * r->graph.scale))
+	{
+		vline(&r->graph, i, 0, ((HEIGHT * r->graph.scale) / 2));
+		i++;
+	}
+	r->graph.top_color = FLOOR_TEXTURE;
+	r->graph.middle_color = FLOOR_TEXTURE;
+	r->graph.bottom_color = FLOOR_TEXTURE;
+	while (i2 != (WIDTH * r->graph.scale))
+	{
+		vline(&r->graph, i2, ((HEIGHT * r->graph.scale) / 2), HEIGHT * r->graph.scale);
+		i2++;
+	}
+	r->graph.top_color = CEILING_TEXTURE;
+	r->graph.middle_color = WALL_TEXTURE;
+	while (i3 != (WIDTH * r->graph.scale))
+	{
+		vline(&r->graph, i3, (int)r->player.where.y * r->graph.scale, ((int)r->player.where.y) * 2 * r->graph.scale);
+		i3++;
+	}
+	*/
+	//vline(&r->graph, 320, 160, 320);
 	//static unsigned	numsectors;
 	//numsectors = 0;
+	}
 	return (0);
 }
 
@@ -95,6 +135,9 @@ int	graphic_interface(t_rain *rain)
 {
 	if (initialize(&rain->graph) == ERROR)
 		return (error(SDL_FAIL));
+	rain->player.where.x = 30;
+	rain->player.where.y = (HEIGHT * (float)rain->graph.scale) / 3;
+	rain->player.where.z = 30;
 	if (render(rain) == ERROR)
 		return (error(RENDER_FAIL));
 	sdl_loop(rain);

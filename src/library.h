@@ -46,9 +46,9 @@
 # define NUMPAD_MINUS SDLK_MINUS	/*SDL Keysym definition for minus.*/
 
 //New implementation defines
-# define TOP_COLOUR 0x01315a
-# define MIDDLE_COLOUR 0x345625
-# define BOTTOM_COLOUR 0x979d53
+# define CEILING_TEXTURE 0x01315a
+# define WALL_TEXTURE 0x345625
+# define FLOOR_TEXTURE 0x979d53
 
 # define EYE_HEIGHT 6
 # define DUCK_HEIGHT 2.5
@@ -83,6 +83,8 @@ typedef struct s_editor {
 	char		*file;
 	char		buffer[MAX + 1];
 	char		array[MAX + 1][MAX + 1];
+	int		start_x;
+	int		start_y;
 }	t_editor;
 
 /*Index-wise variables used for counts. Index 'i' is used for the level file's
@@ -120,6 +122,9 @@ typedef struct s_graph {
 	int				x;
 	int				y;
 	uint32_t		color;
+	uint32_t		top_color;
+	uint32_t		middle_color;
+	uint32_t		bottom_color;
 	int				scale;
 	int				map;
 }	t_graph;
