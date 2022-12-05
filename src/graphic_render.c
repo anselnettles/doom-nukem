@@ -15,15 +15,23 @@
 //	Beginning of drawing the three-dimensional space.
 static int	draw_space(t_rain *r)
 {
-	int	i;
-	int	i2;
-	int	i3;
+	//int	i;
+	//int	i2;
+	//int	i3;
 
-	i = 0;
-	i2 = 0;
-	i3 = 0;
+	//i = 0;
+	//i2 = 0;
+	//i3 = 0;
 	SDL_FillRect(r->graph.surf, NULL, 0x433a59);
-	r->graph.top_color = CEILING_TEXTURE;
+	if(r->editor.start_x == 0 || r->editor.start_y == 0)
+		return (ERROR);
+	else
+	{
+		write(1, "Start X pos: ", 13);
+		write(1, &r->editor.start_x, sizeof(r->editor.start_x));
+		write(1, " Start Y pos: ", 14);
+		write(1, &r->editor.start_y, sizeof(r->editor.start_y));
+	/*r->graph.top_color = CEILING_TEXTURE;
 	r->graph.middle_color = CEILING_TEXTURE;
 	r->graph.bottom_color = CEILING_TEXTURE;
 	while (i != (WIDTH * r->graph.scale))
@@ -46,8 +54,10 @@ static int	draw_space(t_rain *r)
 		vline(&r->graph, i3, (int)r->player.where.y * r->graph.scale, ((int)r->player.where.y) * 2 * r->graph.scale);
 		i3++;
 	}
+	*/
 	//static unsigned	numsectors;
 	//numsectors = 0;
+	}
 	return (0);
 }
 
