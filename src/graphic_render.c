@@ -15,11 +15,11 @@
 //	Beginning of drawing the three-dimensional space.
 static int	draw_space(t_rain *r)
 {
-  //int	i;
+	int	i;
 	//int	i2;
 	//int	i3;
 
-	//i = 0;
+	i = r->editor.start_x;
 	//i2 = 0;
 	//i3 = 0;
 	SDL_FillRect(r->graph.surf, NULL, 0x433a59);
@@ -28,7 +28,7 @@ static int	draw_space(t_rain *r)
 	else
 	{
 		write(1, "Start X pos: ", 13);
-		write(1, &r->editor.start_x, sizeof(r->editor.start_x));
+		write(1, &i, sizeof(i));
 		write(1, " Start Y pos: ", 14);
 		write(1, &r->editor.start_y, sizeof(r->editor.start_y));
 	/*r->graph.top_color = CEILING_TEXTURE;
