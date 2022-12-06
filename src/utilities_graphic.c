@@ -16,19 +16,21 @@
 //	process more simpler.
 void	pixel_put(t_graph *g, int x_source, int y_source, int colour)
 {
+	uint32_t	*pix;
 	int	x;
 	int	y;
-	int	w;
+	int	width;
 
+	pix = (uint32_t *)g->surf->pixels;
 	x = (x_source * g->scale);
 	y = (y_source * g->scale);
-	w = g->width;
-	((uint32_t *)g->surf->pixels)[(x++) + (y * w)] = (uint32_t)colour;
+	width = g->width;
+	pix[(x++) + (y * width)] = (uint32_t)colour;
 	if (g->scale == 2)
 	{
-		((uint32_t *)g->surf->pixels)[x + ((y++) * w)] = (uint32_t)colour;
-		((uint32_t *)g->surf->pixels)[(x--) + (y * w)] = (uint32_t)colour;
-		((uint32_t *)g->surf->pixels)[x + (y * w)] = (uint32_t)colour;
+		pix[x + ((y++) * width)] = (uint32_t)colour;
+		pix[(x--) + (y * width)] = (uint32_t)colour;
+		pix[x + (y * width)] = (uint32_t)colour;
 	}
 }
 
@@ -40,22 +42,24 @@ void	vline(t_graph *g, int x_source, int y_source1, int y_source2)
 	int			y;
 	int			y1;
 	int			y2;
+	int			width;
 
 	pix = (uint32_t *)g->surf->pixels;
-	y1 = clamp(y_source1, 0, HEIGHT - 1);
-	y2 = clamp(y_source2, 0, HEIGHT - 1);
+	y1 = clamp(y_source1, 0, g->height - 1);
+	y2 = clamp(y_source2, 0, g->height - 1);
+	width = g->width;
 	if (y2 == y1)
-		pix[y1 * WIDTH + x_source] = g->top_color;
+		pix[(y1 * width) + x_source] = g->top_color;
 	else if (y2 > y1)
 	{
-		pix[y1 * WIDTH + x_source] = g->top_color;
+		pix[(y1 * width) + x_source] = g->top_color;
 		y = y1 + 1;
 		while (y < y2)
 		{
 			y++;
-			pix[y * WIDTH + x_source] = g->middle_color;
+			pix[(y * width) + x_source] = g->middle_color;
 		}
-		pix[y2 * WIDTH + x_source] = g->bottom_color;
+		pix[(y2 * width) + x_source] = g->bottom_color;
 	}
 }
 
