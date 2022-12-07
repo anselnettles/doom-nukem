@@ -27,28 +27,18 @@ static int	draw_space(t_rain *r)
 		write(1, &r->editor.start_x, sizeof(r->editor.start_y));
 		write(1, " Start Y pos: ", 14);
 		write(1, &r->editor.start_y, sizeof(r->editor.start_y));
-	r->graph.top_color = CEILING_TEXTURE;
-	r->graph.middle_color = CEILING_TEXTURE;
-	r->graph.bottom_color = CEILING_TEXTURE;
-	while (i != (r->graph.width))
+		while (i != (r->graph.width))
 	{
+		r->graph.top_color = CEILING_TEXTURE;
+		r->graph.middle_color = CEILING_TEXTURE;
+		r->graph.bottom_color = CEILING_TEXTURE;
 		vline(&r->graph, i, 0, r->graph.height / 2);
-		i++;
-	}
-	r->graph.top_color = FLOOR_TEXTURE;
-	r->graph.middle_color = FLOOR_TEXTURE;
-	r->graph.bottom_color = FLOOR_TEXTURE;
-	i = 0;
-	while (i != (r->graph.width))
-	{
+		r->graph.top_color = FLOOR_TEXTURE;
+		r->graph.middle_color = FLOOR_TEXTURE;
+		r->graph.bottom_color = FLOOR_TEXTURE;
 		vline(&r->graph, i, ((r->graph.height) / 2), r->graph.height);
-		i++;
-	}
-	r->graph.top_color = CEILING_TEXTURE;
-	r->graph.middle_color = WALL_TEXTURE;
-	i = 0;
-	while (i != (r->graph.width))
-	{
+		r->graph.top_color = CEILING_TEXTURE;
+		r->graph.middle_color = WALL_TEXTURE;
 		vline(&r->graph, i, (int)r->player.where.y * r->graph.scale, ((int)r->player.where.y) * 2 * r->graph.scale);
 		i++;
 	}
