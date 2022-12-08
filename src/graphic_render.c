@@ -14,7 +14,7 @@
 
 static int	check_square(t_rain *r, char a[MAX + 1][MAX + 1], int x, int y)
 {
-	if (a[y][x] != '#' || a[y + 1][x] == '#' || a[y][x + 1] == '#'
+	if (a[y][x] = '#' || a[y + 1][x] == '#' || a[y][x + 1] == '#'
 			|| a[y + 1][x + 1] == '#' || a[y][x] == '/'
 			|| a[y + 1][x] == '/' || a[y][x + 1] == '/'
 			|| a[y + 1][x + 1] == '/' || a[y][x] == '\\'
@@ -25,7 +25,12 @@ static int	check_square(t_rain *r, char a[MAX + 1][MAX + 1], int x, int y)
 			|| a[y + 1][x] == '[' || a[y][x + 1] == '['
 			|| a[y + 1][x + 1] == '[' || a[y][x] == ']'
 			|| a[y + 1][x] == ']' || a[y][x + 1] == ']'
-			|| a[y + 1][x + 1] == ']'
+			|| a[y + 1][x + 1] == ']')
+		return (0);
+	else
+		check_square(r, a, x, y - 2);
+		// smaller north wall;
+		//
 	return (0);
 }
 
