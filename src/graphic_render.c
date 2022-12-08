@@ -12,6 +12,24 @@
 
 #include "library.h"
 
+static int	check_square(t_rain *r, char a[MAX + 1][MAX + 1], int x, int y)
+{
+	if (a[y][x] != '#' || a[y + 1][x] == '#' || a[y][x + 1] == '#'
+			|| a[y + 1][x + 1] == '#' || a[y][x] == '/'
+			|| a[y + 1][x] == '/' || a[y][x + 1] == '/'
+			|| a[y + 1][x + 1] == '/' || a[y][x] == '\\'
+			|| a[y + 1][x] == '\\' || a[y][x + 1] == '\\'
+			|| a[y + 1][x + 1] == '\\' || a[y][x] == '*'
+			|| a[y + 1][x] == '*' || a[y][x + 1] == '*'
+			|| a[y + 1][x + 1] == '*' || a[y][x] == '['
+			|| a[y + 1][x] == '[' || a[y][x + 1] == '['
+			|| a[y + 1][x + 1] == '[' || a[y][x] == ']'
+			|| a[y + 1][x] == ']' || a[y][x + 1] == ']'
+			|| a[y + 1][x + 1] == ']'
+	return (0);
+}
+
+
 //	Beginning of drawing the three-dimensional space.
 static int	draw_space(t_rain *r)
 {
