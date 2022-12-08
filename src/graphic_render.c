@@ -37,11 +37,8 @@ static int	draw_space(t_rain *r)
 		r->graph.middle_color = FLOOR_TEXTURE;
 		r->graph.bottom_color = FLOOR_TEXTURE;
 		vline(&r->graph, i, ((r->graph.height) / 2), r->graph.height);
-		r->graph.top_color = CEILING_TEXTURE;
-		r->graph.middle_color = WALL_TEXTURE;
-		vline(&r->graph, i, (int)r->player.where.y * r->graph.scale, ((int)r->player.where.y) * 2 * r->graph.scale);
-		i++;
 	}
+		if (r->editor.array[r->editor.start_y][r->editor.start_x]
 	//static unsigned	numsectors;
 	//numsectors = 0;
 	}
