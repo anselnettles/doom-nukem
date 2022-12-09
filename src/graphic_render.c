@@ -6,58 +6,64 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 10:05:39 by aviholai          #+#    #+#             */
-/*   Updated: 2022/12/02 14:55:38 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/12/09 16:21:53 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "library.h"
+/*
+static int	check_square(t_rain *r, char a[MAX + 1][MAX + 1], int x, int y)
+{
+	if (a[y][x] = '#' || a[y + 1][x] == '#' || a[y][x + 1] == '#'
+			|| a[y + 1][x + 1] == '#' || a[y][x] == '/'
+			|| a[y + 1][x] == '/' || a[y][x + 1] == '/'
+			|| a[y + 1][x + 1] == '/' || a[y][x] == '\\'
+			|| a[y + 1][x] == '\\' || a[y][x + 1] == '\\'
+			|| a[y + 1][x + 1] == '\\' || a[y][x] == '*'
+			|| a[y + 1][x] == '*' || a[y][x + 1] == '*'
+			|| a[y + 1][x + 1] == '*' || a[y][x] == '['
+			|| a[y + 1][x] == '[' || a[y][x + 1] == '['
+			|| a[y + 1][x + 1] == '[' || a[y][x] == ']'
+			|| a[y + 1][x] == ']' || a[y][x + 1] == ']'
+			|| a[y + 1][x + 1] == ']')
+		return (0);
+	else
+		check_square(r, a, x, y - 2);
+		// smaller north wall;
+		//
+	return (0);
+}
+*/
 
 //	Beginning of drawing the three-dimensional space.
 static int	draw_space(t_rain *r)
 {
-  //int	i;
-	//int	i2;
-	//int	i3;
+	int	i;
 
-	//i = 0;
-	//i2 = 0;
-	//i3 = 0;
+	i = 0;
 	SDL_FillRect(r->graph.surf, NULL, 0x433a59);
 	if(r->editor.start_x == 0 || r->editor.start_y == 0)
 		return (ERROR);
 	else
 	{
 		write(1, "Start X pos: ", 13);
-		write(1, &r->editor.start_x, sizeof(r->editor.start_x));
+		write(1, &r->editor.start_x, sizeof(r->editor.start_y));
 		write(1, " Start Y pos: ", 14);
 		write(1, &r->editor.start_y, sizeof(r->editor.start_y));
-	/*r->graph.top_color = CEILING_TEXTURE;
-	r->graph.middle_color = CEILING_TEXTURE;
-	r->graph.bottom_color = CEILING_TEXTURE;
-	while (i != (WIDTH * r->graph.scale))
-	{
-		vline(&r->graph, i, 0, ((HEIGHT * r->graph.scale) / 2));
-		i++;
-	}
-	r->graph.top_color = FLOOR_TEXTURE;
-	r->graph.middle_color = FLOOR_TEXTURE;
-	r->graph.bottom_color = FLOOR_TEXTURE;
-	while (i2 != (WIDTH * r->graph.scale))
-	{
-		vline(&r->graph, i2, ((HEIGHT * r->graph.scale) / 2), HEIGHT * r->graph.scale);
-		i2++;
-	}
-	r->graph.top_color = CEILING_TEXTURE;
-	r->graph.middle_color = WALL_TEXTURE;
-	while (i3 != (WIDTH * r->graph.scale))
-	{
-		vline(&r->graph, i3, (int)r->player.where.y * r->graph.scale, ((int)r->player.where.y) * 2 * r->graph.scale);
-		i3++;
-	}
-	*/
-	//vline(&r->graph, 320, 160, 320);
-	//static unsigned	numsectors;
-	//numsectors = 0;
+		/*while (i != (r->graph.width))
+		{
+			r->graph.top_color = CEILING_TEXTURE;
+			r->graph.middle_color = CEILING_TEXTURE;
+			r->graph.bottom_color = CEILING_TEXTURE;
+			vline(&r->graph, i, 0, r->graph.height / 2);
+			r->graph.top_color = FLOOR_TEXTURE;
+			r->graph.middle_color = FLOOR_TEXTURE;
+			r->graph.bottom_color = FLOOR_TEXTURE;
+			vline(&r->graph, i, ((r->graph.height) / 2), r->graph.height);
+		}*/
+		//if (r->editor.array[r->editor.start_y][r->editor.start_x]
+		//static unsigned	numsectors;
+		//numsectors = 0;
 	}
 	return (0);
 }
@@ -108,7 +114,7 @@ int	render(t_rain *r)
 int	initialize(t_graph *g)
 {
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS) <= SDL_ERROR)
-	{
+		{
 		g->sdl_error_string = SDL_GetError();
 		write(1, g->sdl_error_string, ft_strlen(g->sdl_error_string));
 		return (ERROR);
