@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 10:05:39 by aviholai          #+#    #+#             */
-/*   Updated: 2022/12/09 16:21:53 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/12/13 15:12:11 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 /*
 static int	check_square(t_rain *r, char a[MAX + 1][MAX + 1], int x, int y)
 {
-	if (a[y][x] = '#' || a[y + 1][x] == '#' || a[y][x + 1] == '#'
+	if (a[y][x] == '#' || a[y + 1][x] == '#' || a[y][x + 1] == '#'
 			|| a[y + 1][x + 1] == '#' || a[y][x] == '/'
 			|| a[y + 1][x] == '/' || a[y][x + 1] == '/'
 			|| a[y + 1][x + 1] == '/' || a[y][x] == '\\'
@@ -28,12 +28,13 @@ static int	check_square(t_rain *r, char a[MAX + 1][MAX + 1], int x, int y)
 			|| a[y + 1][x + 1] == ']')
 		return (0);
 	else
+	{
+		//make wall smaller;
 		check_square(r, a, x, y - 2);
-		// smaller north wall;
-		//
+	}
 	return (0);
-}
-*/
+}*/
+
 
 //	Beginning of drawing the three-dimensional space.
 static int	draw_space(t_rain *r)
@@ -50,7 +51,7 @@ static int	draw_space(t_rain *r)
 		write(1, &r->editor.start_x, sizeof(r->editor.start_y));
 		write(1, " Start Y pos: ", 14);
 		write(1, &r->editor.start_y, sizeof(r->editor.start_y));
-		/*while (i != (r->graph.width))
+		while (i != (r->graph.width))
 		{
 			r->graph.top_color = CEILING_TEXTURE;
 			r->graph.middle_color = CEILING_TEXTURE;
@@ -60,7 +61,7 @@ static int	draw_space(t_rain *r)
 			r->graph.middle_color = FLOOR_TEXTURE;
 			r->graph.bottom_color = FLOOR_TEXTURE;
 			vline(&r->graph, i, ((r->graph.height) / 2), r->graph.height);
-		}*/
+		}
 		//if (r->editor.array[r->editor.start_y][r->editor.start_x]
 		//static unsigned	numsectors;
 		//numsectors = 0;
