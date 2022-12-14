@@ -61,6 +61,7 @@ static int	draw_space(t_rain *r)
 			r->graph.middle_color = FLOOR_TEXTURE;
 			r->graph.bottom_color = FLOOR_TEXTURE;
 			vline(&r->graph, i, ((r->graph.height) / 2), r->graph.height);
+			i++;
 		}
 		//if (r->editor.array[r->editor.start_y][r->editor.start_x]
 		//static unsigned	numsectors;
