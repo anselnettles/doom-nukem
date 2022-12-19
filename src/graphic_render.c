@@ -6,11 +6,28 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 10:05:39 by aviholai          #+#    #+#             */
-/*   Updated: 2022/12/13 15:12:11 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/12/19 12:40:38 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "library.h"
+
+static void	draw_wall(t_rain *r, int x, int y)
+{
+	int	i;
+	i = 0;
+
+	r->graph.top_color = WALL_TEXTURE + 00076000;
+	r->graph.middle_color = WALL_TEXTURE;
+	r->graph.bottom_color = WALL_TEXTURE + 00076000;
+	while (i < (32 + r->player.where.z) * r->graph.scale)
+	{
+		vline(&r->graph, x - i, (y - (int)r->player.where.z) * r->graph.scale, ((y + (64)) + (int)r->player.where.z) * r->graph.scale);
+		vline(&r->graph, x + i, (y - (int)r->player.where.z) * r->graph.scale, ((y + (64)) + (int)r->player.where.z) * r->graph.scale);
+		i++;
+	}
+}
+
 /*
 static int	check_square(t_rain *r, char a[MAX + 1][MAX + 1], int x, int y)
 {
@@ -63,6 +80,7 @@ static int	draw_space(t_rain *r)
 			vline(&r->graph, i, ((r->graph.height) / 2), r->graph.height);
 			i++;
 		}
+		draw_wall(r, (r->graph.width / 2), ((r->graph.height / 2) - 32));
 		//if (r->editor.array[r->editor.start_y][r->editor.start_x]
 		//static unsigned	numsectors;
 		//numsectors = 0;
