@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 13:35:22 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/30 17:21:45 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/12/19 12:01:47 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ void	vline(t_graph *g, int x_source, int y_source1, int y_source2)
 		y = y1 + 1;
 		while (y < y2)
 		{
-			y++;
 			pix[(y * width) + x_source] = g->middle_color;
+			y++;
 		}
 		pix[(y2 * width) + x_source] = g->bottom_color;
 	}
