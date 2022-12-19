@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 14:16:37 by aviholai          #+#    #+#             */
-/*   Updated: 2022/12/19 12:29:40 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/12/19 14:36:51 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ void	keyboard(t_rain *r)
 				r->graph.map = PLAYER_MAP;
 		}
 		if (r->graph.e.key.keysym.sym == SDLK_w || r->graph.e.key.keysym.sym == SDLK_UP)
-			r->player.where.z++;
+			r->player.where.z += r->graph.scale;
 		if (r->graph.e.key.keysym.sym == SDLK_s || r->graph.e.key.keysym.sym == SDLK_DOWN)
-			r->player.where.z--;
+			r->player.where.z -= r->graph.scale;
 		render(r);
 	}
 }
