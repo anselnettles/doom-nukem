@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 10:05:39 by aviholai          #+#    #+#             */
-/*   Updated: 2022/12/19 12:40:38 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/12/19 13:02:27 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ static void	draw_wall(t_rain *r, int x, int y)
 	{
 		vline(&r->graph, x - i, (y - (int)r->player.where.z) * r->graph.scale, ((y + (64)) + (int)r->player.where.z) * r->graph.scale);
 		vline(&r->graph, x + i, (y - (int)r->player.where.z) * r->graph.scale, ((y + (64)) + (int)r->player.where.z) * r->graph.scale);
+		if (i == ((32 + r->player.where.z) * r->graph.scale) - 2)
+			r->graph.middle_color = WALL_TEXTURE + 00076000;
 		i++;
 	}
 }
