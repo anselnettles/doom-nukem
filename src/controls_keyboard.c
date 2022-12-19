@@ -6,13 +6,13 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 14:16:37 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/21 12:08:27 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/12/19 12:29:40 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "library.h"
 
-static void	key_minus(t_rain *r)
+static void	toggle_scale(t_rain *r)
 {
 	if (r->graph.scale == 1)
 		r->graph.scale = 2;
@@ -24,7 +24,7 @@ static void	key_minus(t_rain *r)
 	r->graph.surf = SDL_GetWindowSurface(r->graph.win);
 }
 
-static void	key_esc(t_rain *r)
+static void	quit_program(t_rain *r)
 {
 	SDL_DestroyWindow(r->graph.win);
 	SDL_Quit();
@@ -37,9 +37,9 @@ void	keyboard(t_rain *r)
 	{
 		write(1, ".", 1);
 		if (r->graph.e.key.keysym.sym == ESC)
-			key_esc(r);
+			quit_program(r);
 		if (r->graph.e.key.keysym.sym == NUMPAD_MINUS)
-			key_minus(r);
+			toggle_scale(r);
 		if (r->graph.e.key.keysym.sym == SDLK_m)
 		{
 			if (r->graph.map == PLAYER_MAP)
@@ -47,6 +47,10 @@ void	keyboard(t_rain *r)
 			else
 				r->graph.map = PLAYER_MAP;
 		}
+		if (r->graph.e.key.keysym.sym == SDLK_w || r->graph.e.key.keysym.sym == SDLK_UP)
+			r->player.where.z++;
+		if (r->graph.e.key.keysym.sym == SDLK_s || r->graph.e.key.keysym.sym == SDLK_DOWN)
+			r->player.where.z--;
 		render(r);
 	}
 }
