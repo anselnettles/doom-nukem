@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 10:05:39 by aviholai          #+#    #+#             */
-/*   Updated: 2022/12/19 17:03:38 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/12/20 15:43:32 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	draw_wall(t_rain *r, int x, int y)
 		s = 1;
 	else
 	{
-		s = 3;
+		s = 2;
 		y -= 64;
 	}
 	r->graph.top_color = WALL_TEXTURE + 00076000;
@@ -74,10 +74,10 @@ static int	draw_space(t_rain *r)
 		return (ERROR);
 	else
 	{
-		write(1, "Start X pos: ", 13);
-		write(1, &r->editor.start_x, sizeof(r->editor.start_y));
-		write(1, " Start Y pos: ", 14);
-		write(1, &r->editor.start_y, sizeof(r->editor.start_y));
+		//write(1, "Start X pos: ", 13);
+		//write(1, &r->editor.start_x, sizeof(r->editor.start_y));
+		//write(1, " Start Y pos: ", 14);
+		//write(1, &r->editor.start_y, sizeof(r->editor.start_y));
 		while (i != (r->graph.width))
 		{
 			r->graph.top_color = CEILING_TEXTURE;
