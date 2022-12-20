@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 10:05:39 by aviholai          #+#    #+#             */
-/*   Updated: 2022/12/20 15:43:32 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/12/20 16:10:02 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,22 @@
 static void	draw_wall(t_rain *r, int x, int y)
 {
 	int		i;
-	double	s;
 
 	i = 0;
-	if (r->graph.scale == 1)
-		s = 1;
-	else
-	{
-		s = 2;
-		y -= 64;
-	}
+	//if (r->graph.scale == 1)
+	//	s = 1;
+	//else
+	//{
+	//	s = 2;
+	//	y -= 64;
+	//}
 	r->graph.top_color = WALL_TEXTURE + 00076000;
 	r->graph.middle_color = WALL_TEXTURE;
 	r->graph.bottom_color = WALL_TEXTURE + 00076000;
 	while (i < (32 + r->player.where.z) * r->graph.scale)
 	{
-		vline(&r->graph, x - i, y - (int)r->player.where.z, (int)(y + (64 * s)) + (int)r->player.where.z);
-		vline(&r->graph, x + i, y - (int)r->player.where.z, (int)(y + (64 * s)) + (int)r->player.where.z);
+		vline(&r->graph, x - i, y - (int)r->player.where.z, (int)(y + (64)) + (int)r->player.where.z);
+		vline(&r->graph, x + i, y - (int)r->player.where.z, (int)(y + (64)) + (int)r->player.where.z);
 		if (i == ((32 + r->player.where.z) * r->graph.scale) - 2)
 			r->graph.middle_color = WALL_TEXTURE + 00076000;
 		i++;
