@@ -86,7 +86,7 @@ static int	draw_space(t_rain *r)
 			vline(&r->graph, i, ((r->graph.height) / 2), r->graph.height);
 			i++;
 		}
-		draw_wall(r, (r->graph.width / 2), (r->graph.height / 2));
+		draw_wall(r, (r->graph.width / 2) + (int)r->player.where.x, (r->graph.height / 2));
 		//if (r->editor.array[r->editor.start_y][r->editor.start_x]
 		//static unsigned	numsectors;
 		//numsectors = 0;
