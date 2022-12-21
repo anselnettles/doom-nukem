@@ -15,23 +15,18 @@
 static void	draw_wall(t_rain *r, int x, int y)
 {
 	int		i;
+	int		s;
 
 	i = 0;
-	//if (r->graph.scale == 1)
-	//	s = 1;
-	//else
-	//{
-	//	s = 2;
-	//	y -= 64;
-	//}
+	s = r->graph.scale;
 	r->graph.top_color = WALL_TEXTURE + 00076000;
 	r->graph.middle_color = WALL_TEXTURE;
 	r->graph.bottom_color = WALL_TEXTURE + 00076000;
-	while (i < (32 + r->player.where.z) * r->graph.scale)
+	while (i < (32 + r->player.where.z) * (float)r->graph.scale)
 	{
-		vline(&r->graph, x - i, y - (int)r->player.where.z, (int)(y + (64)) + (int)r->player.where.z);
-		vline(&r->graph, x + i, y - (int)r->player.where.z, (int)(y + (64)) + (int)r->player.where.z);
-		if (i == ((32 + r->player.where.z) * r->graph.scale) - 2)
+		vline(&r->graph, x - i, y - ((32) + (int)r->player.where.z) * s, y + ((32) + (int)r->player.where.z) * s);
+		vline(&r->graph, x + i, y - ((32) + (int)r->player.where.z) * s, y + ((32) + (int)r->player.where.z) * s);
+		if (i == ((32 + r->player.where.z) * (float)r->graph.scale) - 2)
 			r->graph.middle_color = WALL_TEXTURE + 00076000;
 		i++;
 	}
@@ -89,7 +84,7 @@ static int	draw_space(t_rain *r)
 			vline(&r->graph, i, ((r->graph.height) / 2), r->graph.height);
 			i++;
 		}
-		draw_wall(r, (r->graph.width / 2), ((r->graph.height / 2) - 32));
+		draw_wall(r, (r->graph.width / 2), (r->graph.height / 2));
 		//if (r->editor.array[r->editor.start_y][r->editor.start_x]
 		//static unsigned	numsectors;
 		//numsectors = 0;
@@ -170,9 +165,9 @@ int	graphic_interface(t_rain *rain)
 {
 	if (initialize(&rain->graph) == ERROR)
 		return (error(SDL_FAIL));
-	rain->player.where.x = 30;
-	rain->player.where.y = (HEIGHT * (float)rain->graph.scale) / 3;
-	rain->player.where.z = 30;
+	rain->player.where.x = 0;
+	rain->player.where.y = 0;
+	rain->player.where.z = 0;
 	if (render(rain) == ERROR)
 		return (error(RENDER_FAIL));
 	sdl_loop(rain);
