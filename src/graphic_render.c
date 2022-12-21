@@ -12,20 +12,22 @@
 
 #include "library.h"
 
-static void	draw_wall(t_rain *r, int x, int y)
+static void	draw_wall(t_rain *r, int centre_x, int centre_y)
 {
 	int		i;
 	int		s;
+	int		len;
 
 	i = 0;
 	s = r->graph.scale;
+	len = ((32 + (int)r->player.where.z) * s);
 	r->graph.top_color = WALL_TEXTURE + 00076000;
 	r->graph.middle_color = WALL_TEXTURE;
 	r->graph.bottom_color = WALL_TEXTURE + 00076000;
 	while (i < (32 + r->player.where.z) * (float)r->graph.scale)
 	{
-		vline(&r->graph, x - i, y - ((32) + (int)r->player.where.z) * s, y + ((32) + (int)r->player.where.z) * s);
-		vline(&r->graph, x + i, y - ((32) + (int)r->player.where.z) * s, y + ((32) + (int)r->player.where.z) * s);
+		vline(&r->graph, centre_x - i, centre_y - len, centre_y + len);
+		vline(&r->graph, centre_x + i, centre_y - len, centre_y + len);
 		if (i == ((32 + r->player.where.z) * (float)r->graph.scale) - 2)
 			r->graph.middle_color = WALL_TEXTURE + 00076000;
 		i++;
