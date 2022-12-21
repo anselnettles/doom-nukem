@@ -48,9 +48,9 @@ void	keyboard(t_rain *r)
 				r->graph.map = PLAYER_MAP;
 		}
 		if (r->graph.e.key.keysym.sym == SDLK_w || r->graph.e.key.keysym.sym == SDLK_UP)
-			r->player.where.z += r->graph.scale;
+			r->player.where.z += (float)r->graph.scale;
 		if (r->graph.e.key.keysym.sym == SDLK_s || r->graph.e.key.keysym.sym == SDLK_DOWN)
-			r->player.where.z -= r->graph.scale;
+			r->player.where.z -= (float)r->graph.scale;
 		render(r);
 	}
 }
