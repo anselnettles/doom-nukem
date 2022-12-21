@@ -51,6 +51,10 @@ void	keyboard(t_rain *r)
 			r->player.where.z += (float)r->graph.scale;
 		if (r->graph.e.key.keysym.sym == SDLK_s || r->graph.e.key.keysym.sym == SDLK_DOWN)
 			r->player.where.z -= (float)r->graph.scale;
+		if (r->graph.e.key.keysym.sym == SDLK_a || r->graph.e.key.keysym.sym == SDLK_LEFT)
+			r->player.where.x += (float)r->graph.scale;
+		if (r->graph.e.key.keysym.sym == SDLK_d || r->graph.e.key.keysym.sym == SDLK_RIGHT)
+			r->player.where.x -= (float)r->graph.scale;
 		render(r);
 	}
 }
