@@ -58,14 +58,14 @@ void	keyboard(t_rain *r)
 		if (r->graph.e.key.keysym.sym == SDLK_q)
 		{
 			r->player.angle--;
-			if (r->player.angle < 0)
-				r->player.angle = 359;
+			if (r->player.angle < -180)
+				r->player.angle = 180;
 		}
 		if (r->graph.e.key.keysym.sym == SDLK_e)
 		{
 			r->player.angle++;
-			if (r->player.angle > 359)
-				r->player.angle = 0;
+			if (r->player.angle > 180)
+				r->player.angle = -180;
 		}
 		render(r);
 	}
