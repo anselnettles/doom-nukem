@@ -48,9 +48,25 @@ void	keyboard(t_rain *r)
 				r->graph.map = PLAYER_MAP;
 		}
 		if (r->graph.e.key.keysym.sym == SDLK_w || r->graph.e.key.keysym.sym == SDLK_UP)
-			r->player.where.z += r->graph.scale;
+			r->player.where.z += (float)r->graph.scale;
 		if (r->graph.e.key.keysym.sym == SDLK_s || r->graph.e.key.keysym.sym == SDLK_DOWN)
-			r->player.where.z -= r->graph.scale;
+			r->player.where.z -= (float)r->graph.scale;
+		if (r->graph.e.key.keysym.sym == SDLK_a || r->graph.e.key.keysym.sym == SDLK_LEFT)
+			r->player.where.x += (float)r->graph.scale;
+		if (r->graph.e.key.keysym.sym == SDLK_d || r->graph.e.key.keysym.sym == SDLK_RIGHT)
+			r->player.where.x -= (float)r->graph.scale;
+		if (r->graph.e.key.keysym.sym == SDLK_q)
+		{
+			r->player.angle--;
+			if (r->player.angle < -180)
+				r->player.angle = 180;
+		}
+		if (r->graph.e.key.keysym.sym == SDLK_e)
+		{
+			r->player.angle++;
+			if (r->player.angle > 180)
+				r->player.angle = -180;
+		}
 		render(r);
 	}
 }
