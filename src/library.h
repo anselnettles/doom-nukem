@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2022/12/02 14:56:55 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/12/28 10:02:46 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,25 @@
 # define WALL_TEXTURE 0x345625
 # define FLOOR_TEXTURE 0x979d53
 
+# define FOV 60
+# define SQUARE_SIZE 64
+# define MOVE_SPEED 4;
+# define RAY_LENGTH 3
+# define TURN_SPEED 3
+# define DEGREE 0.0174533
+# define NORTH 1
+# define EAST 2
+# define SOUTH 3
+# define WEST 4
+
+/*
 # define EYE_HEIGHT 6
 # define DUCK_HEIGHT 2.5
 # define HEAD_MARGIN 1
 # define KNEE_HEIGHT 2
 # define HOR_FOV 0.73f
 # define VER_FOV 0.2f
+*/
 
 /*ARRAY MAP COLOR DEFINITIONS*/
 # define WALL 0xFF772E
@@ -97,6 +110,22 @@ typedef struct s_index {
 	int			width;
 }	t_index;
 
+typedef struct s_pointd
+{
+	double	x;
+	double	y;
+}	t_pointd;
+
+typedef struct s_collision
+{
+	int	square_pos_x;
+	int	square_pos_x_plus_offset;
+	int	square_pos_x_minus_offset;
+	int	square_pos_y;
+	int	square_pos_y_plus_offset;
+	int	square_pos_y_minus_offset;
+}	t_collision;
+
 /*Player location struct.*/
 typedef struct s_player {
 	struct	s_xyz {
@@ -109,7 +138,41 @@ typedef struct s_player {
 	float			anglecos;
 	float			yaw;
 	unsigned int	sector;
+
+	t_collision		collision;
+	double			pos_angle;
+	double			pos_x;
+	double			pos_y;
+	double			dir_x;
+	double			dir_y;
+	int				move_speed;
+	int				compass;
+	int				left;
+	int				right;
+	int				forward;
+	int				back;
 }	t_player;
+
+typedef struct s_raycast
+{
+	double	ray_angle;
+	double	ray_x;
+	double	ray_y;
+	int		map_x;
+	int		map_y;
+	double	offset_x;
+	double	offset_y;
+	double	dist_to_proj_plane;
+	double	degrees_per_column;
+	double	degrees_per_ray;
+	double	hor_coll_point_x;
+	double	ver_coll_point_y;
+	double	closest_coll_dist;
+	int		projected_slice_height;
+	int		wall_texture_xoffset;
+	int		wall_texture_yoffset;
+	double	wall_texture_yincrement;
+}	t_raycast;
 
 /*Graphical-wise variables used for SDL and graphical drawing.*/
 typedef struct s_graph {
@@ -127,6 +190,7 @@ typedef struct s_graph {
 	uint32_t		bottom_color;
 	int				scale;
 	int				map;
+	t_raycast		raycast;
 }	t_graph;
 
 typedef struct s_intersect {
@@ -142,6 +206,7 @@ typedef struct s_intersect {
 	int		y4;
 }	t_intersect;
 
+/*
 //Sectors: Areas of floor and ceiling and listing of applied edges and neighbor.
 typedef struct s_sector {
 	float			floor;
@@ -153,6 +218,7 @@ typedef struct s_sector {
 	signed char		*neighbours;
 	unsigned int	npoints;
 }	t_sector;
+*/
 
 /*Mother struct*/
 typedef struct s_rain {
@@ -162,7 +228,10 @@ typedef struct s_rain {
 	t_player		player;
 	t_graph			graph;
 	t_intersect		intersect;
-	t_sector		sector;
+//	t_sector		sector;
+	t_pointd		pointd;
+//	t_collision		collision;
+//	t_raycast		raycast;
 }	t_rain;
 
 /*Listed error types*/
@@ -196,11 +265,12 @@ void	keyboard(t_rain *r);
 void	pixel_put(t_graph *g, int x_source, int y_source, int colour);
 void	vline(t_graph *g, int x_source, int y_source1, int y_source2);
 void	sdl_loop(t_rain *rain);
-int		overlap(int a0, int a1, int b0, int b1);
-int		vxs(int x0, int y0, int x1, int y1);
+//int		overlap(int a0, int a1, int b0, int b1);
+//int		vxs(int x0, int y0, int x1, int y1);
 int		max(int a, int b);
 int		min(int a, int b);
 int		clamp(int a, int lower, int upper);
+double	deg_to_rad(double degrees);
 void	intersect(t_intersect *i);
 void	*ft_memalloc(size_t size);
 void	*ft_memset(void *b, int c, size_t len);
