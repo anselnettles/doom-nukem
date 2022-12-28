@@ -6,12 +6,13 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 10:05:39 by aviholai          #+#    #+#             */
-/*   Updated: 2022/12/20 16:10:02 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/12/28 10:18:13 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "library.h"
 
+/*
 static void	draw_wall(t_rain *r, int centre_x, int centre_y)
 {
 	int		i;
@@ -36,6 +37,7 @@ static void	draw_wall(t_rain *r, int centre_x, int centre_y)
 		value += (int)r->player.angle;
 	}
 }
+*/
 
 /*
 static int	check_square(t_rain *r, char a[MAX + 1][MAX + 1], int x, int y)
@@ -89,7 +91,7 @@ static int	draw_space(t_rain *r)
 			vline(&r->graph, i, ((r->graph.height) / 2), r->graph.height);
 			i++;
 		}
-		draw_wall(r, (r->graph.width / 2) + (int)r->player.where.x, (r->graph.height / 2));
+		//draw_wall(r, (r->graph.width / 2) + (int)r->player.where.x, (r->graph.height / 2));
 		//if (r->editor.array[r->editor.start_y][r->editor.start_x]
 		//static unsigned	numsectors;
 		//numsectors = 0;
@@ -161,6 +163,11 @@ int	initialize(t_graph *g)
 		return (ERROR);
 	}
 	g->map = PLAYER_MAP;
+	
+	g->raycast.dist_to_proj_plane = (double)(g->width / 2) / \
+									tan(deg_to_rad(FOV / 2));
+	g->raycast.degrees_per_column = (double)g->width / (double)FOV;
+	g->raycast.degrees_per_ray = (double)FOV / (double)g->width;
 	return (0);
 }
 
@@ -170,9 +177,20 @@ int	graphic_interface(t_rain *rain)
 {
 	if (initialize(&rain->graph) == ERROR)
 		return (error(SDL_FAIL));
-	rain->player.where.x = 0;
-	rain->player.where.y = 0;
-	rain->player.where.z = 0;
+
+	//INITIALIZE_PLAYER
+	rain->player.move_speed = MOVE_SPEED;
+	//rain->player.turn_speed = TURN_SPEED;
+	//INITIALIZE_MAP
+	rain->player.pos_x = (double)SQUARE_SIZE * (rain->editor.start_x + 1) - \
+						 ((double)SQUARE_SIZE / 2.0);
+	rain->player.pos_y = (double)SQUARE_SIZE * (rain->editor.start_y + 1) - \
+						 ((double)SQUARE_SIZE / 2.0);
+	rain->player.pos_angle = 180;
+	rain->player.dir_x = cos(deg_to_rad(rain->player.pos_angle));
+	rain->player.dir_y = -sin(deg_to_rad(rain->player.pos_angle));
+
+
 	if (render(rain) == ERROR)
 		return (error(RENDER_FAIL));
 	sdl_loop(rain);
