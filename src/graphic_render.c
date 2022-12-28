@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 10:05:39 by aviholai          #+#    #+#             */
-/*   Updated: 2022/12/28 10:18:13 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/12/28 10:34:31 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@ int	render(t_rain *r)
 
 //	Initializes the SDL (Simple DirectMedia Layer) library functions and sets
 //	all the necessary variables for graphical rendering.
-int	initialize(t_graph *g)
+int	initialize_media(t_graph *g)
 {
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS) <= SDL_ERROR)
 		{
@@ -175,7 +175,7 @@ int	initialize(t_graph *g)
 // order of: initialization, rendering, looping.
 int	graphic_interface(t_rain *rain)
 {
-	if (initialize(&rain->graph) == ERROR)
+	if (initialize_media(&rain->graph) == ERROR)
 		return (error(SDL_FAIL));
 
 	//INITIALIZE_PLAYER
