@@ -140,6 +140,20 @@ int	render(t_rain *r)
 	return (0);
 }
 
+//	Initializes the necessary player variables before rendering.
+int	initialize_player(t_rain *r)
+{
+	r->player.move_speed = MOVE_SPEED;
+	r->player.pos_x = (double)SQUARE_SIZE * (r->editor.start_x + 1) - \
+						 ((double)SQUARE_SIZE / 2.0);
+	r->player.pos_y = (double)SQUARE_SIZE * (r->editor.start_y + 1) - \
+						 ((double)SQUARE_SIZE / 2.0);
+	r->player.pos_angle = 180;
+	r->player.dir_x = cos(deg_to_rad(r->player.pos_angle));
+	r->player.dir_y = -sin(deg_to_rad(r->player.pos_angle));
+	return (0);
+}
+
 //	Initializes the SDL (Simple DirectMedia Layer) library functions and sets
 //	all the necessary variables for graphical rendering.
 int	initialize_media(t_graph *g)
@@ -163,9 +177,8 @@ int	initialize_media(t_graph *g)
 		return (ERROR);
 	}
 	g->map = PLAYER_MAP;
-	
 	g->raycast.dist_to_proj_plane = (double)(g->width / 2) / \
-									tan(deg_to_rad(FOV / 2));
+					tan(deg_to_rad(FOV / 2));
 	g->raycast.degrees_per_column = (double)g->width / (double)FOV;
 	g->raycast.degrees_per_ray = (double)FOV / (double)g->width;
 	return (0);
@@ -177,20 +190,8 @@ int	graphic_interface(t_rain *rain)
 {
 	if (initialize_media(&rain->graph) == ERROR)
 		return (error(SDL_FAIL));
-
-	//INITIALIZE_PLAYER
-	rain->player.move_speed = MOVE_SPEED;
-	//rain->player.turn_speed = TURN_SPEED;
-	//INITIALIZE_MAP
-	rain->player.pos_x = (double)SQUARE_SIZE * (rain->editor.start_x + 1) - \
-						 ((double)SQUARE_SIZE / 2.0);
-	rain->player.pos_y = (double)SQUARE_SIZE * (rain->editor.start_y + 1) - \
-						 ((double)SQUARE_SIZE / 2.0);
-	rain->player.pos_angle = 180;
-	rain->player.dir_x = cos(deg_to_rad(rain->player.pos_angle));
-	rain->player.dir_y = -sin(deg_to_rad(rain->player.pos_angle));
-
-
+	if (initialize_player(&rain) == ERROR)
+		return (error(RENDER_FAIL));
 	if (render(rain) == ERROR)
 		return (error(RENDER_FAIL));
 	sdl_loop(rain);
