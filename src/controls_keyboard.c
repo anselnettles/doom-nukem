@@ -12,6 +12,11 @@
 
 #include "library.h"
 
+static void	move_player(t_rain *r)
+{
+
+}
+
 static void	toggle_scale(t_rain *r)
 {
 	if (r->graph.scale == 1)
@@ -47,26 +52,11 @@ void	keyboard(t_rain *r)
 			else
 				r->graph.map = PLAYER_MAP;
 		}
-		if (r->graph.e.key.keysym.sym == SDLK_w || r->graph.e.key.keysym.sym == SDLK_UP)
-			r->player.where.z += (float)r->graph.scale;
-		if (r->graph.e.key.keysym.sym == SDLK_s || r->graph.e.key.keysym.sym == SDLK_DOWN)
-			r->player.where.z -= (float)r->graph.scale;
-		if (r->graph.e.key.keysym.sym == SDLK_a || r->graph.e.key.keysym.sym == SDLK_LEFT)
-			r->player.where.x += (float)r->graph.scale;
-		if (r->graph.e.key.keysym.sym == SDLK_d || r->graph.e.key.keysym.sym == SDLK_RIGHT)
-			r->player.where.x -= (float)r->graph.scale;
-		if (r->graph.e.key.keysym.sym == SDLK_q)
-		{
-			r->player.angle--;
-			if (r->player.angle < -180)
-				r->player.angle = 180;
-		}
-		if (r->graph.e.key.keysym.sym == SDLK_e)
-		{
-			r->player.angle++;
-			if (r->player.angle > 180)
-				r->player.angle = -180;
-		}
+		if (r->graph.e.key.keysym.sym == SDLK_w || r->graph.e.key.keysym.sym == SDLK_UP
+				|| r->graph.e.key.keysym.sym == SDLK_s || r->graph.e.key.keysym.sym == SDLK_DOWN
+				|| r->graph.e.key.keysym.sym == SDLK_a || r->graph.e.key.keysym.sym == SDLK_LEFT
+				|| r->graph.e.key.keysym.sym == SDLK_d || r->graph.e.key.keysym.sym == SDLK_RIGHT)
+			move_player(r);
 		render(r);
 	}
 }
