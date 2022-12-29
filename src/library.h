@@ -147,10 +147,6 @@ typedef struct s_player {
 	double			dir_y;
 	int				move_speed;
 	int				compass;
-	int				left;
-	int				right;
-	int				forward;
-	int				back;
 }	t_player;
 
 typedef struct s_raycast
