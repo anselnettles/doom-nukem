@@ -118,12 +118,12 @@ typedef struct s_pointd
 
 typedef struct s_collision
 {
-	int	square_pos_x;
-	int	square_pos_x_plus_offset;
-	int	square_pos_x_minus_offset;
-	int	square_pos_y;
-	int	square_pos_y_plus_offset;
-	int	square_pos_y_minus_offset;
+	int	grid_pos_x;
+	int	grid_pos_x_plus_offset;
+	int	grid_pos_x_minus_offset;
+	int	grid_pos_y;
+	int	grid_pos_y_plus_offset;
+	int	grid_pos_y_minus_offset;
 }	t_collision;
 
 /*Player location struct.*/
