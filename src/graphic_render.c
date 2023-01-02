@@ -71,7 +71,7 @@ static int	draw_space(t_rain *r)
 
 	i = 0;
 	SDL_FillRect(r->graph.surf, NULL, 0x433a59);
-	if(r->editor.start_x == 0 || r->editor.start_y == 0)
+	if(r->stage.start_x == 0 || r->stage.start_y == 0)
 		return (ERROR);
 	else
 	{
@@ -144,9 +144,9 @@ int	render(t_rain *r)
 int	initialize_player(t_rain *r)
 {
 	r->player.move_speed = MOVE_SPEED;
-	r->player.pos_x = (double)SQUARE_SIZE * (r->editor.start_x + 1) - \
+	r->player.pos_x = (double)SQUARE_SIZE * (r->stage.start_x + 1) - \
 						 ((double)SQUARE_SIZE / 2.0);
-	r->player.pos_y = (double)SQUARE_SIZE * (r->editor.start_y + 1) - \
+	r->player.pos_y = (double)SQUARE_SIZE * (r->stage.start_y + 1) - \
 						 ((double)SQUARE_SIZE / 2.0);
 	r->player.pos_angle = 180;
 	r->player.dir_x = cos(deg_to_rad(r->player.pos_angle));
