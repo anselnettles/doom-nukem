@@ -63,14 +63,11 @@ static int	check_square(t_rain *r, char a[MAX + 1][MAX + 1], int x, int y)
 	return (0);
 }*/
 
-
-//	Beginning of drawing the three-dimensional space.
-static int	draw_space(t_rain *r)
+static void	paint_sky_and_earth(t_rain *r)
 {
 	int	i;
 
 	i = 0;
-	SDL_FillRect(r->graph.surf, NULL, 0x433a59);
 	while (i != (r->graph.width))
 	{
 		r->graph.top_color = CEILING_TEXTURE;
@@ -82,6 +79,57 @@ static int	draw_space(t_rain *r)
 		r->graph.bottom_color = FLOOR_TEXTURE;
 		vline(&r->graph, i, ((r->graph.height) / 2), r->graph.height);
 		i++;
+	}
+}
+
+int	cast(t_rain *r)
+{
+	float	hor_coll_dist;
+	float	ver_coll_dist;
+	float	fish_eye_fix;
+
+	hor_coll_dist = 100000;
+	ver_coll_dist = 100000;
+	if (find_hor_coll_point(r))
+		hor_coll_dist = calc_hor_coll_dist(r);
+	if (find_ver_coll_point(r))
+		ver_coll_dist = calc_ver_coll_dist(r);
+	if (ver_coll_dist < hor_coll_dist)
+		save_vertical(r, ver_coll_dist);
+	else
+		save_horizontal(r, hor_coll_dist);
+	fish_eye_fix = r->player.pos_angle - r->raycast.ray_angle;
+	r->raycast.closest_coll_dist = r->raycast.closest_coll_dist * \
+									cos(deg_to_rad(fish_eye_fix));
+	return (0);
+}
+
+//	Beginning of drawing the three-dimensional space.
+static int	draw_space(t_rain *r)
+{
+	int	i;
+	int	ray_nbr;
+
+	i = 0;
+	SDL_FillRect(r->graph.surf, NULL, 0x433a59);
+	paint_sky_and_earth(r);
+	r->raycast.ray_angle = r->player.pos_angle + (FOV / 2);
+	if (r->raycast.ray_angle > 360)
+		r->raycast.ray_angle -= 360;
+	else if (r->raycast.ray_angle < 0)
+		r->raycast.ray_angle += 360;
+	ray_nbr = 0;
+	while (ray_nbr < r->graph.width)
+	{
+		cast(r);	
+		if (r->raycast.closest_coll_dist > 0)
+			draw_column(r, ray_nbr);
+		r->raycast.ray_angle -= r->raycast.degrees_per_ray;
+		if (r->raycast.ray_angle > 360)
+			r->raycast.ray_angle -= 360;
+		else if (r->raycast.ray_angle < 0)
+			r->raycast.ray_angle += 360;
+		ray_nbr++;
 	}
 	return (0);
 }
