@@ -96,12 +96,12 @@ typedef struct s_editor {
 	char		*file;
 	char		buffer[MAX + 1];
 	char		array[MAX + 1][MAX + 1];
-	int		start_x;
-	int		start_y;
 }	t_editor;
 
 typedef struct s_stage {
 	char		grid[MAX + 1][MAX + 1];
+	int		start_x;
+	int		start_y;
 }	t_stage;
 
 /*Index-wise variables used for counts. Index 'i' is used for the level file's
