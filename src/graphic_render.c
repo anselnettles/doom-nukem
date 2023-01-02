@@ -63,6 +63,22 @@ static int	check_square(t_rain *r, char a[MAX + 1][MAX + 1], int x, int y)
 	return (0);
 }*/
 
+float	ray_collision_distance(t_player *player, t_pointf collision)
+{
+	float	distance;
+	float	temp;
+
+	temp = ((player->pos_x * player->pos_x) - \
+			(2.0f * player->pos_x * collision.x) + \
+			(collision.x * collision.x)) + \
+			((player->pos_y * player->pos_y) - \
+			(2.0f * player->pos_y * collision.y) + \
+			(collision.y * collision.y));
+	distance = square_root(temp);
+	return (distance);
+}
+
+
 static void	paint_sky_and_earth(t_rain *r)
 {
 	int	i;
@@ -100,17 +116,15 @@ int	cast(t_rain *r)
 		save_horizontal(r, hor_coll_dist);
 	fish_eye_fix = r->player.pos_angle - r->raycast.ray_angle;
 	r->raycast.closest_coll_dist = r->raycast.closest_coll_dist * \
-									cos(deg_to_rad(fish_eye_fix));
+				cos(deg_to_rad(fish_eye_fix));
 	return (0);
 }
 
 //	Beginning of drawing the three-dimensional space.
 static int	draw_space(t_rain *r)
 {
-	int	i;
 	int	ray_nbr;
 
-	i = 0;
 	SDL_FillRect(r->graph.surf, NULL, 0x433a59);
 	paint_sky_and_earth(r);
 	r->raycast.ray_angle = r->player.pos_angle + (FOV / 2);
