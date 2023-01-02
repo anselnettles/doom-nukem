@@ -12,17 +12,17 @@
 
 #include "library.h"
 
-static void	move_player(t_rain *r)
+static void	move_player(t_stage *stage, t_player *p, t_graph *g)
 {
 
-	if (r->graph.e.key.keysym.sym == SDLK_w || r->graph.e.key.keysym.sym == SDLK_UP)
+	if (g->e.key.keysym.sym == SDLK_w || g->e.key.keysym.sym == SDLK_UP)
 	{
-		if (stage->grid[player->collision.grid_pos_y] \
-				[player->collision.grid_pos_x_plus_offset] == 0)
-			player->pos_x += player->dir_x * player->move_speed;
-		if (stage->grid[player->collision.grid_pos_y_plus_offset] \
-				[player->collision.square_pos_x] == 0)
-			player->pos_y += player->dir_y * player->move_speed;
+		if (stage->grid[p->collision.grid_pos_y] \
+				[p->collision.grid_pos_x_plus_offset] == 0)
+			p->pos_x += p->dir_x * p->move_speed;
+		if (stage->grid[p->collision.grid_pos_y_plus_offset] \
+				[p->collision.grid_pos_x] == 0)
+			p->pos_y += p->dir_y * p->move_speed;
 	}
 	// if backwards
 	// if left
@@ -68,7 +68,7 @@ void	keyboard(t_rain *r)
 				|| r->graph.e.key.keysym.sym == SDLK_s || r->graph.e.key.keysym.sym == SDLK_DOWN
 				|| r->graph.e.key.keysym.sym == SDLK_a || r->graph.e.key.keysym.sym == SDLK_LEFT
 				|| r->graph.e.key.keysym.sym == SDLK_d || r->graph.e.key.keysym.sym == SDLK_RIGHT)
-			move_player(r);
+			move_player(&r->stage, &r->player, &r->graph);
 		render(r);
 	}
 }
