@@ -38,11 +38,11 @@ static void	check_comments(t_editor *editor, t_index *i)
 
 static int	validate_symbol(t_editor *editor, t_index *i)
 {
-	if (editor->buffer[i->i] == 'S')
-	{
-		editor->start_x = i->x;
-		editor->start_y = i->y;
-	}
+	//if (editor->buffer[i->i] == 'S')
+	//{
+	//	editor->start_x = i->x;
+	//	editor->start_y = i->y;
+	//}
 	if (!(editor->buffer[i->i] == 0 || editor->buffer[i->i] == '\n'
 			|| editor->buffer[i->i] == ' ' || editor->buffer[i->i] == '#'
 			|| editor->buffer[i->i] == '*' || editor->buffer[i->i] == '\\'
