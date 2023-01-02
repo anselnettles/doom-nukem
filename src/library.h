@@ -231,8 +231,8 @@ typedef struct s_rain {
 	t_intersect		intersect;
 //	t_sector		sector;
 	t_pointd		pointd;
-//	t_collision		collision;
-//	t_raycast		raycast;
+	t_collision		collision;
+	t_raycast		raycast;
 }	t_rain;
 
 /*Listed error types*/
