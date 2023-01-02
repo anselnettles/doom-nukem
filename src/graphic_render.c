@@ -190,7 +190,7 @@ int	graphic_interface(t_rain *rain)
 {
 	if (initialize_media(&rain->graph) == ERROR)
 		return (error(SDL_FAIL));
-	if (initialize_player(&rain) == ERROR)
+	if (initialize_player(rain) == ERROR)
 		return (error(RENDER_FAIL));
 	if (render(rain) == ERROR)
 		return (error(RENDER_FAIL));
