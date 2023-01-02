@@ -100,6 +100,10 @@ typedef struct s_editor {
 	int		start_y;
 }	t_editor;
 
+typedef struct s_stage {
+	char		grid[MAX + 1][MAX + 1];
+}	t_stage;
+
 /*Index-wise variables used for counts. Index 'i' is used for the level file's
 buffer string, while variables 'x' and 'y' are for the array of the extracted
 level.*/
@@ -220,6 +224,7 @@ typedef struct s_sector {
 typedef struct s_rain {
 	t_system		system;
 	t_editor		editor;
+	t_stage			stage;
 	t_index			index;
 	t_player		player;
 	t_graph			graph;
