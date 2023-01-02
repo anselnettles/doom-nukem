@@ -71,30 +71,17 @@ static int	draw_space(t_rain *r)
 
 	i = 0;
 	SDL_FillRect(r->graph.surf, NULL, 0x433a59);
-	if(r->stage.start_x == 0 || r->stage.start_y == 0)
-		return (ERROR);
-	else
+	while (i != (r->graph.width))
 	{
-		//write(1, "Start X pos: ", 13);
-		//write(1, &r->editor.start_x, sizeof(r->editor.start_y));
-		//write(1, " Start Y pos: ", 14);
-		//write(1, &r->editor.start_y, sizeof(r->editor.start_y));
-		while (i != (r->graph.width))
-		{
-			r->graph.top_color = CEILING_TEXTURE;
-			r->graph.middle_color = CEILING_TEXTURE;
-			r->graph.bottom_color = CEILING_TEXTURE;
-			vline(&r->graph, i, 0, r->graph.height / 2);
-			r->graph.top_color = FLOOR_TEXTURE;
-			r->graph.middle_color = FLOOR_TEXTURE;
-			r->graph.bottom_color = FLOOR_TEXTURE;
-			vline(&r->graph, i, ((r->graph.height) / 2), r->graph.height);
-			i++;
-		}
-		//draw_wall(r, (r->graph.width / 2) + (int)r->player.where.x, (r->graph.height / 2));
-		//if (r->editor.array[r->editor.start_y][r->editor.start_x]
-		//static unsigned	numsectors;
-		//numsectors = 0;
+		r->graph.top_color = CEILING_TEXTURE;
+		r->graph.middle_color = CEILING_TEXTURE;
+		r->graph.bottom_color = CEILING_TEXTURE;
+		vline(&r->graph, i, 0, r->graph.height / 2);
+		r->graph.top_color = FLOOR_TEXTURE;
+		r->graph.middle_color = FLOOR_TEXTURE;
+		r->graph.bottom_color = FLOOR_TEXTURE;
+		vline(&r->graph, i, ((r->graph.height) / 2), r->graph.height);
+		i++;
 	}
 	return (0);
 }
@@ -143,6 +130,8 @@ int	render(t_rain *r)
 //	Initializes the necessary player variables before rendering.
 int	initialize_player(t_rain *r)
 {
+	if (!(r->stage.start_x) || !(r->stage.start_y))
+		return (ERROR);
 	r->player.move_speed = MOVE_SPEED;
 	r->player.pos_x = (double)SQUARE_SIZE * (r->stage.start_x + 1) - \
 						 ((double)SQUARE_SIZE / 2.0);
