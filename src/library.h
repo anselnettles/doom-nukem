@@ -114,11 +114,11 @@ typedef struct s_index {
 	int			width;
 }	t_index;
 
-typedef struct s_pointd
+typedef struct s_pointf
 {
 	double	x;
 	double	y;
-}	t_pointd;
+}	t_pointf;
 
 typedef struct s_collision
 {
@@ -144,11 +144,11 @@ typedef struct s_player {
 	unsigned int	sector;
 
 	t_collision		collision;
-	double			pos_angle;
-	double			pos_x;
-	double			pos_y;
-	double			dir_x;
-	double			dir_y;
+	float			pos_angle;
+	float			pos_x;
+	float			pos_y;
+	float			dir_x;
+	float			dir_y;
 	int				move_speed;
 	int				compass;
 }	t_player;
@@ -230,7 +230,7 @@ typedef struct s_rain {
 	t_graph			graph;
 	t_intersect		intersect;
 //	t_sector		sector;
-	t_pointd		pointd;
+	t_pointf		pointf;
 	t_collision		collision;
 	t_raycast		raycast;
 }	t_rain;
@@ -268,6 +268,7 @@ void	vline(t_graph *g, int x_source, int y_source1, int y_source2);
 void	sdl_loop(t_rain *rain);
 //int		overlap(int a0, int a1, int b0, int b1);
 //int		vxs(int x0, int y0, int x1, int y1);
+float		square_root(float nb);
 int		max(int a, int b);
 int		min(int a, int b);
 int		clamp(int a, int lower, int upper);
