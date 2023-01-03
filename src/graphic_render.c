@@ -68,16 +68,148 @@ float	ray_collision_distance(t_player *player, t_pointf collision)
 	float	distance;
 	float	temp;
 
-	temp = ((player->pos_x * player->pos_x) - \
+	temp = (float)((player->pos_x * player->pos_x) - \
 			(2.0f * player->pos_x * collision.x) + \
 			(collision.x * collision.x)) + \
-			((player->pos_y * player->pos_y) - \
+			(float)((player->pos_y * player->pos_y) - \
 			(2.0f * player->pos_y * collision.y) + \
 			(collision.y * collision.y));
 	distance = square_root(temp);
 	return (distance);
 }
 
+int	find_hor_coll_point(t_rain *r)
+{
+	if (r->raycast.ray_angle > 0 && r->raycast.ray_angle < 180)
+	{
+		r->raycast.ray_y = (((int)r->player.pos_y >> 6) << 6) - 0.001f;
+		r->raycast.ray_x = r->player.pos_x + \
+			(r->player.pos_y - r->raycast.ray_y) / \
+			tan(deg_to_rad(r->raycast.ray_angle));
+		r->raycast.offset_y = -SQUARE_SIZE;
+		r->raycast.offset_x = -r->raycast.offset_y / \
+			tan(deg_to_rad(r->raycast.ray_angle));
+	}
+	else if (r->raycast.ray_angle > 180 && \
+				r->raycast.ray_angle < 360)
+	{
+		r->raycast.ray_y = (((int)r->player.pos_y >> 6) << 6) + SQUARE_SIZE;
+		r->raycast.ray_x = r->player.pos_x + \
+			(r->player.pos_y - r->raycast.ray_y) / \
+			tan(deg_to_rad(r->raycast.ray_angle));
+		r->raycast.offset_y = SQUARE_SIZE;
+		r->raycast.offset_x = -r->raycast.offset_y / \
+			tan(deg_to_rad(r->raycast.ray_angle));
+	}
+	else
+		return (0);
+	return (1);
+}
+
+float	calc_hor_coll_dist(t_rain *r)
+{
+	int	index;
+
+	index = 0;
+	while (index < (r->index.y / 2))
+	{
+		r->raycast.map_x = ((int)r->raycast.ray_x) >> 6;
+		r->raycast.map_y = ((int)r->raycast.ray_y) >> 6;
+		if (r->raycast.map_x >= 0 && r->raycast.map_x < (r->index.x) && \
+			r->raycast.map_y >= 0 && r->raycast.map_y < (r->index.y / 2) && \
+			r->stage.grid[r->raycast.map_y][r->raycast.map_x] != 0)
+		{
+			r->raycast.hor_coll_point_x = r->raycast.ray_x;
+			return (ray_collision_distance(&r->player, \
+				(t_pointf){r->raycast.ray_x, r->raycast.ray_y}));
+		}
+		else
+		{
+			r->raycast.ray_x += r->raycast.offset_x;
+			r->raycast.ray_y += r->raycast.offset_y;
+			index++;
+		}
+	}
+	return (100000);
+}
+
+void	save_horizontal(t_rain *r, float hor_coll_dist)
+{
+	r->raycast.closest_coll_dist = hor_coll_dist;
+	r->raycast.wall_texture_xoffset = (int)r->raycast.hor_coll_point_x % \
+					  SQUARE_SIZE;
+	if (r->raycast.ray_angle > 0 && r->raycast.ray_angle < 180)
+		r->player.compass = NORTH;
+	else
+		r->player.compass = SOUTH;
+}
+
+int	find_ver_coll_point(t_rain *r)
+{
+	if (r->raycast.ray_angle > 90 && r->raycast.ray_angle < 270)
+	{
+		r->raycast.ray_x = (((int)r->player.pos_x >> 6) << 6) - 0.001f;
+		r->raycast.ray_y = r->player.pos_y + \
+			(r->player.pos_x - r->raycast.ray_x) * \
+			tan(deg_to_rad(r->raycast.ray_angle));
+		r->raycast.offset_x = -SQUARE_SIZE;
+		r->raycast.offset_y = -r->raycast.offset_x * \
+			tan(deg_to_rad(r->raycast.ray_angle));
+	}
+	else if ((r->raycast.ray_angle > 270 && \
+			r->raycast.ray_angle <= 360) || \
+			(r->raycast.ray_angle >= 0 && r->raycast.ray_angle < 90))
+	{
+		r->raycast.ray_x = (((int)r->player.pos_x >> 6) << 6) + SQUARE_SIZE;
+		r->raycast.ray_y = r->player.pos_y + \
+			(r->player.pos_x - r->raycast.ray_x) * \
+			tan(deg_to_rad(r->raycast.ray_angle));
+		r->raycast.offset_x = SQUARE_SIZE;
+		r->raycast.offset_y = -r->raycast.offset_x * \
+			tan(deg_to_rad(r->raycast.ray_angle));
+	}
+	else
+		return (0);
+	return (1);
+}
+
+float	calc_ver_coll_dist(t_rain *r)
+{
+	int	index;
+
+	index = 0;
+	while (index < (r->index.width / 2))
+	{
+		r->raycast.map_x = ((int)r->raycast.ray_x) >> 6;
+		r->raycast.map_y = ((int)r->raycast.ray_y) >> 6;
+		if (r->raycast.map_x >= 0 && r->raycast.map_x < (r->index.width / 2) && \
+			r->raycast.map_y >= 0 && r->raycast.map_y < (r->index.y / 2) && \
+			r->stage.grid[r->raycast.map_y][r->raycast.map_x] != 0)
+		{
+			r->raycast.ver_coll_point_y = r->raycast.ray_y;
+			return (ray_collision_distance(&r->player, \
+				(t_pointf){r->raycast.ray_x, r->raycast.ray_y}));
+		}
+		else
+		{
+			r->raycast.ray_x += r->raycast.offset_x;
+			r->raycast.ray_y += r->raycast.offset_y;
+			index++;
+		}
+	}
+	return (100000);
+}
+
+void	save_vertical(t_rain *r, float ver_coll_dist)
+{
+	r->raycast.closest_coll_dist = ver_coll_dist;
+	r->raycast.wall_texture_xoffset = (int)r->raycast.ver_coll_point_y % \
+					  SQUARE_SIZE;
+	if (r->raycast.ray_angle > 90 && r->raycast.ray_angle < 270)
+		r->player.compass = WEST;
+	else
+		r->player.compass = EAST;
+}
 
 static void	paint_sky_and_earth(t_rain *r)
 {
@@ -136,13 +268,13 @@ static int	draw_space(t_rain *r)
 	while (ray_nbr < r->graph.width)
 	{
 		cast(r);	
-		if (r->raycast.closest_coll_dist > 0)
-			draw_column(r, ray_nbr);
-		r->raycast.ray_angle -= r->raycast.degrees_per_ray;
-		if (r->raycast.ray_angle > 360)
-			r->raycast.ray_angle -= 360;
-		else if (r->raycast.ray_angle < 0)
-			r->raycast.ray_angle += 360;
+		//if (r->raycast.closest_coll_dist > 0)
+		//	draw_column(r, ray_nbr);
+		//r->raycast.ray_angle -= r->raycast.degrees_per_ray;
+		//if (r->raycast.ray_angle > 360)
+		//	r->raycast.ray_angle -= 360;
+		//else if (r->raycast.ray_angle < 0)
+		//	r->raycast.ray_angle += 360;
 		ray_nbr++;
 	}
 	return (0);
