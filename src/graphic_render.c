@@ -63,6 +63,57 @@ static int	check_square(t_rain *r, char a[MAX + 1][MAX + 1], int x, int y)
 	return (0);
 }*/
 
+static void	draw_loops(t_rain *r, t_pointf start, t_pointf end)
+{
+	if (r->raycast.projected_slice_height < r->graph.height)
+	{
+		end.y = (r->graph.height / 2) - (r->raycast.projected_slice_height / 2);
+		while (start.y < end.y)
+			start.y++;
+		end.y += r->raycast.projected_slice_height;
+	}
+	while (start.y < end.y)
+	{
+		vline(&r->graph, start.x, start.y, end.y);
+		//txtr_y += mlx->raycast.wall_texture_yincrement;
+		start.y++;
+	}
+	if (end.y < r->graph.height)
+	{
+		while (start.y < r->graph.height)
+			start.y++;
+	}
+}
+
+void	draw_column(t_rain *r, int ray_nbr)
+{
+	t_raycast	*raycast;
+	t_pointf	start;
+	t_pointf	end;
+	//float		texture_y;
+
+	raycast = &r->raycast;
+	raycast->projected_slice_height = (float)SQUARE_SIZE / \
+			raycast->closest_coll_dist * raycast->dist_to_proj_plane;
+	raycast->wall_texture_yincrement = (float)SQUARE_SIZE / \
+			(float)raycast->projected_slice_height;
+	raycast->wall_texture_yoffset = 0;
+	if (raycast->projected_slice_height > r->graph.height)
+	{
+		raycast->wall_texture_yoffset = \
+			(raycast->projected_slice_height - r->graph.height) / 2;
+		raycast->projected_slice_height = r->graph.height;
+	}
+	//texture_y = raycast->wall_texture_yoffset * raycast->wall_texture_yincrement;
+	start.x = ray_nbr;
+	start.y = 0;
+	end.x = ray_nbr;
+	end.y = r->graph.height;
+	draw_loops(r, start, end);
+	//vline(&r->graph, start.x, start.y, end.y);
+}
+
+
 float	ray_collision_distance(t_player *player, t_pointf collision)
 {
 	float	distance;
@@ -180,7 +231,6 @@ float	calc_ver_coll_dist(t_rain *r)
 	index = 0;
 	while (index < (r->index.width / 2))
 	{
-		r->raycast.map_x = ((int)r->raycast.ray_x) >> 6;
 		r->raycast.map_y = ((int)r->raycast.ray_y) >> 6;
 		if (r->raycast.map_x >= 0 && r->raycast.map_x < (r->index.width / 2) && \
 			r->raycast.map_y >= 0 && r->raycast.map_y < (r->index.y / 2) && \
@@ -248,7 +298,26 @@ int	cast(t_rain *r)
 		save_horizontal(r, hor_coll_dist);
 	fish_eye_fix = r->player.pos_angle - r->raycast.ray_angle;
 	r->raycast.closest_coll_dist = r->raycast.closest_coll_dist * \
-				cos(deg_to_rad(fish_eye_fix));
+	
+	       
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+				       cos(deg_to_rad(fish_eye_fix));
 	return (0);
 }
 
@@ -267,14 +336,15 @@ static int	draw_space(t_rain *r)
 	ray_nbr = 0;
 	while (ray_nbr < r->graph.width)
 	{
-		cast(r);	
-		//if (r->raycast.closest_coll_dist > 0)
+		cast(r);
+		if (r->raycast.closest_coll_dist > 0)
+			break;
 		//	draw_column(r, ray_nbr);
-		//r->raycast.ray_angle -= r->raycast.degrees_per_ray;
-		//if (r->raycast.ray_angle > 360)
-		//	r->raycast.ray_angle -= 360;
-		//else if (r->raycast.ray_angle < 0)
-		//	r->raycast.ray_angle += 360;
+		r->raycast.ray_angle -= r->raycast.degrees_per_ray;
+		if (r->raycast.ray_angle > 360)
+			r->raycast.ray_angle -= 360;
+		else if (r->raycast.ray_angle < 0)
+			r->raycast.ray_angle += 360;
 		ray_nbr++;
 	}
 	return (0);
