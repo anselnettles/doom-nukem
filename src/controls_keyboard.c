@@ -18,18 +18,18 @@ static void	move_forward_back(t_stage *stage, t_player *p, t_graph *g)
 	{
 		if (stage->grid[p->collision.grid_pos_y] \
 				[p->collision.grid_pos_x_plus_offset] == 0)
-			p->pos_x += p->dir_x * p->move_speed;
+			p->pos_x += p->dir_x * (float)p->move_speed;
 		if (stage->grid[p->collision.grid_pos_y_plus_offset] \
 				[p->collision.grid_pos_x] == 0)
-			p->pos_y += p->dir_y * p->move_speed;
+			p->pos_y += p->dir_y * (float)p->move_speed;
 	}
 	if (g->e.key.keysym.sym == SDLK_s || g->e.key.keysym.sym == SDLK_DOWN)
 	{
 		if (stage->grid[p->collision.grid_pos_y] \
 				[p->collision.grid_pos_x_minus_offset] == 0)
-			p->pos_x -= p->dir_x * p->move_speed;
+			p->pos_x -= p->dir_x * (float)p->move_speed;
 		if (stage->grid[p->collision.grid_pos_y_minus_offset] == 0)
-			p->pos_y -= p->dir_y * p->move_speed;
+			p->pos_y -= p->dir_y * (float)p->move_speed;
 	}
 }
 
@@ -40,16 +40,16 @@ static void	move_strafe(t_player *p, t_graph *g)
 		p->pos_angle += TURN_SPEED;
 		if (p->pos_angle >= 360)
 			p->pos_angle -= 360;
-		p->dir_x = cos(deg_to_rad(p->pos_angle));
-		p->dir_y = -sin(deg_to_rad(p->pos_angle));
+		p->dir_x = (float)cos(deg_to_rad(p->pos_angle));
+		p->dir_y = (float)-sin(deg_to_rad(p->pos_angle));
 	}
 	if (g->e.key.keysym.sym == SDLK_d || g->e.key.keysym.sym == SDLK_RIGHT)
 	{
 		p->pos_angle -= TURN_SPEED;
 		if (p->pos_angle < 0)
 			p->pos_angle += 360;
-		p->dir_x = cos(deg_to_rad(p->pos_angle));
-		p->dir_y = -sin(deg_to_rad(p->pos_angle));
+		p->dir_x = (float)cos(deg_to_rad(p->pos_angle));
+		p->dir_y = (float)-sin(deg_to_rad(p->pos_angle));
 	}
 }
 
