@@ -65,6 +65,7 @@ static int	check_square(t_rain *r, char a[MAX + 1][MAX + 1], int x, int y)
 
 static void	draw_loops(t_rain *r, t_pointf start, t_pointf end)
 {
+	printf("PSH: %d \n", r->raycast.projected_slice_height);
 	if (r->raycast.projected_slice_height < r->graph.height)
 	{
 		end.y = (r->graph.height / 2) - (r->raycast.projected_slice_height / 2);
@@ -72,12 +73,10 @@ static void	draw_loops(t_rain *r, t_pointf start, t_pointf end)
 			start.y++;
 		end.y += r->raycast.projected_slice_height;
 	}
-	while (start.y < end.y)
-	{
-		vline(&r->graph, start.x, start.y, end.y);
-		//txtr_y += mlx->raycast.wall_texture_yincrement;
-		start.y++;
-	}
+	//	while (start.y < end.y)
+	vline(&r->graph, start.x, start.y, end.y);
+		//txtr_y += r->raycast.wall_texture_yincrement;
+	//	start.y++;
 	if (end.y < r->graph.height)
 	{
 		while (start.y < r->graph.height)
@@ -92,6 +91,8 @@ void	draw_column(t_rain *r, int ray_nbr)
 	t_pointf	end;
 	//float		texture_y;
 
+	printf("CCD: %f \n", r->raycast.closest_coll_dist);
+	printf("DTPP: %f \n", r->raycast.dist_to_proj_plane);
 	raycast = &r->raycast;
 	raycast->projected_slice_height = (float)SQUARE_SIZE / \
 			raycast->closest_coll_dist * raycast->dist_to_proj_plane;
@@ -168,7 +169,7 @@ float	calc_hor_coll_dist(t_rain *r)
 		r->raycast.map_y = ((int)r->raycast.ray_y) >> 6;
 		if (r->raycast.map_x >= 0 && r->raycast.map_x < (r->index.x) && \
 			r->raycast.map_y >= 0 && r->raycast.map_y < (r->index.y / 2) && \
-			r->stage.grid[r->raycast.map_y][r->raycast.map_x] != 0)
+			r->stage.grid[r->raycast.map_y][r->raycast.map_x] != ' ')
 		{
 			r->raycast.hor_coll_point_x = r->raycast.ray_x;
 			return (ray_collision_distance(&r->player, \
@@ -234,7 +235,7 @@ float	calc_ver_coll_dist(t_rain *r)
 		r->raycast.map_y = ((int)r->raycast.ray_y) >> 6;
 		if (r->raycast.map_x >= 0 && r->raycast.map_x < (r->index.width / 2) && \
 			r->raycast.map_y >= 0 && r->raycast.map_y < (r->index.y / 2) && \
-			r->stage.grid[r->raycast.map_y][r->raycast.map_x] != 0)
+			r->stage.grid[r->raycast.map_y][r->raycast.map_x] != ' ')
 		{
 			r->raycast.ver_coll_point_y = r->raycast.ray_y;
 			return (ray_collision_distance(&r->player, \
@@ -298,25 +299,6 @@ int	cast(t_rain *r)
 		save_horizontal(r, hor_coll_dist);
 	fish_eye_fix = r->player.pos_angle - r->raycast.ray_angle;
 	r->raycast.closest_coll_dist = r->raycast.closest_coll_dist * \
-	
-	       
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 				       cos(deg_to_rad(fish_eye_fix));
 	return (0);
 }
@@ -336,10 +318,16 @@ static int	draw_space(t_rain *r)
 	ray_nbr = 0;
 	while (ray_nbr < r->graph.width)
 	{
+//		write(1, "I wanna draw the screen.", 24);
 		cast(r);
+		r->graph.top_color = (WALL_TEXTURE + 00076000);
+		r->graph.middle_color = WALL_TEXTURE;
+		r->graph.bottom_color = (WALL_TEXTURE + 00076000);
 		if (r->raycast.closest_coll_dist > 0)
-			break;
-		//	draw_column(r, ray_nbr);
+		{
+//			write(1, "I will draw.", 12);
+			draw_column(r, ray_nbr);
+		}
 		r->raycast.ray_angle -= r->raycast.degrees_per_ray;
 		if (r->raycast.ray_angle > 360)
 			r->raycast.ray_angle -= 360;
@@ -430,8 +418,8 @@ int	initialize_media(t_graph *g)
 		return (ERROR);
 	}
 	g->map = PLAYER_MAP;
-	g->raycast.dist_to_proj_plane = (double)(g->width / 2) / \
-					tan(deg_to_rad(FOV / 2));
+	g->raycast.dist_to_proj_plane = (double)(g->width / 2) / tan(deg_to_rad(FOV / 2));
+	printf("DistToProjPlane: %f \n", g->raycast.dist_to_proj_plane);
 	g->raycast.degrees_per_column = (double)g->width / (double)FOV;
 	g->raycast.degrees_per_ray = (double)FOV / (double)g->width;
 	return (0);
