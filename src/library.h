@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/04 13:26:58 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/04 16:48:18 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,7 @@ typedef struct s_raycast
 	int		map_y;
 	double	offset_x;
 	double	offset_y;
-	double	dist_to_proj_plane;
+	double	plane_distance;
 	double	degrees_per_column;
 	double	degrees_per_ray;
 	double	hor_coll_point_x;
