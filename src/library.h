@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2022/12/28 10:02:46 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/04 12:08:07 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,7 +232,7 @@ typedef struct s_rain {
 //	t_sector		sector;
 	t_pointf		pointf;
 	t_collision		collision;
-	t_raycast		raycast;
+//	t_raycast		raycast;
 }	t_rain;
 
 /*Listed error types*/
