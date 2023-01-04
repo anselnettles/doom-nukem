@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 10:05:39 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/04 16:50:30 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/04 16:55:18 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -332,7 +332,7 @@ int	initialize_player(t_rain *r)
 	printf("\n/Player(): Pos.x_ %f \n", r->player.pos_x);
 	printf("/Player(): Pos.y_ %f \n", r->player.pos_y);
 
-	r->player.pos_angle = 180;
+	r->player.pos_angle = 90;
 	r->player.dir_x = cos(deg_to_rad(r->player.pos_angle));
 	r->player.dir_y = -sin(deg_to_rad(r->player.pos_angle));
 	return (0);
