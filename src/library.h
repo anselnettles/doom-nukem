@@ -96,9 +96,13 @@ typedef struct s_editor {
 	char		*file;
 	char		buffer[MAX + 1];
 	char		array[MAX + 1][MAX + 1];
+}	t_editor;
+
+typedef struct s_stage {
+	char		grid[MAX + 1][MAX + 1];
 	int		start_x;
 	int		start_y;
-}	t_editor;
+}	t_stage;
 
 /*Index-wise variables used for counts. Index 'i' is used for the level file's
 buffer string, while variables 'x' and 'y' are for the array of the extracted
@@ -110,20 +114,20 @@ typedef struct s_index {
 	int			width;
 }	t_index;
 
-typedef struct s_pointd
+typedef struct s_pointf
 {
 	double	x;
 	double	y;
-}	t_pointd;
+}	t_pointf;
 
 typedef struct s_collision
 {
-	int	square_pos_x;
-	int	square_pos_x_plus_offset;
-	int	square_pos_x_minus_offset;
-	int	square_pos_y;
-	int	square_pos_y_plus_offset;
-	int	square_pos_y_minus_offset;
+	int	grid_pos_x;
+	int	grid_pos_x_plus_offset;
+	int	grid_pos_x_minus_offset;
+	int	grid_pos_y;
+	int	grid_pos_y_plus_offset;
+	int	grid_pos_y_minus_offset;
 }	t_collision;
 
 /*Player location struct.*/
@@ -140,17 +144,13 @@ typedef struct s_player {
 	unsigned int	sector;
 
 	t_collision		collision;
-	double			pos_angle;
-	double			pos_x;
-	double			pos_y;
-	double			dir_x;
-	double			dir_y;
+	float			pos_angle;
+	float			pos_x;
+	float			pos_y;
+	float			dir_x;
+	float			dir_y;
 	int				move_speed;
 	int				compass;
-	int				left;
-	int				right;
-	int				forward;
-	int				back;
 }	t_player;
 
 typedef struct s_raycast
@@ -224,14 +224,15 @@ typedef struct s_sector {
 typedef struct s_rain {
 	t_system		system;
 	t_editor		editor;
+	t_stage			stage;
 	t_index			index;
 	t_player		player;
 	t_graph			graph;
 	t_intersect		intersect;
 //	t_sector		sector;
-	t_pointd		pointd;
-//	t_collision		collision;
-//	t_raycast		raycast;
+	t_pointf		pointf;
+	t_collision		collision;
+	t_raycast		raycast;
 }	t_rain;
 
 /*Listed error types*/
@@ -267,6 +268,7 @@ void	vline(t_graph *g, int x_source, int y_source1, int y_source2);
 void	sdl_loop(t_rain *rain);
 //int		overlap(int a0, int a1, int b0, int b1);
 //int		vxs(int x0, int y0, int x1, int y1);
+float		square_root(float nb);
 int		max(int a, int b);
 int		min(int a, int b);
 int		clamp(int a, int lower, int upper);

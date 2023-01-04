@@ -36,6 +36,22 @@ int	clamp(int a, int lower, int upper)
 	return (min(max(a, lower), upper));
 }
 
+//Returns square root of the given value.
+float	square_root(float nb)
+{
+	float	sqrt;
+	float	temp;
+
+	sqrt = nb / 2;
+	temp = 0;
+	while (sqrt != temp)
+	{
+		temp = sqrt;
+		sqrt = ((nb / temp) + temp) / 2;
+	}
+	return (sqrt);
+}
+
 double	deg_to_rad(double degrees)
 {
 	return (degrees * (double)M_PI / 180.0);
