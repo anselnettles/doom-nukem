@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 14:16:37 by aviholai          #+#    #+#             */
-/*   Updated: 2022/12/19 14:36:51 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/04 13:16:27 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,9 @@ static void	move_forward_back(t_stage *stage, t_player *p, t_graph *g)
 	}
 	if (g->e.key.keysym.sym == SDLK_s || g->e.key.keysym.sym == SDLK_DOWN)
 	{
-		if (stage->grid[p->collision.grid_pos_y] \
-				[p->collision.grid_pos_x_minus_offset] == 0)
+		if (stage->grid[p->collision.grid_pos_y][p->collision.grid_pos_x_minus_offset] == 0)
 			p->pos_x -= p->dir_x * (float)p->move_speed;
-		if (stage->grid[p->collision.grid_pos_y_minus_offset] == 0)
+		if (stage->grid[p->collision.grid_pos_y_minus_offset][p->collision.grid_pos_x] == 0)
 			p->pos_y -= p->dir_y * (float)p->move_speed;
 	}
 }
