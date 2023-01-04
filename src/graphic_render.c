@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 10:05:39 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/04 12:22:08 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/04 13:23:26 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,12 @@ void	column_render(t_rain *r, int ray_count)
 	t_pointf	start;
 	t_pointf	end;
 
-	printf("\n//Column() ClosestCollDist: %f \n", r->graph.raycast.closest_coll_dist);
-	printf("//Column() DistToProjPlane: %f \n", r->graph.raycast.dist_to_proj_plane);
+//	printf("\n//Column() ClosestCollDist: %f \n", r->graph.raycast.closest_coll_dist);
+//	printf("//Column() DistToProjPlane: %f \n", r->graph.raycast.dist_to_proj_plane);
 
 	raycast = &r->graph.raycast;
 	raycast->projected_slice_height = (float)SQUARE_SIZE / raycast->closest_coll_dist * raycast->dist_to_proj_plane;
-	printf("//Column() ProjSliceHeight: %d \n", r->graph.raycast.projected_slice_height);
+//	printf("//Column() ProjSliceHeight: %d \n", r->graph.raycast.projected_slice_height);
 
 	if (raycast->projected_slice_height > r->graph.height)
 		raycast->projected_slice_height = r->graph.height;
@@ -117,17 +117,14 @@ float	calc_hor_coll_dist(t_rain *r)
 	{
 		r->graph.raycast.map_x = ((int)r->graph.raycast.ray_x) >> 6;
 		r->graph.raycast.map_y = ((int)r->graph.raycast.ray_y) >> 6;
-		if (r->graph.raycast.map_x >= 0 && r->graph.raycast.map_x < (r->index.x)
+		if (r->graph.raycast.map_x >= 0 && r->graph.raycast.map_x < (r->index.width / 2)
 				&& r->graph.raycast.map_y >= 0 && r->graph.raycast.map_y < (r->index.y / 2)
-				&& r->stage.grid[r->graph.raycast.map_y][r->graph.raycast.map_x] != ' ')
+				&& r->stage.grid[r->graph.raycast.map_y][r->graph.raycast.map_x] == '#')
 		{
 			r->graph.raycast.hor_coll_point_x = r->graph.raycast.ray_x;
 			r->pointf.x = r->graph.raycast.ray_x;
 			r->pointf.y = r->graph.raycast.ray_y;
 			distance = ray_collision_distance(&r->player, r->pointf);
-
-			printf("\n/Ray_Coll() RayCollDistance: %f \n", distance);
-
 			return (distance);
 		}
 		else
@@ -182,19 +179,23 @@ int	find_ver_coll_point(t_rain *r)
 
 float	calc_ver_coll_dist(t_rain *r)
 {
-	int	index;
+	int		index;
+	float	distance;
 
 	index = 0;
 	while (index < (r->index.width / 2))
 	{
+		r->graph.raycast.map_x = ((int)r->graph.raycast.ray_x) >> 6;
 		r->graph.raycast.map_y = ((int)r->graph.raycast.ray_y) >> 6;
-		if (r->graph.raycast.map_x >= 0 && r->graph.raycast.map_x < (r->index.width / 2) && \
-			r->graph.raycast.map_y >= 0 && r->graph.raycast.map_y < (r->index.y / 2) && \
-			r->stage.grid[r->graph.raycast.map_y][r->graph.raycast.map_x] != ' ')
+		if (r->graph.raycast.map_x >= 0 && r->graph.raycast.map_x < (r->index.width / 2)
+				&& r->graph.raycast.map_y >= 0 && r->graph.raycast.map_y < (r->index.y / 2)
+			&& r->stage.grid[r->graph.raycast.map_y][r->graph.raycast.map_x] == '#')
 		{
 			r->graph.raycast.ver_coll_point_y = r->graph.raycast.ray_y;
-			return (ray_collision_distance(&r->player, \
-				(t_pointf){r->graph.raycast.ray_x, r->graph.raycast.ray_y}));
+			r->pointf.x = r->graph.raycast.ray_x;
+			r->pointf.y = r->graph.raycast.ray_y;
+			distance = ray_collision_distance(&r->player, r->pointf);
+			return (distance);
 		}
 		else
 		{
@@ -221,7 +222,7 @@ int	raycast(t_rain *r)
 {
 	float	hor_coll_dist;
 	float	ver_coll_dist;
-	float	fish_eye_fix;
+	//float	fish_eye_fix;
 
 	hor_coll_dist = 100000;
 	ver_coll_dist = 100000;
@@ -233,8 +234,8 @@ int	raycast(t_rain *r)
 		save_vertical(r, ver_coll_dist);
 	else
 		save_horizontal(r, hor_coll_dist);
-	fish_eye_fix = r->player.pos_angle - r->graph.raycast.ray_angle;
-	r->graph.raycast.closest_coll_dist = r->graph.raycast.closest_coll_dist * cos(deg_to_rad(fish_eye_fix));
+	//fish_eye_fix = r->player.pos_angle - r->graph.raycast.ray_angle;
+	//r->graph.raycast.closest_coll_dist = r->graph.raycast.closest_coll_dist * cos(deg_to_rad(fish_eye_fix));
 	return (0);
 }
 
@@ -250,9 +251,16 @@ static int	draw_space(t_rain *r)
 	else if (r->graph.raycast.ray_angle < 0)
 		r->graph.raycast.ray_angle += 360;
 	ray_count = 0;
+	
+	printf("\n/Draw_space() Player Angle: %f \n", r->player.pos_angle);
+
 	while (ray_count < r->graph.width)
 	{
 		raycast(r);
+
+		if (ray_count == r->graph.width / 2)
+			printf("/Draw_space() Closest_coll_dist: %f", r->graph.raycast.closest_coll_dist);
+
 		if (r->graph.raycast.closest_coll_dist > 0)
 			column_render(r, ray_count);
 		r->graph.raycast.ray_angle -= r->graph.raycast.degrees_per_ray;
@@ -312,10 +320,18 @@ int	initialize_player(t_rain *r)
 	if (!(r->stage.start_x) || !(r->stage.start_y))
 		return (ERROR);
 	r->player.move_speed = MOVE_SPEED;
+
+	printf("\n/STAGE() start.x: %d \n", r->stage.start_x);
+	printf("/STAGE() start.y: %d \n", r->stage.start_y);
+
 	r->player.pos_x = (double)SQUARE_SIZE * (r->stage.start_x + 1) - \
 						 ((double)SQUARE_SIZE / 2.0);
 	r->player.pos_y = (double)SQUARE_SIZE * (r->stage.start_y + 1) - \
 						 ((double)SQUARE_SIZE / 2.0);
+	
+	printf("\n/Player() Pos.x: %f \n", r->player.pos_x);
+	printf("/Player() Pos.y: %f \n", r->player.pos_y);
+
 	r->player.pos_angle = 180;
 	r->player.dir_x = cos(deg_to_rad(r->player.pos_angle));
 	r->player.dir_y = -sin(deg_to_rad(r->player.pos_angle));
