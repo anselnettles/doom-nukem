@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/04 12:08:07 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/04 13:26:58 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,11 @@
 # define WALL_TEXTURE 0x345625
 # define FLOOR_TEXTURE 0x979d53
 
-# define FOV 60
+# define FOV 40
 # define SQUARE_SIZE 64
-# define MOVE_SPEED 4;
+# define MOVE_SPEED 8;
 # define RAY_LENGTH 3
-# define TURN_SPEED 3
+# define TURN_SPEED 4
 # define DEGREE 0.0174533
 # define NORTH 1
 # define EAST 2
