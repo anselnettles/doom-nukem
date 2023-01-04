@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 10:05:39 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/04 13:23:26 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/04 16:50:30 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,10 @@ void	column_render(t_rain *r, int ray_count)
 	t_pointf	end;
 
 //	printf("\n//Column() ClosestCollDist: %f \n", r->graph.raycast.closest_coll_dist);
-//	printf("//Column() DistToProjPlane: %f \n", r->graph.raycast.dist_to_proj_plane);
+//	printf("//Column() DistToProjPlane: %f \n", r->graph.raycast.plane_distance);
 
 	raycast = &r->graph.raycast;
-	raycast->projected_slice_height = (float)SQUARE_SIZE / raycast->closest_coll_dist * raycast->dist_to_proj_plane;
+	raycast->projected_slice_height = (float)SQUARE_SIZE / raycast->closest_coll_dist * raycast->plane_distance;
 //	printf("//Column() ProjSliceHeight: %d \n", r->graph.raycast.projected_slice_height);
 
 	if (raycast->projected_slice_height > r->graph.height)
@@ -309,8 +309,8 @@ int	render(t_rain *r)
 		return (ERROR);
 	if (draw_arraymap(r) == ERROR)
 		return (ERROR);
-	if (SDL_UpdateWindowSurface(r->graph.win) == 0)
-		write(1, "[Ren'd]", 7);
+	if (SDL_UpdateWindowSurface(r->graph.win) == ERROR)
+		return (ERROR);
 	return (0);
 }
 
@@ -321,16 +321,16 @@ int	initialize_player(t_rain *r)
 		return (ERROR);
 	r->player.move_speed = MOVE_SPEED;
 
-	printf("\n/STAGE() start.x: %d \n", r->stage.start_x);
-	printf("/STAGE() start.y: %d \n", r->stage.start_y);
+	printf("\n/STAGE(): start.x_ %d \n", r->stage.start_x);
+	printf("/STAGE(): start.y_ %d \n", r->stage.start_y);
 
 	r->player.pos_x = (double)SQUARE_SIZE * (r->stage.start_x + 1) - \
 						 ((double)SQUARE_SIZE / 2.0);
 	r->player.pos_y = (double)SQUARE_SIZE * (r->stage.start_y + 1) - \
 						 ((double)SQUARE_SIZE / 2.0);
 	
-	printf("\n/Player() Pos.x: %f \n", r->player.pos_x);
-	printf("/Player() Pos.y: %f \n", r->player.pos_y);
+	printf("\n/Player(): Pos.x_ %f \n", r->player.pos_x);
+	printf("/Player(): Pos.y_ %f \n", r->player.pos_y);
 
 	r->player.pos_angle = 180;
 	r->player.dir_x = cos(deg_to_rad(r->player.pos_angle));
@@ -342,30 +342,33 @@ int	initialize_player(t_rain *r)
 //	all the necessary variables for graphical rendering.
 int	initialize_media(t_graph *g)
 {
-	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS) <= SDL_ERROR)
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS) > SDL_ERROR)
+	{
+		g->scale = SCALE;
+		g->width = (WIDTH * g->scale);
+		g->height = (HEIGHT * g->scale);
+		g->win = SDL_CreateWindow(TITLE, 0, 0, g->width, g->height, 0);
+		g->surf = SDL_GetWindowSurface(g->win);
+		if (g->win != NULL || g->surf != NULL)
 		{
-		g->sdl_error_string = SDL_GetError();
-		write(1, g->sdl_error_string, ft_strlen(g->sdl_error_string));
-		return (ERROR);
+			g->map = PLAYER_MAP;
+			g->raycast.plane_distance = (double)(g->width / 2)
+				/ tan(deg_to_rad(FOV / 2));
+
+			printf("\n/Init_media(): Plane_Distance_ %f \n", g->raycast.plane_distance);
+
+			g->raycast.degrees_per_column = (double)g->width / (double)FOV;
+			g->raycast.degrees_per_ray = (double)FOV / (double)g->width;
+			return (0);
+		}
 	}
-	g->scale = SCALE;
-	g->width = (WIDTH * g->scale);
-	g->height = (HEIGHT * g->scale);
-	g->win = SDL_CreateWindow(TITLE, 0, 0, g->width, g->height, 0);
-	g->surf = SDL_GetWindowSurface(g->win);
-	if (g->win == NULL || g->surf == NULL)
+	else
 	{
 		g->sdl_error_string = SDL_GetError();
 		write(1, "SDL Error: ", 11);
 		write(1, g->sdl_error_string, ft_strlen(g->sdl_error_string));
-		return (ERROR);
 	}
-	g->map = PLAYER_MAP;
-	g->raycast.dist_to_proj_plane = (double)(g->width / 2) / tan(deg_to_rad(FOV / 2));
-	printf("DistToProjPlane: %f \n", g->raycast.dist_to_proj_plane);
-	g->raycast.degrees_per_column = (double)g->width / (double)FOV;
-	g->raycast.degrees_per_ray = (double)FOV / (double)g->width;
-	return (0);
+	return (ERROR);
 }
 
 // Beginning of graphical function calls. Runs the graphical sequences in the
