@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/05 12:38:19 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/05 14:18:56 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,6 +174,7 @@ typedef struct s_graph {
 	uint32_t		bottom_color;
 	int				scale;
 	int				map;
+	int				scanline;
 	t_raycast		raycast;
 }	t_graph;
 
