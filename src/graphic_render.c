@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 10:05:39 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/05 14:21:48 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/05 14:43:21 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	draw_column(t_rain *r, t_coor start, t_coor end)
 	r->graph.top_color = (WALL_PRINT << 6);
 	r->graph.middle_color = WALL_PRINT;
 	r->graph.bottom_color = (WALL_PRINT << 8);
-
+	start.y -= (150 * r->graph.scale);
 	vline(&r->graph, start.x, start.y, end.y);
 
 	if (end.y + 1 < r->graph.height)
@@ -257,7 +257,6 @@ static int	draw_space(t_rain *r)
 	while (ray_count < r->graph.width)
 	{
 		raycast(r);
-
 		if (ray_count == r->graph.width / 2)
 			printf("/Draw_space() Closest_coll_dist: %f", r->graph.raycast.closest_coll_dist);
 
