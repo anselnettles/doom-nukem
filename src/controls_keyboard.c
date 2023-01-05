@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 14:16:37 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/04 13:16:27 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/05 12:19:18 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,18 @@ static void	toggle_scale(t_rain *r)
 {
 	if (r->graph.scale == 1)
 		r->graph.scale = 2;
+	else if (r->graph.scale == 2)
+		r->graph.scale = 3;
 	else
 		r->graph.scale = 1;
 	r->graph.width = (WIDTH * r->graph.scale);
 	r->graph.height = (HEIGHT * r->graph.scale);
 	SDL_SetWindowSize(r->graph.win, r->graph.width, r->graph.height);
 	r->graph.surf = SDL_GetWindowSurface(r->graph.win);
+	r->graph.raycast.plane_distance = (double)(r->graph.width / 2)
+		/ tan(deg_to_rad(FOV / 2));
+	r->graph.raycast.degrees_per_column = (double)r->graph.width / (double)FOV;
+	r->graph.raycast.degrees_per_ray = (double)FOV / (double)r->graph.width;
 }
 
 static void	quit_program(t_rain *r)
@@ -76,9 +82,9 @@ void	keyboard(t_rain *r)
 	if (r->graph.e.type == SDL_KEYDOWN)
 	{
 		write(1, ".", 1);
-		if (r->graph.e.key.keysym.sym == ESC)
+		if (r->graph.e.key.keysym.sym == SDLK_ESCAPE)
 			quit_program(r);
-		if (r->graph.e.key.keysym.sym == NUMPAD_MINUS)
+		if (r->graph.e.key.keysym.sym == SDLK_KP_PLUS)
 			toggle_scale(r);
 		if (r->graph.e.key.keysym.sym == SDLK_m)
 		{
