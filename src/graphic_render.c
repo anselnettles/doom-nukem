@@ -6,37 +6,37 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 10:05:39 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/04 16:55:18 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/05 12:07:09 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "library.h"
 
-static void	draw_column(t_rain *r, t_pointf start, t_pointf end)
+static void	draw_column(t_rain *r, t_coor start, t_coor end)
 {
-	if (r->graph.raycast.projected_slice_height < r->graph.height)
+	if (r->graph.raycast.slice_height < r->graph.height)
 	{
-		r->graph.top_color = CEILING_TEXTURE;
-		r->graph.middle_color = CEILING_TEXTURE;
-		r->graph.bottom_color = WALL_TEXTURE;
+		r->graph.top_color = SKY_PRINT;
+		r->graph.middle_color = SKY_PRINT;
+		r->graph.bottom_color = SKY_PRINT;
 
-		end.y = (r->graph.height / 2) - (r->graph.raycast.projected_slice_height / 2);
+		end.y = (r->graph.height / 2) - (r->graph.raycast.slice_height / 2);
 		vline(&r->graph, start.x, start.y, end.y);
 		start.y = end.y + 1;
-		end.y += r->graph.raycast.projected_slice_height;
+		end.y += r->graph.raycast.slice_height;
 	}
 
-	r->graph.top_color = (WALL_TEXTURE + 00076000);
-	r->graph.middle_color = WALL_TEXTURE;
-	r->graph.bottom_color = (WALL_TEXTURE + 00076000);
+	r->graph.top_color = (WALL_PRINT + 00076000);
+	r->graph.middle_color = WALL_PRINT;
+	r->graph.bottom_color = (WALL_PRINT + 00076000);
 
 	vline(&r->graph, start.x, start.y, end.y);
 
 	if (end.y + 1 < r->graph.height)
 	{
-		r->graph.top_color = FLOOR_TEXTURE;
-		r->graph.middle_color = FLOOR_TEXTURE;
-		r->graph.bottom_color = FLOOR_TEXTURE;
+		r->graph.top_color = FLOOR_PRINT;
+		r->graph.middle_color = FLOOR_PRINT;
+		r->graph.bottom_color = FLOOR_PRINT;
 
 		end.y++;
 		vline(&r->graph, start.x, end.y, r->graph.height);
@@ -46,18 +46,18 @@ static void	draw_column(t_rain *r, t_pointf start, t_pointf end)
 void	column_render(t_rain *r, int ray_count)
 {
 	t_raycast	*raycast;
-	t_pointf	start;
-	t_pointf	end;
+	t_coor	start;
+	t_coor	end;
 
 //	printf("\n//Column() ClosestCollDist: %f \n", r->graph.raycast.closest_coll_dist);
 //	printf("//Column() DistToProjPlane: %f \n", r->graph.raycast.plane_distance);
 
 	raycast = &r->graph.raycast;
-	raycast->projected_slice_height = (float)SQUARE_SIZE / raycast->closest_coll_dist * raycast->plane_distance;
-//	printf("//Column() ProjSliceHeight: %d \n", r->graph.raycast.projected_slice_height);
+	raycast->slice_height = (float)SQUARE_SIZE / raycast->closest_coll_dist * raycast->plane_distance;
+//	printf("//Column() ProjSliceHeight: %d \n", r->graph.raycast.slice_height);
 
-	if (raycast->projected_slice_height > r->graph.height)
-		raycast->projected_slice_height = r->graph.height;
+	if (raycast->slice_height > r->graph.height)
+		raycast->slice_height = r->graph.height;
 	start.x = ray_count;
 	start.y = 0;
 	end.x = ray_count;
@@ -65,7 +65,7 @@ void	column_render(t_rain *r, int ray_count)
 	draw_column(r, start, end);
 }
 
-float	ray_collision_distance(t_player *player, t_pointf collision)
+float	ray_collision_distance(t_player *player, t_coor collision)
 {
 	float	distance;
 	float	temp;
@@ -122,9 +122,9 @@ float	calc_hor_coll_dist(t_rain *r)
 				&& r->stage.grid[r->graph.raycast.map_y][r->graph.raycast.map_x] == '#')
 		{
 			r->graph.raycast.hor_coll_point_x = r->graph.raycast.ray_x;
-			r->pointf.x = r->graph.raycast.ray_x;
-			r->pointf.y = r->graph.raycast.ray_y;
-			distance = ray_collision_distance(&r->player, r->pointf);
+			r->coor.x = r->graph.raycast.ray_x;
+			r->coor.y = r->graph.raycast.ray_y;
+			distance = ray_collision_distance(&r->player, r->coor);
 			return (distance);
 		}
 		else
@@ -192,9 +192,9 @@ float	calc_ver_coll_dist(t_rain *r)
 			&& r->stage.grid[r->graph.raycast.map_y][r->graph.raycast.map_x] == '#')
 		{
 			r->graph.raycast.ver_coll_point_y = r->graph.raycast.ray_y;
-			r->pointf.x = r->graph.raycast.ray_x;
-			r->pointf.y = r->graph.raycast.ray_y;
-			distance = ray_collision_distance(&r->player, r->pointf);
+			r->coor.x = r->graph.raycast.ray_x;
+			r->coor.y = r->graph.raycast.ray_y;
+			distance = ray_collision_distance(&r->player, r->coor);
 			return (distance);
 		}
 		else
@@ -355,7 +355,8 @@ int	initialize_media(t_graph *g)
 			g->raycast.plane_distance = (double)(g->width / 2)
 				/ tan(deg_to_rad(FOV / 2));
 
-			printf("\n/Init_media(): Plane_Distance_ %f \n", g->raycast.plane_distance);
+			printf("\n/Init_media(): Plane_Distance_ %f \n",
+					g->raycast.plane_distance);
 
 			g->raycast.degrees_per_column = (double)g->width / (double)FOV;
 			g->raycast.degrees_per_ray = (double)FOV / (double)g->width;
