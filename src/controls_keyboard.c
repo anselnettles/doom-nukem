@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 14:16:37 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/05 12:19:18 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/05 12:26:04 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	move_forward_back(t_stage *stage, t_player *p, t_graph *g)
 	}
 }
 
-static void	move_strafe(t_player *p, t_graph *g)
+static void	move_turn(t_player *p, t_graph *g)
 {
 	if (g->e.key.keysym.sym == SDLK_a || g->e.key.keysym.sym == SDLK_LEFT)
 	{
@@ -98,7 +98,7 @@ void	keyboard(t_rain *r)
 			move_forward_back(&r->stage, &r->player, &r->graph);
 		if (r->graph.e.key.keysym.sym == SDLK_a || r->graph.e.key.keysym.sym == SDLK_LEFT
 				|| r->graph.e.key.keysym.sym == SDLK_d || r->graph.e.key.keysym.sym == SDLK_RIGHT)
-			move_strafe(&r->player, &r->graph);
+			move_turn(&r->player, &r->graph);
 		render(r);
 	}
 }
