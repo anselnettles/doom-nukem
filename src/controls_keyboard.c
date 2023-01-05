@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 14:16:37 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/05 14:21:37 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/05 16:27:28 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,30 @@ static void	move_forward_back(t_stage *stage, t_player *p, t_graph *g)
 			p->pos_y -= p->dir_y * (float)p->move_speed;
 	}
 }
+
+static void	collision_check(t_player *player)
+{
+	int	x_offset;
+	int	y_offset;
+
+	x_offset = 0;
+	y_offset = 0;
+	if (player->dir_x < 0)
+		x_offset = -15;
+	else
+		x_offset = 15;
+	if (player->dir_y < 0)
+		y_offset = -15;
+	else
+		y_offset = 15;
+	player->collision.grid_pos_x = player->pos_x / 64;
+	player->collision.grid_pos_x_plus_offset = (player->pos_x + x_offset) / 64;
+	player->collision.grid_pos_x_minus_offset = (player->pos_x - x_offset) / 64;
+	player->collision.grid_pos_y = player->pos_y / 64;
+	player->collision.grid_pos_y_plus_offset = (player->pos_y + y_offset) / 64;
+	player->collision.grid_pos_y_minus_offset = (player->pos_y - y_offset) / 64;
+}
+
 
 static void	move_turn(t_player *p, t_graph *g)
 {
@@ -102,7 +126,10 @@ void	keyboard(t_rain *r)
 		}
 		if (r->graph.e.key.keysym.sym == SDLK_w || r->graph.e.key.keysym.sym == SDLK_UP
 				|| r->graph.e.key.keysym.sym == SDLK_s || r->graph.e.key.keysym.sym == SDLK_DOWN)
+		{
+			collision_check(&r->player);
 			move_forward_back(&r->stage, &r->player, &r->graph);
+		}
 		if (r->graph.e.key.keysym.sym == SDLK_a || r->graph.e.key.keysym.sym == SDLK_LEFT
 				|| r->graph.e.key.keysym.sym == SDLK_d || r->graph.e.key.keysym.sym == SDLK_RIGHT)
 			move_turn(&r->player, &r->graph);
