@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 10:05:39 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/05 12:52:55 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/05 14:21:48 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -347,6 +347,7 @@ int	initialize_media(t_graph *g)
 		g->scale = SCALE;
 		g->width = (WIDTH * g->scale);
 		g->height = (HEIGHT * g->scale);
+		g->scanline = TRUE;
 		g->win = SDL_CreateWindow(TITLE, 0, 0, g->width, g->height, 0);
 		g->surf = SDL_GetWindowSurface(g->win);
 		if (g->win != NULL || g->surf != NULL)
