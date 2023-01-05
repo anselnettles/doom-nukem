@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 10:05:39 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/05 12:07:09 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/05 12:52:55 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	draw_column(t_rain *r, t_coor start, t_coor end)
 	{
 		r->graph.top_color = SKY_PRINT;
 		r->graph.middle_color = SKY_PRINT;
-		r->graph.bottom_color = SKY_PRINT;
+		r->graph.bottom_color = SKY_PRINT >> 1;
 
 		end.y = (r->graph.height / 2) - (r->graph.raycast.slice_height / 2);
 		vline(&r->graph, start.x, start.y, end.y);
@@ -26,15 +26,15 @@ static void	draw_column(t_rain *r, t_coor start, t_coor end)
 		end.y += r->graph.raycast.slice_height;
 	}
 
-	r->graph.top_color = (WALL_PRINT + 00076000);
+	r->graph.top_color = (WALL_PRINT << 6);
 	r->graph.middle_color = WALL_PRINT;
-	r->graph.bottom_color = (WALL_PRINT + 00076000);
+	r->graph.bottom_color = (WALL_PRINT << 8);
 
 	vline(&r->graph, start.x, start.y, end.y);
 
 	if (end.y + 1 < r->graph.height)
 	{
-		r->graph.top_color = FLOOR_PRINT;
+		r->graph.top_color = FLOOR_PRINT >> 1;
 		r->graph.middle_color = FLOOR_PRINT;
 		r->graph.bottom_color = FLOOR_PRINT;
 
