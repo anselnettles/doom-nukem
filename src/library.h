@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/05 14:18:56 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/05 16:46:47 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,12 +115,12 @@ typedef struct s_coor
 // Collision handling variables, stored within the player structure.
 typedef struct s_collision
 {
-	int				grid_pos_x;
-	int				grid_pos_x_plus_offset;
-	int				grid_pos_x_minus_offset;
-	int				grid_pos_y;
-	int				grid_pos_y_plus_offset;
-	int				grid_pos_y_minus_offset;
+	int				loc_x;
+	int				loc_x_pos_offset;
+	int				loc_x_neg_offset;
+	int				loc_y;
+	int				loc_y_pos_offset;
+	int				loc_y_neg_offset;
 }	t_collision;
 
 /*Player location and movement structure. Mother to collision struct.*/
