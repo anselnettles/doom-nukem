@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 14:16:37 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/05 16:49:30 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/06 11:09:17 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,16 @@ static void	move_forward_back(t_stage *stage, t_player *p, t_graph *g)
 {
 	if (g->e.key.keysym.sym == SDLK_w || g->e.key.keysym.sym == SDLK_UP)
 	{
-		if (stage->grid[p->collision.loc_y][p->collision.loc_x_pos_offset] == 0)
+		if (stage->grid[p->collision.loc_y][p->collision.loc_x_pos_offset] != '#')
 			p->pos_x += p->dir_x * (float)p->move_speed;
-		if (stage->grid[p->collision.loc_y_pos_offset][p->collision.loc_x] == 0)
+		if (stage->grid[p->collision.loc_y_pos_offset][p->collision.loc_x] != '#')
 			p->pos_y += p->dir_y * (float)p->move_speed;
 	}
 	if (g->e.key.keysym.sym == SDLK_s || g->e.key.keysym.sym == SDLK_DOWN)
 	{
-		if (stage->grid[p->collision.loc_y][p->collision.loc_x_neg_offset] == 0)
+		if (stage->grid[p->collision.loc_y][p->collision.loc_x_neg_offset] != '#')
 			p->pos_x -= p->dir_x * (float)p->move_speed;
-		if (stage->grid[p->collision.loc_y_neg_offset][p->collision.loc_x] == 0)
+		if (stage->grid[p->collision.loc_y_neg_offset][p->collision.loc_x] != '#')
 			p->pos_y -= p->dir_y * (float)p->move_speed;
 	}
 }
