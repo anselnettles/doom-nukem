@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 13:35:22 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/05 14:18:11 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/06 13:21:44 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,31 @@
 
 //	A pixel drawing function for the SDL surface, created to make the rendering
 //	process more simpler.
-void	pixel_put(t_graph *g, int x_source, int y_source, int colour)
+void	pixel_put(t_graph *g, int x_src, int y_src, uint32_t color)
 {
 	uint32_t	*pix;
-	int	x;
-	int	y;
-	int	width;
+	int			x;
+	int			y;
+	int			wth;
 
-	pix = (uint32_t *)g->surf->pixels;
-	x = (x_source * g->scale);
-	y = (y_source * g->scale);
-	width = g->width;
-	pix[(x++) + (y * width)] = (uint32_t)colour;
-	if (g->scale == 2)
+	pix = g->surf->pixels;
+	x = (x_src * g->scale);
+	y = (y_src * g->scale);
+	wth = g->width;
+	pix[(x) + (y * wth)] = color << (g->scanline * (y_src % 2));
+	if (g->scale >= 2)
 	{
-		pix[x + ((y++) * width)] = (uint32_t)colour;
-		pix[(x--) + (y * width)] = (uint32_t)colour;
-		pix[x + (y * width)] = (uint32_t)colour;
+		pix[(x + 1) + ((y) * wth)] = color << (g->scanline * (y_src % 2));
+		pix[(x) + ((y + 1) * wth)] = color;
+		pix[(x + 1) + ((y + 1) * wth)] = color;
+		if (g->scale == 3)
+		{
+			pix[(x + 2) + ((y) * wth)] = color << (g->scanline * (y_src % 2));
+			pix[(x + 2) + ((y + 1) * wth)] = color;
+			pix[(x) + ((y + 2) * wth)] = color << (g->scanline * (y_src % 2));
+			pix[(x + 1) + ((y + 2) * wth)] = color << (g->scanline * (y_src % 2));
+			pix[(x + 2) + ((y + 2) * wth)] = color << (g->scanline * (y_src % 2));
+		}
 	}
 }
 
@@ -56,15 +64,10 @@ void	vline(t_graph *g, int x_source, int y_source1, int y_source2)
 		y = y1 + 1;
 		while (y < y2)
 		{
-			if (y % 2 != 0)
-				pix[(y * width) + x_source] = g->middle_color;
+			if (g->scanline == TRUE && (y % 2 != 0))
+				pix[(y * width) + x_source] = (g->middle_color << 1);
 			else
-			{
-				if (g->scanline == TRUE)
-					pix[(y * width) + x_source] = (g->middle_color << 1);
-				else
-					pix[(y * width) + x_source] = g->middle_color;
-			}
+				pix[(y * width) + x_source] = g->middle_color;
 			y++;
 		}
 		pix[(y2 * width) + x_source] = g->bottom_color;
