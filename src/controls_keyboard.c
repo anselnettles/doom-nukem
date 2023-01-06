@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 14:16:37 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/06 11:09:17 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/06 11:11:42 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void	keyboard(t_rain *r)
 {
 	if (r->graph.e.type == SDL_KEYDOWN)
 	{
-		write(1, ".", 1);
+		//write(1, ".", 1);
 		if (r->graph.e.key.keysym.sym == SDLK_ESCAPE)
 			quit_program(r);
 		if (r->graph.e.key.keysym.sym == SDLK_KP_PLUS)
