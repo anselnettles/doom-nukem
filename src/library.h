@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/06 11:55:45 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/06 15:52:44 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,15 +106,13 @@ typedef struct s_index {
 }	t_index;
 
 // A middle-man coordination variables.
-typedef struct s_coor
-{
+typedef struct s_coor {
 	double			x;
 	double			y;
 }	t_coor;
 
 // Collision handling variables, stored within the player structure.
-typedef struct s_collision
-{
+typedef struct s_collision {
 	int				loc_x;
 	int				loc_x_pos_offset;
 	int				loc_x_neg_offset;
@@ -136,8 +134,7 @@ typedef struct s_player {
 }	t_player;
 
 //	Raycast handling variables, stored within the graph structure.
-typedef struct s_raycast
-{
+typedef struct s_raycast {
 	double	ray_angle;
 	double	ray_x;
 	double	ray_y;
@@ -156,6 +153,30 @@ typedef struct s_raycast
 	int		wall_texture_yoffset;
 	double	wall_texture_yincrement;
 }	t_raycast;
+
+typedef struct s_img {
+	void			*img_ptr;
+	char			*img_addr;
+	int				bit_per_pixel;
+	int				size_line;
+	int				endian;
+	int				height;
+	int				width;
+}	t_img;
+
+typedef struct s_texture {
+	char			**texture;
+	int				width;
+	int				height;
+	int				color;
+	void			*img_ptr;
+	char			*img_addr;
+	int				bit_per_pixel;
+	int				size_line;
+	int				endian;
+	int				img_height;
+	int				img_width;
+}	t_texture;
 
 // Graphical-wise variables used for SDL and graphical drawing.
 // Mother to raycast struct.
@@ -188,6 +209,8 @@ typedef struct s_rain {
 	t_graph			graph;
 	t_coor			coor;
 	t_collision		collision;
+	t_img			img;
+	t_texture		texture[4];
 }	t_rain;
 
 /*Listed error types*/
@@ -205,6 +228,7 @@ typedef enum e_error
 	EDITOR_FAIL,
 	SDL_FAIL,
 	RENDER_FAIL,
+	TEXTURE_FAIL,
 }	t_error;
 
 int		main(int argc, char **argv);
@@ -216,6 +240,7 @@ int		draw_map_slot(t_rain *r, int x, int y);
 void	print_array(t_editor *editor, t_index *index);
 
 int		initialize_media(t_graph *g);
+int		initialize_textures(t_rain *rain);
 
 void	keyboard(t_rain *r);
 
