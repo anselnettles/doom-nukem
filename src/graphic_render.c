@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 10:05:39 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/06 11:05:14 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/06 14:12:50 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	draw_column(t_rain *r, t_coor start, t_coor end)
 		end.y += r->graph.raycast.slice_height;
 	}
 
-	r->graph.top_color = (WALL_PRINT << 6);
+	r->graph.top_color = (WALL_PRINT << 3);
 	r->graph.middle_color = WALL_PRINT;
 	r->graph.bottom_color = (WALL_PRINT << 8);
 	start.y -= (150 * r->graph.scale);
@@ -51,11 +51,9 @@ void	column_render(t_rain *r, int ray_count)
 
 //	printf("\n//Column() ClosestCollDist: %f \n", r->graph.raycast.closest_coll_dist);
 //	printf("//Column() DistToProjPlane: %f \n", r->graph.raycast.plane_distance);
-
 	raycast = &r->graph.raycast;
 	raycast->slice_height = (float)SQUARE_SIZE / raycast->closest_coll_dist * raycast->plane_distance;
 //	printf("//Column() ProjSliceHeight: %d \n", r->graph.raycast.slice_height);
-
 	if (raycast->slice_height > r->graph.height)
 		raycast->slice_height = r->graph.height;
 	start.x = ray_count;
@@ -251,9 +249,7 @@ static int	draw_space(t_rain *r)
 	else if (r->graph.raycast.ray_angle < 0)
 		r->graph.raycast.ray_angle += 360;
 	ray_count = 0;
-	
 	//printf("\n/Draw_space() Player Angle: %f \n", r->player.pos_angle);
-
 	while (ray_count < r->graph.width)
 	{
 		raycast(r);
@@ -318,18 +314,15 @@ int	initialize_player(t_rain *r)
 	if (!(r->stage.start_x) || !(r->stage.start_y))
 		return (ERROR);
 	r->player.move_speed = MOVE_SPEED;
-
 	//printf("\n/STAGE(): start.x_ %d \n", r->stage.start_x);
 	//printf("/STAGE(): start.y_ %d \n", r->stage.start_y);
-
 	r->player.pos_x = (double)SQUARE_SIZE * (r->stage.start_x + 1) - \
 						 ((double)SQUARE_SIZE / 2.0);
 	r->player.pos_y = (double)SQUARE_SIZE * (r->stage.start_y + 1) - \
 						 ((double)SQUARE_SIZE / 2.0);
-	
-	printf("\n/Player(): Pos.x_ %f \n", r->player.pos_x);
-	printf("/Player(): Pos.y_ %f \n", r->player.pos_y);
 
+	//printf("\n/Player(): Pos.x_ %f \n", r->player.pos_x);
+	//printf("/Player(): Pos.y_ %f \n", r->player.pos_y);
 	r->player.pos_angle = 90;
 	r->player.dir_x = cos(deg_to_rad(r->player.pos_angle));
 	r->player.dir_y = -sin(deg_to_rad(r->player.pos_angle));
