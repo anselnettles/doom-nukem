@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 10:05:39 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/06 15:52:18 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/06 15:59:20 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	draw_column(t_rain *r, t_coor start, t_coor end, float txtr_y)
 	r->graph.middle_color = (int)txtr_y;
 	r->graph.bottom_color = (WALL_PRINT << 8);
 	start.y -= (150 * r->graph.scale);
-	vline(&r, start.x, start.y, end.y);
+	vline(r, start.x, start.y, end.y);
 
 	if (end.y + 1 < r->graph.height)
 	{
@@ -59,7 +59,7 @@ void	column_render(t_rain *r, int ray_count)
 	raycast->wall_texture_yoffset = 0;
 	if (raycast->slice_height > r->graph.height)
 	{
-		raycast->wall_texture_yoffset = (raycast->slice_height - (r->graph.height / 2);
+		raycast->wall_texture_yoffset = (raycast->slice_height - (r->graph.height / 2));
 		raycast->slice_height = r->graph.height;
 	}
 	texture_y = raycast->wall_texture_yoffset * raycast->wall_texture_yincrement;
