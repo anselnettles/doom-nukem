@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 13:35:22 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/06 15:34:34 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/06 16:02:33 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	texture(t_rain *r, int y)
 
 	texture = NULL;
 	scale_y = 256 * y / 64;
-	scale_x = 256 * r->raycast.wall_texture_xoffset / 64;
+	scale_x = 256 * r->graph.raycast.wall_texture_xoffset / 64;
 	if (r->player.compass == NORTH)
 		texture = &r->texture[0];
 	else if (r->player.compass == EAST)
@@ -29,14 +29,12 @@ static int	texture(t_rain *r, int y)
 	else if (r->player.compass == SOUTH)
 	{
 		texture = &r->texture[2];
-		scale_x = 128 * r->raycast.wall_texture_xoffset / 64;
+		scale_x = 128 * r->graph.raycast.wall_texture_xoffset / 64;
 	}
 	else if (r->player.compass == WEST)
 		texture = &r->texture[3];
-	pixel = texture->img_addr + ((scale_y * texture->size_line) + scale_x * (texture->bits_per_pixel / 8));
+	pixel = texture->img_addr + ((scale_y * texture->size_line) + scale_x * (texture->bit_per_pixel / 8));
 	return (*(int *)pixel);
-}
-
 }
 
 //	A pixel drawing function for the SDL surface, created to make the rendering
@@ -80,8 +78,8 @@ void	vline(t_rain *r, int x_source, int y_source1, int y_source2)
 	int			width;
 
 	pix = r->graph.surf->pixels;
-	y1 = clamp(y_source1, 0, g->height - 1);
-	y2 = clamp(y_source2, 0, g->height - 1);
+	y1 = clamp(y_source1, 0, r->graph.height - 1);
+	y2 = clamp(y_source2, 0, r->graph.height - 1);
 	width = r->graph.width;
 	if (y2 == y1)
 		pix[(y1 * width) + x_source] = r->graph.top_color;
