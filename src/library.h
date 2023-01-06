@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/05 16:46:47 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/06 11:55:45 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,7 +221,7 @@ void	keyboard(t_rain *r);
 
 int		error(int code);
 
-void	pixel_put(t_graph *g, int x_source, int y_source, int colour);
+void	pixel_put(t_graph *g, int x_source, int y_source, uint32_t color);
 void	vline(t_graph *g, int x_source, int y_source1, int y_source2);
 void	sdl_loop(t_rain *rain);
 float	square_root(float nb);
