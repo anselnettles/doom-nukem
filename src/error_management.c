@@ -6,12 +6,12 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 16:40:37 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/28 12:19:32 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/06 15:53:57 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "library.h"
-#define NUMBER 12
+#define NUMBER 13
 
 int	error(int code)
 {
@@ -31,6 +31,7 @@ int	error(int code)
 	error_message[10] = T_RED
 		"\n Error: Simple DirectMedia Layer failure. " T_NUL;
 	error_message[11] = T_RED "Error: Graphics rendering failure. " T_NUL;
+	error_message[12] = T_RED "Error: Texture initialization failure. " T_NUL;
 	write(1, error_message[code], ft_strlen(error_message[code]));
 	return (ERROR);
 }
