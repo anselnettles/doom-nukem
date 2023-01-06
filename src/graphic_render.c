@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 10:05:39 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/05 16:04:32 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/06 11:05:14 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -252,14 +252,13 @@ static int	draw_space(t_rain *r)
 		r->graph.raycast.ray_angle += 360;
 	ray_count = 0;
 	
-	printf("\n/Draw_space() Player Angle: %f \n", r->player.pos_angle);
+	//printf("\n/Draw_space() Player Angle: %f \n", r->player.pos_angle);
 
 	while (ray_count < r->graph.width)
 	{
 		raycast(r);
-		if (ray_count == r->graph.width / 2)
-			printf("/Draw_space() Closest_coll_dist: %f", r->graph.raycast.closest_coll_dist);
-
+		//if (ray_count == r->graph.width / 2)
+			//printf("/Draw_space() Closest_coll_dist: %f", r->graph.raycast.closest_coll_dist);
 		if (r->graph.raycast.closest_coll_dist > 0)
 			column_render(r, ray_count);
 		r->graph.raycast.ray_angle -= r->graph.raycast.degrees_per_ray;
@@ -320,8 +319,8 @@ int	initialize_player(t_rain *r)
 		return (ERROR);
 	r->player.move_speed = MOVE_SPEED;
 
-	printf("\n/STAGE(): start.x_ %d \n", r->stage.start_x);
-	printf("/STAGE(): start.y_ %d \n", r->stage.start_y);
+	//printf("\n/STAGE(): start.x_ %d \n", r->stage.start_x);
+	//printf("/STAGE(): start.y_ %d \n", r->stage.start_y);
 
 	r->player.pos_x = (double)SQUARE_SIZE * (r->stage.start_x + 1) - \
 						 ((double)SQUARE_SIZE / 2.0);
@@ -354,10 +353,7 @@ int	initialize_media(t_graph *g)
 			g->map = PLAYER_MAP;
 			g->raycast.plane_distance = (double)(g->width / 2)
 				/ tan(deg_to_rad(FOV / 2));
-
-			printf("\n/Init_media(): Plane_Distance_ %f \n",
-					g->raycast.plane_distance);
-
+			//printf("\n/Init_media(): Plane_Distance_ %f \n", g->raycast.plane_distance);
 			g->raycast.degrees_per_column = (double)g->width / (double)FOV;
 			g->raycast.degrees_per_ray = (double)FOV / (double)g->width;
 			return (0);
