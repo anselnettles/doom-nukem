@@ -6,40 +6,40 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 10:05:39 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/06 14:12:50 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/06 15:52:18 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "library.h"
 
-static void	draw_column(t_rain *r, t_coor start, t_coor end)
+static void	draw_column(t_rain *r, t_coor start, t_coor end, float txtr_y)
 {
 	if (r->graph.raycast.slice_height < r->graph.height)
 	{
-		r->graph.top_color = SKY_PRINT;
-		r->graph.middle_color = SKY_PRINT;
-		r->graph.bottom_color = SKY_PRINT >> 1;
+		//r->graph.top_color = SKY_PRINT;
+		//r->graph.middle_color = SKY_PRINT;
+		//r->graph.bottom_color = SKY_PRINT >> 1;
 
 		end.y = (r->graph.height / 2) - (r->graph.raycast.slice_height / 2);
-		vline(&r->graph, start.x, start.y, end.y);
+		//vline(&r, start.x, start.y, end.y);
 		start.y = end.y + 1;
 		end.y += r->graph.raycast.slice_height;
 	}
 
 	r->graph.top_color = (WALL_PRINT << 3);
-	r->graph.middle_color = WALL_PRINT;
+	r->graph.middle_color = (int)txtr_y;
 	r->graph.bottom_color = (WALL_PRINT << 8);
 	start.y -= (150 * r->graph.scale);
-	vline(&r->graph, start.x, start.y, end.y);
+	vline(&r, start.x, start.y, end.y);
 
 	if (end.y + 1 < r->graph.height)
 	{
-		r->graph.top_color = FLOOR_PRINT >> 1;
-		r->graph.middle_color = FLOOR_PRINT;
-		r->graph.bottom_color = FLOOR_PRINT;
+		//r->graph.top_color = FLOOR_PRINT >> 1;
+		//r->graph.middle_color = FLOOR_PRINT;
+		//r->graph.bottom_color = FLOOR_PRINT;
 
 		end.y++;
-		vline(&r->graph, start.x, end.y, r->graph.height);
+		//vline(&r, start.x, end.y, r->graph.height);
 	}
 }
 
@@ -48,19 +48,26 @@ void	column_render(t_rain *r, int ray_count)
 	t_raycast	*raycast;
 	t_coor	start;
 	t_coor	end;
+	float	texture_y;
 
 //	printf("\n//Column() ClosestCollDist: %f \n", r->graph.raycast.closest_coll_dist);
 //	printf("//Column() DistToProjPlane: %f \n", r->graph.raycast.plane_distance);
 	raycast = &r->graph.raycast;
 	raycast->slice_height = (float)SQUARE_SIZE / raycast->closest_coll_dist * raycast->plane_distance;
 //	printf("//Column() ProjSliceHeight: %d \n", r->graph.raycast.slice_height);
+	raycast->wall_texture_yincrement = (float)SQUARE_SIZE / (float)raycast->slice_height;
+	raycast->wall_texture_yoffset = 0;
 	if (raycast->slice_height > r->graph.height)
+	{
+		raycast->wall_texture_yoffset = (raycast->slice_height - (r->graph.height / 2);
 		raycast->slice_height = r->graph.height;
+	}
+	texture_y = raycast->wall_texture_yoffset * raycast->wall_texture_yincrement;
 	start.x = ray_count;
 	start.y = 0;
 	end.x = ray_count;
 	end.y = r->graph.height;
-	draw_column(r, start, end);
+	draw_column(r, start, end, texture_y);
 }
 
 float	ray_collision_distance(t_player *player, t_coor collision)
@@ -242,7 +249,6 @@ static int	draw_space(t_rain *r)
 {
 	int	ray_count;
 
-	SDL_FillRect(r->graph.surf, NULL, 0x433a59);
 	r->graph.raycast.ray_angle = r->player.pos_angle + (FOV / 2);
 	if (r->graph.raycast.ray_angle > 360)
 		r->graph.raycast.ray_angle -= 360;
@@ -369,6 +375,8 @@ int	graphic_interface(t_rain *rain)
 		return (error(SDL_FAIL));
 	if (initialize_player(rain) == ERROR)
 		return (error(RENDER_FAIL));
+	if (initialize_textures(rain) == ERROR)
+		return (error(TEXTURE_FAIL));
 	if (render(rain) == ERROR)
 		return (error(RENDER_FAIL));
 	sdl_loop(rain);
