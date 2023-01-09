@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/06 15:58:23 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/09 14:50:48 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,13 @@
 # include <unistd.h>						/*UNIX Standard library.*/
 # include <stdlib.h>						/*Standard library.*/
 # include <fcntl.h>							/*File Control library.*/
-# include "../libSDL2/include/SDL2/SDL.h"	/*Simple DirectMedia Layer.*/
+//# include "../libSDL2/include/SDL2/SDL.h"	/*Simple DirectMedia Layer.*/
+
+#ifdef __APPLE__
+# include "SDL_image.h"
+#elif __linux__
+# include <SDL2/SDL_image.h>
+#endif
 
 //	GRAPHIC GLOBAL DEFINITIONS
 # define TITLE "Bitter Cold Droplets in Autumn Rain | github.com/AnselNettles"
@@ -176,6 +182,7 @@ typedef struct s_texture {
 	int				endian;
 	int				img_height;
 	int				img_width;
+	SDL_Surface		*file[4];
 }	t_texture;
 
 // Graphical-wise variables used for SDL and graphical drawing.
@@ -210,7 +217,7 @@ typedef struct s_rain {
 	t_coor			coor;
 	t_collision		collision;
 	t_img			img;
-	t_texture		texture[4];
+	t_texture		texture;
 }	t_rain;
 
 /*Listed error types*/
