@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 10:05:39 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/06 15:59:20 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/09 15:13:29 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@ static void	draw_column(t_rain *r, t_coor start, t_coor end, float txtr_y)
 {
 	if (r->graph.raycast.slice_height < r->graph.height)
 	{
-		//r->graph.top_color = SKY_PRINT;
-		//r->graph.middle_color = SKY_PRINT;
-		//r->graph.bottom_color = SKY_PRINT >> 1;
+		r->graph.top_color = SKY_PRINT;
+		r->graph.middle_color = SKY_PRINT;
+		r->graph.bottom_color = SKY_PRINT >> 1;
 
 		end.y = (r->graph.height / 2) - (r->graph.raycast.slice_height / 2);
-		//vline(&r, start.x, start.y, end.y);
+		vline(r, start.x, start.y, end.y);
 		start.y = end.y + 1;
 		end.y += r->graph.raycast.slice_height;
 	}
@@ -34,12 +34,12 @@ static void	draw_column(t_rain *r, t_coor start, t_coor end, float txtr_y)
 
 	if (end.y + 1 < r->graph.height)
 	{
-		//r->graph.top_color = FLOOR_PRINT >> 1;
-		//r->graph.middle_color = FLOOR_PRINT;
-		//r->graph.bottom_color = FLOOR_PRINT;
+		r->graph.top_color = FLOOR_PRINT >> 1;
+		r->graph.middle_color = FLOOR_PRINT;
+		r->graph.bottom_color = FLOOR_PRINT;
 
 		end.y++;
-		//vline(&r, start.x, end.y, r->graph.height);
+		vline(r, start.x, end.y, r->graph.height);
 	}
 }
 
@@ -375,8 +375,8 @@ int	graphic_interface(t_rain *rain)
 		return (error(SDL_FAIL));
 	if (initialize_player(rain) == ERROR)
 		return (error(RENDER_FAIL));
-	if (initialize_textures(rain) == ERROR)
-		return (error(TEXTURE_FAIL));
+	//if (initialize_textures(rain) == ERROR)
+	//	return (error(TEXTURE_FAIL));
 	if (render(rain) == ERROR)
 		return (error(RENDER_FAIL));
 	sdl_loop(rain);
