@@ -6,13 +6,13 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 13:35:22 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/06 16:02:33 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/09 15:10:11 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "library.h"
 
-static int	texture(t_rain *r, int y)
+/*static int	texture(t_rain *r, int y)
 {
 	t_texture	*texture;
 	char		*pixel;
@@ -35,7 +35,7 @@ static int	texture(t_rain *r, int y)
 		texture = &r->texture[3];
 	pixel = texture->img_addr + ((scale_y * texture->size_line) + scale_x * (texture->bit_per_pixel / 8));
 	return (*(int *)pixel);
-}
+}*/
 
 //	A pixel drawing function for the SDL surface, created to make the rendering
 //	process more simpler.
@@ -90,10 +90,10 @@ void	vline(t_rain *r, int x_source, int y_source1, int y_source2)
 		while (y < y2)
 		{
 			if (r->graph.scanline == TRUE && (y % 2 != 0))
-				pix[(y * width) + x_source] = texture(r, r->graph.middle_color << 1);
+				pix[(y * width) + x_source] = (r->graph.middle_color << 1);
 			else
-				pix[(y * width) + x_source] = texture(r, r->graph.middle_color);
-			r->graph.middle_color += r->graph.raycast.wall_texture_yincrement;
+				pix[(y * width) + x_source] = r->graph.middle_color;
+			//r->graph.middle_color += r->graph.raycast.wall_texture_yincrement;
 			y++;
 		}
 		pix[(y2 * width) + x_source] = r->graph.bottom_color;
