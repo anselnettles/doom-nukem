@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 10:05:39 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/09 15:13:29 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/09 15:49:00 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ static void	draw_column(t_rain *r, t_coor start, t_coor end, float txtr_y)
 		start.y = end.y + 1;
 		end.y += r->graph.raycast.slice_height;
 	}
-
+	(void) txtr_y;
 	r->graph.top_color = (WALL_PRINT << 3);
-	r->graph.middle_color = (int)txtr_y;
+	r->graph.middle_color = WALL_PRINT;
 	r->graph.bottom_color = (WALL_PRINT << 8);
 	start.y -= (150 * r->graph.scale);
 	vline(r, start.x, start.y, end.y);
@@ -375,8 +375,8 @@ int	graphic_interface(t_rain *rain)
 		return (error(SDL_FAIL));
 	if (initialize_player(rain) == ERROR)
 		return (error(RENDER_FAIL));
-	//if (initialize_textures(rain) == ERROR)
-	//	return (error(TEXTURE_FAIL));
+	if (initialize_textures(rain) == ERROR)
+		return (error(TEXTURE_FAIL));
 	if (render(rain) == ERROR)
 		return (error(RENDER_FAIL));
 	sdl_loop(rain);
