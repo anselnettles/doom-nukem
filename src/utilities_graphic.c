@@ -6,16 +6,16 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 13:35:22 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/09 15:10:11 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/10 18:12:22 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "library.h"
 
-/*static int	texture(t_rain *r, int y)
+static uint32_t	texture(t_rain *r, int y)
 {
-	t_texture	*texture;
-	char		*pixel;
+	SDL_Surface	*texture;
+	uint32_t	color;
 	int			scale_y;
 	int			scale_x;
 
@@ -23,19 +23,19 @@
 	scale_y = 256 * y / 64;
 	scale_x = 256 * r->graph.raycast.wall_texture_xoffset / 64;
 	if (r->player.compass == NORTH)
-		texture = &r->texture[0];
+		texture = r->texture.file[0];
 	else if (r->player.compass == EAST)
-		texture = &r->texture[1];
+		texture = r->texture.file[1];
 	else if (r->player.compass == SOUTH)
 	{
-		texture = &r->texture[2];
+		texture = r->texture.file[2];
 		scale_x = 128 * r->graph.raycast.wall_texture_xoffset / 64;
 	}
 	else if (r->player.compass == WEST)
-		texture = &r->texture[3];
-	pixel = texture->img_addr + ((scale_y * texture->size_line) + scale_x * (texture->bit_per_pixel / 8));
-	return (*(int *)pixel);
-}*/
+		texture = r->texture.file[3];
+	color = (uint32_t *)texture->pixels[scale_x + (scale_y * 100)];
+	return (color);
+}
 
 //	A pixel drawing function for the SDL surface, created to make the rendering
 //	process more simpler.
@@ -89,11 +89,11 @@ void	vline(t_rain *r, int x_source, int y_source1, int y_source2)
 		y = y1 + 1;
 		while (y < y2)
 		{
-			if (r->graph.scanline == TRUE && (y % 2 != 0))
-				pix[(y * width) + x_source] = (r->graph.middle_color << 1);
-			else
-				pix[(y * width) + x_source] = r->graph.middle_color;
-			//r->graph.middle_color += r->graph.raycast.wall_texture_yincrement;
+			//if (r->graph.scanline == TRUE && (y % 2 != 0))
+			//	pix[(y * width) + x_source] = (r->graph.middle_color << 1);
+			//else
+			pix[(y * width) + x_source] = texture(r, r->graph.middle_color);
+			r->graph.middle_color += r->graph.raycast.wall_texture_yincrement;
 			y++;
 		}
 		pix[(y2 * width) + x_source] = r->graph.bottom_color;
