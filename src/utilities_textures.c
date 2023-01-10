@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 15:39:33 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/09 14:57:26 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/10 17:56:52 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,6 @@ int			initialize_textures(t_rain *rain)
 		return (ERROR);
 	if (!(rain->texture.file[3] = img_load("textures/texture01.png")))
 		return (ERROR);
-
-
 //	if (second_texture_pull(rain) == ERROR)
 //		return (ERROR);
 	return (0);
