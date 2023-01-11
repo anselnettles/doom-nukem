@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/11 15:10:01 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/11 15:15:12 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@
 # define WEST 4
 
 //GRAPHICAL RENDER COLOR DEFINITIONS
-# define SKY_PRINT 0x767c55
+# define SKY_PRINT 0x76776e
 # define WALL_PRINT 0x3f373e
 # define FLOOR_PRINT 0x293b3d
 
