@@ -6,64 +6,52 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 10:05:39 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/11 14:39:05 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/11 18:09:19 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "library.h"
 
-static void	draw_column(t_rain *r, t_corf start, t_corf end, float txtr_y)
+static void	draw_column(t_rain *r, t_location lo, float texture_y)
 {
 	if (r->graph.raycast.slice_height < r->graph.height)
 	{
-		r->graph.top_color = SKY_PRINT;
-		r->graph.middle_color = SKY_PRINT;
-		r->graph.bottom_color = SKY_PRINT >> 1;
-		end.y = (r->graph.height / 2) - (r->graph.raycast.slice_height / 2);
-		vline(r, start, end, SKY_PRINT);
-		start.y = end.y + 1;
-		end.y += r->graph.raycast.slice_height;
+		lo.end_y = (r->graph.height / 2) - (r->graph.raycast.slice_height / 2);
+		vline(r, lo, 0, SKY_PRINT);
+		lo.start_y = lo.end_y + 1;
+		lo.end_y += r->graph.raycast.slice_height;
 	}
-	r->graph.top_color = (WALL_PRINT << 3);
-	r->graph.bottom_color = (WALL_PRINT << 8);
-	vline(r, start, end, txtr_y);
-	if (end.y + 1 < r->graph.height)
+	vline(r, lo, texture_y, 0);
+	if (lo.end_y + 1 < r->graph.height)
 	{
-		r->graph.top_color = FLOOR_PRINT >> 1;
-		r->graph.middle_color = FLOOR_PRINT;
-		r->graph.bottom_color = FLOOR_PRINT;
-		end.y++;
-		start.y = end.y;
-		end.y = r->graph.height;
-		vline(r, start, end, FLOOR_PRINT);
+		lo.end_y++;
+		lo.start_y = lo.end_y;
+		lo.end_y = r->graph.height;
+		vline(r, lo, 0, FLOOR_PRINT);
 	}
 }
 
 void	column_render(t_rain *r, int ray_count)
 {
 	t_raycast	*raycast;
-	t_corf	start;
-	t_corf	end;
+	t_location	location;
 	float	texture_y;
 
-//	printf("\n//Column() ClosestCollDist: %f \n", r->graph.raycast.closest_coll_dist);
-//	printf("//Column() DistToProjPlane: %f \n", r->graph.raycast.plane_distance);
 	raycast = &r->graph.raycast;
 	raycast->slice_height = (float)SQUARE_SIZE / raycast->closest_coll_dist * raycast->plane_distance;
-//	printf("//Column() ProjSliceHeight: %d \n", r->graph.raycast.slice_height);
 	raycast->wall_texture_yincrement = (float)SQUARE_SIZE / (float)raycast->slice_height;
 	raycast->wall_texture_yoffset = 0;
 	if (raycast->slice_height > r->graph.height)
 	{
-		raycast->wall_texture_yoffset = (raycast->slice_height - (r->graph.height / 2));
+		raycast->wall_texture_yoffset = (raycast->slice_height - r->graph.height) / 2;
 		raycast->slice_height = r->graph.height;
 	}
 	texture_y = raycast->wall_texture_yoffset * raycast->wall_texture_yincrement;
-	start.x = ray_count;
-	start.y = 0;
-	end.x = ray_count;
-	end.y = r->graph.height;
-	draw_column(r, start, end, texture_y);
+	location.start_x = ray_count;
+	location.start_y = 0;
+	location.end_x = ray_count;
+	location.end_y = r->graph.height;
+	draw_column(r, location, texture_y);
 }
 
 float	ray_collision_distance(t_player *player, t_corf collision)
@@ -211,8 +199,7 @@ float	calc_ver_coll_dist(t_rain *r)
 void	save_vertical(t_rain *r, float ver_coll_dist)
 {
 	r->graph.raycast.closest_coll_dist = ver_coll_dist;
-	r->graph.raycast.wall_texture_xoffset = (int)r->graph.raycast.ver_coll_point_y % \
-					  SQUARE_SIZE;
+	r->graph.raycast.wall_texture_xoffset = (int)r->graph.raycast.ver_coll_point_y % SQUARE_SIZE;
 	if (r->graph.raycast.ray_angle > 90 && r->graph.raycast.ray_angle < 270)
 		r->player.compass = WEST;
 	else
@@ -223,7 +210,6 @@ int	raycast(t_rain *r)
 {
 	float	hor_coll_dist;
 	float	ver_coll_dist;
-	//float	fish_eye_fix;
 
 	hor_coll_dist = 100000;
 	ver_coll_dist = 100000;
@@ -235,8 +221,6 @@ int	raycast(t_rain *r)
 		save_vertical(r, ver_coll_dist);
 	else
 		save_horizontal(r, hor_coll_dist);
-	//fish_eye_fix = r->player.pos_angle - r->graph.raycast.ray_angle;
-	//r->graph.raycast.closest_coll_dist = r->graph.raycast.closest_coll_dist * cos(deg_to_rad(fish_eye_fix));
 	return (0);
 }
 
@@ -251,12 +235,9 @@ static int	draw_space(t_rain *r)
 	else if (r->graph.raycast.ray_angle < 0)
 		r->graph.raycast.ray_angle += 360;
 	ray_count = 0;
-	//printf("\n/Draw_space() Player Angle: %f \n", r->player.pos_angle);
 	while (ray_count < r->graph.width)
 	{
 		raycast(r);
-		//if (ray_count == r->graph.width / 2)
-			//printf("/Draw_space() Closest_coll_dist: %f", r->graph.raycast.closest_coll_dist);
 		if (r->graph.raycast.closest_coll_dist > 0)
 			column_render(r, ray_count);
 		r->graph.raycast.ray_angle -= r->graph.raycast.degrees_per_ray;
@@ -316,15 +297,11 @@ int	initialize_player(t_rain *r)
 	if (!(r->stage.start_x) || !(r->stage.start_y))
 		return (ERROR);
 	r->player.move_speed = MOVE_SPEED;
-	//printf("\n/STAGE(): start.x_ %d \n", r->stage.start_x);
-	//printf("/STAGE(): start.y_ %d \n", r->stage.start_y);
 	r->player.pos_x = (double)SQUARE_SIZE * (r->stage.start_x + 1) - \
 						 ((double)SQUARE_SIZE / 2.0);
 	r->player.pos_y = (double)SQUARE_SIZE * (r->stage.start_y + 1) - \
 						 ((double)SQUARE_SIZE / 2.0);
 
-	//printf("\n/Player(): Pos.x_ %f \n", r->player.pos_x);
-	//printf("/Player(): Pos.y_ %f \n", r->player.pos_y);
 	r->player.pos_angle = 90;
 	r->player.dir_x = cos(deg_to_rad(r->player.pos_angle));
 	r->player.dir_y = -sin(deg_to_rad(r->player.pos_angle));
@@ -340,7 +317,7 @@ int	initialize_media(t_graph *g)
 		g->scale = SCALE;
 		g->width = (WIDTH * g->scale);
 		g->height = (HEIGHT * g->scale);
-		g->scanline = TRUE;
+		g->scanline = FALSE;
 		g->win = SDL_CreateWindow(TITLE, 0, 0, g->width, g->height, 0);
 		g->surf = SDL_GetWindowSurface(g->win);
 		if (g->win != NULL || g->surf != NULL)
@@ -348,7 +325,6 @@ int	initialize_media(t_graph *g)
 			g->map = PLAYER_MAP;
 			g->raycast.plane_distance = (double)(g->width / 2)
 				/ tan(deg_to_rad(FOV / 2));
-			//printf("\n/Init_media(): Plane_Distance_ %f \n", g->raycast.plane_distance);
 			g->raycast.degrees_per_column = (double)g->width / (double)FOV;
 			g->raycast.degrees_per_ray = (double)FOV / (double)g->width;
 			return (0);
