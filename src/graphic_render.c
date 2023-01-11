@@ -6,13 +6,13 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 10:05:39 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/11 13:51:56 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/11 14:23:57 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "library.h"
 
-static void	draw_column(t_rain *r, t_coor start, t_coor end, float txtr_y)
+static void	draw_column(t_rain *r, t_corf start, t_corf end, float txtr_y)
 {
 	if (r->graph.raycast.slice_height < r->graph.height)
 	{
@@ -26,7 +26,7 @@ static void	draw_column(t_rain *r, t_coor start, t_coor end, float txtr_y)
 	}
 	r->graph.top_color = (WALL_PRINT << 3);
 	r->graph.bottom_color = (WALL_PRINT << 8);
-	vline(r, start, end.y, txtr_y);
+	vline(r, start, end, txtr_y);
 	if (end.y + 1 < r->graph.height)
 	{
 		r->graph.top_color = FLOOR_PRINT >> 1;
@@ -42,8 +42,8 @@ static void	draw_column(t_rain *r, t_coor start, t_coor end, float txtr_y)
 void	column_render(t_rain *r, int ray_count)
 {
 	t_raycast	*raycast;
-	t_coor	start;
-	t_coor	end;
+	t_corf	start;
+	t_corf	end;
 	float	texture_y;
 
 //	printf("\n//Column() ClosestCollDist: %f \n", r->graph.raycast.closest_coll_dist);
@@ -66,7 +66,7 @@ void	column_render(t_rain *r, int ray_count)
 	draw_column(r, start, end, texture_y);
 }
 
-float	ray_collision_distance(t_player *player, t_coor collision)
+float	ray_collision_distance(t_player *player, t_corf collision)
 {
 	float	distance;
 	float	temp;
@@ -123,9 +123,9 @@ float	calc_hor_coll_dist(t_rain *r)
 				&& r->stage.grid[r->graph.raycast.map_y][r->graph.raycast.map_x] == '#')
 		{
 			r->graph.raycast.hor_coll_point_x = r->graph.raycast.ray_x;
-			r->coor.x = r->graph.raycast.ray_x;
-			r->coor.y = r->graph.raycast.ray_y;
-			distance = ray_collision_distance(&r->player, r->coor);
+			r->corf.x = r->graph.raycast.ray_x;
+			r->corf.y = r->graph.raycast.ray_y;
+			distance = ray_collision_distance(&r->player, r->corf);
 			return (distance);
 		}
 		else
@@ -193,9 +193,9 @@ float	calc_ver_coll_dist(t_rain *r)
 			&& r->stage.grid[r->graph.raycast.map_y][r->graph.raycast.map_x] == '#')
 		{
 			r->graph.raycast.ver_coll_point_y = r->graph.raycast.ray_y;
-			r->coor.x = r->graph.raycast.ray_x;
-			r->coor.y = r->graph.raycast.ray_y;
-			distance = ray_collision_distance(&r->player, r->coor);
+			r->corf.x = r->graph.raycast.ray_x;
+			r->corf.y = r->graph.raycast.ray_y;
+			distance = ray_collision_distance(&r->player, r->corf);
 			return (distance);
 		}
 		else
@@ -340,7 +340,7 @@ int	initialize_media(t_graph *g)
 		g->scale = SCALE;
 		g->width = (WIDTH * g->scale);
 		g->height = (HEIGHT * g->scale);
-		g->scanline = TRUE;
+		g->sl = TRUE;
 		g->win = SDL_CreateWindow(TITLE, 0, 0, g->width, g->height, 0);
 		g->surf = SDL_GetWindowSurface(g->win);
 		if (g->win != NULL || g->surf != NULL)
