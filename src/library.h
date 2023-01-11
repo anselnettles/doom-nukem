@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/11 15:15:12 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/11 18:23:56 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,16 @@ typedef struct s_coordinate_integer {
 	int				y;
 }	t_cori;
 
+typedef struct s_location_double {
+	double			start_x;
+	double			end_x;
+	double			start_y;
+	double			end_y;
+	int				y;
+	int				y1;
+	int				y2;
+}	t_location;
+
 // Collision handling variables, stored within the player structure.
 typedef struct s_collision {
 	int				loc_x;
@@ -219,6 +229,7 @@ typedef struct s_rain {
 	t_graph					graph;
 	t_corf					corf;
 	t_cori					cori;
+	t_location				loca;
 	t_collision				collision;
 	t_img					img;
 	t_texture				texture;
@@ -256,7 +267,7 @@ int		initialize_textures(t_rain *rain);
 void	keyboard(t_rain *r);
 
 void	pixel_put(t_graph *g, int x_src, int y_src, uint32_t color);
-void	vline(t_rain *r, t_corf sta, t_corf end, int i);
+void	vline(t_rain *r, t_location lo, float txtr_y, uint32_t color);
 
 float	square_root(float nb);
 int		max(int a, int b);
