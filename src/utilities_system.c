@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 17:50:06 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/30 13:07:32 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/11 13:38:24 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,16 @@ size_t	ft_strlen(const char *s)
 	while (s[len] != '\0')
 		len++;
 	return (len);
+}
+
+//	'sdl_loop()' keeps Simple Direct MediaLayer's PollEvent constantly
+//	running and checks for control calls.
+void	sdl_loop(t_rain *rain)
+{
+	while (ENDLESS)
+	{
+		keyboard(rain);
+		if (SDL_PollEvent(&rain->graph.e) && rain->graph.e.type == SDL_QUIT)
+			break ;
+	}
 }
