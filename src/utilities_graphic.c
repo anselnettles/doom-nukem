@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 13:35:22 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/10 18:12:22 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/11 11:05:09 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,11 @@ static uint32_t	texture(t_rain *r, int y)
 	}
 	else if (r->player.compass == WEST)
 		texture = r->texture.file[3];
-	color = (uint32_t *)texture->pixels[scale_x + (scale_y * 100)];
+	else
+		return (WALL_PRINT);
+	color = ((uint32_t *)texture->pixels)[scale_x + (scale_y * 256)];
+	//color *= -1;
+	//printf("%d ", color);
 	return (color);
 }
 
