@@ -6,41 +6,11 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 13:35:22 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/11 15:08:32 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/11 18:29:01 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "library.h"
-
-//WIP.
-static uint32_t	texture_color(t_rain *r, int value)
-{
-	SDL_Surface	*texture;
-	//uint32_t	*color;
-	int			scale_y;
-	int			scale_x;
-
-	texture = NULL;
-	scale_y = 256 * value / 64;
-	scale_x = 256 * r->graph.raycast.wall_texture_xoffset / 64;
-	if (value >= 0x000001)
-		return (value);
-	if (r->player.compass == NORTH)
-		texture = r->texture.file[0];
-	else if (r->player.compass == EAST)
-		texture = r->texture.file[1];
-	else if (r->player.compass == SOUTH)
-	{
-		texture = r->texture.file[2];
-		scale_x = 128 * r->graph.raycast.wall_texture_xoffset / 64;
-	}
-	else if (r->player.compass == WEST)
-		texture = r->texture.file[3];
-	//color = ((uint32_t *)texture->pixels)[scale_x + (scale_y * 256)];
-	//											printf("%d ", color);
-	//r->graph->surf->pixels[100 + (100 * r->graph.width)] = r->texture->file[0]->pixels[1 * (1 * 256)];
-	return (0x8f0f0f);
-}
 
 //	A pixel drawing function for the SDL surface, created to make the rendering
 //	process more simpler.
@@ -76,6 +46,30 @@ void	pixel_put(t_graph *g, int x_src, int y_src, uint32_t color)
 	}
 }
 
+//'Texture_color()' picks the correct RGB color from the correct texture
+//file's pixels, corresponding to the parameter texture_y location.
+static uint32_t	txtr_color(t_rain *r, int texture_y)
+{
+	SDL_Surface	*texture;
+	uint32_t	color;
+	int			scale_y;
+	int			scale_x;
+
+	texture = NULL;
+	scale_y = (256 * texture_y) / 64;
+	scale_x = (256 * r->graph.raycast.wall_texture_xoffset) / 64;
+	if (r->player.compass == NORTH)
+		texture = r->texture.file[0];
+	else if (r->player.compass == EAST)
+		texture = r->texture.file[1];
+	else if (r->player.compass == SOUTH)
+		texture = r->texture.file[2];
+	else if (r->player.compass == WEST)
+		texture = r->texture.file[3];
+	color = ((uint32_t *)texture->pixels)[scale_x + (scale_y * texture->w)];
+	return (color);
+}
+
 //	'Vline()' (vertical line) function draws a line of three colors on the
 //	graphical window. The start and end points are of different color only
 //	to make the polygonal shapes easier to view.
@@ -89,31 +83,30 @@ void	pixel_put(t_graph *g, int x_src, int y_src, uint32_t color)
 //	point of each column line.
 //	The scanline visual effect ('r->graph.sl') is applied on every second
 //	main color pixel to create an aesthetic alternating scanline effect. 
-void	vline(t_rain *r, t_corf start, t_corf end, int value)
+void	vline(t_rain *r, t_location lo, float txtr_y, uint32_t color)
 {
 	uint32_t	*pix;
-	int			y;
-	int			y1;
-	int			y2;
-	int			wth;
 
 	pix = r->graph.surf->pixels;
-	y1 = clamp((int)start.y, 0, r->graph.height - 1);
-	y2 = clamp((int)end.y, 0, r->graph.height - 1);
-	wth = r->graph.width;
-	if (y2 == y1)
-		pix[(y1 * wth) + (int)start.x] = value << 3;
-	else if (y2 > y1)
+	lo.y1 = clamp((int)lo.start_y, 0, r->graph.height - 1);
+	lo.y2 = clamp((int)lo.end_y, 0, r->graph.height - 1);
+	if (lo.y2 == lo.y1)
+		pix[(lo.y1 * r->graph.width) + (int)lo.start_x] = color << 3;
+	else if (lo.y2 > lo.y1)
 	{
-		pix[(y1 * wth) + (int)start.x] = value << 3;
-		y = y1 + 1;
-		while (y < y2)
+		pix[(lo.y1 * r->graph.width) + (int)lo.start_x] = color << 3;
+		lo.y = lo.y1 + 1;
+		while (lo.y < lo.y2)
 		{
-			pix[(y * wth) + (int)start.x] = texture_color(r, value)
-				<< (r->graph.scanline * (y % 2));
-			value += r->graph.raycast.wall_texture_yincrement;
-			y++;
+			if (color == 0)
+				pix[(lo.y * r->graph.width) + (int)lo.start_x]
+					= txtr_color(r, txtr_y) << (r->graph.scanline * (lo.y % 2));
+			else
+				pix[(lo.y * r->graph.width) + (int)lo.start_x]
+					= color << (r->graph.scanline * (lo.y % 2));
+			txtr_y += r->graph.raycast.wall_texture_yincrement;
+			lo.y++;
 		}
-		pix[(y2 * wth) + (int)start.x] = value << 5;
+		pix[(lo.y2 * r->graph.width) + (int)lo.start_x] = color << 5;
 	}
 }
