@@ -6,19 +6,11 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 15:39:33 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/11 11:05:31 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/11 12:47:22 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "library.h"
-
-/*static int	second_texture_pull(t_rain *rain)
-{
-	t_texture *texture;
-	(void) texture;
-	(void) rain;
-	return (0);
-}*/
 
 SDL_Surface	*img_load(char *path)
 {
@@ -45,7 +37,5 @@ int			initialize_textures(t_rain *rain)
 		return (ERROR);
 	if (!(rain->texture.file[3] = img_load("textures/scifi4.png")))
 		return (ERROR);
-//	if (second_texture_pull(rain) == ERROR)
-//		return (ERROR);
 	return (0);
 }
