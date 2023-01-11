@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 13:35:22 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/11 13:44:35 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/11 14:26:31 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 static uint32_t	txtrclr(t_rain *r, int y_position)
 {
 	SDL_Surface	*texture;
-	uint32_t	*color;
+	//uint32_t	*color;
 	int			scale_y;
 	int			scale_x;
 
@@ -86,13 +86,13 @@ void	pixel_put(t_graph *g, int x_src, int y_src, uint32_t color)
 //	incremented each time a pixel for the main color is planted.
 //	The scanline visual effect ('r->graph.sl') is applied on every second
 //	main color pixel to create an aesthetic alternating scanline effect. 
-void	vline(t_rain *r, t_coor sta, t_coor end, int i)
+void	vline(t_rain *r, t_corf sta, t_corf end, int i)
 {
 	uint32_t	*pix;
 	int			y;
 	int			y1;
 	int			y2;
-	int			width;
+	int			wth;
 
 	pix = r->graph.surf->pixels;
 	y1 = clamp(sta.y, 0, r->graph.height - 1);
@@ -106,7 +106,7 @@ void	vline(t_rain *r, t_coor sta, t_coor end, int i)
 		y = y1 + 1;
 		while (y < y2)
 		{
-			pix[(y * wth) + sta.x] = txtrclr(i) << (r->graph.sl * (sta.y % 2));
+			pix[(y * wth) + sta.x] = txtrclr(r,i) << (r->graph.sl * (sta.y % 2));
 			i += r->graph.raycast.wall_texture_yincrement;
 			y++;
 		}
