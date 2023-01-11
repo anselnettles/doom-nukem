@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 10:05:39 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/10 17:57:30 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/11 10:16:34 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	draw_column(t_rain *r, t_coor start, t_coor end, float txtr_y)
 	r->graph.top_color = (WALL_PRINT << 3);
 	r->graph.middle_color = (int)txtr_y;
 	r->graph.bottom_color = (WALL_PRINT << 8);
-	start.y -= (150 * r->graph.scale);
+	//start.y -= (150 * r->graph.scale);
 	vline(r, start.x, start.y, end.y);
 
 	if (end.y + 1 < r->graph.height)
