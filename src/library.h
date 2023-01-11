@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/09 16:00:40 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/11 13:45:08 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -251,19 +251,20 @@ int		initialize_textures(t_rain *rain);
 
 void	keyboard(t_rain *r);
 
-int		error(int code);
+void	pixel_put(t_graph *g, int x_src, int y_src, uint32_t color);
+void	vline(t_rain *r, t_coor sta, t_coor end, int i);
 
-void	pixel_put(t_graph *g, int x_source, int y_source, uint32_t color);
-void	vline(t_rain *r, int x_source, int y_source1, int y_source2);
-void	sdl_loop(t_rain *rain);
 float	square_root(float nb);
 int		max(int a, int b);
 int		min(int a, int b);
 int		clamp(int a, int lower, int upper);
 double	deg_to_rad(double degrees);
 
+int		error(int code);
+
 void	*ft_memalloc(size_t size);
 void	*ft_memset(void *b, int c, size_t len);
 void	ft_bzero(void *s, size_t n);
 size_t	ft_strlen(const char *s);
+void	sdl_loop(t_rain *rain);
 #endif
