@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 10:05:39 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/11 14:23:57 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/11 14:39:05 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	draw_column(t_rain *r, t_corf start, t_corf end, float txtr_y)
 		r->graph.middle_color = SKY_PRINT;
 		r->graph.bottom_color = SKY_PRINT >> 1;
 		end.y = (r->graph.height / 2) - (r->graph.raycast.slice_height / 2);
-		vline(r, start, end, 0);
+		vline(r, start, end, SKY_PRINT);
 		start.y = end.y + 1;
 		end.y += r->graph.raycast.slice_height;
 	}
@@ -35,7 +35,7 @@ static void	draw_column(t_rain *r, t_corf start, t_corf end, float txtr_y)
 		end.y++;
 		start.y = end.y;
 		end.y = r->graph.height;
-		vline(r, start, end, 0);
+		vline(r, start, end, FLOOR_PRINT);
 	}
 }
 
@@ -340,7 +340,7 @@ int	initialize_media(t_graph *g)
 		g->scale = SCALE;
 		g->width = (WIDTH * g->scale);
 		g->height = (HEIGHT * g->scale);
-		g->sl = TRUE;
+		g->scanline = TRUE;
 		g->win = SDL_CreateWindow(TITLE, 0, 0, g->width, g->height, 0);
 		g->surf = SDL_GetWindowSurface(g->win);
 		if (g->win != NULL || g->surf != NULL)
