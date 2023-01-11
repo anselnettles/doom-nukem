@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 13:35:22 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/11 11:05:09 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/11 11:39:55 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static uint32_t	texture(t_rain *r, int y)
 {
 	SDL_Surface	*texture;
-	uint32_t	color;
+	uint32_t	*color;
 	int			scale_y;
 	int			scale_x;
 
@@ -35,10 +35,10 @@ static uint32_t	texture(t_rain *r, int y)
 		texture = r->texture.file[3];
 	else
 		return (WALL_PRINT);
-	color = ((uint32_t *)texture->pixels)[scale_x + (scale_y * 256)];
-	//color *= -1;
-	//printf("%d ", color);
-	return (color);
+	//color = ((uint32_t *)texture->pixels)[scale_x + (scale_y * 256)];
+	//											printf("%d ", color);
+	r->graph->surf->pixels[100 + (100 * r->graph.width)] = r->texture->file[0]->pixels[1 * (1 * 256)];
+	return (WALL_PRINT);
 }
 
 //	A pixel drawing function for the SDL surface, created to make the rendering
