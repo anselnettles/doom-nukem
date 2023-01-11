@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/11 13:45:08 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/11 14:25:40 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,11 +111,17 @@ typedef struct s_index {
 	int				width;
 }	t_index;
 
-// A middle-man coordination variables.
-typedef struct s_coor {
+// A middle-man coordination variables in double format.
+typedef struct s_coordinate_double {
 	double			x;
 	double			y;
-}	t_coor;
+}	t_corf;
+
+// A middle-man coordination variables in integer format.
+typedef struct s_coordinate_integer {
+	int				x;
+	int				y;
+}	t_cori;
 
 // Collision handling variables, stored within the player structure.
 typedef struct s_collision {
@@ -202,22 +208,23 @@ typedef struct s_graph {
 	uint32_t		bottom_color;
 	int				scale;
 	int				map;
-	int				scanline;
+	int				sl;
 	t_raycast		raycast;
 }	t_graph;
 
 // Mother structure.
 typedef struct s_rain {
-	t_system		system;
-	t_editor		editor;
-	t_stage			stage;
-	t_index			index;
-	t_player		player;
-	t_graph			graph;
-	t_coor			coor;
-	t_collision		collision;
-	t_img			img;
-	t_texture		texture;
+	t_system				system;
+	t_editor				editor;
+	t_stage					stage;
+	t_index					index;
+	t_player				player;
+	t_graph					graph;
+	t_corf					corf;
+	t_cori					cori;
+	t_collision				collision;
+	t_img					img;
+	t_texture				texture;
 }	t_rain;
 
 /*Listed error types*/
@@ -252,7 +259,7 @@ int		initialize_textures(t_rain *rain);
 void	keyboard(t_rain *r);
 
 void	pixel_put(t_graph *g, int x_src, int y_src, uint32_t color);
-void	vline(t_rain *r, t_coor sta, t_coor end, int i);
+void	vline(t_rain *r, t_corf sta, t_corf end, int i);
 
 float	square_root(float nb);
 int		max(int a, int b);
