@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 10:05:39 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/11 10:16:34 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/11 13:51:56 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,26 +19,23 @@ static void	draw_column(t_rain *r, t_coor start, t_coor end, float txtr_y)
 		r->graph.top_color = SKY_PRINT;
 		r->graph.middle_color = SKY_PRINT;
 		r->graph.bottom_color = SKY_PRINT >> 1;
-
 		end.y = (r->graph.height / 2) - (r->graph.raycast.slice_height / 2);
-		vline(r, start.x, start.y, end.y);
+		vline(r, start, end, 0);
 		start.y = end.y + 1;
 		end.y += r->graph.raycast.slice_height;
 	}
 	r->graph.top_color = (WALL_PRINT << 3);
-	r->graph.middle_color = (int)txtr_y;
 	r->graph.bottom_color = (WALL_PRINT << 8);
-	//start.y -= (150 * r->graph.scale);
-	vline(r, start.x, start.y, end.y);
-
+	vline(r, start, end.y, txtr_y);
 	if (end.y + 1 < r->graph.height)
 	{
 		r->graph.top_color = FLOOR_PRINT >> 1;
 		r->graph.middle_color = FLOOR_PRINT;
 		r->graph.bottom_color = FLOOR_PRINT;
-
 		end.y++;
-		vline(r, start.x, end.y, r->graph.height);
+		start.y = end.y;
+		end.y = r->graph.height;
+		vline(r, start, end, 0);
 	}
 }
 
