@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 14:16:37 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/06 11:11:42 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/11 13:58:50 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,10 +110,10 @@ void	keyboard(t_rain *r)
 			toggle_scale(r);
 		if (r->graph.e.key.keysym.sym == SDLK_o)
 		{
-			if (r->graph.scanline == TRUE)
-				r->graph.scanline = FALSE;
+			if (r->graph.sl == TRUE)
+				r->graph.sl = FALSE;
 			else
-				r->graph.scanline = TRUE;
+				r->graph.sl = TRUE;
 		}
 		if (r->graph.e.key.keysym.sym == SDLK_m)
 		{
