@@ -6,7 +6,7 @@
 #    By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/16 17:04:55 by aviholai          #+#    #+#              #
-#    Updated: 2023/01/12 14:04:16 by aviholai         ###   ########.fr        #
+#    Updated: 2023/01/12 14:11:12 by aviholai         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,7 +68,6 @@ $(NAME) : $(OBJ_DIR) $(OBJ)
 	@printf "	${PL}	${Yb}Ｃｏｍｐｉｌｉｎｇ.		 				${PR}"
 	@printf "	${PL}		${G}| Creating objects and archives with the		${PR}"
 	@printf "	$(PL)		${G}| following source files:				${PR}${Nul}"
-	@sleep 1
 	@printf "$(LISTSRC)"
 	@printf "	${PL}									${PR}${Nul}"
 	@$(CC) -o $(NAME) $(FLAGS) $(SPEED) $(OBJ) $(CGFLAGS) $(FRAMEWORKS)
