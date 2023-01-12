@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 15:39:33 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/11 12:47:22 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/12 12:37:01 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ SDL_Surface	*img_load(char *path)
 
 int			initialize_textures(t_rain *rain)
 {
-	if (!(rain->texture.file[0] = img_load("textures/scifi.png")))
+	if (!(rain->texture.file[0] = img_load("textures/bricks_med.png")))
 		return (ERROR);
-	if (!(rain->texture.file[1] = img_load("textures/scifi2.png")))
+	if (!(rain->texture.file[1] = img_load("textures/bricks_dark.png")))
 		return (ERROR);
-	if (!(rain->texture.file[2] = img_load("textures/scifi3.png")))
+	if (!(rain->texture.file[2] = img_load("textures/bricks_med2.png")))
 		return (ERROR);
-	if (!(rain->texture.file[3] = img_load("textures/scifi4.png")))
+	if (!(rain->texture.file[3] = img_load("textures/bricks_lit.png")))
 		return (ERROR);
 	return (0);
 }
