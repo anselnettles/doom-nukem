@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 13:35:22 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/12 12:52:34 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/12 15:08:21 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	pixel_put(t_graph *g, int x_src, int y_src, uint32_t color)
 
 //'Texture_color()' picks the correct RGB color from the correct texture
 //file's pixels, corresponding to the parameter texture_y location.
-static uint32_t	txtr_color(t_rain *r, int texture_y)
+static uint32_t	txtr_clr(t_rain *r, int texture_y)
 {
 	SDL_Surface	*texture;
 	uint32_t	color;
@@ -83,7 +83,7 @@ static uint32_t	txtr_color(t_rain *r, int texture_y)
 //	point of each column line.
 //	The scanline visual effect ('r->graph.sl') is applied on every second
 //	main color pixel to create an aesthetic alternating scanline effect. 
-void	vline(t_rain *r, t_location lo, float txtr_y, uint32_t color)
+void	vline(t_rain *r, t_location lo, float y, uint32_t color)
 {
 	uint32_t	*pix;
 
@@ -91,22 +91,22 @@ void	vline(t_rain *r, t_location lo, float txtr_y, uint32_t color)
 	lo.y1 = clamp((int)lo.start_y, 0, r->graph.height - 1);
 	lo.y2 = clamp((int)lo.end_y, 0, r->graph.height - 1);
 	if (lo.y2 == lo.y1)
-		pix[(lo.y1 * r->graph.width) + (int)lo.start_x] = color << 3;
+		pix[(lo.y1 * r->graph.width) + (int)lo.start_x] = BLUE_OUTLINE;
 	else if (lo.y2 > lo.y1)
 	{
-		pix[(lo.y1 * r->graph.width) + (int)lo.start_x] = color << 3;
+		pix[(lo.y1 * r->graph.width) + (int)lo.start_x] = BLUE_OUTLINE;
 		lo.y = lo.y1 + 1;
 		while (lo.y < lo.y2)
 		{
 			if (color == 0)
-				pix[(lo.y * r->graph.width) + (int)lo.start_x]
-					= txtr_color(r, txtr_y) << (r->graph.scanline * (lo.y % 2));
+				pix[(lo.y * r->graph.width) + (int)lo.start_x] = txtr_clr(r, y);
+			else if (color == FLOOR_PRINT)
+				pix[(lo.y * r->graph.width) + (int)lo.start_x] = color;
 			else
-				pix[(lo.y * r->graph.width) + (int)lo.start_x]
-					= color << (r->graph.scanline * (lo.y % 2));
-			txtr_y += r->graph.raycast.wall_texture_yincrement;
+				pix[(lo.y * r->graph.width) + (int)lo.start_x] = color++;
+			y += r->graph.raycast.wall_texture_yincrement;
 			lo.y++;
 		}
-		pix[(lo.y2 * r->graph.width) + (int)lo.start_x] = color << 5;
+		pix[(lo.y2 * r->graph.width) + (int)lo.start_x] = BROWN_OUTLINE;
 	}
 }
