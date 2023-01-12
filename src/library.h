@@ -261,10 +261,14 @@ int		editor_sequence(t_rain *rain);
 int		graphic_interface(t_rain *rain);
 int		render(t_rain *r);
 int		raycast(t_rain *r);
+void		raycast_angle_check(t_graph *g);
 int		draw_map_slot(t_rain *r, int x, int y);
 void	print_array(t_editor *editor, t_index *index);
 
 void	keyboard(t_rain *r);
+void	move_forward_back(t_stage *stage, t_player *p, t_graph *g);
+void	collision_check(t_player *p);
+void	move_turn(t_player *p, t_graph *g);
 
 SDL_Surface	*img_load(char *path);
 void	pixel_put(t_graph *g, int x_src, int y_src, uint32_t color);
