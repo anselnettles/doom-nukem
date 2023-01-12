@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 13:35:22 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/12 15:08:21 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/12 15:47:30 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static uint32_t	txtr_clr(t_rain *r, int texture_y)
 
 	texture = NULL;
 	scale_y = (156 * texture_y) / SQUARE_SIZE;
-	scale_x = (256 * r->graph.raycast.wall_texture_xoffset) / SQUARE_SIZE;
+	scale_x = (256 * r->graph.cast.texture_xoffset) / SQUARE_SIZE;
 	if (r->player.compass == NORTH)
 		texture = r->texture.file[0];
 	else if (r->player.compass == EAST)
@@ -100,11 +100,9 @@ void	vline(t_rain *r, t_location lo, float y, uint32_t color)
 		{
 			if (color == 0)
 				pix[(lo.y * r->graph.width) + (int)lo.start_x] = txtr_clr(r, y);
-			else if (color == FLOOR_PRINT)
-				pix[(lo.y * r->graph.width) + (int)lo.start_x] = color;
 			else
 				pix[(lo.y * r->graph.width) + (int)lo.start_x] = color++;
-			y += r->graph.raycast.wall_texture_yincrement;
+			y += r->graph.cast.texture_yincrement;
 			lo.y++;
 		}
 		pix[(lo.y2 * r->graph.width) + (int)lo.start_x] = BROWN_OUTLINE;
