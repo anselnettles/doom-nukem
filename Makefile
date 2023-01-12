@@ -6,7 +6,7 @@
 #    By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/16 17:04:55 by aviholai          #+#    #+#              #
-#    Updated: 2023/01/12 14:11:12 by aviholai         ###   ########.fr        #
+#    Updated: 2023/01/12 15:49:46 by aviholai         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ FILES				=	\
 						level_editor\
 						main\
 						parse_level\
+						raycast\
 						utilities_graphic\
 						utilities_math\
 						utilities_system\
