@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 10:05:39 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/11 18:09:19 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/12 12:49:37 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,9 @@ static void	draw_column(t_rain *r, t_location lo, float texture_y)
 	}
 }
 
+
+//	There is a magic number (+90) used for applying a longer scale on the
+//	otherwise cubic wall heights.
 void	column_render(t_rain *r, int ray_count)
 {
 	t_raycast	*raycast;
@@ -38,18 +41,17 @@ void	column_render(t_rain *r, int ray_count)
 	float	texture_y;
 
 	raycast = &r->graph.raycast;
-	raycast->slice_height = (float)SQUARE_SIZE / raycast->closest_coll_dist * raycast->plane_distance;
-	raycast->wall_texture_yincrement = (float)SQUARE_SIZE / (float)raycast->slice_height;
+	raycast->slice_height = ((float)SQUARE_SIZE + 90) / raycast->closest_coll_dist * raycast->plane_distance;
+	raycast->wall_texture_yincrement = ((float)SQUARE_SIZE + 90) / (float)raycast->slice_height;
 	raycast->wall_texture_yoffset = 0;
 	if (raycast->slice_height > r->graph.height)
 	{
 		raycast->wall_texture_yoffset = (raycast->slice_height - r->graph.height) / 2;
-		raycast->slice_height = r->graph.height;
+		raycast->slice_height = r->graph.height + 90;
 	}
 	texture_y = raycast->wall_texture_yoffset * raycast->wall_texture_yincrement;
 	location.start_x = ray_count;
 	location.start_y = 0;
-	location.end_x = ray_count;
 	location.end_y = r->graph.height;
 	draw_column(r, location, texture_y);
 }
