@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 13:35:22 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/11 18:29:01 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/12 12:52:34 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ static uint32_t	txtr_color(t_rain *r, int texture_y)
 	int			scale_x;
 
 	texture = NULL;
-	scale_y = (256 * texture_y) / 64;
-	scale_x = (256 * r->graph.raycast.wall_texture_xoffset) / 64;
+	scale_y = (156 * texture_y) / SQUARE_SIZE;
+	scale_x = (256 * r->graph.raycast.wall_texture_xoffset) / SQUARE_SIZE;
 	if (r->player.compass == NORTH)
 		texture = r->texture.file[0];
 	else if (r->player.compass == EAST)
