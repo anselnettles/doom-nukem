@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/12 15:06:25 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/12 15:51:13 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,17 +166,17 @@ typedef struct s_raycast {
 	int		map_y;
 	double	offset_x;
 	double	offset_y;
-	double	plane_distance;
+	double	plane_dist;
 	double	degrees_per_column;
 	double	degrees_per_ray;
 	double	hor_coll_point_x;
 	double	ver_coll_point_y;
-	double	closest_coll_dist;
+	double	closest_coll;
 	int		slice_height;
-	int		wall_texture_xoffset;
-	int		wall_texture_yoffset;
-	double	wall_texture_yincrement;
-}	t_raycast;
+	int		texture_xoffset;
+	int		texture_yoffset;
+	double	texture_yincrement;
+}	t_cast;
 
 typedef struct s_img {
 	void			*img_ptr;
@@ -218,7 +218,7 @@ typedef struct s_graph {
 	int				scale;
 	int				map;
 	int				scanline;
-	t_raycast		raycast;
+	t_cast			cast;
 }	t_graph;
 
 // Mother structure.
@@ -260,6 +260,7 @@ int		read_file(t_rain *rain);
 int		editor_sequence(t_rain *rain);
 int		graphic_interface(t_rain *rain);
 int		render(t_rain *r);
+int		raycast(t_rain *r);
 int		draw_map_slot(t_rain *r, int x, int y);
 void	print_array(t_editor *editor, t_index *index);
 
