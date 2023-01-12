@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 14:16:37 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/11 14:39:24 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/12 15:41:35 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,10 @@ static void	toggle_scale(t_rain *r)
 	r->graph.height = (HEIGHT * r->graph.scale);
 	SDL_SetWindowSize(r->graph.win, r->graph.width, r->graph.height);
 	r->graph.surf = SDL_GetWindowSurface(r->graph.win);
-	r->graph.raycast.plane_distance = (double)(r->graph.width / 2)
+	r->graph.cast.plane_dist = (double)(r->graph.width / 2)
 		/ tan(deg_to_rad(FOV / 2));
-	r->graph.raycast.degrees_per_column = (double)r->graph.width / (double)FOV;
-	r->graph.raycast.degrees_per_ray = (double)FOV / (double)r->graph.width;
+	r->graph.cast.degrees_per_column = (double)r->graph.width / (double)FOV;
+	r->graph.cast.degrees_per_ray = (double)FOV / (double)r->graph.width;
 }
 
 static void	quit_program(t_rain *r)
