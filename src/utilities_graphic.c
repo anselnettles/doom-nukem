@@ -12,6 +12,23 @@
 
 #include "library.h"
 
+//	The image loading function, used to saving the .png texture files
+//	from the 'textures' folder into the graphical wall textures.
+SDL_Surface	*img_load(char *path)
+{
+	SDL_Surface	*ret;
+	SDL_Surface	*tmp;
+	SDL_RWops	*rwops;
+
+	if (!(rwops = SDL_RWFromFile(path, "r")))
+		return (NULL);
+	if (!(tmp = IMG_Load_RW(rwops, 1)))
+		return (NULL);
+	ret = SDL_ConvertSurfaceFormat(tmp, SDL_PIXELFORMAT_ARGB8888, 0);
+	SDL_FreeSurface(tmp);
+	return (ret);
+}
+
 //	A pixel drawing function for the SDL surface, created to make the rendering
 //	process more simpler.
 //	Applies a multiplication of the needed pixels as by the scaling toggle,
