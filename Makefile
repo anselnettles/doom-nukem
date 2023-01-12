@@ -22,21 +22,20 @@ FILES				=	\
 						error_management\
 						graphic_render\
 						graphic_render_map_slot\
+						graphic_render_raycast\
 						level_editor\
 						main\
 						parse_level\
-						raycast\
 						utilities_graphic\
 						utilities_math\
-						utilities_system\
-						utilities_textures
+						utilities_system
 
 SRC					=	$(addprefix src/, $(addsuffix .c, $(FILES)))
 OBJ					=	$(addprefix obj/, $(addsuffix .o, $(FILES)))
 OBJ_DIR				=	obj
 LISTSRC				=	$(foreach part,$(SRC), 	$(PL)		${G}| $(part)\n)
 SPEED				=	-O3
-FLAGS				=	-Wall -Wextra -Werror -g #-Wconversion
+FLAGS				=	-Wall -Wextra #-Werror -g -Wconversion
 HEADER				=	-I./src
 
 OS = $(shell uname)
