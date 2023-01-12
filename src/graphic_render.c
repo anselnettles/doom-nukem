@@ -67,10 +67,7 @@ static int	draw_space(t_rain *r)
 	int	ray_count;
 
 	r->graph.cast.ray_angle = r->player.pos_angle + (FOV / 2);
-	if (r->graph.cast.ray_angle > 360)
-		r->graph.cast.ray_angle -= 360;
-	else if (r->graph.cast.ray_angle < 0)
-		r->graph.cast.ray_angle += 360;
+	raycast_angle_check(&r->graph);
 	ray_count = 0;
 	while (ray_count < r->graph.width)
 	{
@@ -78,10 +75,7 @@ static int	draw_space(t_rain *r)
 		if (r->graph.cast.closest_coll > 0)
 			column_render(r, ray_count);
 		r->graph.cast.ray_angle -= r->graph.cast.degrees_per_ray;
-		if (r->graph.cast.ray_angle > 360)
-			r->graph.cast.ray_angle -= 360;
-		else if (r->graph.cast.ray_angle < 0)
-			r->graph.cast.ray_angle += 360;
+		raycast_angle_check(&r->graph);
 		ray_count++;
 	}
 	return (0);
@@ -93,23 +87,20 @@ static int	draw_arraymap(t_rain *r)
 	int	x;
 	int	y;
 
-	if (r->editor.array[0] != NULL)
+	r->graph.y = TOP_MARGIN;
+	r->graph.x = MAP_MARGIN;
+	x = 1;
+	y = 1;
+	while (y <= r->index.y)
 	{
-		r->graph.y = TOP_MARGIN;
-		r->graph.x = MAP_MARGIN;
+		while (x <= r->index.width)
+			x = draw_map_slot(r, x, y);
 		x = 1;
-		y = 1;
-		while (y <= r->index.y)
-		{
-			while (x <= r->index.width)
-				x = draw_map_slot(r, x, y);
-			x = 1;
-			r->graph.x = MAP_MARGIN;
+		r->graph.x = MAP_MARGIN;
+		y++;
+		if (r->graph.map == PLAYER_MAP)
 			y++;
-			if (r->graph.map == PLAYER_MAP)
-				y++;
-			r->graph.y += 6;
-		}
+		r->graph.y += 6;
 	}
 	return (0);
 }
