@@ -6,7 +6,7 @@
 #    By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/16 17:04:55 by aviholai          #+#    #+#              #
-#    Updated: 2023/01/09 16:22:10 by aviholai         ###   ########.fr        #
+#    Updated: 2023/01/12 14:04:16 by aviholai         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ FILES				=	\
 
 SRC					=	$(addprefix src/, $(addsuffix .c, $(FILES)))
 OBJ					=	$(addprefix obj/, $(addsuffix .o, $(FILES)))
+OBJ_DIR				=	obj
 LISTSRC				=	$(foreach part,$(SRC), 	$(PL)		${G}| $(part)\n)
 SPEED				=	-O3
 FLAGS				=	-Wall -Wextra -Werror -g #-Wconversion
@@ -61,12 +62,13 @@ endif
 
 all : $(NAME)
 
-$(NAME) : $(OBJ)
+$(NAME) : $(OBJ_DIR) $(OBJ)
 	@${RUN_HEAD}
 	@printf "	${PL}									${PR}"
 	@printf "	${PL}	${Yb}Ｃｏｍｐｉｌｉｎｇ.		 				${PR}"
 	@printf "	${PL}		${G}| Creating objects and archives with the		${PR}"
 	@printf "	$(PL)		${G}| following source files:				${PR}${Nul}"
+	@sleep 1
 	@printf "$(LISTSRC)"
 	@printf "	${PL}									${PR}${Nul}"
 	@$(CC) -o $(NAME) $(FLAGS) $(SPEED) $(OBJ) $(CGFLAGS) $(FRAMEWORKS)
@@ -76,12 +78,15 @@ $(NAME) : $(OBJ)
 	@printf "	${PL}									${PR}${Nul}"
 	@${RUN_TAIL}
 
+$(OBJ_DIR) :
+	@mkdir $(OBJ_DIR)
+
 obj/%.o: src/%.c
 	@$(CC) -o $@ $(FLAGS) $(SPEED) $(HEADER) $(INC) -c $^
 
 clean :
 	@echo "${GN}Cleaning object files. ${Y}"
-	@rm -v -f ${OBJ}
+	@rm -v -rf ${OBJ_DIR}
 	@rm -v -f *.gch
 	@rm -v -f *.bak
 	@rm -v -f *~; echo "${Nul}"
