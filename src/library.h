@@ -264,11 +264,9 @@ int		raycast(t_rain *r);
 int		draw_map_slot(t_rain *r, int x, int y);
 void	print_array(t_editor *editor, t_index *index);
 
-int		initialize_media(t_graph *g);
-int		initialize_textures(t_rain *rain);
-
 void	keyboard(t_rain *r);
 
+SDL_Surface	*img_load(char *path);
 void	pixel_put(t_graph *g, int x_src, int y_src, uint32_t color);
 void	vline(t_rain *r, t_location lo, float txtr_y, uint32_t color);
 
