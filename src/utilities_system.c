@@ -74,7 +74,7 @@ void	sdl_loop(t_rain *rain)
 {
 	while (ENDLESS)
 	{
-		keyboard(rain);
+		keyboard_input(rain);
 		if (SDL_PollEvent(&rain->graph.e) && rain->graph.e.type == SDL_QUIT)
 			break ;
 	}
