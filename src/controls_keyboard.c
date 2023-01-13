@@ -70,6 +70,5 @@ void	keyboard_input(t_rain *r)
 		if (key == A || key == LEFT || key == D || key == RIGHT)
 			move_turn(&r->player, key);
 		keyboard_second_batch(r, key);
-		render(r);
 	}
 }
