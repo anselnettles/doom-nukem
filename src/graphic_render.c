@@ -71,31 +71,23 @@ static void	droplet(t_rain *r, int x, int y)
 
 static void	draw_overlay(t_rain *r)
 {
-	static int	y[12] = {10, 90, 50, 180, 80, 250, 140, 320, 220, 150, 30};
-	static int	x[12] = {10, 90, 20, 80, 30, 70, 40, 60, 50, 110, 120};
+	static int	y[24] = {10, 90, 50, 180, 80, 250, 140, 320, 220, 150,
+		30, 40, 32, 450, 23, 53, 423, 54, 4, 12, 234, 123, 153, 231};
+	static int	x[24] = {10, 90, 20, 80, 30, 70, 40, 60, 50, 110, 120,
+		32, 323, 123, 431, 12, 43, 54, 76, 94, 37, 64, 12, 43};
+	int		i;
 
-	droplet(r, x[0], y[0]++);
-	droplet(r, x[1], y[1]++);
-	droplet(r, x[2], y[2]++);
-	droplet(r, x[3], y[3]++);
-	droplet(r, x[4], y[4]++);
-	droplet(r, x[5], y[5]++);
-	droplet(r, x[6], y[6]++);
-	droplet(r, x[7], y[7]++);
-	droplet(r, x[8], y[8]++);
-	droplet(r, x[9], y[9]++);
-	droplet(r, x[10], y[10]++);
-	droplet(r, x[11], y[11]++);
-	
-	int i = 0;
-	while (i <= 12)
+	i = 0;
+	while (i++ < 24)
+		droplet(r, x[i], y[i]++);
+	i = 0;
+	while (i++ < 24)
 	{
 		if (y[i] >= 475)
 		{
 			y[i] = 0;
 			x[i] = rand() % 639 + 1;
 		}
-		i++;
 	}
 }
 
