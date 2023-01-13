@@ -37,38 +37,39 @@ static void	quit_program(t_rain *r)
 	exit(0);
 }
 
-void	keyboard(t_rain *r)
+static void	keyboard_second_batch(t_rain *r, SDL_Keycode key)
 {
+	if (key == SDLK_ESCAPE)
+		quit_program(r);
+	if (key == SDLK_KP_PLUS)
+		toggle_scale(r);
+	if (key == SDLK_o)
+	{
+		if (r->graph.scanline == TRUE)
+			r->graph.scanline = FALSE;
+		else
+			r->graph.scanline = TRUE;
+	}
+	if (key == SDLK_m)
+	{
+		if (r->graph.map == PLAYER_MAP)
+			r->graph.map = DEV_MAP;
+		else
+			r->graph.map = PLAYER_MAP;
+	}
+}
+
+void	keyboard_input(t_rain *r)
+{
+	SDL_Keycode	key;
+	key = r->graph.e.key.keysym.sym;
 	if (r->graph.e.type == SDL_KEYDOWN)
 	{
-		//write(1, ".", 1);
-		if (r->graph.e.key.keysym.sym == SDLK_ESCAPE)
-			quit_program(r);
-		if (r->graph.e.key.keysym.sym == SDLK_KP_PLUS)
-			toggle_scale(r);
-		if (r->graph.e.key.keysym.sym == SDLK_o)
-		{
-			if (r->graph.scanline == TRUE)
-				r->graph.scanline = FALSE;
-			else
-				r->graph.scanline = TRUE;
-		}
-		if (r->graph.e.key.keysym.sym == SDLK_m)
-		{
-			if (r->graph.map == PLAYER_MAP)
-				r->graph.map = DEV_MAP;
-			else
-				r->graph.map = PLAYER_MAP;
-		}
-		if (r->graph.e.key.keysym.sym == SDLK_w || r->graph.e.key.keysym.sym == SDLK_UP
-				|| r->graph.e.key.keysym.sym == SDLK_s || r->graph.e.key.keysym.sym == SDLK_DOWN)
-		{
-			collision_check(&r->player);
-			move_forward_back(&r->stage, &r->player, &r->graph);
-		}
-		if (r->graph.e.key.keysym.sym == SDLK_a || r->graph.e.key.keysym.sym == SDLK_LEFT
-				|| r->graph.e.key.keysym.sym == SDLK_d || r->graph.e.key.keysym.sym == SDLK_RIGHT)
-			move_turn(&r->player, &r->graph);
+		if (key == W || key == UP || key == S || key == DOWN)
+			move_forward_back(&r->stage, &r->player, key);
+		if (key == A || key == LEFT || key == D || key == RIGHT)
+			move_turn(&r->player, key);
+		keyboard_second_batch(r, key);
 		render(r);
 	}
 }
