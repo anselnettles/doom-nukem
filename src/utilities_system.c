@@ -69,12 +69,14 @@ size_t	ft_strlen(const char *s)
 }
 
 //	'sdl_loop()' keeps Simple Direct MediaLayer's PollEvent constantly
-//	running and checks for control calls.
+//	running and checks for control calls while rerendering the graphical
+//	view.
 void	sdl_loop(t_rain *rain)
 {
 	while (ENDLESS)
 	{
 		keyboard_input(rain);
+		render(rain);
 		if (SDL_PollEvent(&rain->graph.e) && rain->graph.e.type == SDL_QUIT)
 			break ;
 	}
