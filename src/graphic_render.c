@@ -64,9 +64,16 @@ static void	column_render(t_rain *r, int ray_count)
 static void	droplet(t_rain *r, int x, int y)
 {
 	pixel_put(&r->graph, x, y, 0xC1BCCB);
-	pixel_put(&r->graph, x, y + 2, 0xD4D0DE);
-	pixel_put(&r->graph, x, y + 3, 0xD4D0DE);
-	pixel_put(&r->graph, x, y + 4, 0xD4D0DE);
+	pixel_put(&r->graph, x, y + 2, 0xC1BCCB);
+	pixel_put(&r->graph, x, y + 4, 0xC1BCCB);
+	pixel_put(&r->graph, x, y + 6, 0xD4D0DE);
+	pixel_put(&r->graph, x, y + 7, 0xD4D0DE);
+	pixel_put(&r->graph, x, y + 8, 0xD4D0DE);
+	pixel_put(&r->graph, x, y + 9, 0xD4D0DE);
+	pixel_put(&r->graph, x, y + 10, 0xD4D0DE);
+	pixel_put(&r->graph, x, y + 11, 0xD4D0DE);
+	pixel_put(&r->graph, x, y + 12, 0xD4D0DE);
+	pixel_put(&r->graph, x, y + 13, 0xD4D0DE);
 }
 
 static void	draw_overlay(t_rain *r)
@@ -83,7 +90,7 @@ static void	draw_overlay(t_rain *r)
 	i = 0;
 	while (i++ < 24)
 	{
-		if (y[i] >= 475)
+		if (y[i] >= 465)
 		{
 			y[i] = 0;
 			x[i] = rand() % 639 + 1;
