@@ -107,14 +107,14 @@ static int	draw_arraymap(t_rain *r)
 
 //	The graphical render order: Fill in black, draw the 3D space, draw the
 //	array map in the window corner, update the window.
-int	render(t_rain *r)
+int	render(t_rain *rain)
 {
-	SDL_FillRect(r->graph.surf, NULL, 0);
-	if (draw_space(r) == ERROR)
+	SDL_FillRect(rain->graph.surf, NULL, 0);
+	if (draw_space(rain) == ERROR)
 		return (ERROR);
-	if (draw_arraymap(r) == ERROR)
+	if (draw_arraymap(rain) == ERROR)
 		return (ERROR);
-	if (SDL_UpdateWindowSurface(r->graph.win) == ERROR)
+	if (SDL_UpdateWindowSurface(rain->graph.win) == ERROR)
 		return (ERROR);
 	return (0);
 }
