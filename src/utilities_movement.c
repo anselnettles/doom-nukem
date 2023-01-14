@@ -33,12 +33,12 @@ static void	collision_check(t_player *p)
 		y_offset = -15;
 	else
 		y_offset = 15;
-	p->collision.loc_x = (p->pos_x / 64);
-	p->collision.loc_x_pos_offset = ((p->pos_x + x_offset) / 64);
-	p->collision.loc_x_neg_offset = ((p->pos_x - x_offset) / 64);
-	p->collision.loc_y = (p->pos_y / 64);
-	p->collision.loc_y_pos_offset = ((p->pos_y + y_offset) / 64);
-	p->collision.loc_y_neg_offset = ((p->pos_y - y_offset) / 64);
+	p->collide.x = (p->pos_x / 64);
+	p->collide.x_pos_offset = ((p->pos_x + x_offset) / 64);
+	p->collide.x_neg_offset = ((p->pos_x - x_offset) / 64);
+	p->collide.y = (p->pos_y / 64);
+	p->collide.y_pos_offset = ((p->pos_y + y_offset) / 64);
+	p->collide.y_neg_offset = ((p->pos_y - y_offset) / 64);
 }
 
 void	move_forward_back(t_stage *stage, t_player *p, SDL_Keycode key)
@@ -46,16 +46,16 @@ void	move_forward_back(t_stage *stage, t_player *p, SDL_Keycode key)
 	collision_check(p);
 	if (key == SDLK_w || key == SDLK_UP)
 	{
-		if (stage->grid[p->collision.loc_y][p->collision.loc_x_pos_offset] != '#')
+		if (stage->grid[p->collide.y][p->collide.x_pos_offset] != '#')
 			p->pos_x += p->dir_x * (float)p->move_speed;
-		if (stage->grid[p->collision.loc_y_pos_offset][p->collision.loc_x] != '#')
+		if (stage->grid[p->collide.y_pos_offset][p->collide.x] != '#')
 			p->pos_y += p->dir_y * (float)p->move_speed;
 	}
 	if (key == SDLK_s || key == SDLK_DOWN)
 	{
-		if (stage->grid[p->collision.loc_y][p->collision.loc_x_neg_offset] != '#')
+		if (stage->grid[p->collide.y][p->collide.x_neg_offset] != '#')
 			p->pos_x -= p->dir_x * (float)p->move_speed;
-		if (stage->grid[p->collision.loc_y_neg_offset][p->collision.loc_x] != '#')
+		if (stage->grid[p->collide.y_neg_offset][p->collide.x] != '#')
 			p->pos_y -= p->dir_y * (float)p->move_speed;
 	}
 }
