@@ -129,12 +129,6 @@ typedef struct s_coordinate_double {
 	double			y;
 }	t_corf;
 
-// A middle-man coordination variables in integer format.
-typedef struct s_coordinate_integer {
-	int				x;
-	int				y;
-}	t_cori;
-
 typedef struct s_location_double {
 	double			start_x;
 	double			end_x;
@@ -146,14 +140,14 @@ typedef struct s_location_double {
 }	t_location;
 
 // Collision handling variables, stored within the player structure.
-typedef struct s_collision {
-	int				loc_x;
-	int				loc_x_pos_offset;
-	int				loc_x_neg_offset;
-	int				loc_y;
-	int				loc_y_pos_offset;
-	int				loc_y_neg_offset;
-}	t_collision;
+typedef struct s_collision_detection {
+	int				x;
+	int				x_pos_offset;
+	int				x_neg_offset;
+	int				y;
+	int				y_pos_offset;
+	int				y_neg_offset;
+}	t_collide;
 
 /*Player location and movement structure. Mother to collision struct.*/
 typedef struct s_player {
@@ -164,7 +158,7 @@ typedef struct s_player {
 	float			dir_y;
 	int				move_speed;
 	int				compass;
-	t_collision		collision;
+	t_collide		collide;
 }	t_player;
 
 //	Raycast handling variables, stored within the graph structure.
@@ -187,16 +181,6 @@ typedef struct s_raycast {
 	int		texture_yoffset;
 	double	texture_yincrement;
 }	t_cast;
-
-typedef struct s_img {
-	void			*img_ptr;
-	char			*img_addr;
-	int				bit_per_pixel;
-	int				size_line;
-	int				endian;
-	int				height;
-	int				width;
-}	t_img;
 
 typedef struct s_texture {
 	char			**texture;
@@ -240,10 +224,8 @@ typedef struct s_rain {
 	t_player				player;
 	t_graph					graph;
 	t_corf					corf;
-	t_cori					cori;
 	t_location				loca;
-	t_collision				collision;
-	t_img					img;
+	t_collide				collide;
 	t_texture				texture;
 }	t_rain;
 
