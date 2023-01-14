@@ -28,8 +28,7 @@ int	error(int code)
 	error_message[7] = T_RED " is an illegal character in level file. " T_NUL;
 	error_message[8] = T_RED "Error: File width inconsistent. " T_NUL;
 	error_message[9] = T_RED "Error: Level editor failure. " T_NUL;
-	error_message[10] = T_RED
-		"\n Error: Simple DirectMedia Layer failure. " T_NUL;
+	error_message[10] = T_RED "\n Error: SDL library failure. " T_NUL;
 	error_message[11] = T_RED "Error: Graphics rendering failure. " T_NUL;
 	error_message[12] = T_RED "Error: Texture initialization failure. " T_NUL;
 	write(1, error_message[code], ft_strlen(error_message[code]));
