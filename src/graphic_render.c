@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 10:05:39 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/16 11:48:57 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/16 14:50:01 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ static int	draw_space(t_rain *r)
 	ray_count = 0;
 	while (ray_count < r->graph.width)
 	{
-		raycast(r);
+		raycast(r, 10000, 10000);
 		if (r->graph.cast.closest_coll > 0)
 			column_render(r, ray_count);
 		r->graph.cast.ray_angle -= r->graph.cast.degrees_per_ray;
