@@ -59,6 +59,16 @@
 # define SOUTH 3
 # define WEST 4
 
+//SDL KEY INPUT DEFINITIONS
+# define W SDLK_w
+# define UP SDLK_UP
+# define S SDLK_s
+# define DOWN SDLK_DOWN
+# define A SDLK_a
+# define LEFT SDLK_LEFT
+# define D SDLK_d
+# define RIGHT SDLK_RIGHT
+
 //GRAPHICAL RENDER COLOR DEFINITIONS
 # define SKY_PRINT 0xad6f43
 # define WALL_PRINT 0x3f373e
@@ -119,12 +129,6 @@ typedef struct s_coordinate_double {
 	double			y;
 }	t_corf;
 
-// A middle-man coordination variables in integer format.
-typedef struct s_coordinate_integer {
-	int				x;
-	int				y;
-}	t_cori;
-
 typedef struct s_location_double {
 	double			start_x;
 	double			end_x;
@@ -136,14 +140,14 @@ typedef struct s_location_double {
 }	t_location;
 
 // Collision handling variables, stored within the player structure.
-typedef struct s_collision {
-	int				loc_x;
-	int				loc_x_pos_offset;
-	int				loc_x_neg_offset;
-	int				loc_y;
-	int				loc_y_pos_offset;
-	int				loc_y_neg_offset;
-}	t_collision;
+typedef struct s_collision_detection {
+	int				x;
+	int				x_pos_offset;
+	int				x_neg_offset;
+	int				y;
+	int				y_pos_offset;
+	int				y_neg_offset;
+}	t_collide;
 
 /*Player location and movement structure. Mother to collision struct.*/
 typedef struct s_player {
@@ -154,7 +158,7 @@ typedef struct s_player {
 	float			dir_y;
 	int				move_speed;
 	int				compass;
-	t_collision		collision;
+	t_collide		collide;
 }	t_player;
 
 //	Raycast handling variables, stored within the graph structure.
@@ -177,16 +181,6 @@ typedef struct s_raycast {
 	int		texture_yoffset;
 	double	texture_yincrement;
 }	t_cast;
-
-typedef struct s_img {
-	void			*img_ptr;
-	char			*img_addr;
-	int				bit_per_pixel;
-	int				size_line;
-	int				endian;
-	int				height;
-	int				width;
-}	t_img;
 
 typedef struct s_texture {
 	char			**texture;
@@ -230,10 +224,8 @@ typedef struct s_rain {
 	t_player				player;
 	t_graph					graph;
 	t_corf					corf;
-	t_cori					cori;
 	t_location				loca;
-	t_collision				collision;
-	t_img					img;
+	t_collide				collide;
 	t_texture				texture;
 }	t_rain;
 
@@ -261,10 +253,13 @@ int		editor_sequence(t_rain *rain);
 int		graphic_interface(t_rain *rain);
 int		render(t_rain *r);
 int		raycast(t_rain *r);
+void		raycast_angle_check(t_graph *g);
 int		draw_map_slot(t_rain *r, int x, int y);
 void	print_array(t_editor *editor, t_index *index);
 
-void	keyboard(t_rain *r);
+void	keyboard_input(t_rain *r);
+void	move_forward_back(t_stage *stage, t_player *p, SDL_Keycode key);
+void	move_turn(t_player *p, SDL_Keycode key);
 
 SDL_Surface	*img_load(char *path);
 void	pixel_put(t_graph *g, int x_src, int y_src, uint32_t color);

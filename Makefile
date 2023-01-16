@@ -28,6 +28,7 @@ FILES				=	\
 						parse_level\
 						utilities_graphic\
 						utilities_math\
+						utilities_movement\
 						utilities_system
 
 SRC					=	$(addprefix src/, $(addsuffix .c, $(FILES)))
