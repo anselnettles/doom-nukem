@@ -6,15 +6,13 @@
 #    By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/16 17:04:55 by aviholai          #+#    #+#              #
-#    Updated: 2023/01/12 15:49:46 by aviholai         ###   ########.fr        #
+#    Updated: 2023/01/16 10:05:49 by aviholai         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-#################
-### VARIABLES ###
-#################
+#ılılılllıılılıllllıılılllıllı▐ VARIABLES ▐ılılılllıılılıllllıılılllıllı#
 
-NAME				=	doom-nukem
+NAME				=	wolf3d
 
 CC					=	gcc
 FILES				=	\
@@ -35,8 +33,7 @@ SRC					=	$(addprefix src/, $(addsuffix .c, $(FILES)))
 OBJ					=	$(addprefix obj/, $(addsuffix .o, $(FILES)))
 OBJ_DIR				=	obj
 LISTSRC				=	$(foreach part,$(SRC), 	$(PL)		${G}| $(part)\n)
-SPEED				=	-O3
-FLAGS				=	-Wall -Wextra #-Werror -g -Wconversion
+FLAGS				=	-Wall -Wextra -Werror -Wconversion -g -O3
 HEADER				=	-I./src
 
 OS = $(shell uname)
@@ -57,9 +54,7 @@ FRAMEWORKS			=	-F./frameworks \
 						-framework SDL2_image -framework SDL2_mixer
 endif
 
-#############
-### RULES ###
-#############
+#ılılılllıılılıllllıılılllıllı▐ RULES ▐ılılılllıılılıllllıılılllıllı#
 
 all : $(NAME)
 
@@ -71,7 +66,7 @@ $(NAME) : $(OBJ_DIR) $(OBJ)
 	@printf "	$(PL)		${G}| following source files:				${PR}${Nul}"
 	@printf "$(LISTSRC)"
 	@printf "	${PL}									${PR}${Nul}"
-	@$(CC) -o $(NAME) $(FLAGS) $(SPEED) $(OBJ) $(CGFLAGS) $(FRAMEWORKS)
+	@$(CC) -o $(NAME) $(FLAGS) $(OBJ) $(CGFLAGS) $(FRAMEWORKS)
 	@printf "	${PL}									${PR}"
 	@printf "	${PL}	${Yb}Ｆｉｎｉｓｈｅｄ ｂｉｎａｒｙ.					${PR}"
 	@printf "	${PL}		${G}| Executable '$(NAME)' compiled with '$(CC)'.		${PR}"
@@ -101,6 +96,8 @@ fclean : clean
 #	for a single line, refreshing as it moves on to the next file.
 
 re : fclean all
+
+#ılılılllıılılıllllıılılllıllı▐ VISUAL VARIABLES ▐ılılılllıılılıllllıılılllıllı#
 
 #	Colors and visual effects. Used for more clearer visual representation.
 #	'Nul' stand for "no color", 'Y' for yellow, 'G' for gray,
