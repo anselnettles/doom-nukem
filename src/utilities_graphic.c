@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 13:35:22 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/16 11:57:16 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/16 12:17:57 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ SDL_Surface	*img_load(char *path)
 	SDL_Surface	*tmp;
 	SDL_RWops	*rwops;
 
-	if ((rwops = SDL_RWFromFile(path, "r")) == ERROR)
-		return (NULL);
-	if ((tmp = IMG_Load_RW(rwops, 1)) == ERROR)
+	rwops = SDL_RWFromFile(path, "r");
+	tmp = IMG_Load_RW(rwops, 1);
+	if (tmp == NULL || rwops == NULL)
 		return (NULL);
 	ret = SDL_ConvertSurfaceFormat(tmp, SDL_PIXELFORMAT_ARGB8888, 0);
 	SDL_FreeSurface(tmp);
