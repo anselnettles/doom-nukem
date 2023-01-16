@@ -6,11 +6,11 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 18:24:05 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/10 17:33:10 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/16 10:05:18 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "library.h"
+#include "bitter_cold_droplets_in_autumn_rain.h"
 
 //	Loads the texture files for walls from the 'textures' folder and
 //	saves them to the 't_texture' structure's SDL_Surface file[].
@@ -33,14 +33,14 @@ static int	initialize_player(t_rain *r)
 	if (!(r->stage.start_x) || !(r->stage.start_y))
 		return (ERROR);
 	r->player.move_speed = MOVE_SPEED;
-	r->player.pos_x = (double)SQUARE_SIZE * (r->stage.start_x + 1) - \
-						 ((double)SQUARE_SIZE / 2.0);
-	r->player.pos_y = (double)SQUARE_SIZE * (r->stage.start_y + 1) - \
-						 ((double)SQUARE_SIZE / 2.0);
+	r->player.pos_x = (float)(SQUARE_SIZE * (r->stage.start_x + 1)
+		- (SQUARE_SIZE / 2.0));
+	r->player.pos_y = (float)(SQUARE_SIZE * (r->stage.start_y + 1)
+		- (SQUARE_SIZE / 2.0));
 
 	r->player.pos_angle = 90;
-	r->player.dir_x = cos(deg_to_rad(r->player.pos_angle));
-	r->player.dir_y = -sin(deg_to_rad(r->player.pos_angle));
+	r->player.dir_x = (float)cos(deg_to_rad(r->player.pos_angle));
+	r->player.dir_y = (float)-sin(deg_to_rad(r->player.pos_angle));
 	return (0);
 }
 
