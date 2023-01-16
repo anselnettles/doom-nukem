@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 14:16:37 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/16 08:52:29 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/16 11:47:46 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,15 @@ static void	keyboard_second_batch(t_rain *r, SDL_Keycode key)
 void	keyboard_input(t_rain *r)
 {
 	SDL_Keycode	key;
+
 	key = r->graph.e.key.keysym.sym;
 	if (r->graph.e.type == SDL_KEYDOWN)
 	{
-		if (key == W || key == UP || key == S || key == DOWN)
+		if (key == SDLK_w || key == SDLK_UP
+			|| key == SDLK_s || key == SDLK_DOWN)
 			move_forward_back(&r->stage, &r->player, key);
-		if (key == A || key == LEFT || key == D || key == RIGHT)
+		if (key == SDLK_a || key == SDLK_LEFT
+			|| key == SDLK_d || key == SDLK_RIGHT)
 			move_turn(&r->player, key);
 		keyboard_second_batch(r, key);
 	}
