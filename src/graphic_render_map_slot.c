@@ -6,11 +6,11 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 10:06:00 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/24 14:33:18 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/16 09:31:03 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "library.h"
+#include "bitter_cold_droplets_in_autumn_rain.h"
 
 static int	draw_slot_outline(t_rain *r)
 {
@@ -29,7 +29,7 @@ static int	draw_slot_outline(t_rain *r)
 	return (0);
 }
 
-static int	draw_map_tile(t_rain *r, int color)
+static int	draw_map_tile(t_rain *r, uint32_t color)
 {
 	pixel_put(&r->graph, r->graph.x, r->graph.y, color);
 	pixel_put(&r->graph, r->graph.x + 1, r->graph.y, color);
