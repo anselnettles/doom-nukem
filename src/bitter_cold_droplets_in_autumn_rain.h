@@ -6,52 +6,51 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/16 11:45:41 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/16 12:56:33 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BITTER_COLD_DROPLETS_IN_AUTUMN_RAIN_H
 # define BITTER_COLD_DROPLETS_IN_AUTUMN_RAIN_H
+
+//	LIBRARIES
+# include <unistd.h>						//UNIX Standard library.
+# include <stdlib.h>						//Standard library.
+# include <fcntl.h>							//File Control library.
+# include <SDL2/SDL.h>						//Simple DirectMedia Layer.
+
 # ifdef __APPLE__
 # include "SDL_image.h"
 # elif __linux__
 # include <SDL2/SDL_image.h>
 # endif
 
-//	LIBRARIES
-# include <unistd.h>						/*UNIX Standard library.*/
-# include <stdlib.h>						/*Standard library.*/
-# include <fcntl.h>							/*File Control library.*/
-# include <SDL2/SDL.h>						/*Simple DirectMedia Layer.*/
-
 //	GRAPHIC GLOBAL DEFINITIONS
 # define TITLE "Bitter Cold Droplets in Autumn Rain | github.com/AnselNettles"
-# define NAME "wolf3d"			/*Rename when necessary.*/
+# define NAME "wolf3d"
 
-# define WIDTH 640					/*Window resolution width.*/
-# define HEIGHT 480					/*Window resolution height.*/
-# define TOP_MARGIN 10				/*Top margin length for the UI.*/
-# define MAP_MARGIN 460				/*Width margin distance for the map UI.*/
+# define WIDTH 640					//Window resolution width.
+# define HEIGHT 480					//Window resolution height.
+# define TOP_MARGIN 10				//Top margin length for the UI.
+# define MAP_MARGIN 460				//Width margin distance for the map UI.
 
 //	SYSTEM MECHANICS GLOBAL DEFINITIONS
-# define RUN_GAME 1				/*User request for running the game.*/
-# define RUN_LEVEL_EDITOR 2		/*User request for running the editor.*/
-# define TRUE 1					/*Set to true.*/
-# define FALSE 0				/*Set to false.*/
-# define ERROR 1				/*Reference to return value.*/
-# define SDL_ERROR -1			/*Reference to SDL function's return.*/
-# define ENDLESS 1				/*SDL loop.*/
-
-# define SCALE 1				/*Resolution scale.*/
-# define MAX 1000				/*Level size maximum.*/
-# define PLAYER_MAP 1			/*Block map definition.*/
-# define DEV_MAP 2				/*Array map definition.*/
-
-# define FOV 40
-# define SQUARE_SIZE 64
-# define MOVE_SPEED 8
-# define RAY_LENGTH 3
-# define TURN_SPEED 4
+# define RUN_GAME 1					//User request for running the game.
+# define RUN_LEVEL_EDITOR 2			//User request for running the editor.
+# define TRUE 1						//Set to true.
+# define FALSE 0					//Set to false.
+# define ERROR 1					//Reference to return value.
+# define SDL_ERROR -1				//Reference to SDL function's return.
+# define ENDLESS 1					//SDL loop.
+# define SCALE 1					//Resolution scale.
+# define MAX 1000					//Level size maximum.
+# define PLAYER_MAP 1				//Block map definition.
+# define DEV_MAP 2					//Array map definition.
+# define FOV 40						//Field of vision.
+# define SQUARE_SIZE 64				//Size of a side of a terrain block.
+# define MOVE_SPEED 8				//Player's movement speed.
+# define RAY_LENGTH 3				//Length of a cast ray.
+# define TURN_SPEED 4				//Player's turning speed.
 # define DEGREE 0.0174533
 # define NORTH 1
 # define EAST 2
@@ -75,11 +74,11 @@
 # define SLOT 0x303030 
 
 // TERMINAL OUTPUT COLOR DEFINITIONS
-# define T_NUL "\033[0m"			/*Default terminal type color.*/
-# define T_ORANGE "\033[1;33m"		/*Bold orange terminal type color.*/
-# define T_ORANGES "\033[0;33m"		/*A slim orange terminal type color.*/
-# define T_RED "\033[0;31m"			/*A red terminal type color.*/
-# define T_LGRAY "\033[0;37m"		/*A light gray terminal type color.*/
+# define T_NUL "\033[0m"					//Default terminal type color.
+# define T_ORANGE "\033[1;33m"				//Bold orange terminal type color.
+# define T_ORANGES "\033[0;33m"				//A slim orange terminal type color.
+# define T_RED "\033[0;31m"					//A red terminal type color.
+# define T_LGRAY "\033[0;37m"				//A light gray terminal type color.
 
 //	System-wise variables for run and check-up calls through the program.
 typedef struct s_system {
