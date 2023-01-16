@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 15:49:19 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/16 15:41:13 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/16 15:54:04 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@ float	ray_collision_distance(t_player *player, t_corf collision)
 	return (distance);
 }
 
-int	find_hor_coll_point(t_rain *r)
+static int	scan_horizontal_collision_point(t_rain *r)
 {
 	if (r->graph.cast.ray_angle > 0 && r->graph.cast.ray_angle < 180)
 	{
 		r->graph.cast.ray_y = (((int)r->player.pos_y >> 6) << 6) - 0.001f;
-		r->graph.cast.ray_x = r->player.pos_x + \
-			(r->player.pos_y - r->graph.cast.ray_y)
+		r->graph.cast.ray_x
+			= r->player.pos_x + (r->player.pos_y - r->graph.cast.ray_y)
 			/ tan(deg_to_rad(r->graph.cast.ray_angle));
 		r->graph.cast.offset_y = -SQUARE_SIZE;
 		r->graph.cast.offset_x = -r->graph.cast.offset_y
@@ -43,41 +43,41 @@ int	find_hor_coll_point(t_rain *r)
 				r->graph.cast.ray_angle < 360)
 	{
 		r->graph.cast.ray_y = (((int)r->player.pos_y >> 6) << 6) + SQUARE_SIZE;
-		r->graph.cast.ray_x = r->player.pos_x + \
-			(r->player.pos_y - r->graph.cast.ray_y) / \
-			tan(deg_to_rad(r->graph.cast.ray_angle));
+		r->graph.cast.ray_x
+			= r->player.pos_x + (r->player.pos_y - r->graph.cast.ray_y)
+			/ tan(deg_to_rad(r->graph.cast.ray_angle));
 		r->graph.cast.offset_y = SQUARE_SIZE;
-		r->graph.cast.offset_x = -r->graph.cast.offset_y / \
-			tan(deg_to_rad(r->graph.cast.ray_angle));
+		r->graph.cast.offset_x = -r->graph.cast.offset_y
+			/ tan(deg_to_rad(r->graph.cast.ray_angle));
 	}
 	else
 		return (0);
 	return (1);
 }
 
-int	find_ver_coll_point(t_rain *r)
+static int	scan_vertical_collision_point(t_rain *r)
 {
 	if (r->graph.cast.ray_angle > 90 && r->graph.cast.ray_angle < 270)
 	{
 		r->graph.cast.ray_x = (((int)r->player.pos_x >> 6) << 6) - 0.001f;
-		r->graph.cast.ray_y = r->player.pos_y + \
-			(r->player.pos_x - r->graph.cast.ray_x) * \
-			tan(deg_to_rad(r->graph.cast.ray_angle));
+		r->graph.cast.ray_y
+			= r->player.pos_y + (r->player.pos_x - r->graph.cast.ray_x)
+			* tan(deg_to_rad(r->graph.cast.ray_angle));
 		r->graph.cast.offset_x = -SQUARE_SIZE;
-		r->graph.cast.offset_y = -r->graph.cast.offset_x * \
-			tan(deg_to_rad(r->graph.cast.ray_angle));
+		r->graph.cast.offset_y = -r->graph.cast.offset_x
+			* tan(deg_to_rad(r->graph.cast.ray_angle));
 	}
 	else if ((r->graph.cast.ray_angle > 270 && \
 			r->graph.cast.ray_angle <= 360) || \
 			(r->graph.cast.ray_angle >= 0 && r->graph.cast.ray_angle < 90))
 	{
 		r->graph.cast.ray_x = (((int)r->player.pos_x >> 6) << 6) + SQUARE_SIZE;
-		r->graph.cast.ray_y = r->player.pos_y + \
-			(r->player.pos_x - r->graph.cast.ray_x) * \
-			tan(deg_to_rad(r->graph.cast.ray_angle));
+		r->graph.cast.ray_y = r->player.pos_y
+			+ (r->player.pos_x - r->graph.cast.ray_x)
+			* tan(deg_to_rad(r->graph.cast.ray_angle));
 		r->graph.cast.offset_x = SQUARE_SIZE;
-		r->graph.cast.offset_y = -r->graph.cast.offset_x * \
-			tan(deg_to_rad(r->graph.cast.ray_angle));
+		r->graph.cast.offset_y = -r->graph.cast.offset_x
+			* tan(deg_to_rad(r->graph.cast.ray_angle));
 	}
 	else
 		return (0);
@@ -115,9 +115,9 @@ float	calculate_collision_distance(t_rain *r, int i, int measure, float dist)
 
 int	raycast(t_rain *r, float hor_coll_dist, float ver_coll_dist)
 {
-	if (find_hor_coll_point(r))
+	if (scan_horizontal_collision_point(r))
 		hor_coll_dist = calculate_collision_distance(r, 0, r->index.y, 0);
-	if (find_ver_coll_point(r))
+	if (scan_vertical_collision_point(r))
 		ver_coll_dist = calculate_collision_distance(r, 0, r->index.width, 0);
 	if (ver_coll_dist < hor_coll_dist)
 	{
