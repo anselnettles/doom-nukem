@@ -6,14 +6,13 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 18:33:26 by aviholai          #+#    #+#             */
-/*   Updated: 2022/11/10 17:26:51 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/16 08:55:24 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "library.h"
+#include "bitter_cold_droplets_in_autumn_rain.h"
 
 // Comments are allowed in level files within braces.
-
 static void	check_comments(t_editor *editor, t_index *i)
 {
 	write(1, &editor->buffer[i->i], 1);
@@ -35,7 +34,6 @@ static void	check_comments(t_editor *editor, t_index *i)
 }
 
 //	List all the allowed ASCII characters in a level file.
-
 static int	validate_symbol(t_editor *editor, t_index *i)
 {
 	//if (editor->buffer[i->i] == 'S')
@@ -59,7 +57,6 @@ static int	validate_symbol(t_editor *editor, t_index *i)
 }
 
 //	Level file parsing function.
-
 static int	validate_file(t_editor *editor, t_index *i)
 {
 	while (editor->buffer[i->i])
@@ -86,7 +83,6 @@ static int	validate_file(t_editor *editor, t_index *i)
 }
 
 // CheckS the validity of the level's filename. Filename must end in '.dn'.
-
 static int	filename_check(t_editor *editor)
 {
 	int	i;
@@ -105,7 +101,6 @@ static int	filename_check(t_editor *editor)
 
 // Commits the level file through error management checks and ultimately
 // passes it on to the editor function.
-
 int	read_file(t_rain *rain)
 {
 	int		fd;
