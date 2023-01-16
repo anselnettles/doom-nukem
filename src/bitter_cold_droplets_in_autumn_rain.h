@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/16 12:56:33 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/16 14:50:53 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,7 +240,7 @@ int			read_file(t_rain *rain);
 int			editor_sequence(t_rain *rain);
 int			graphic_interface(t_rain *rain);
 int			render(t_rain *r);
-int			raycast(t_rain *r);
+int			raycast(t_rain *r, float hor_coll_dist, float ver_coll_dist);
 void		raycast_angle_check(t_graph *g);
 int			draw_map_slot(t_rain *r, int x, int y);
 void		print_array(t_editor *editor, t_index *index);
