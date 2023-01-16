@@ -6,24 +6,23 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/16 09:46:31 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/16 11:45:41 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BITTER_COLD_DROPLETS_IN_AUTUMN_RAIN_H
 # define BITTER_COLD_DROPLETS_IN_AUTUMN_RAIN_H
+# ifdef __APPLE__
+# include "SDL_image.h"
+# elif __linux__
+# include <SDL2/SDL_image.h>
+# endif
 
 //	LIBRARIES
 # include <unistd.h>						/*UNIX Standard library.*/
 # include <stdlib.h>						/*Standard library.*/
 # include <fcntl.h>							/*File Control library.*/
 # include <SDL2/SDL.h>						/*Simple DirectMedia Layer.*/
-
-#ifdef __APPLE__
-# include "SDL_image.h"
-#elif __linux__
-# include <SDL2/SDL_image.h>
-#endif
 
 //	GRAPHIC GLOBAL DEFINITIONS
 # define TITLE "Bitter Cold Droplets in Autumn Rain | github.com/AnselNettles"
@@ -50,7 +49,7 @@
 
 # define FOV 40
 # define SQUARE_SIZE 64
-# define MOVE_SPEED 8;
+# define MOVE_SPEED 8
 # define RAY_LENGTH 3
 # define TURN_SPEED 4
 # define DEGREE 0.0174533
@@ -58,16 +57,6 @@
 # define EAST 2
 # define SOUTH 3
 # define WEST 4
-
-//SDL KEY INPUT DEFINITIONS
-# define W SDLK_w
-# define UP SDLK_UP
-# define S SDLK_s
-# define DOWN SDLK_DOWN
-# define A SDLK_a
-# define LEFT SDLK_LEFT
-# define D SDLK_d
-# define RIGHT SDLK_RIGHT
 
 //GRAPHICAL RENDER COLOR DEFINITIONS
 # define SKY_PRINT 0xad6f43
@@ -247,35 +236,35 @@ typedef enum e_error
 	TEXTURE_FAIL,
 }	t_error;
 
-int		main(int argc, char **argv);
-int		read_file(t_rain *rain);
-int		editor_sequence(t_rain *rain);
-int		graphic_interface(t_rain *rain);
-int		render(t_rain *r);
-int		raycast(t_rain *r);
+int			main(int argc, char **argv);
+int			read_file(t_rain *rain);
+int			editor_sequence(t_rain *rain);
+int			graphic_interface(t_rain *rain);
+int			render(t_rain *r);
+int			raycast(t_rain *r);
 void		raycast_angle_check(t_graph *g);
-int		draw_map_slot(t_rain *r, int x, int y);
-void	print_array(t_editor *editor, t_index *index);
+int			draw_map_slot(t_rain *r, int x, int y);
+void		print_array(t_editor *editor, t_index *index);
 
-void	keyboard_input(t_rain *r);
-void	move_forward_back(t_stage *stage, t_player *p, SDL_Keycode key);
-void	move_turn(t_player *p, SDL_Keycode key);
+void		keyboard_input(t_rain *r);
+void		move_forward_back(t_stage *stage, t_player *p, SDL_Keycode key);
+void		move_turn(t_player *p, SDL_Keycode key);
 
 SDL_Surface	*img_load(char *path);
-void	pixel_put(t_graph *g, int x_src, int y_src, uint32_t color);
-void	vline(t_rain *r, t_location lo, float y, uint32_t color);
+void		pixel_put(t_graph *g, int x_src, int y_src, uint32_t color);
+void		vline(t_rain *r, t_location lo, float y, uint32_t color);
 
-float	square_root(float nb);
-int		max(int a, int b);
-int		min(int a, int b);
-int		clamp(int a, int lower, int upper);
-double	deg_to_rad(double degrees);
+float		square_root(float nb);
+int			max(int a, int b);
+int			min(int a, int b);
+int			clamp(int a, int lower, int upper);
+double		deg_to_rad(double degrees);
 
-int		error(int code);
+int			error(int code);
 
-void	*ft_memalloc(size_t size);
-void	*ft_memset(void *b, int c, size_t len);
-void	ft_bzero(void *s, size_t n);
-size_t	ft_strlen(const char *s);
-void	sdl_loop(t_rain *rain);
+void		*ft_memalloc(size_t size);
+void		*ft_memset(void *b, int c, size_t len);
+void		ft_bzero(void *s, size_t n);
+size_t		ft_strlen(const char *s);
+void		sdl_loop(t_rain *rain);
 #endif
