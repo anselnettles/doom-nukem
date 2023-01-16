@@ -6,11 +6,11 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 10:05:39 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/12 15:50:30 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/16 10:03:49 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "library.h"
+#include "bitter_cold_droplets_in_autumn_rain.h"
 
 //	Draws three distinct vertical lines on the graphical window's vertical
 //	columns with the vline() tool.
@@ -44,8 +44,8 @@ static void	column_render(t_rain *r, int ray_count)
 	float		texture_y;
 
 	cast = &r->graph.cast;
-	cast->slice_height
-		= ((float)SQUARE_SIZE + 90) / cast->closest_coll * cast->plane_dist;
+	cast->slice_height = (int)((SQUARE_SIZE + 90)
+		/ cast->closest_coll * cast->plane_dist);
 	cast->texture_yincrement
 		= ((float)SQUARE_SIZE + 90) / (float)cast->slice_height;
 	cast->texture_yoffset = 0;
@@ -54,7 +54,7 @@ static void	column_render(t_rain *r, int ray_count)
 		cast->texture_yoffset = (cast->slice_height - r->graph.height) / 2;
 		cast->slice_height = r->graph.height + 90;
 	}
-	texture_y = cast->texture_yoffset * cast->texture_yincrement;
+	texture_y = (float)(cast->texture_yoffset * cast->texture_yincrement);
 	location.start_x = ray_count;
 	location.start_y = 0;
 	location.end_y = r->graph.height;
