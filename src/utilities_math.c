@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utility_functions.c                                :+:      :+:    :+:   */
+/*   utilities_math.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 17:50:06 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/11 12:50:33 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/16 08:57:06 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "library.h"
+#include "bitter_cold_droplets_in_autumn_rain.h"
 
 //Return the greater of the applied values
 int	max(int a, int b)
