@@ -6,11 +6,11 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 13:35:22 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/12 15:47:30 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/16 09:53:21 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "library.h"
+#include "bitter_cold_droplets_in_autumn_rain.h"
 
 //	The image loading function, used to saving the .png texture files
 //	from the 'textures' folder into the graphical wall textures.
@@ -65,7 +65,7 @@ void	pixel_put(t_graph *g, int x_src, int y_src, uint32_t color)
 
 //'Texture_color()' picks the correct RGB color from the correct texture
 //file's pixels, corresponding to the parameter texture_y location.
-static uint32_t	txtr_clr(t_rain *r, int texture_y)
+static uint32_t	txtr_clr(t_rain *r, float texture_y)
 {
 	SDL_Surface	*texture;
 	uint32_t	color;
@@ -73,7 +73,7 @@ static uint32_t	txtr_clr(t_rain *r, int texture_y)
 	int			scale_x;
 
 	texture = NULL;
-	scale_y = (156 * texture_y) / SQUARE_SIZE;
+	scale_y = (int)(156 * texture_y) / SQUARE_SIZE;
 	scale_x = (256 * r->graph.cast.texture_xoffset) / SQUARE_SIZE;
 	if (r->player.compass == NORTH)
 		texture = r->texture.file[0];
@@ -119,7 +119,7 @@ void	vline(t_rain *r, t_location lo, float y, uint32_t color)
 				pix[(lo.y * r->graph.width) + (int)lo.start_x] = txtr_clr(r, y);
 			else
 				pix[(lo.y * r->graph.width) + (int)lo.start_x] = color++;
-			y += r->graph.cast.texture_yincrement;
+			y += (float)r->graph.cast.texture_yincrement;
 			lo.y++;
 		}
 		pix[(lo.y2 * r->graph.width) + (int)lo.start_x] = BROWN_OUTLINE;
