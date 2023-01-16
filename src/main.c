@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 18:24:05 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/16 10:05:18 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/16 11:54:29 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,12 @@
 //	saves them to the 't_texture' structure's SDL_Surface file[].
 static int	initialize_textures(t_rain *rain)
 {
-	if (!(rain->texture.file[0] = img_load("textures/bricks_med.png")))
-		return (ERROR);
-	if (!(rain->texture.file[1] = img_load("textures/bricks_dark.png")))
-		return (ERROR);
-	if (!(rain->texture.file[2] = img_load("textures/bricks_med2.png")))
-		return (ERROR);
-	if (!(rain->texture.file[3] = img_load("textures/bricks_lit.png")))
+	rain->texture.file[0] = img_load("textures/bricks_med.png");
+	rain->texture.file[1] = img_load("textures/bricks_dark.png");
+	rain->texture.file[2] = img_load("textures/bricks_med2.png");
+	rain->texture.file[3] = img_load("textures/bricks_lit.png");
+	if (!(rain->texture.file[0]) || !(rain->texture.file[1])
+		|| !(rain->texture.file[2]) || !(rain->texture.file[3]))
 		return (ERROR);
 	return (0);
 }
@@ -34,10 +33,9 @@ static int	initialize_player(t_rain *r)
 		return (ERROR);
 	r->player.move_speed = MOVE_SPEED;
 	r->player.pos_x = (float)(SQUARE_SIZE * (r->stage.start_x + 1)
-		- (SQUARE_SIZE / 2.0));
+			- (SQUARE_SIZE / 2.0));
 	r->player.pos_y = (float)(SQUARE_SIZE * (r->stage.start_y + 1)
-		- (SQUARE_SIZE / 2.0));
-
+			- (SQUARE_SIZE / 2.0));
 	r->player.pos_angle = 90;
 	r->player.dir_x = (float)cos(deg_to_rad(r->player.pos_angle));
 	r->player.dir_y = (float)-sin(deg_to_rad(r->player.pos_angle));
