@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 10:05:39 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/16 10:03:49 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/16 11:48:57 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void	column_render(t_rain *r, int ray_count)
 
 	cast = &r->graph.cast;
 	cast->slice_height = (int)((SQUARE_SIZE + 90)
-		/ cast->closest_coll * cast->plane_dist);
+			/ cast->closest_coll * cast->plane_dist);
 	cast->texture_yincrement
 		= ((float)SQUARE_SIZE + 90) / (float)cast->slice_height;
 	cast->texture_yoffset = 0;
@@ -82,7 +82,7 @@ static void	draw_overlay(t_rain *r)
 		30, 40, 32, 450, 23, 53, 423, 54, 4, 12, 234, 123, 153, 231};
 	static int	x[24] = {10, 90, 20, 80, 30, 70, 40, 60, 50, 110, 120,
 		32, 323, 123, 431, 12, 43, 54, 76, 94, 37, 64, 12, 43};
-	int		i;
+	int			i;
 
 	i = 0;
 	while (i++ < 24)
