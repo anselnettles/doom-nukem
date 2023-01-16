@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   controls_keyboard.c                                :+:      :+:    :+:   */
+/*   utilities_movement.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 14:16:37 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/12 15:41:35 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/16 09:42:19 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "library.h"
+#include "bitter_cold_droplets_in_autumn_rain.h"
 
 void	raycast_angle_check(t_graph *graph)
 {
@@ -33,12 +33,12 @@ static void	collision_check(t_player *p)
 		y_offset = -15;
 	else
 		y_offset = 15;
-	p->collide.x = (p->pos_x / 64);
-	p->collide.x_pos_offset = ((p->pos_x + x_offset) / 64);
-	p->collide.x_neg_offset = ((p->pos_x - x_offset) / 64);
-	p->collide.y = (p->pos_y / 64);
-	p->collide.y_pos_offset = ((p->pos_y + y_offset) / 64);
-	p->collide.y_neg_offset = ((p->pos_y - y_offset) / 64);
+	p->collide.x = (int)(p->pos_x / 64);
+	p->collide.x_pos_offset = (int)((p->pos_x + x_offset) / 64);
+	p->collide.x_neg_offset = (int)((p->pos_x - x_offset) / 64);
+	p->collide.y = (int)(p->pos_y / 64);
+	p->collide.y_pos_offset = (int)((p->pos_y + y_offset) / 64);
+	p->collide.y_neg_offset = (int)((p->pos_y - y_offset) / 64);
 }
 
 void	move_forward_back(t_stage *stage, t_player *p, SDL_Keycode key)
