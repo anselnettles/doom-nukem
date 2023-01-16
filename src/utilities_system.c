@@ -6,18 +6,15 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 17:50:06 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/11 13:38:24 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/16 09:03:37 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "library.h"
+#include "bitter_cold_droplets_in_autumn_rain.h"
 
-/*	
-**	Memset (memory set) copies the argument 'len' amount of argument value 'c'
-**	to a newly created char string 's' pointed by the argument '*b'.
-**	Returns the argument 'b'.
-*/
-
+//	Ft_memset() (memory set) copies the argument 'len' amount of argument value
+//	'c' to a newly created char string 's' pointed by the argument '*b'.
+//	Returns the argument 'b'.
 void	*ft_memset(void *b, int c, size_t len)
 {
 	char	*s;
@@ -31,13 +28,10 @@ void	*ft_memset(void *b, int c, size_t len)
 	return (b);
 }
 
-/*
-**	'Memalloc()' (memory allocation) allocates a section of memory the size
-**	of argument 'size' with the 'string.h' function 'malloc()' and uses the
-**	library function 'memset()' to set its area to '0'. 
-**	The first process is a failsafe. If allocation fails, returns NULL.
-*/
-
+//	Ft_memalloc() (memory allocation) allocates a section of memory the size
+//	of argument 'size' with function 'malloc()' and uses the library function
+//	'memset()' to set its area to '0'. The first process is a failsafe.
+//	If allocation fails, returns NULL.
 void	*ft_memalloc(size_t size)
 {
 	void	*area;
@@ -49,15 +43,13 @@ void	*ft_memalloc(size_t size)
 	return (area);
 }
 
-/*'Bzero()' (byte zero) writes an amount of 'n' zeroed bytes to the string 's'*/
-
+//	Ft_bzero() (byte zero) writes an amount of 'n' zeroed bytes to a string.
 void	ft_bzero(void *s, size_t n)
 {
 	ft_memset(s, 0, n);
 }
 
-/*'Ft_StrLen()' (String length) measures the length of the applied string '*s'*/
-
+// Ft_strlen() (String length) measures the length of the applied string '*s'
 size_t	ft_strlen(const char *s)
 {
 	size_t	len;
@@ -68,7 +60,7 @@ size_t	ft_strlen(const char *s)
 	return (len);
 }
 
-//	'sdl_loop()' keeps Simple Direct MediaLayer's PollEvent constantly
+//	Sdl_loop() keeps Simple Direct MediaLayer's PollEvent constantly
 //	running and checks for control calls while rerendering the graphical
 //	view.
 void	sdl_loop(t_rain *rain)
