@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/17 12:11:34 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/17 13:42:05 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@
 # include <SDL2/SDL.h>						//Simple DirectMedia Layer.
 
 # ifdef __APPLE__
-# include "SDL_image.h"
+#  include "SDL_image.h"
 # elif __linux__
-# include <SDL2/SDL_image.h>
+#  include <SDL2/SDL_image.h>
 # endif
 
 //	GRAPHIC GLOBAL DEFINITIONS
