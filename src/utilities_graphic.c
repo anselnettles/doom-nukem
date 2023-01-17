@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 13:35:22 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/16 12:17:57 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/17 11:56:24 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,13 +76,13 @@ static uint32_t	txtr_clr(t_rain *r, float texture_y)
 	scale_y = (int)(156 * texture_y) / SQUARE_SIZE;
 	scale_x = (256 * r->graph.cast.texture_xoffset) / SQUARE_SIZE;
 	if (r->player.compass == NORTH)
-		texture = r->texture.file[0];
+		texture = r->graph.texture[0];
 	else if (r->player.compass == EAST)
-		texture = r->texture.file[1];
+		texture = r->graph.texture[1];
 	else if (r->player.compass == SOUTH)
-		texture = r->texture.file[2];
+		texture = r->graph.texture[2];
 	else if (r->player.compass == WEST)
-		texture = r->texture.file[3];
+		texture = r->graph.texture[3];
 	color = ((uint32_t *)texture->pixels)[scale_x + (scale_y * texture->w)];
 	return (color);
 }
