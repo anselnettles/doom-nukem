@@ -6,7 +6,7 @@
 #    By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/16 17:04:55 by aviholai          #+#    #+#              #
-#    Updated: 2023/01/16 10:05:49 by aviholai         ###   ########.fr        #
+#    Updated: 2023/01/17 11:13:54 by aviholai         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,8 @@ FILES				=	\
 						controls_keyboard\
 						error_management\
 						graphic_render\
-						graphic_render_map_slot\
+						graphic_render_overlay\
+						graphic_render_map\
 						graphic_render_raycast\
 						level_editor\
 						main\
