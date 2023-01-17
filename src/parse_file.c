@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 18:33:26 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/17 18:50:31 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/17 19:25:44 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,15 +54,18 @@ static int	validate_symbol(t_editor *editor, t_index *i)
 //	Level file parsing function.
 static int	validate_file(t_editor *editor, t_index *i)
 {
+	int	map_validate;
+
 	while (editor->buffer[i->i])
 	{
 		check_comments(editor, i);
 		if (validate_symbol(editor, i) == ERROR)
 			return (error(BAD_SYMBOL));
-		if (buffer_to_map(editor->buffer, &->editor, &r->index) == NEW_LINE)
+		map_validate = buffer_to_map(editor->buffer, editor, i);
+		if (map_validate == ERROR)
+			return (ERROR);
+		else if (map_validate == NEW_LINE)
 		{
-			if (b[i->i] != '\n')
-					return (error(BAD_WIDTH));
 			i->y++;
 			i->x = 0;
 			i->i += (MAP_WIDTH + 2);
