@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 18:24:05 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/16 11:54:29 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/17 11:45:54 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@
 //	saves them to the 't_texture' structure's SDL_Surface file[].
 static int	initialize_textures(t_rain *rain)
 {
-	rain->texture.file[0] = img_load("textures/bricks_med.png");
-	rain->texture.file[1] = img_load("textures/bricks_dark.png");
-	rain->texture.file[2] = img_load("textures/bricks_med2.png");
-	rain->texture.file[3] = img_load("textures/bricks_lit.png");
-	if (!(rain->texture.file[0]) || !(rain->texture.file[1])
-		|| !(rain->texture.file[2]) || !(rain->texture.file[3]))
+	rain->graph.texture[0] = img_load("textures/bricks_med.png");
+	rain->graph.texture[1] = img_load("textures/bricks_dark.png");
+	rain->graph.texture[2] = img_load("textures/bricks_med2.png");
+	rain->graph.texture[3] = img_load("textures/bricks_lit.png");
+	if (!(rain->graph.texture[0]) || !(rain->graph.texture[1])
+		|| !(rain->graph.texture[2]) || !(rain->graph.texture[3]))
 		return (ERROR);
 	return (0);
 }
@@ -80,7 +80,7 @@ int	graphic_interface(t_rain *rain)
 	if (initialize_media(&rain->graph) == ERROR)
 		return (error(SDL_FAIL));
 	if (initialize_player(rain) == ERROR)
-		return (error(RENDER_FAIL));
+		return (error(PLAYER_FAIL));
 	if (initialize_textures(rain) == ERROR)
 		return (error(TEXTURE_FAIL));
 	if (render(rain) == ERROR)

@@ -6,16 +6,15 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 16:40:37 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/16 08:53:07 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/17 11:47:51 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bitter_cold_droplets_in_autumn_rain.h"
-#define NUMBER 13
 
 int	error(int code)
 {
-	const char	*error_message[NUMBER];
+	const char	*error_message[14];
 
 	error_message[0] = T_ORANGE "Usage: " T_NUL "./" NAME
 		T_ORANGE " | " T_NUL "./" NAME T_RED " <file.dn> " T_NUL;
@@ -29,8 +28,9 @@ int	error(int code)
 	error_message[8] = T_RED "Error: File width inconsistent. " T_NUL;
 	error_message[9] = T_RED "Error: Level editor failure. " T_NUL;
 	error_message[10] = T_RED "\n Error: SDL library failure. " T_NUL;
-	error_message[11] = T_RED "Error: Graphics rendering failure. " T_NUL;
-	error_message[12] = T_RED "Error: Texture initialization failure. " T_NUL;
+	error_message[11] = T_RED  "Error: Player initialization failure. ";
+	error_message[12] = T_RED "Error: Graphics rendering failure. " T_NUL;
+	error_message[13] = T_RED "Error: Texture initialization failure. " T_NUL;
 	write(1, error_message[code], ft_strlen(error_message[code]));
 	return (ERROR);
 }
