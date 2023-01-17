@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 18:33:26 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/17 15:12:13 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/17 15:44:54 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,24 +51,6 @@ static int	validate_symbol(t_editor *editor, t_index *i)
 	return (0);
 }
 
-static int	buffer_to_map(char b[MAX + 1], t_editor *editor, t_index *i)
-{
-	if (b[i->i] == '#' || b[i->i + 1] == '#' || b[i->i + MAP_WIDTH] == '#'
-			|| b[i->i + MAP_WIDTH + 1] == '#' || a[y][x] == '/'
-			|| a[y + 1][x] == '/' || a[y][x + 1] == '/'
-			|| a[y + 1][x + 1] == '/' || a[y][x] == '\\'
-			|| a[y + 1][x] == '\\' || a[y][x + 1] == '\\'
-			|| a[y + 1][x + 1] == '\\' || a[y][x] == '*'
-			|| a[y + 1][x] == '*' || a[y][x + 1] == '*'
-			|| a[y + 1][x + 1] == '*' || a[y][x] == '['
-			|| a[y + 1][x] == '[' || a[y][x + 1] == '['
-			|| a[y + 1][x + 1] == '[' || a[y][x] == ']'
-			|| a[y + 1][x] == ']' || a[y][x + 1] == ']'
-			|| a[y + 1][x + 1] == ']')
-				editor->map[y][x] = '#';
-	return (0);
-}
-
 //	Level file parsing function.
 static int	validate_file(t_editor *editor, t_index *i)
 {
@@ -86,7 +68,7 @@ static int	validate_file(t_editor *editor, t_index *i)
 			//editor->array[i->y][i->x] = '\0';
 			editor->map[i->y][i->x] = '\0';
 			i->x = 0;
-			i->y += 2;
+			i->y++;
 		}
 		else
 		{
@@ -94,7 +76,12 @@ static int	validate_file(t_editor *editor, t_index *i)
 			if (buffer_to_map(editor->buffer, &->editor &r->index) == ERROR)
 				return (ERROR);
 		}
-		i->x += 2;
+
+// INDEX SHOULD BE MOVING TWO AT A PACE. HOWEVER, SUPER CHECK HOW 
+// NEWLINE BEGINS. X/Y/P WILL BECOME SIMPLE AND CLEAN. ONCE THROUGH THIS FILE
+// BUFFER[I->I] IS FORGOTTEN.
+
+		i->x++;
 		i->i++;
 	}
 	return (0);
