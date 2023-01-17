@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/17 11:46:23 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/17 12:11:34 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 //	LIBRARIES
 # include <unistd.h>						//UNIX Standard library.
-# include <stdlib.h>						//Standard library.
 # include <fcntl.h>							//File Control library.
 # include <SDL2/SDL.h>						//Simple DirectMedia Layer.
 
@@ -41,30 +40,29 @@
 # define FALSE 0					//Set to false.
 # define ERROR 1					//Reference to return value.
 # define SDL_ERROR -1				//Reference to SDL function's return.
-# define ENDLESS 1					//SDL loop.
+# define ENDLESS 1					//Reference to an endless SDL while loop.
 # define SCALE 1					//Resolution scale.
 # define MAX 1000					//Level size maximum.
-# define PLAYER_MAP 1				//Block map definition.
-# define DEV_MAP 2					//Array map definition.
+# define PLAYER_MAP 1				//Block map definition when rendering map.
+# define DEV_MAP 2					//Array map definition when rendering map.
 # define FOV 40						//Field of vision.
 # define SQUARE_SIZE 64				//Size of a side of a terrain block.
 # define MOVE_SPEED 8				//Player's movement speed.
 # define RAY_LENGTH 3				//Length of a cast ray.
 # define TURN_SPEED 4				//Player's turning speed.
 # define DEGREE 0.0174533
-# define NORTH 1
+# define NORTH 1					//Reference to wall texture direction.
 # define EAST 2
 # define SOUTH 3
 # define WEST 4
 
-//GRAPHICAL RENDER COLOR DEFINITIONS
-# define SKY_PRINT 0xad6f43
-# define WALL_PRINT 0x3f373e
-# define FLOOR_PRINT 0x37352f
-# define BLUE_OUTLINE 0x042b49
-# define BROWN_OUTLINE 0x593e1c
+//	GRAPHICAL RENDER COLOR DEFINITIONS
+# define SKY_PRINT 0xad6f43			//Default color for sky.
+# define FLOOR_PRINT 0x37352f		//Default color for floor.
+# define BLUE_OUTLINE 0x042b49		//Color for vertical line border.
+# define BROWN_OUTLINE 0x593e1c		//Color for vertical line border.
 
-// PLAYER MAP COLOR DEFINITIONS
+//	PLAYER MAP COLOR DEFINITIONS
 # define WALL 0xFF772E
 # define SKY 0x004744
 # define CEILING 0x11736E
@@ -73,7 +71,7 @@
 # define EMPTY 0x171717
 # define SLOT 0x303030 
 
-// TERMINAL OUTPUT COLOR DEFINITIONS
+//	TERMINAL OUTPUT COLOR DEFINITIONS
 # define T_NUL "\033[0m"				//Default terminal type color.
 # define T_ORANGE "\033[1;33m"			//Bold orange terminal type color.
 # define T_ORANGES "\033[0;33m"			//A slim orange terminal type color.
@@ -111,7 +109,7 @@ typedef struct s_index {
 	int				width;
 }	t_index;
 
-// A middle-man coordination variables in double format.
+//	A middle-man coordination variables in double format.
 typedef struct s_coordinate_double {
 	double			x;
 	double			y;
@@ -127,7 +125,7 @@ typedef struct s_location_double {
 	int				y2;
 }	t_location;
 
-// Collision handling variables, stored within the player structure.
+//	Collision handling variables, stored within the player structure.
 typedef struct s_collision_detection {
 	int				x;
 	int				x_pos_offset;
@@ -137,7 +135,7 @@ typedef struct s_collision_detection {
 	int				y_neg_offset;
 }	t_collide;
 
-/*Player location and movement structure. Mother to collision struct.*/
+//	Player location and movement structure. Mother to collision struct.
 typedef struct s_player {
 	float			pos_angle;
 	float			pos_x;
@@ -170,8 +168,8 @@ typedef struct s_raycast {
 	double	texture_yincrement;
 }	t_cast;
 
-// Graphical-wise variables used for SDL and graphical drawing.
-// Mother to raycast struct.
+//	Graphical-wise variables used for SDL and graphical drawing.
+//	Mother to raycast struct.
 typedef struct s_graphical {
 	SDL_Event		e;
 	SDL_Window		*win;
@@ -189,7 +187,7 @@ typedef struct s_graphical {
 	t_cast			cast;
 }	t_graph;
 
-// Mother structure.
+//	Mother structure.
 typedef struct s_bitter_cold_droplets_in_autumn_rain {
 	t_system				system;
 	t_editor				editor;
@@ -202,7 +200,7 @@ typedef struct s_bitter_cold_droplets_in_autumn_rain {
 	t_collide				collide;
 }	t_rain;
 
-/*Listed error types*/
+//	Listed error types. See 'error_management.c' for their output.
 typedef enum e_error
 {
 	BAD_ARGS,
@@ -221,6 +219,7 @@ typedef enum e_error
 	TEXTURE_FAIL,
 }	t_error;
 
+//	Non-static functions'.
 int			main(int argc, char **argv);
 int			read_file(t_rain *rain);
 int			editor_sequence(t_rain *rain);
