@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 10:05:39 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/16 14:50:01 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/17 11:09:19 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,43 +59,6 @@ static void	column_render(t_rain *r, int ray_count)
 	location.start_y = 0;
 	location.end_y = r->graph.height;
 	draw_column(r, location, texture_y);
-}
-
-static void	droplet(t_rain *r, int x, int y)
-{
-	pixel_put(&r->graph, x, y, 0xC1BCCB);
-	pixel_put(&r->graph, x, y + 2, 0xC1BCCB);
-	pixel_put(&r->graph, x, y + 4, 0xC1BCCB);
-	pixel_put(&r->graph, x, y + 6, 0xD4D0DE);
-	pixel_put(&r->graph, x, y + 7, 0xD4D0DE);
-	pixel_put(&r->graph, x, y + 8, 0xD4D0DE);
-	pixel_put(&r->graph, x, y + 9, 0xD4D0DE);
-	pixel_put(&r->graph, x, y + 10, 0xD4D0DE);
-	pixel_put(&r->graph, x, y + 11, 0xD4D0DE);
-	pixel_put(&r->graph, x, y + 12, 0xD4D0DE);
-	pixel_put(&r->graph, x, y + 13, 0xD4D0DE);
-}
-
-static void	draw_overlay(t_rain *r)
-{
-	static int	y[24] = {10, 90, 50, 180, 80, 250, 140, 320, 220, 150,
-		30, 40, 32, 450, 23, 53, 423, 54, 4, 12, 234, 123, 153, 231};
-	static int	x[24] = {10, 90, 20, 80, 30, 70, 40, 60, 50, 110, 120,
-		32, 323, 123, 431, 12, 43, 54, 76, 94, 37, 64, 12, 43};
-	int			i;
-
-	i = 0;
-	while (i++ < 24)
-		droplet(r, x[i], y[i]++);
-	i = 0;
-	while (i++ < 24)
-	{
-		if (y[i] >= 465)
-		{
-			y[i] = 0;
-			x[i] = rand() % 639 + 1;
-		}
-	}
 }
 
 //	Beginning of drawing the three-dimensional space.
