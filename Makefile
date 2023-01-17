@@ -6,7 +6,7 @@
 #    By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/16 17:04:55 by aviholai          #+#    #+#              #
-#    Updated: 2023/01/17 11:13:54 by aviholai         ###   ########.fr        #
+#    Updated: 2023/01/17 15:47:12 by aviholai         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,8 @@ FILES				=	\
 						graphic_render_raycast\
 						level_editor\
 						main\
-						parse_level\
+						parse_file\
+						parse_file_buffer_to_map\
 						utilities_graphic\
 						utilities_math\
 						utilities_movement\
