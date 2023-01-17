@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/17 18:36:57 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/17 19:26:08 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,6 +216,7 @@ typedef enum e_error
 	CLOSE_FAIL,
 	BAD_SYMBOL,
 	BAD_WIDTH,
+	BAD_WALL,
 	EDITOR_FAIL,
 	SDL_FAIL,
 	PLAYER_FAIL,
