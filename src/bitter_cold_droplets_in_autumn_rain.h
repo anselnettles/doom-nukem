@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/17 15:34:55 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/17 18:36:57 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,12 @@
 # define TRUE 1						//Set to true.
 # define FALSE 0					//Set to false.
 # define ERROR 1					//Reference to return value.
+# define NEW_LINE 2					//Reference to file parser return value.
 # define SDL_ERROR -1				//Reference to SDL function's return.
 # define ENDLESS 1					//Reference to an endless SDL while loop.
 # define SCALE 1					//Resolution scale.
 # define MAX 1000					//Level size maximum.
+# define MAP_WIDTH 28				//Level map line width.
 # define PLAYER_MAP 1				//Block map definition when rendering map.
 # define DEV_MAP 2					//Array map definition when rendering map.
 # define FOV 40						//Field of vision.
@@ -107,6 +109,7 @@ typedef struct s_index {
 	int				i;
 	int				x;
 	int				y;
+	int				p;
 	int				width;
 }	t_index;
 
