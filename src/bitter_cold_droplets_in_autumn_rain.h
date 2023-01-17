@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/17 11:12:33 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/17 11:46:23 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,11 @@
 # define SLOT 0x303030 
 
 // TERMINAL OUTPUT COLOR DEFINITIONS
-# define T_NUL "\033[0m"					//Default terminal type color.
-# define T_ORANGE "\033[1;33m"				//Bold orange terminal type color.
-# define T_ORANGES "\033[0;33m"				//A slim orange terminal type color.
-# define T_RED "\033[0;31m"					//A red terminal type color.
-# define T_LGRAY "\033[0;37m"				//A light gray terminal type color.
+# define T_NUL "\033[0m"				//Default terminal type color.
+# define T_ORANGE "\033[1;33m"			//Bold orange terminal type color.
+# define T_ORANGES "\033[0;33m"			//A slim orange terminal type color.
+# define T_RED "\033[0;31m"				//A red terminal type color.
+# define T_LGRAY "\033[0;37m"			//A light gray terminal type color.
 
 //	System-wise variables for run and check-up calls through the program.
 typedef struct s_system {
@@ -170,27 +170,13 @@ typedef struct s_raycast {
 	double	texture_yincrement;
 }	t_cast;
 
-typedef struct s_texture {
-	char			**texture;
-	int				width;
-	int				height;
-	int				color;
-	void			*img_ptr;
-	char			*img_addr;
-	int				bit_per_pixel;
-	int				size_line;
-	int				endian;
-	int				img_height;
-	int				img_width;
-	SDL_Surface		*file[4];
-}	t_texture;
-
 // Graphical-wise variables used for SDL and graphical drawing.
 // Mother to raycast struct.
-typedef struct s_graph {
+typedef struct s_graphical {
 	SDL_Event		e;
 	SDL_Window		*win;
 	SDL_Surface		*surf;
+	SDL_Surface		*texture[4];
 	const char		*sdl_error_string;
 	int				width;
 	int				height;
@@ -204,7 +190,7 @@ typedef struct s_graph {
 }	t_graph;
 
 // Mother structure.
-typedef struct s_rain {
+typedef struct s_bitter_cold_droplets_in_autumn_rain {
 	t_system				system;
 	t_editor				editor;
 	t_stage					stage;
@@ -214,7 +200,6 @@ typedef struct s_rain {
 	t_corf					corf;
 	t_location				loca;
 	t_collide				collide;
-	t_texture				texture;
 }	t_rain;
 
 /*Listed error types*/
@@ -231,6 +216,7 @@ typedef enum e_error
 	BAD_WIDTH,
 	EDITOR_FAIL,
 	SDL_FAIL,
+	PLAYER_FAIL,
 	RENDER_FAIL,
 	TEXTURE_FAIL,
 }	t_error;
