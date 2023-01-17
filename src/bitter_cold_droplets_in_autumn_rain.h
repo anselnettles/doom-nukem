@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/17 13:42:05 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/17 15:34:55 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ typedef struct s_editor {
 	char			*file;
 	char			buffer[MAX + 1];
 	char			array[MAX + 1][MAX + 1];
+	char			map[MAX + 1][MAX + 1][MAX + 1];
 }	t_editor;
 
 //	Rendered stage information structure. The 'grid' array is rendered
