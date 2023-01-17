@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 18:33:26 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/17 15:44:54 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/17 18:50:31 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,30 +59,19 @@ static int	validate_file(t_editor *editor, t_index *i)
 		check_comments(editor, i);
 		if (validate_symbol(editor, i) == ERROR)
 			return (error(BAD_SYMBOL));
-		if (editor->buffer[i->i] == '\n')
+		if (buffer_to_map(editor->buffer, &->editor, &r->index) == NEW_LINE)
 		{
-			if (!(i->width))
-					i->width = i->i;
-			else if (i->width != i->x - 1)
-				return (error(BAD_WIDTH));
-			//editor->array[i->y][i->x] = '\0';
-			editor->map[i->y][i->x] = '\0';
-			i->x = 0;
+			if (b[i->i] != '\n')
+					return (error(BAD_WIDTH));
 			i->y++;
+			i->x = 0;
+			i->i += (MAP_WIDTH + 2);
 		}
 		else
 		{
-			//editor->array[i->y][i->x] = editor->buffer[i->i];
-			if (buffer_to_map(editor->buffer, &->editor &r->index) == ERROR)
-				return (ERROR);
+			i->x++;
+			i->i += 2;
 		}
-
-// INDEX SHOULD BE MOVING TWO AT A PACE. HOWEVER, SUPER CHECK HOW 
-// NEWLINE BEGINS. X/Y/P WILL BECOME SIMPLE AND CLEAN. ONCE THROUGH THIS FILE
-// BUFFER[I->I] IS FORGOTTEN.
-
-		i->x++;
-		i->i++;
 	}
 	return (0);
 }
