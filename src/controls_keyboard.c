@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 14:16:37 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/16 11:47:46 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/18 09:45:30 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	keyboard_input(t_rain *r)
 	{
 		if (key == SDLK_w || key == SDLK_UP
 			|| key == SDLK_s || key == SDLK_DOWN)
-			move_forward_back(&r->stage, &r->player, key);
+			move_forward_back(&r->editor, &r->player, key);
 		if (key == SDLK_a || key == SDLK_LEFT
 			|| key == SDLK_d || key == SDLK_RIGHT)
 			move_turn(&r->player, key);
