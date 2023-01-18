@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 10:06:00 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/18 10:25:41 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/18 13:23:27 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,9 @@ int	draw_map_slot(t_rain *r, int x, int y)
 	//else if (r->graph.map == DEV_MAP)
 	//	draw_dev_tile(r, r->editor.map, x, y);
 	draw_slot_outline(r);
-	x++;
+	//x++;
 	//if (r->graph.map == PLAYER_MAP)
 	//	x++;
-	r->graph.x += 6;
-	return (x);
+	//r->graph.x += 6;
+	return (0);
 }
