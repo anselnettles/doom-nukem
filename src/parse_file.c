@@ -6,12 +6,12 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 18:33:26 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/18 09:09:38 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/18 12:07:02 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bitter_cold_droplets_in_autumn_rain.h"
-
+/*
 //	Comments are allowed in level files within braces.
 static void	check_comments(t_editor *editor, t_index *i)
 {
@@ -49,7 +49,9 @@ static int	validate_symbol(t_editor *editor, t_index *i)
 		return (ERROR);
 	}
 	return (0);
-}
+}*/
+
+#include <stdio.h>
 
 //	Level file parsing function.
 static int	validate_file(t_editor *editor, t_index *i)
@@ -58,9 +60,9 @@ static int	validate_file(t_editor *editor, t_index *i)
 
 	while (editor->buffer[i->i])
 	{
-		check_comments(editor, i);
-		if (validate_symbol(editor, i) == ERROR)
-			return (error(BAD_SYMBOL));
+		//check_comments(editor, i);
+		//if (validate_symbol(editor, i) == ERROR)
+		//	return (error(BAD_SYMBOL));
 		map_validate = buffer_to_map(editor->buffer, editor, i);
 		if (map_validate == ERROR)
 			return (ERROR);
@@ -69,14 +71,16 @@ static int	validate_file(t_editor *editor, t_index *i)
 			i->y++;
 			i->x = 0;
 			i->i += (MAP_WIDTH + 2);
+			write(1, &editor->map[i->y][i->x][0], 1);
 		}
 		else
 		{
 			i->x++;
 			i->i += 2;
+			write(1, &editor->map[i->y][i->x][0], 1);
 		}
 	}
-	if (i->y != MAP_WIDTH)
+	if (i->y != (MAP_WIDTH / 2))
 		return (error(BAD_WIDTH));
 	return (0);
 }
@@ -112,17 +116,19 @@ int	read_file(t_rain *rain)
 	fd = open(rain->editor.file, O_RDONLY);
 	if (fd == -1)
 		return (error(OPEN_FAIL));
-	ret = read(fd, rain->editor.buffer, MAX);
+	ret = read(fd, rain->editor.buffer, 1000);
 	if (ret < 0)
 		return (error(READ_FAIL));
-	if (ret > MAX)
+	if (ret > 1000)
 		return (error(FILE_MAX));
 	rain->editor.buffer[ret] = '\0';
 	if (validate_file(&rain->editor, &rain->index) == ERROR)
 		return (ERROR);
 	if (close(fd) == -1)
 		return (error(CLOSE_FAIL));
-	if (editor_sequence(rain) == ERROR)
-		return (error(EDITOR_FAIL));
+	if (graphic_interface(rain) == ERROR)
+		return (ERROR);
+	//if (editor_sequence(rain) == ERROR)
+	//	return (error(EDITOR_FAIL));
 	return (0);
 }
