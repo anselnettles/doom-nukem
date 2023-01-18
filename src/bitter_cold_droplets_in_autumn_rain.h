@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/18 12:06:56 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/18 15:57:09 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@
 # define PIT 0x364007
 # define FLOOR 0x6f8410
 # define EMPTY 0x171717
+# define START_POINT 0x8aad34
 # define SLOT 0x303030 
 
 //	TERMINAL OUTPUT COLOR DEFINITIONS
@@ -234,7 +235,7 @@ int			graphic_interface(t_rain *rain);
 int			render(t_rain *r);
 int			raycast(t_rain *r, float hor_coll_dist, float ver_coll_dist);
 void		raycast_angle_check(t_graph *g);
-int			draw_map_slot(t_rain *r, int x, int y);
+void		draw_minimap_slot(t_rain *r);
 void		draw_overlay(t_rain *r);
 void		print_array(t_editor *editor, t_index *index);
 
