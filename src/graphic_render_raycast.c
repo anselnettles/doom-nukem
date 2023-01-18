@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 15:49:19 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/18 10:10:23 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/18 15:15:09 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,17 +84,17 @@ static int	scan_vertical_collision_point(t_rain *r)
 	return (1);
 }
 
-float	calculate_collision_distance(t_rain *r, int i, int measure, float dist)
+float	calculate_collision_distance(t_rain *r, int i, int toggle, float dist)
 {
-	while (i < measure)
+	while (i < (MAP_WIDTH / 2))
 	{
 		r->graph.cast.map_x = ((int)r->graph.cast.ray_x) >> 6;
 		r->graph.cast.map_y = ((int)r->graph.cast.ray_y) >> 6;
-		if (r->graph.cast.map_x >= 0 && r->graph.cast.map_x < r->index.x
-			&& r->graph.cast.map_y >= 0 && r->graph.cast.map_y < r->index.y
+		if (r->graph.cast.map_x >= 0 && r->graph.cast.map_x < (MAP_WIDTH) / 2
+			&& r->graph.cast.map_y >= 0 && r->graph.cast.map_y < (MAP_WIDTH) / 2
 			&& r->editor.map[r->graph.cast.map_y][r->graph.cast.map_x][0] == '#')
 		{
-			if (measure == r->index.y)
+			if (toggle)
 				r->graph.cast.hor_coll_point_x = r->graph.cast.ray_x;
 			else
 				r->graph.cast.ver_coll_point_y = r->graph.cast.ray_y;
@@ -116,9 +116,9 @@ float	calculate_collision_distance(t_rain *r, int i, int measure, float dist)
 int	raycast(t_rain *r, float hor_coll_dist, float ver_coll_dist)
 {
 	if (scan_horizontal_collision_point(r))
-		hor_coll_dist = calculate_collision_distance(r, 0, r->index.y, 0);
+		hor_coll_dist = calculate_collision_distance(r, 0, 1, 0);
 	if (scan_vertical_collision_point(r))
-		ver_coll_dist = calculate_collision_distance(r, 0, r->index.x, 0);
+		ver_coll_dist = calculate_collision_distance(r, 0, 0, 0);
 	if (ver_coll_dist < hor_coll_dist)
 	{
 		r->graph.cast.closest_coll = ver_coll_dist;
