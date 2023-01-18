@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 10:06:00 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/17 11:11:07 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/18 10:25:41 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,55 +43,44 @@ static int	draw_map_tile(t_rain *r, uint32_t color)
 	return (0);
 }
 
-static int	draw_pl_tile(t_rain *r, char a[MAX + 1][MAX + 1], int x, int y)
+static int	draw_pl_tile(t_rain *r, char a[MAX + 1][MAX + 1][MAX + 1], int x, int y)
 {
-	if (a[y][x] == '#' || a[y + 1][x] == '#' || a[y][x + 1] == '#'
-			|| a[y + 1][x + 1] == '#' || a[y][x] == '/'
-			|| a[y + 1][x] == '/' || a[y][x + 1] == '/'
-			|| a[y + 1][x + 1] == '/' || a[y][x] == '\\'
-			|| a[y + 1][x] == '\\' || a[y][x + 1] == '\\'
-			|| a[y + 1][x + 1] == '\\' || a[y][x] == '*'
-			|| a[y + 1][x] == '*' || a[y][x + 1] == '*'
-			|| a[y + 1][x + 1] == '*' || a[y][x] == '['
-			|| a[y + 1][x] == '[' || a[y][x + 1] == '['
-			|| a[y + 1][x + 1] == '[' || a[y][x] == ']'
-			|| a[y + 1][x] == ']' || a[y][x + 1] == ']'
-			|| a[y + 1][x + 1] == ']')
+	if (a[y][x][0] == '#')
 		draw_map_tile(r, WALL);
 	else
 		draw_map_tile(r, EMPTY);
 	return (0);
 }
-
-static int	draw_dev_tile(t_rain *r, char a[MAX + 1][MAX + 1], int x, int y)
+/*
+static int	draw_dev_tile(t_rain *r, char a[MAX + 1][MAX + 1][MAX + 1], int x, int y)
 {
-	if (a[y][x] == '#' || a[y][x] == '/' || a[y][x] == '\\'
-			|| a[y][x] == '*' || a[y][x] == '['
-			|| a[y][x] == ']')
+	if (a[y][x][] == '#' || a[y][x][] == '/' || a[y][x][] == '\\'
+			|| a[y][x][] == '*' || a[y][x][] == '['
+			|| a[y][x][] == ']')
 		draw_map_tile(r, WALL);
-	else if (a[y][x] == '0')
+	else if (a[y][x][] == '0')
 		draw_map_tile(r, PIT);
-	else if (a[y][x] >= '1' && a[y][x] <= '9')
+	else if (a[y][x][] >= '1' && a[y][x] <= '9')
 		draw_map_tile(r, FLOOR);
-	else if (a[y][x] == 'a')
+	else if (a[y][x][] == 'a')
 		draw_map_tile(r, SKY);
-	else if (a[y][x] >= 'b' && a[y][x] <= 'j')
+	else if (a[y][x][] >= 'b' && a[y][x] <= 'j')
 		draw_map_tile(r, CEILING);
 	else
 		draw_map_tile(r, EMPTY);
 	return (0);
-}
+}*/
 
 int	draw_map_slot(t_rain *r, int x, int y)
 {
 	if (r->graph.map == PLAYER_MAP)
-		draw_pl_tile(r, r->editor.array, x, y);
-	else if (r->graph.map == DEV_MAP)
-		draw_dev_tile(r, r->editor.array, x, y);
+		draw_pl_tile(r, r->editor.map, x, y);
+	//else if (r->graph.map == DEV_MAP)
+	//	draw_dev_tile(r, r->editor.map, x, y);
 	draw_slot_outline(r);
 	x++;
-	if (r->graph.map == PLAYER_MAP)
-		x++;
+	//if (r->graph.map == PLAYER_MAP)
+	//	x++;
 	r->graph.x += 6;
 	return (x);
 }
