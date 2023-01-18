@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 10:05:39 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/18 12:11:40 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/18 13:24:56 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ static int	draw_space(t_rain *r)
 	}
 	return (0);
 }
-/*
+
 //	Draws the user array map in the corner of the screen.
 static int	draw_arraymap(t_rain *r)
 {
@@ -89,21 +89,25 @@ static int	draw_arraymap(t_rain *r)
 
 	r->graph.y = TOP_MARGIN;
 	r->graph.x = MAP_MARGIN;
-	x = 1;
-	y = 1;
+	x = 0;
+	y = 0;
 	while (y <= r->index.y)
 	{
-		while (x <= r->index.x)
-			x = draw_map_slot(r, x, y);
-		x = 1;
+		while (x <= (MAP_WIDTH / 2))
+		{
+			draw_map_slot(r, x, y);
+			x++;
+			r->graph.x += 6;
+		}
+		x = 0;
 		r->graph.x = MAP_MARGIN;
 		y++;
-		if (r->graph.map == PLAYER_MAP)
-			y++;
+		//if (r->graph.map == PLAYER_MAP)
+		//	y++;
 		r->graph.y += 6;
 	}
 	return (0);
-}*/
+}
 
 //	The graphical render order: Fill in black, draw the 3D space, draw the
 //	array map in the window corner, update the window.
@@ -113,8 +117,8 @@ int	render(t_rain *rain)
 	if (draw_space(rain) == ERROR)
 		return (ERROR);
 	//draw_overlay(rain);
-	//if (draw_arraymap(rain) == ERROR)
-	//	return (ERROR);
+	if (draw_arraymap(rain) == ERROR)
+		return (ERROR);
 	if (SDL_UpdateWindowSurface(rain->graph.win) == ERROR)
 		return (ERROR);
 	return (0);
