@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 18:33:26 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/18 12:07:02 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/18 12:45:22 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,16 +68,22 @@ static int	validate_file(t_editor *editor, t_index *i)
 			return (ERROR);
 		else if (map_validate == NEW_LINE)
 		{
+			write(1, &editor->map[i->y][i->x][0], 1);
 			i->y++;
 			i->x = 0;
 			i->i += (MAP_WIDTH + 2);
-			write(1, &editor->map[i->y][i->x][0], 1);
+			write(1, "|\n", 2);
 		}
 		else
 		{
+			write(1, "[", 1);
+			if (editor->map[i->y][i->x][1] == 'S')
+				write(1, &editor->map[i->y][i->x][1], 1);
+			else
+				write(1, &editor->map[i->y][i->x][0], 1);
 			i->x++;
 			i->i += 2;
-			write(1, &editor->map[i->y][i->x][0], 1);
+			write(1, "]", 2);
 		}
 	}
 	if (i->y != (MAP_WIDTH / 2))
