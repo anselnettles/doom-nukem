@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 10:05:39 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/18 14:11:18 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/18 15:45:26 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,29 +82,25 @@ static int	draw_space(t_rain *r)
 }
 
 //	Draws the user array map in the corner of the screen.
-static int	draw_arraymap(t_rain *r)
+static void	draw_minimap(t_rain *r)
 {
-	int	x;
-	int	y;
-
 	r->graph.y = TOP_MARGIN;
 	r->graph.x = MAP_MARGIN;
-	x = 0;
-	y = 0;
-	while (y <= (MAP_WIDTH / 2))
+	r->index.x = 0;
+	r->index.y = 0;
+	while (r->index.y <= (MAP_WIDTH / 2))
 	{
-		while (x <= (MAP_WIDTH / 2))
+		while (r->index.x <= (MAP_WIDTH / 2))
 		{
-			draw_map_slot(r, x, y);
-			x++;
+			draw_minimap_slot(r);
+			r->index.x++;
 			r->graph.x += 6;
 		}
-		x = 0;
+		r->index.x = 0;
 		r->graph.x = MAP_MARGIN;
-		y++;
+		r->index.y++;
 		r->graph.y += 6;
 	}
-	return (0);
 }
 
 //	The graphical render order: Fill in black, draw the 3D space, draw the
@@ -114,9 +110,8 @@ int	render(t_rain *rain)
 	SDL_FillRect(rain->graph.surf, NULL, 0);
 	if (draw_space(rain) == ERROR)
 		return (ERROR);
-	//draw_overlay(rain);
-	if (draw_arraymap(rain) == ERROR)
-		return (ERROR);
+	draw_overlay(rain);
+	draw_minimap(rain);
 	if (SDL_UpdateWindowSurface(rain->graph.win) == ERROR)
 		return (ERROR);
 	return (0);
