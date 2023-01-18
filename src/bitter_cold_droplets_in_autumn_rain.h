@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   library.h                                          :+:      :+:    :+:   */
+/*   bitter_cold_droplets_in_autumn_rain.h              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/17 19:26:08 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/18 09:13:41 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,8 @@ typedef struct s_stage {
 
 //	Index-wise variables used for counts. Index 'i' is used for the level
 //	file's buffer string, while variables 'x' and 'y' are for the array of
-//	the extracted level.
+//	the extracted level. Variable 'p' stands for the map's third dimension:
+//	environmental parameters within the XY location.
 typedef struct s_index {
 	int				i;
 	int				x;
