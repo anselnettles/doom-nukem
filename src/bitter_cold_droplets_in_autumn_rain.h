@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/18 09:13:41 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/18 12:06:56 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@
 # define SDL_ERROR -1				//Reference to SDL function's return.
 # define ENDLESS 1					//Reference to an endless SDL while loop.
 # define SCALE 1					//Resolution scale.
-# define MAX 1000					//Level size maximum.
+# define MAX 30						//Level size maximum.
 # define MAP_WIDTH 28				//Level map line width.
 # define PLAYER_MAP 1				//Block map definition when rendering map.
 # define DEV_MAP 2					//Array map definition when rendering map.
@@ -91,16 +91,18 @@ typedef struct s_editor {
 	char			buffer[MAX + 1];
 	char			array[MAX + 1][MAX + 1];
 	char			map[MAX + 1][MAX + 1][MAX + 1];
+	int				start_x;
+	int				start_y;
 }	t_editor;
 
 //	Rendered stage information structure. The 'grid' array is rendered
 //	into the graphical space.
 //	'Start_x' and 'start_y' refer to the player's starting position.
-typedef struct s_stage {
-	char			grid[MAX + 1][MAX + 1];
-	int				start_x;
-	int				start_y;
-}	t_stage;
+//typedef struct s_stage {
+//	char			grid[MAX + 1][MAX + 1];
+//	int				start_x;
+//	int				start_y;
+//}	t_stage;
 
 //	Index-wise variables used for counts. Index 'i' is used for the level
 //	file's buffer string, while variables 'x' and 'y' are for the array of
@@ -196,7 +198,6 @@ typedef struct s_graphical {
 typedef struct s_bitter_cold_droplets_in_autumn_rain {
 	t_system				system;
 	t_editor				editor;
-	t_stage					stage;
 	t_index					index;
 	t_player				player;
 	t_graph					graph;
@@ -228,7 +229,7 @@ typedef enum e_error
 //	Non-static functions'.
 int			main(int argc, char **argv);
 int			read_file(t_rain *rain);
-int			editor_sequence(t_rain *rain);
+int			buffer_to_map(char b[MAX + 1], t_editor *editor, t_index *i);
 int			graphic_interface(t_rain *rain);
 int			render(t_rain *r);
 int			raycast(t_rain *r, float hor_coll_dist, float ver_coll_dist);
@@ -238,7 +239,7 @@ void		draw_overlay(t_rain *r);
 void		print_array(t_editor *editor, t_index *index);
 
 void		keyboard_input(t_rain *r);
-void		move_forward_back(t_stage *stage, t_player *p, SDL_Keycode key);
+void		move_forward_back(t_editor *editor, t_player *p, SDL_Keycode key);
 void		move_turn(t_player *p, SDL_Keycode key);
 
 SDL_Surface	*img_load(char *path);
