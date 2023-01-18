@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 14:16:37 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/16 09:42:19 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/18 10:12:06 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,21 +41,21 @@ static void	collision_check(t_player *p)
 	p->collide.y_neg_offset = (int)((p->pos_y - y_offset) / 64);
 }
 
-void	move_forward_back(t_stage *stage, t_player *p, SDL_Keycode key)
+void	move_forward_back(t_editor *editor, t_player *p, SDL_Keycode key)
 {
 	collision_check(p);
 	if (key == SDLK_w || key == SDLK_UP)
 	{
-		if (stage->grid[p->collide.y][p->collide.x_pos_offset] != '#')
+		if (editor->map[p->collide.y][p->collide.x_pos_offset][0] != '#')
 			p->pos_x += p->dir_x * (float)p->move_speed;
-		if (stage->grid[p->collide.y_pos_offset][p->collide.x] != '#')
+		if (editor->map[p->collide.y_pos_offset][p->collide.x][0] != '#')
 			p->pos_y += p->dir_y * (float)p->move_speed;
 	}
 	if (key == SDLK_s || key == SDLK_DOWN)
 	{
-		if (stage->grid[p->collide.y][p->collide.x_neg_offset] != '#')
+		if (editor->map[p->collide.y][p->collide.x_neg_offset][0] != '#')
 			p->pos_x -= p->dir_x * (float)p->move_speed;
-		if (stage->grid[p->collide.y_neg_offset][p->collide.x] != '#')
+		if (editor->map[p->collide.y_neg_offset][p->collide.x][0] != '#')
 			p->pos_y -= p->dir_y * (float)p->move_speed;
 	}
 }
