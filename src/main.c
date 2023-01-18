@@ -6,11 +6,12 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 18:24:05 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/17 11:45:54 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/18 10:31:20 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bitter_cold_droplets_in_autumn_rain.h"
+#include <stdio.h>
 
 //	Loads the texture files for walls from the 'textures' folder and
 //	saves them to the 't_texture' structure's SDL_Surface file[].
@@ -29,12 +30,12 @@ static int	initialize_textures(t_rain *rain)
 //	Initializes the necessary player variables before rendering.
 static int	initialize_player(t_rain *r)
 {
-	if (!(r->stage.start_x) || !(r->stage.start_y))
+	if (!(r->editor.start_x) || !(r->editor.start_y))
 		return (ERROR);
 	r->player.move_speed = MOVE_SPEED;
-	r->player.pos_x = (float)(SQUARE_SIZE * (r->stage.start_x + 1)
+	r->player.pos_x = (float)(SQUARE_SIZE * (r->editor.start_x + 1)
 			- (SQUARE_SIZE / 2.0));
-	r->player.pos_y = (float)(SQUARE_SIZE * (r->stage.start_y + 1)
+	r->player.pos_y = (float)(SQUARE_SIZE * (r->editor.start_y + 1)
 			- (SQUARE_SIZE / 2.0));
 	r->player.pos_angle = 90;
 	r->player.dir_x = (float)cos(deg_to_rad(r->player.pos_angle));
