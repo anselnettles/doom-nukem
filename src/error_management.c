@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 16:40:37 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/17 19:30:27 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/18 08:53:01 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	error(int code)
 	error_message[5] = T_RED "Error: File too large. " T_NUL;
 	error_message[6] = T_RED "Error: File close failure. " T_NUL;
 	error_message[7] = T_RED " is an illegal character in map file. " T_NUL;
-	error_message[8] = T_RED "Error: File width inconsistent. " T_NUL;
+	error_message[8] = T_RED "Error: File map aspect is inconsistent. " T_NUL;
 	error_message[9] = T_RED "Error: Map file WALL has a bad parameter. " T_NUL;
 	error_message[10] = T_RED "Error: Level editor failure. " T_NUL;
 	error_message[11] = T_RED "\n Error: SDL library failure. " T_NUL;
