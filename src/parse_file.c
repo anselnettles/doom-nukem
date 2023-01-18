@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 18:33:26 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/17 19:25:44 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/18 09:09:38 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ static int	validate_file(t_editor *editor, t_index *i)
 			i->i += 2;
 		}
 	}
+	if (i->y != MAP_WIDTH)
+		return (error(BAD_WIDTH));
 	return (0);
 }
 
