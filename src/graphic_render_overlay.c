@@ -6,12 +6,12 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 11:08:33 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/18 12:11:20 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/18 15:57:56 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bitter_cold_droplets_in_autumn_rain.h"
-/*
+
 static void	droplet(t_rain *r, int x, int y)
 {
 	pixel_put(&r->graph, x, y, 0xC1BCCB);
@@ -25,8 +25,8 @@ static void	droplet(t_rain *r, int x, int y)
 	pixel_put(&r->graph, x, y + 11, 0xD4D0DE);
 	pixel_put(&r->graph, x, y + 12, 0xD4D0DE);
 	pixel_put(&r->graph, x, y + 13, 0xD4D0DE);
-}*/
-/*
+}
+
 void	draw_overlay(t_rain *r)
 {
 	(void) r;
@@ -37,8 +37,8 @@ void	draw_overlay(t_rain *r)
 	int			i;
 
 	i = 0;
-	//while (i++ < 24)
-	//	droplet(r, x[i], y[i]++);
+	while (i++ < 24)
+		droplet(r, x[i], y[i]++);
 	i = 0;
 	while (i++ < 24)
 	{
@@ -48,4 +48,4 @@ void	draw_overlay(t_rain *r)
 			x[i] = rand() % 639 + 1;
 		}
 	}
-}*/
+}
