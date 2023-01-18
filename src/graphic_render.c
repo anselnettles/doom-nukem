@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 10:05:39 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/18 13:24:56 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/18 14:11:18 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ static int	draw_arraymap(t_rain *r)
 	r->graph.x = MAP_MARGIN;
 	x = 0;
 	y = 0;
-	while (y <= r->index.y)
+	while (y <= (MAP_WIDTH / 2))
 	{
 		while (x <= (MAP_WIDTH / 2))
 		{
@@ -102,8 +102,6 @@ static int	draw_arraymap(t_rain *r)
 		x = 0;
 		r->graph.x = MAP_MARGIN;
 		y++;
-		//if (r->graph.map == PLAYER_MAP)
-		//	y++;
 		r->graph.y += 6;
 	}
 	return (0);
