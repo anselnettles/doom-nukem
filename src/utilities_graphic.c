@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 13:35:22 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/18 15:29:36 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/19 14:19:55 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	pixel_put(t_graph *g, int x_src, int y_src, uint32_t color)
 
 //'Texture_color()' picks the correct RGB color from the correct texture
 //file's pixels, corresponding to the parameter texture_y location.
-static uint32_t	txtr_clr(t_rain *r, float texture_y)
+static uint32_t	txtr(t_rain *r, float texture_y)
 {
 	SDL_Surface	*texture;
 	uint32_t	color;
@@ -116,11 +116,14 @@ void	vline(t_rain *r, t_location lo, float y, uint32_t color)
 		while (lo.y < lo.y2)
 		{
 			if (color == 0)
-				pix[(lo.y * r->graph.width) + (int)lo.start_x] = txtr_clr(r, y);
+				pix[((lo.y++) * r->graph.width) + (int)lo.start_x] = txtr(r, y);
 			else
-				pix[(lo.y * r->graph.width) + (int)lo.start_x] = color++;
+			{
+				pix[((lo.y++) * r->graph.width) + (int)lo.start_x] = color++;
+				if (r->graph.scale >= 2)
+					pix[((lo.y++) * r->graph.width) + (int)lo.start_x] = color;
+			}
 			y += (float)r->graph.cast.texture_yincrement;
-			lo.y++;
 		}
 		pix[(lo.y2 * r->graph.width) + (int)lo.start_x] = BROWN_OUTLINE;
 	}
