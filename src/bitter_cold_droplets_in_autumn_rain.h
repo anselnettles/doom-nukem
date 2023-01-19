@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/18 15:57:09 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/19 12:21:40 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,10 @@
 # define SDL_ERROR -1				//Reference to SDL function's return.
 # define ENDLESS 1					//Reference to an endless SDL while loop.
 # define SCALE 1					//Resolution scale.
-# define MAX 30						//Level size maximum.
-# define MAP_WIDTH 28				//Level map line width.
+# define BUFFER_MAX 2550			//Level file maximum size.
+# define MAX 50						//Map array dimension maximum.
+# define PARAMS 10					//Map array parameter dimension maximum.
+# define MAP_WIDTH 50				//Level map line width.
 # define PLAYER_MAP 1				//Block map definition when rendering map.
 # define DEV_MAP 2					//Array map definition when rendering map.
 # define FOV 40						//Field of vision.
@@ -89,9 +91,8 @@ typedef struct s_system {
 //	Editor-wise variables used mainly for resolving the level editor program.
 typedef struct s_editor {
 	char			*file;
-	char			buffer[MAX + 1];
-	char			array[MAX + 1][MAX + 1];
-	char			map[MAX + 1][MAX + 1][MAX + 1];
+	char			buffer[BUFFER_MAX + 1];
+	char			map[MAX + 1][MAX + 1][PARAMS + 1];
 	int				start_x;
 	int				start_y;
 }	t_editor;
