@@ -6,7 +6,7 @@
 #    By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/16 17:04:55 by aviholai          #+#    #+#              #
-#    Updated: 2023/01/18 15:40:15 by aviholai         ###   ########.fr        #
+#    Updated: 2023/01/18 16:05:20 by aviholai         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ SRC					=	$(addprefix src/, $(addsuffix .c, $(FILES)))
 OBJ					=	$(addprefix obj/, $(addsuffix .o, $(FILES)))
 OBJ_DIR				=	obj
 LISTSRC				=	$(foreach part,$(SRC), 	$(PL)		${G}| $(part)\n)
-FLAGS				=	-Wall -Wextra -Werror -Wconversion# -g -fsanitize=address -O3
+FLAGS				=	-Wall -Wextra -Werror -Wconversion -O3 #-g -fsanitize=address
 HEADER				=	-I./src
 
 OS = $(shell uname)
