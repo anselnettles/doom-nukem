@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 14:16:37 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/18 09:45:30 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/19 14:20:25 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ static void	toggle_scale(t_rain *r)
 {
 	if (r->graph.scale == 1)
 		r->graph.scale = 2;
-	else if (r->graph.scale == 2)
-		r->graph.scale = 3;
 	else
 		r->graph.scale = 1;
 	r->graph.width = (WIDTH * r->graph.scale);
