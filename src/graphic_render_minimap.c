@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 10:06:00 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/18 15:56:41 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/19 12:15:50 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	draw_map_tile(t_rain *r, uint32_t color)
 	pixel_put(&r->graph, r->graph.x + 2, r->graph.y + 2, color);
 }
 
-static void	draw_player_tile(t_rain *r, char a[MAX + 1][MAX + 1][MAX + 1])
+static void	draw_player_tile(t_rain *r, char a[MAX + 1][MAX + 1][PARAMS + 1])
 {
 	if (a[r->index.y][r->index.x][0] == '#')
 		draw_map_tile(r, WALL);
@@ -49,7 +49,7 @@ static void	draw_player_tile(t_rain *r, char a[MAX + 1][MAX + 1][MAX + 1])
 		draw_map_tile(r, EMPTY);
 }
 
-static void	draw_developer_tile(t_rain *r, char a[MAX + 1][MAX + 1][MAX + 1])
+static void	draw_developer_tile(t_rain *r, char a[MAX + 1][MAX + 1][PARAMS + 1])
 {
 	if (a[r->index.y][r->index.x][0] == '#')
 		draw_map_tile(r, WALL);
