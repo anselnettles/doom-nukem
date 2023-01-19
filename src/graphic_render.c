@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 10:05:39 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/18 15:45:26 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/19 12:39:45 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,9 @@ static void	draw_minimap(t_rain *r)
 	r->graph.x = MAP_MARGIN;
 	r->index.x = 0;
 	r->index.y = 0;
-	while (r->index.y <= (MAP_WIDTH / 2))
+	while (r->index.y < (MAP_WIDTH / 2))
 	{
-		while (r->index.x <= (MAP_WIDTH / 2))
+		while (r->index.x < (MAP_WIDTH / 2))
 		{
 			draw_minimap_slot(r);
 			r->index.x++;
