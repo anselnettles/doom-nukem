@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 14:16:37 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/20 09:54:46 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/20 11:53:33 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,6 @@ void	keyboard_input(t_rain *r)
 			move_turn(&r->player, key);
 		keyboard_second_batch(r, key);
 	}
+	if (r->graph.e.window.event == SDL_WINDOWEVENT_CLOSE)
+		quit_program(r);
 }
