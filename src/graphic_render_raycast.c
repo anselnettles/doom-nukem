@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 15:49:19 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/18 15:15:09 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/20 10:12:40 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,7 @@ static int	scan_horizontal_collision_point(t_rain *r)
 		r->graph.cast.offset_x = -r->graph.cast.offset_y
 			/ tan(deg_to_rad(r->graph.cast.ray_angle));
 	}
-	else if (r->graph.cast.ray_angle > 180 && \
-				r->graph.cast.ray_angle < 360)
+	else if (r->graph.cast.ray_angle > 180 && r->graph.cast.ray_angle < 360)
 	{
 		r->graph.cast.ray_y = (((int)r->player.pos_y >> 6) << 6) + SQUARE_SIZE;
 		r->graph.cast.ray_x
@@ -67,9 +66,9 @@ static int	scan_vertical_collision_point(t_rain *r)
 		r->graph.cast.offset_y = -r->graph.cast.offset_x
 			* tan(deg_to_rad(r->graph.cast.ray_angle));
 	}
-	else if ((r->graph.cast.ray_angle > 270 && \
-			r->graph.cast.ray_angle <= 360) || \
-			(r->graph.cast.ray_angle >= 0 && r->graph.cast.ray_angle < 90))
+	else if ((r->graph.cast.ray_angle > 270
+			&& r->graph.cast.ray_angle <= 360)
+		|| (r->graph.cast.ray_angle >= 0 && r->graph.cast.ray_angle < 90))
 	{
 		r->graph.cast.ray_x = (((int)r->player.pos_x >> 6) << 6) + SQUARE_SIZE;
 		r->graph.cast.ray_y = r->player.pos_y
@@ -88,11 +87,11 @@ float	calculate_collision_distance(t_rain *r, int i, int toggle, float dist)
 {
 	while (i < (MAP_WIDTH / 2))
 	{
-		r->graph.cast.map_x = ((int)r->graph.cast.ray_x) >> 6;
-		r->graph.cast.map_y = ((int)r->graph.cast.ray_y) >> 6;
-		if (r->graph.cast.map_x >= 0 && r->graph.cast.map_x < (MAP_WIDTH) / 2
-			&& r->graph.cast.map_y >= 0 && r->graph.cast.map_y < (MAP_WIDTH) / 2
-			&& r->editor.map[r->graph.cast.map_y][r->graph.cast.map_x][0] == '#')
+		r->graph.cast.mapx = ((int)r->graph.cast.ray_x) >> 6;
+		r->graph.cast.mapy = ((int)r->graph.cast.ray_y) >> 6;
+		if (r->graph.cast.mapx >= 0 && r->graph.cast.mapx < (MAP_WIDTH) / 2
+			&& r->graph.cast.mapy >= 0 && r->graph.cast.mapy < (MAP_WIDTH) / 2
+			&& r->editor.map[r->graph.cast.mapy][r->graph.cast.mapx][0] == '#')
 		{
 			if (toggle)
 				r->graph.cast.hor_coll_point_x = r->graph.cast.ray_x;
@@ -116,9 +115,9 @@ float	calculate_collision_distance(t_rain *r, int i, int toggle, float dist)
 int	raycast(t_rain *r, float hor_coll_dist, float ver_coll_dist)
 {
 	if (scan_horizontal_collision_point(r))
-		hor_coll_dist = calculate_collision_distance(r, 0, 1, 0);
+		hor_coll_dist = calculate_collision_distance(r, 0, HORIZONTAL, 0);
 	if (scan_vertical_collision_point(r))
-		ver_coll_dist = calculate_collision_distance(r, 0, 0, 0);
+		ver_coll_dist = calculate_collision_distance(r, 0, VERTICAL, 0);
 	if (ver_coll_dist < hor_coll_dist)
 	{
 		r->graph.cast.closest_coll = ver_coll_dist;
