@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 14:16:37 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/19 16:25:58 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/20 09:54:46 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ static void	quit_program(t_rain *r)
 	SDL_FreeSurface(r->graph.texture[1]);
 	SDL_FreeSurface(r->graph.texture[2]);
 	SDL_FreeSurface(r->graph.texture[3]);
-//	SDl_DestroyTexture();
 	SDL_DestroyWindow(r->graph.win);
 	(void)r;
 	SDL_Quit();
