@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 18:24:05 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/18 10:31:20 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/20 10:13:23 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,10 @@ int	main(int argc, char **argv)
 	rain.editor.file = argv[1];
 	if (rain.system.user_request == RUN_GAME)
 	{
-		if (graphic_interface(&rain) == ERROR)
+		rain.editor.file = "maps/alleyway_maze.dn";
+		if (!(rain.editor.file))
+			return (error(OPEN_FAIL));
+		if (read_file(&rain) == ERROR)
 			return (ERROR);
 	}
 	else if (rain.system.user_request == RUN_LEVEL_EDITOR)
