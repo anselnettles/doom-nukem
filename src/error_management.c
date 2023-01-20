@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 16:40:37 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/18 08:53:01 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/20 09:41:47 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	error(int code)
 
 	error_message[0] = T_ORANGE "Usage: " T_NUL "./" NAME
 		T_ORANGE " | " T_NUL "./" NAME T_RED " <file.dn> " T_NUL;
-	error_message[1] = T_RED "Error: No file applied for editor. " T_NUL;
+	error_message[1] = T_RED "Error: No file applied for parsing. " T_NUL;
 	error_message[2] = T_RED "Error: Not a valid (.dn) level file. " T_NUL;
 	error_message[3] = T_RED "Error: File open failure. File not found. " T_NUL;
 	error_message[4] = T_RED "Error: File read failure. " T_NUL;
