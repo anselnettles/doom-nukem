@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/19 12:21:40 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/20 10:24:05 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@
 # define MAX 50						//Map array dimension maximum.
 # define PARAMS 10					//Map array parameter dimension maximum.
 # define MAP_WIDTH 50				//Level map line width.
+# define HORIZONTAL 1				// A toggle variable for raycast calculation
+# define VERTICAL 0					// A toggle variable for raycast calculation
 # define PLAYER_MAP 1				//Block map definition when rendering map.
 # define DEV_MAP 2					//Array map definition when rendering map.
 # define FOV 40						//Field of vision.
@@ -96,15 +98,6 @@ typedef struct s_editor {
 	int				start_x;
 	int				start_y;
 }	t_editor;
-
-//	Rendered stage information structure. The 'grid' array is rendered
-//	into the graphical space.
-//	'Start_x' and 'start_y' refer to the player's starting position.
-//typedef struct s_stage {
-//	char			grid[MAX + 1][MAX + 1];
-//	int				start_x;
-//	int				start_y;
-//}	t_stage;
 
 //	Index-wise variables used for counts. Index 'i' is used for the level
 //	file's buffer string, while variables 'x' and 'y' are for the array of
@@ -161,8 +154,8 @@ typedef struct s_raycast {
 	double	ray_angle;
 	double	ray_x;
 	double	ray_y;
-	int		map_x;
-	int		map_y;
+	int		mapx;
+	int		mapy;
 	double	offset_x;
 	double	offset_y;
 	double	plane_dist;
@@ -231,7 +224,7 @@ typedef enum e_error
 //	Non-static functions'.
 int			main(int argc, char **argv);
 int			read_file(t_rain *rain);
-int			buffer_to_map(char b[MAX + 1], t_editor *editor, t_index *i);
+int			buffer_to_map(char b[MAX + 1], t_editor *e, t_index *i, int width);
 int			graphic_interface(t_rain *rain);
 int			render(t_rain *r);
 int			raycast(t_rain *r, float hor_coll_dist, float ver_coll_dist);
