@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 18:33:26 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/20 10:19:04 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/20 12:23:07 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,8 @@
 //	List all the allowed ASCII characters in a level file.
 static int	validate_symbol(t_editor *editor, t_index *i)
 {
-	if (!(editor->buffer[i->i] == 0 || editor->buffer[i->i] == '\n'
-			|| editor->buffer[i->i] == ' ' || editor->buffer[i->i] == '#'
-			|| editor->buffer[i->i] == '*' || editor->buffer[i->i] == '\\'
-			|| (editor->buffer[i->i] >= '/' && editor->buffer[i->i] <= '9')
-			|| (editor->buffer[i->i] >= 'A' && editor->buffer[i->i] <= 'Z')
-			|| (editor->buffer[i->i] >= 'a' && editor->buffer[i->i] <= 'j')
-			|| (editor->buffer[i->i] == '[' || editor->buffer[i->i] == ']')))
+	if (!(editor->buffer[i->i] == '#' || editor->buffer[i->i] == ' '
+			|| editor->buffer[i->i] == 'S' || editor->buffer[i->i] == '\n'))
 	{
 		write(1, "\n" T_RED "Error: ", 15);
 		write(1, &editor->buffer[i->i], 1);
