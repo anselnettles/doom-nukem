@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 18:33:26 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/19 12:12:18 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/20 10:19:04 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ static int	validate_symbol(t_editor *editor, t_index *i)
 	return (0);
 }
 
-
 //	Level file parsing function.
 static int	validate_file(t_editor *editor, t_index *i)
 {
@@ -40,27 +39,19 @@ static int	validate_file(t_editor *editor, t_index *i)
 	{
 		if (validate_symbol(editor, i) == ERROR)
 			return (error(BAD_SYMBOL));
-		map_validate = buffer_to_map(editor->buffer, editor, i);
+		map_validate = buffer_to_map(editor->buffer, editor, i, MAP_WIDTH);
 		if (map_validate == ERROR)
 			return (ERROR);
 		else if (map_validate == NEW_LINE)
 		{
-			write(1, &editor->map[i->y][i->x][0], 1);
 			i->y++;
 			i->x = 0;
 			i->i += (MAP_WIDTH + 2);
-			write(1, "|\n", 2);
 		}
 		else
 		{
-			write(1, "[", 1);
-			if (editor->map[i->y][i->x][1] == 'S')
-				write(1, &editor->map[i->y][i->x][1], 1);
-			else
-				write(1, &editor->map[i->y][i->x][0], 1);
 			i->x++;
 			i->i += 2;
-			write(1, "]", 2);
 		}
 	}
 	if (i->y != (MAP_WIDTH / 2))
