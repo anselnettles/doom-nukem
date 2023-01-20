@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 18:33:26 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/20 12:23:07 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/20 16:05:59 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,23 @@ static int	validate_symbol(t_editor *editor, t_index *i)
 		write(1, "\n" T_RED "Error: ", 15);
 		write(1, &editor->buffer[i->i], 1);
 		return (ERROR);
+	}
+	return (0);
+}
+
+static int	map_array_validation(t_editor *editor, t_index *i)
+{
+	int	e;
+
+	if (i->y != (MAP_WIDTH / 2))
+		return (error(BAD_WIDTH));
+	e = 0;
+	while (e < 25)
+	{
+		if (editor->map[0][e][0] != '#' || editor->map[e][0][0] != '#'
+			|| editor->map[e][24][0] != '#' || editor->map[24][e][0] != '#')
+			return (error(BAD_WALL));
+		e++;
 	}
 	return (0);
 }
@@ -49,8 +66,8 @@ static int	validate_file(t_editor *editor, t_index *i)
 			i->i += 2;
 		}
 	}
-	if (i->y != (MAP_WIDTH / 2))
-		return (error(BAD_WIDTH));
+	if (map_array_validation(editor, i) == ERROR)
+		return (ERROR);
 	return (0);
 }
 
