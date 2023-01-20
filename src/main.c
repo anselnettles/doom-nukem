@@ -6,12 +6,11 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 18:24:05 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/20 10:13:23 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/20 12:19:09 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bitter_cold_droplets_in_autumn_rain.h"
-#include <stdio.h>
 
 //	Loads the texture files for walls from the 'textures' folder and
 //	saves them to the 't_texture' structure's SDL_Surface file[].
