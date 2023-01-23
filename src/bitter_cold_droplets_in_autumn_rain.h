@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/20 10:24:05 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/23 15:57:35 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 
 //	GRAPHIC GLOBAL DEFINITIONS
 # define TITLE "Bitter Cold Droplets in Autumn Rain | github.com/AnselNettles"
-# define NAME "wolf3d"
+# define NAME "doom-nukem"
 
 # define WIDTH 640					//Window resolution width.
 # define HEIGHT 480					//Window resolution height.
