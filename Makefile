@@ -6,13 +6,13 @@
 #    By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/16 17:04:55 by aviholai          #+#    #+#              #
-#    Updated: 2023/01/19 16:36:12 by aviholai         ###   ########.fr        #
+#    Updated: 2023/01/23 15:57:17 by aviholai         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #ılılılllıılılıllllıılılllıllı▐ VARIABLES ▐ılılılllıılılıllllıılılllıllı#
 
-NAME				=	wolf3d
+NAME				=	doom-nukem
 
 CC					=	gcc
 FILES				=	\
