@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/23 15:57:35 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/26 15:33:32 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <unistd.h>						//UNIX Standard library.
 # include <fcntl.h>							//File Control library.
 # include <SDL2/SDL.h>						//Simple DirectMedia Layer.
+# include <stdio.h>
 
 # ifdef __APPLE__
 #  include "SDL_image.h"

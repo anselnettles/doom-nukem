@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 18:24:05 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/20 12:19:09 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/26 15:32:54 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ int	main(int argc, char **argv)
 	ft_bzero(&rain, sizeof(t_rain));
 	rain.system.user_request = argc;
 	rain.editor.file = argv[1];
+	printf("hei olen topi");
 	if (rain.system.user_request == RUN_GAME)
 	{
 		rain.editor.file = "maps/alleyway_maze.dn";
