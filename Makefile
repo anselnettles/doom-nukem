@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#   Makefile                                           :+:      :+:    :+:    #
+#    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+         #
+#    By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/09/16 17:04:55 by aviholai          #+#    #+#              #
-#    Updated: 2023/01/23 15:57:17 by aviholai         ###   ########.fr        #
+#    Created: 2023/01/04 13:56:16 by tpaaso            #+#    #+#              #
+#    Updated: 2023/01/26 16:28:35 by tpaaso           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,26 +16,20 @@ NAME				=	doom-nukem
 
 CC					=	gcc
 FILES				=	\
-						controls_keyboard\
-						error_management\
-						graphic_render\
-						graphic_render_minimap\
-						graphic_render_overlay\
-						graphic_render_raycast\
+						event\
+						init\
 						main\
-						parse_file\
-						parse_file_buffer_to_map\
-						utilities_graphic\
-						utilities_math\
-						utilities_movement\
-						utilities_system
+						pthread_ray\
+						read\
+						utility\
 
 SRC					=	$(addprefix src/, $(addsuffix .c, $(FILES)))
 OBJ					=	$(addprefix obj/, $(addsuffix .o, $(FILES)))
 OBJ_DIR				=	obj
 LISTSRC				=	$(foreach part,$(SRC), 	$(PL)		${G}| $(part)\n)
-FLAGS				=	-Wall -Wextra -Werror -Wconversion -O3 -g
+FLAGS				=	-Wall -Wextra -Werror -O3 -g
 HEADER				=	-I./src
+LIBFT				=	libft/
 
 OS = $(shell uname)
 ifeq ($(OS), Linux)
@@ -60,6 +54,7 @@ endif
 all : $(NAME)
 
 $(NAME) : $(OBJ_DIR) $(OBJ)
+	@make -C $(LIBFT)
 	@${RUN_HEAD}
 	@printf "	${PL}									${PR}"
 	@printf "	${PL}	${Yb}Ｃｏｍｐｉｌｉｎｇ.		 				${PR}"
@@ -67,7 +62,7 @@ $(NAME) : $(OBJ_DIR) $(OBJ)
 	@printf "	$(PL)		${G}| following source files:				${PR}${Nul}"
 	@printf "$(LISTSRC)"
 	@printf "	${PL}									${PR}${Nul}"
-	@$(CC) -o $(NAME) $(FLAGS) $(OBJ) $(CGFLAGS) $(FRAMEWORKS)
+	@$(CC) -o $(NAME) $(FLAGS) $(OBJ) $(CGFLAGS) $(FRAMEWORKS) libft/libft.a
 	@printf "	${PL}									${PR}"
 	@printf "	${PL}	${Yb}Ｆｉｎｉｓｈｅｄ ｂｉｎａｒｙ.					${PR}"
 	@printf "	${PL}		${G}| Executable '$(NAME)' compiled with '$(CC)'.		${PR}"
