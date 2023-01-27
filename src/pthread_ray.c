@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:45:29 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/01/26 16:45:05 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/01/27 11:55:55 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,35 +142,39 @@ void	draw_floor(t_ray *ray, t_player wall, int win_y)
 {
 	SDL_Surface *screen;
 	t_texture texture;
-	int x;
-	int y;
+	float x;
+	float y;
 	float dy;
 	float dx;
+	int tx;
+	int ty;
 	float distance;
 	float	dir;
 
-	dx = 0;
-	dy = 0;
+	dx = cosf(wall.dir);
+	dy = sinf(wall.dir);
 	if (!(screen = SDL_GetWindowSurface(ray->window)))
 		printf("screen couldnt be created! SDL_Error: %s\n", SDL_GetError());
-	texture = big_checkerboard(SDL_MapRGB(screen->format, 0xFF, 0xFF, 0xFF), SDL_MapRGB(screen->format, 0x00, 0x00, 0x00));
+	texture = create_checkerboard(SDL_MapRGB(screen->format, 0xFF, 0xFF, 0xFF), SDL_MapRGB(screen->format, 0x00, 0x00, 0x00));
 	//dir = atanf((y - height -  2) / distance);
-	dir = tanf(32);
-	distance = 32 * tanf(dir);
-	distance *= cosf(ray->player.dir - ray->dir);
-	//printf("actual distance is %f, my distance is %f\n", sqrt((wall.x - ray->player.x) * (wall.x - ray->player.x) + (wall.y - ray->player.y) * (wall.y - ray->player.y)), distance);
 	while (win_y < HEIGHT)
 	{
-		//calculate direction from eye to pixel;
-		//distance to pixel is sin/cos/tan(playerheight * direction)
-		//dir -= 0.1 * DEGREES;//atanf(32 / (win_y - 400));
-		distance = 32 * dir;
+		dir = atanf((float)(win_y - 400) / (float)1108);
+		distance = (float)32 / dir;
 		distance *= cosf(ray->player.dir - wall.dir);
-		x = (int)(wall.dx * distance);
-		y = (int)(wall.dy * distance);
-		pixel_put(screen, ray->x, win_y, texture.texture[y % 64][x % 64]);
+		x = ray->player.x + dx * distance;
+		y = ray->player.y + dy * distance;
+		tx = (int)x % 64;
+		ty = (int)y % 64;
+		if (tx < 0)
+			tx *= -1;
+		if (ty < 0)
+			ty *= -1;
+		//printf("direction is %f, distance is %f, dx is %f, dy is %f\n", dir, distance, dx, dy);
+		pixel_put(screen, ray->x, win_y, texture.texture[ty][tx]);
 		win_y++;
 	}
+	SDL_FreeSurface(screen);
 }
 
 void	draw_thread(t_ray *ray, float distance, t_player wall)
@@ -193,7 +197,7 @@ void	draw_thread(t_ray *ray, float distance, t_player wall)
 		y_max = HEIGHT;
 	draw_collumn(ray, 0, y, SDL_MapRGB(screen->format, 0x03, 0xD3, 0xFC)); // draw sky
 	draw_texture(ray, y, y_max, wall);
-	//draw_floor(ray, wall, y_max);
+	draw_floor(ray, wall, y_max);
 	//draw_collumn(ray, y, y_max, get_color(wall, screen, distance));			//draw wall
 	//draw_collumn(ray, y_max, HEIGHT, SDL_MapRGB(screen->format, 0xFC, 0xC6, 0x03)); //draw floor
 	SDL_FreeSurface(screen);
