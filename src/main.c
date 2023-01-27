@@ -6,39 +6,39 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 18:24:05 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/20 12:19:09 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/27 17:42:17 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "bitter_cold_droplets_in_autumn_rain.h"
+#include "drowning.h"
 
 //	Loads the texture files for walls from the 'textures' folder and
 //	saves them to the 't_texture' structure's SDL_Surface file[].
-static int	initialize_textures(t_rain *rain)
+static int	initialize_textures(t_drown *drown)
 {
-	rain->graph.texture[0] = img_load("textures/bricks_med.png");
-	rain->graph.texture[1] = img_load("textures/bricks_dark.png");
-	rain->graph.texture[2] = img_load("textures/bricks_med2.png");
-	rain->graph.texture[3] = img_load("textures/bricks_lit.png");
-	if (!(rain->graph.texture[0]) || !(rain->graph.texture[1])
-		|| !(rain->graph.texture[2]) || !(rain->graph.texture[3]))
+	drown->graph.texture[0] = img_load("textures/bricks_med.png");
+	drown->graph.texture[1] = img_load("textures/bricks_dark.png");
+	drown->graph.texture[2] = img_load("textures/bricks_med2.png");
+	drown->graph.texture[3] = img_load("textures/bricks_lit.png");
+	if (!(drown->graph.texture[0]) || !(drown->graph.texture[1])
+		|| !(drown->graph.texture[2]) || !(drown->graph.texture[3]))
 		return (ERROR);
 	return (0);
 }
 
 //	Initializes the necessary player variables before rendering.
-static int	initialize_player(t_rain *r)
+static int	initialize_player(t_drown *d)
 {
-	if (!(r->editor.start_x) || !(r->editor.start_y))
+	if (!(d->editor.start_x) || !(d->editor.start_y))
 		return (ERROR);
-	r->player.move_speed = MOVE_SPEED;
-	r->player.pos_x = (float)(SQUARE_SIZE * (r->editor.start_x + 1)
+	d->player.move_speed = MOVE_SPEED;
+	d->player.pos_x = (float)(SQUARE_SIZE * (d->editor.start_x + 1)
 			- (SQUARE_SIZE / 2.0));
-	r->player.pos_y = (float)(SQUARE_SIZE * (r->editor.start_y + 1)
+	d->player.pos_y = (float)(SQUARE_SIZE * (d->editor.start_y + 1)
 			- (SQUARE_SIZE / 2.0));
-	r->player.pos_angle = 90;
-	r->player.dir_x = (float)cos(deg_to_rad(r->player.pos_angle));
-	r->player.dir_y = (float)-sin(deg_to_rad(r->player.pos_angle));
+	d->player.pos_angle = 90;
+	d->player.dir_x = (float)cos(deg_to_rad(d->player.pos_angle));
+	d->player.dir_y = (float)-sin(deg_to_rad(d->player.pos_angle));
 	return (0);
 }
 
@@ -75,17 +75,17 @@ static int	initialize_media(t_graph *g)
 
 // Beginning of graphical function calls. Runs the graphical sequences in the
 // order of: initialization, rendering, looping.
-int	graphic_interface(t_rain *rain)
+int	graphic_interface(t_drown *drown)
 {
-	if (initialize_media(&rain->graph) == ERROR)
+	if (initialize_media(&drown->graph) == ERROR)
 		return (error(SDL_FAIL));
-	if (initialize_player(rain) == ERROR)
+	if (initialize_player(drown) == ERROR)
 		return (error(PLAYER_FAIL));
-	if (initialize_textures(rain) == ERROR)
+	if (initialize_textures(drown) == ERROR)
 		return (error(TEXTURE_FAIL));
-	if (render(rain) == ERROR)
+	if (render(drown) == ERROR)
 		return (error(RENDER_FAIL));
-	sdl_loop(rain);
+	sdl_loop(drown);
 	return (0);
 }
 
@@ -94,23 +94,19 @@ int	graphic_interface(t_rain *rain)
 
 int	main(int argc, char **argv)
 {
-	t_rain	rain;
+	t_drown	drown;
 
-	ft_bzero(&rain, sizeof(t_rain));
-	rain.system.user_request = argc;
-	rain.editor.file = argv[1];
-	if (rain.system.user_request == RUN_GAME)
+	ft_bzero(&drown, sizeof(t_drown));
+	drown.system.user_request = argc;
+	(void)argv;
+	//rain.editor.file = argv[1];
+	if (drown.system.user_request == RUN_GAME)
 	{
-		rain.editor.file = "maps/alleyway_maze.dn";
-		if (!(rain.editor.file))
-			return (error(OPEN_FAIL));
-		if (read_file(&rain) == ERROR)
-			return (ERROR);
-	}
-	else if (rain.system.user_request == RUN_LEVEL_EDITOR)
-	{
-		if (read_file(&rain) == ERROR)
-			return (ERROR);
+	//	rain.editor.file = "maps/alleyway_maze.dn";
+	//	if (!(rain.editor.file))
+	//		return (error(OPEN_FAIL));
+	//	if (read_file(&rain) == ERROR)
+	//		return (ERROR);
 	}
 	else
 		return (error(BAD_ARGS));
