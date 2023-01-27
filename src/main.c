@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 13:56:29 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/01/26 16:46:20 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/01/27 15:02:28 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,7 @@ int	main(int ac, char **av)
 		return (0);
 	}
 	read_map(av[1], &data.map);
-	init_player(&data.player);
-	data.option = PLAY;
-	data.thread = 1;
-	data.height = 0;
-	data.window = SDL_CreateWindow("TEST", SDL_WINDOWPOS_UNDEFINED,
-			SDL_WINDOWPOS_UNDEFINED, WIDTH, HEIGHT, SDL_WINDOW_SHOWN);
-	if (init_sdl(data.window, data.screen) == 0)
-		exit(-1);
+	init_values(&data);
 	render_thread(&data);
 	draw_map(&data);
 	SDL_UpdateWindowSurface(data.window);
