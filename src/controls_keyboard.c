@@ -6,77 +6,77 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 14:16:37 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/20 11:53:33 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/27 17:36:13 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "bitter_cold_droplets_in_autumn_rain.h"
+#include "drowning.h"
 
-static void	toggle_scale(t_rain *r)
+static void	toggle_scale(t_drown *d)
 {
-	if (r->graph.scale == 1)
-		r->graph.scale = 2;
+	if (d->graph.scale == 1)
+		d->graph.scale = 2;
 	else
-		r->graph.scale = 1;
-	r->graph.width = (WIDTH * r->graph.scale);
-	r->graph.height = (HEIGHT * r->graph.scale);
-	SDL_SetWindowSize(r->graph.win, r->graph.width, r->graph.height);
-	r->graph.surf = SDL_GetWindowSurface(r->graph.win);
-	r->graph.cast.plane_dist = (double)(r->graph.width / 2)
+		d->graph.scale = 1;
+	d->graph.width = (WIDTH * d->graph.scale);
+	d->graph.height = (HEIGHT * d->graph.scale);
+	SDL_SetWindowSize(d->graph.win, d->graph.width, d->graph.height);
+	d->graph.surf = SDL_GetWindowSurface(d->graph.win);
+	d->graph.cast.plane_dist = (double)(d->graph.width / 2)
 		/ tan(deg_to_rad(FOV / 2));
-	r->graph.cast.degrees_per_column = (double)r->graph.width / (double)FOV;
-	r->graph.cast.degrees_per_ray = (double)FOV / (double)r->graph.width;
+	d->graph.cast.degrees_per_column = (double)d->graph.width / (double)FOV;
+	d->graph.cast.degrees_per_ray = (double)FOV / (double)d->graph.width;
 }
 
-static void	quit_program(t_rain *r)
+static void	quit_program(t_drown *d)
 {
-	SDL_FreeSurface(r->graph.texture[0]);
-	SDL_FreeSurface(r->graph.texture[1]);
-	SDL_FreeSurface(r->graph.texture[2]);
-	SDL_FreeSurface(r->graph.texture[3]);
-	SDL_DestroyWindow(r->graph.win);
-	(void)r;
+	SDL_FreeSurface(d->graph.texture[0]);
+	SDL_FreeSurface(d->graph.texture[1]);
+	SDL_FreeSurface(d->graph.texture[2]);
+	SDL_FreeSurface(d->graph.texture[3]);
+	SDL_DestroyWindow(d->graph.win);
+	(void)d;
 	SDL_Quit();
 	exit(0);
 }
 
-static void	keyboard_second_batch(t_rain *r, SDL_Keycode key)
+static void	keyboard_second_batch(t_drown *d, SDL_Keycode key)
 {
 	if (key == SDLK_ESCAPE)
-		quit_program(r);
+		quit_program(d);
 	if (key == SDLK_KP_PLUS)
-		toggle_scale(r);
+		toggle_scale(d);
 	if (key == SDLK_o)
 	{
-		if (r->graph.scanline == TRUE)
-			r->graph.scanline = FALSE;
+		if (d->graph.scanline == TRUE)
+			d->graph.scanline = FALSE;
 		else
-			r->graph.scanline = TRUE;
+			d->graph.scanline = TRUE;
 	}
 	if (key == SDLK_m)
 	{
-		if (r->graph.map == PLAYER_MAP)
-			r->graph.map = DEV_MAP;
+		if (d->graph.map == PLAYER_MAP)
+			d->graph.map = DEV_MAP;
 		else
-			r->graph.map = PLAYER_MAP;
+			d->graph.map = PLAYER_MAP;
 	}
 }
 
-void	keyboard_input(t_rain *r)
+void	keyboard_input(t_drown *d)
 {
 	SDL_Keycode	key;
 
-	key = r->graph.e.key.keysym.sym;
-	if (r->graph.e.type == SDL_KEYDOWN)
+	key = d->graph.e.key.keysym.sym;
+	if (d->graph.e.type == SDL_KEYDOWN)
 	{
 		if (key == SDLK_w || key == SDLK_UP
 			|| key == SDLK_s || key == SDLK_DOWN)
-			move_forward_back(&r->editor, &r->player, key);
+			move_forward_back(&d->editor, &d->player, key);
 		if (key == SDLK_a || key == SDLK_LEFT
 			|| key == SDLK_d || key == SDLK_RIGHT)
-			move_turn(&r->player, key);
-		keyboard_second_batch(r, key);
+			move_turn(&d->player, key);
+		keyboard_second_batch(d, key);
 	}
-	if (r->graph.e.window.event == SDL_WINDOWEVENT_CLOSE)
-		quit_program(r);
+	if (d->graph.e.window.event == SDL_WINDOWEVENT_CLOSE)
+		quit_program(d);
 }
