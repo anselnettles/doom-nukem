@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:45:29 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/01/27 17:31:48 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/27 19:48:50 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -263,7 +263,7 @@ void    render_thread(t_drown *data)
 			ray[i].x = i * THREADRAY;
 			ray[i].dir = (data->player.dir - 30 * DEGREES) + (i * THREADRAY * (60 * DEGREES / WIDTH));
 		}
-		ray[i].height = data->height;
+		ray[i].height = data->hg;
 		ray[i].window = data->window;
 		ray[i].player = data->player;
 		ray[i].map = data->map;
