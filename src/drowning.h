@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/27 18:03:00 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/27 19:05:57 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -282,7 +282,7 @@ typedef enum e_error
 }	t_error;
 
 //	Non-static functions'.
-int			main(int argc, char **argv);
+int			main(void);
 int			read_file(t_drown *drown);
 int			buffer_to_map(char b[MAX + 1], t_editor *e, t_index *i, int width);
 int			graphic_interface(t_drown *drown);
