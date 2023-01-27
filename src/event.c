@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:21:31 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/01/27 12:06:33 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/01/27 15:08:41 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,6 @@ void	deal_key(int key, t_main *data)
 		strife(key, &data->player, data->map);
 	if (key == SDLK_w || key == SDLK_s)
 		move_player(key, &data->player, data->map);
-	clear_screen(data);
-	render_thread(data);
-	draw_map(data);
-	SDL_UpdateWindowSurface(data->window);
 }
 
 void	deal_mouse(t_main *data)
