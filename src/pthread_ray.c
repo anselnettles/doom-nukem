@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:45:29 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/01/27 11:55:55 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/01/27 14:40:27 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@ void	draw_collumn(t_ray *ray, int y, int y_max, Uint32 color)
 
 	if (!(screen = SDL_GetWindowSurface(ray->window)))
 		printf("screen couldnt be created! SDL_Error: %s\n", SDL_GetError());
-	while (y < y_max)
+	if (y_max > HEIGHT)
+		y_max = HEIGHT;
+	while (y < y_max && y >= 0)
 	{
 		pixel_put(screen, ray->x, y, color);
 		y++;
@@ -121,9 +123,7 @@ void	draw_texture(t_ray *ray, int y, int y_max, t_player wall)
 	if (ray->map.map[(int)roundf(wall.y)][(int)roundf(wall.x + 1 )] == ' '
 		|| ray->map.map[(int)roundf(wall.y)][(int)roundf(wall.x - 1 )] == ' ')
 		texture_x = (int)wall.y % 64;
-	//if (y < 0)
-	//	y = 0;
-	while (y < y_max && texture_y < 64 && y < HEIGHT)
+	while (y < y_max && texture_y < 64 && y < HEIGHT && y >= 0)
 	{
 		if (j > i)
 		{
