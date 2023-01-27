@@ -6,12 +6,12 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 18:33:26 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/27 16:35:51 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/27 19:50:37 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "drowning.h"
-
+/*
 //	List all the allowed ASCII characters in a level file.
 static int	validate_symbol(t_editor *editor, t_index *i)
 {
@@ -86,11 +86,11 @@ static int	filename_check(t_editor *editor)
 			return (ERROR);
 	}
 	return (0);
-}
+}*/
 
 //	Commits the level file through error management checks and ultimately
 //	passes it on to the editor function.
-int	read_file(t_drown *drown)
+/*int	read_file(t_drown *drown)
 {
 	int		fd;
 	ssize_t	ret;
@@ -115,4 +115,4 @@ int	read_file(t_drown *drown)
 	if (graphic_interface(drown) == ERROR)
 		return (ERROR);
 	return (0);
-}
+}*/
