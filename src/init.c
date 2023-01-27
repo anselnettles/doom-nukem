@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:25:23 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/01/27 15:01:04 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/01/27 15:04:25 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,11 @@ void	init_data(t_main *data)
 }
 void	init_values(t_main *data)
 {
+	if (SDL_Init(SDL_INIT_VIDEO) < 0)
+	{
+		printf("Unable to initialize SDL! SDL Error: %s\n", SDL_GetError());
+		exit(-1);
+	}
 	init_player(&data->player);
 	init_data(data);
 

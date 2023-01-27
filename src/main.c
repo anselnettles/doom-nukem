@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 13:56:29 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/01/27 15:02:28 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/01/27 15:04:43 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,6 @@ int	main(int ac, char **av)
 
 	if (ac != 2)
 		ft_exit("invalid arguments");
-	if (SDL_Init(SDL_INIT_VIDEO) < 0)
-	{
-		printf("Unable to initialize SDL! SDL Error: %s\n", SDL_GetError());
-		return (0);
-	}
 	read_map(av[1], &data.map);
 	init_values(&data);
 	render_thread(&data);
