@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 18:24:05 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/27 20:06:17 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/27 21:05:58 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,14 @@
 //	saves them to the 't_texture' structure's SDL_Surface file[].
 static int	initialize_textures(t_drown *drown)
 {
-	drown->graph.texture[0] = img_load("textures/bricks_med.png");
-	drown->graph.texture[1] = img_load("textures/bricks_dark.png");
-	drown->graph.texture[2] = img_load("textures/bricks_med2.png");
-	drown->graph.texture[3] = img_load("textures/bricks_lit.png");
-	if (!(drown->graph.texture[0]) || !(drown->graph.texture[1])
-		|| !(drown->graph.texture[2]) || !(drown->graph.texture[3]))
-		return (ERROR);
+	(void)drown;
+//	drown->graph.texture[0] = img_load("textures/bricks_med.png");
+//	drown->graph.texture[1] = img_load("textures/bricks_dark.png");
+//	drown->graph.texture[2] = img_load("textures/bricks_med2.png");
+//	drown->graph.texture[3] = img_load("textures/bricks_lit.png");
+//	if (!(drown->graph.texture[0]) || !(drown->graph.texture[1])
+//		|| !(drown->graph.texture[2]) || !(drown->graph.texture[3]))
+//		return (ERROR);
 	return (0);
 }
 
@@ -47,7 +48,7 @@ static int	initialize_player(t_drown *d)
 	d->player.y = BITS * 2;
 	d->player.dx = cosf(PI);
 	d->player.dy = sinf(PI);
-	d->player.height = 32;	
+	d->player.height = 32;
 	return (0);
 }
 
@@ -111,6 +112,7 @@ int	main(void)
 		return (error(TEXTURE_FAIL));
 	if (render(&data) == ERROR)
 		return (error(RENDER_FAIL));
+	SDL_SetRelativeMouseMode(data.cursor);
 	sdl_loop(&data);
 	return (0);
 }
