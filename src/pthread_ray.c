@@ -6,11 +6,11 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:45:29 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/01/27 15:17:33 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/01/27 17:31:48 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "doom_nukem.h"
+#include "drowning.h"
 
 void	pixel_put(SDL_Surface *screen, int x, int y, Uint32 color)
 {
@@ -208,7 +208,7 @@ void	*ft_raycast_thread(void  *args)
 {
     t_ray		*ray;
 	t_player	wall;
-	float	    distance;
+	float		distance;
 
     ray = args;
 	distance = 0;
@@ -240,7 +240,7 @@ void	*ft_raycast_thread(void  *args)
 	return (NULL);
 }
 
-void    render_thread(t_main *data)
+void    render_thread(t_drown *data)
 {
     pthread_t threads[THREAD];
 	t_ray	ray[THREAD];
