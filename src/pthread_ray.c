@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:45:29 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/01/27 15:02:07 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/01/27 15:17:33 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,7 @@ void	draw_floor(t_ray *ray, t_player wall, int win_y)
 	//dir = atanf((y - height -  2) / distance);
 	while (win_y < HEIGHT)
 	{
-		dir = atanf((float)(win_y - 400) / (float)1108);
+		dir = atanf((float)(win_y - 400 - ray->height) / (float)1108);
 		distance = (float)32 / dir;
 		distance /= cosf(ray->player.dir - wall.dir);
 		x = ray->player.x - dx * distance;

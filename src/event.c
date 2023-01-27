@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:21:31 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/01/27 15:08:41 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/01/27 15:18:48 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ void	deal_mouse(t_main *data)
 	data->height -= data->event.motion.yrel * 8;
 	if (data->height > 700)
 		data->height = 700;
-	if (data->height < -700)
-		data->height = -700;
+	if (data->height < -400)
+		data->height = -400;
 	clear_screen(data);
 	render_thread(data);
 	draw_map(data);
