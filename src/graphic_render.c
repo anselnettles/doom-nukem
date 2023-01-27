@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 10:05:39 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/27 20:11:28 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/27 20:29:12 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,14 +105,16 @@ static int	draw_space(t_drown *d)
 
 //	The graphical render order: Fill in black, draw the 3D space, draw the
 //	array map in the window corner, update the window.
-int	render(t_drown *drown)
+int	render(t_drown *data)
 {
-	SDL_FillRect(drown->screen, NULL, 0);
+	SDL_FillRect(data->screen, NULL, 0);
 	//if (draw_space(drown) == ERROR)
 	//	return (ERROR);
 	//draw_overlay(drown);
 	//draw_minimap(drown);
-	if (SDL_UpdateWindowSurface(drown->window) == ERROR)
+	render_thread(data);
+	draw_map(data);
+	if (SDL_UpdateWindowSurface(data->window) == ERROR)
 		return (ERROR);
 	return (0);
 }
