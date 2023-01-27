@@ -6,11 +6,11 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:25:23 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/01/27 15:19:51 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/01/27 16:29:30 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "doom_nukem.h"
+#include "drowning.h"
 
 int	init_sdl(SDL_Window *window, SDL_Surface *screen)
 {
@@ -37,7 +37,7 @@ void	init_player(t_player *player)
 	player->height = 32;
 }
 
-void	init_data(t_main *data)
+void	init_data(t_drown *data)
 {
 	data->option = PLAY;
 	data->thread = 1;
@@ -47,7 +47,7 @@ void	init_data(t_main *data)
 	if (init_sdl(data->window, data->screen) == 0)
 		exit(-1);
 }
-void	init_values(t_main *data)
+void	init_values(t_drown *data)
 {
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 	{
