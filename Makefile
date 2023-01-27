@@ -6,7 +6,7 @@
 #    By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/16 17:04:55 by aviholai          #+#    #+#              #
-#    Updated: 2023/01/23 15:57:17 by aviholai         ###   ########.fr        #
+#    Updated: 2023/01/27 17:36:43 by aviholai         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,23 +18,28 @@ CC					=	gcc
 FILES				=	\
 						controls_keyboard\
 						error_management\
+						event\
 						graphic_render\
 						graphic_render_minimap\
 						graphic_render_overlay\
 						graphic_render_raycast\
+						init\
 						main\
 						parse_file\
 						parse_file_buffer_to_map\
+						pthread_ray\
+						read\
 						utilities_graphic\
 						utilities_math\
 						utilities_movement\
-						utilities_system
+						utilities_system\
+						utility
 
 SRC					=	$(addprefix src/, $(addsuffix .c, $(FILES)))
 OBJ					=	$(addprefix obj/, $(addsuffix .o, $(FILES)))
 OBJ_DIR				=	obj
 LISTSRC				=	$(foreach part,$(SRC), 	$(PL)		${G}| $(part)\n)
-FLAGS				=	-Wall -Wextra -Werror -Wconversion -O3 -g
+FLAGS				=	-Wall -Wextra -Werror -O3 -g
 HEADER				=	-I./src
 
 OS = $(shell uname)
