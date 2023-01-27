@@ -1,21 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bitter_cold_droplets_in_autumn_rain.h              :+:      :+:    :+:   */
+/*   drowning.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/23 15:57:35 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/27 18:03:00 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BITTER_COLD_DROPLETS_IN_AUTUMN_RAIN_H
-# define BITTER_COLD_DROPLETS_IN_AUTUMN_RAIN_H
+#ifndef DROWNING_H
+# define DROWNING_H
 
 //	LIBRARIES
+# include <stdio.h>							//Standard input output.
+# include <math.h>							// Math library.
 # include <unistd.h>						//UNIX Standard library.
 # include <fcntl.h>							//File Control library.
+# include <pthread.h>
 # include <SDL2/SDL.h>						//Simple DirectMedia Layer.
 
 # ifdef __APPLE__
@@ -25,11 +28,12 @@
 # endif
 
 //	GRAPHIC GLOBAL DEFINITIONS
-# define TITLE "Bitter Cold Droplets in Autumn Rain | github.com/AnselNettles"
+# define TITLE "Project Drowning | github.com/AnselNettles/doom-nukem"
 # define NAME "doom-nukem"
 
-# define WIDTH 640					//Window resolution width.
-# define HEIGHT 480					//Window resolution height.
+
+# define WIDTH 1280					//Window resolution width.
+# define HEIGHT 800					//Window resolution height.
 # define TOP_MARGIN 10				//Top margin length for the UI.
 # define MAP_MARGIN 460				//Width margin distance for the map UI.
 
@@ -56,7 +60,20 @@
 # define MOVE_SPEED 8				//Player's movement speed.
 # define RAY_LENGTH 3				//Length of a cast ray.
 # define TURN_SPEED 4				//Player's turning speed.
-# define DEGREE 0.0174533
+# define PI 3.1415927				//Topi's build.
+# define SPEED 10					//Topi's build.
+# define BITS 64					//Topi's build.
+# define MMWIDTH 420				//Topi's build.
+# define MMHEIGHT 200				//Topi's build.
+# define LIMIT 100					//Topi's build.
+# define THREAD 6					//Topi's build.
+# define THREADRAY 213				//Topi's build.
+# define EXIT 0						//Topi's build.
+# define PLAY 1						//Topi's build.
+# define BUFF_SIZE 32				//Topi's build.
+# define MAX_FD 8192				//Topi's build.
+# define DEGREE 0.0174532
+# define DEGREES 0.0174532
 # define NORTH 1					//Reference to wall texture direction.
 # define EAST 2
 # define SOUTH 3
@@ -147,6 +164,14 @@ typedef struct s_player {
 	int				move_speed;
 	int				compass;
 	t_collide		collide;
+
+	float		x;
+	float		y;
+	float		dir;
+	float		dx;
+	float		dy;
+	int		height;
+	int		flag;
 }	t_player;
 
 //	Raycast handling variables, stored within the graph structure.
@@ -189,8 +214,32 @@ typedef struct s_graphical {
 	t_cast			cast;
 }	t_graph;
 
+typedef struct s_map
+{
+	char	**map;
+	int		y_max;
+	int		x_max;
+}			t_map;
+
+typedef struct s_texture
+{
+	Uint32	texture[64][64];
+}			t_texture;
+
+typedef struct s_ray
+{
+	SDL_Window	*window;
+	t_player	player;
+	t_map		map;
+	float		distance;
+	float		dir;
+	int			x;
+	int			count;
+	int			height;
+}				t_ray;
+
 //	Mother structure.
-typedef struct s_bitter_cold_droplets_in_autumn_rain {
+typedef struct s_project_drowning {
 	t_system				system;
 	t_editor				editor;
 	t_index					index;
@@ -199,7 +248,18 @@ typedef struct s_bitter_cold_droplets_in_autumn_rain {
 	t_corf					corf;
 	t_location				loca;
 	t_collide				collide;
-}	t_rain;
+
+	SDL_Window	*window;
+	SDL_Surface	*screen;
+	SDL_Surface	*image;
+	SDL_Event	event;
+	SDL_Rect	rect;
+	SDL_bool	cursor;
+	int			option;
+	t_map		map;
+	int			height;
+	int			thread;
+}	t_drown;
 
 //	Listed error types. See 'error_management.c' for their output.
 typedef enum e_error
@@ -223,23 +283,23 @@ typedef enum e_error
 
 //	Non-static functions'.
 int			main(int argc, char **argv);
-int			read_file(t_rain *rain);
+int			read_file(t_drown *drown);
 int			buffer_to_map(char b[MAX + 1], t_editor *e, t_index *i, int width);
-int			graphic_interface(t_rain *rain);
-int			render(t_rain *r);
-int			raycast(t_rain *r, float hor_coll_dist, float ver_coll_dist);
+int			graphic_interface(t_drown *drown);
+int			render(t_drown *d);
+int			raycast(t_drown *d, float hor_coll_dist, float ver_coll_dist);
 void		raycast_angle_check(t_graph *g);
-void		draw_minimap_slot(t_rain *r);
-void		draw_overlay(t_rain *r);
+void		draw_minimap_slot(t_drown *d);
+void		draw_overlay(t_drown *d);
 void		print_array(t_editor *editor, t_index *index);
 
-void		keyboard_input(t_rain *r);
+void		keyboard_input(t_drown *d);
 void		move_forward_back(t_editor *editor, t_player *p, SDL_Keycode key);
 void		move_turn(t_player *p, SDL_Keycode key);
 
 SDL_Surface	*img_load(char *path);
-void		pixel_put(t_graph *g, int x_src, int y_src, uint32_t color);
-void		vline(t_rain *r, t_location lo, float y, uint32_t color);
+//void		pixel_put(t_graph *g, int x_src, int y_src, uint32_t color);
+void		vline(t_drown *d, t_location lo, float y, uint32_t color);
 
 float		square_root(float nb);
 int			max(int a, int b);
@@ -253,5 +313,44 @@ void		*ft_memalloc(size_t size);
 void		*ft_memset(void *b, int c, size_t len);
 void		ft_bzero(void *s, size_t n);
 size_t		ft_strlen(const char *s);
-void		sdl_loop(t_rain *rain);
+void		sdl_loop(t_drown *drown);
+
+//Topi's build.
+void	map_len(char *file, t_map *data);
+char	*copy_line(char *line, t_map *data);
+void	fill_gaps(char *line);
+void	read_map(char *file, t_map *data);
+int		init_sdl(SDL_Window *window, SDL_Surface *screen);
+void	draw_map(t_drown *data);
+void	init_player(t_player *player);
+void	move_player(int key, t_player *player, t_map map);
+void	rotate_player(int key, t_player *player);
+void	clear_screen(t_drown *data);
+void	deal_key(int key, t_drown *data);
+void	deal_mouse(t_drown *data);
+void    render_thread(t_drown *data);
+void	*ft_raycast_thread(void  *args);
+void	strife(int key, t_player *player, t_map map);
+void	draw_thread(t_ray *ray, float distance, t_player wall);
+void	pixel_put(SDL_Surface *screen, int x, int y, Uint32 color);
+
+int	get_next_line(const int fd, char **line);
+int	searchnewline(char **s, char **line, int fd, int ret);
+char	*ft_strchr(const char *s, int c);
+char	*ft_strdup(const char *src);
+void	ft_memdel(void **ap);
+void	ft_strdel(char **as);
+char	*ft_strsub(char const *s, unsigned int start, size_t len);
+char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strnew(size_t size);
+int	searchnewline(char **s, char **line, int fd, int ret);
+int	get_next_line(const int fd, char **line);
+void	ft_putchar(char c);
+void	ft_putchar_fd(char c, int fd);
+void	ft_putstr(char *str);
+void	ft_putstr_fd(char const *s, int fd);
+void	ft_putendl(char *str);
+void	ft_putendl_fd(char const *s, int fd);
+void	ft_exit(char *str);
+
 #endif
