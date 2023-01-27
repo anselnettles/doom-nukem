@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 17:50:06 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/27 20:12:18 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/27 21:10:20 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,10 @@ void	sdl_loop(t_drown *data)
 	while (ENDLESS)
 	{
 		//keyboard_input(drown);
+		if (data->event.type == SDL_KEYDOWN)
+			deal_key(data->event.key.keysym.sym, data);
+		else if (data->event.type == SDL_MOUSEMOTION)
+			deal_mouse(data);
 		render(data);
 		if (SDL_PollEvent(&data->event) && data->event.type == SDL_QUIT)
 			break ;
