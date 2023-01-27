@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:25:23 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/01/27 16:29:30 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/27 19:46:48 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	init_data(t_drown *data)
 {
 	data->option = PLAY;
 	data->thread = 1;
-	data->height = 0;
+	data->hg = 0;
 	data->window = SDL_CreateWindow("TEST", SDL_WINDOWPOS_UNDEFINED,
 			SDL_WINDOWPOS_UNDEFINED, WIDTH, HEIGHT, SDL_WINDOW_SHOWN);
 	if (init_sdl(data->window, data->screen) == 0)
