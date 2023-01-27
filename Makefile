@@ -6,7 +6,7 @@
 #    By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/16 17:04:55 by aviholai          #+#    #+#              #
-#    Updated: 2023/01/27 17:36:43 by aviholai         ###   ########.fr        #
+#    Updated: 2023/01/27 20:51:00 by aviholai         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,6 @@ FILES				=	\
 						graphic_render_minimap\
 						graphic_render_overlay\
 						graphic_render_raycast\
-						init\
 						main\
 						parse_file\
 						parse_file_buffer_to_map\
