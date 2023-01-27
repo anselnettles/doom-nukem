@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/27 19:05:57 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/27 19:38:23 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -257,7 +257,7 @@ typedef struct s_project_drowning {
 	SDL_bool	cursor;
 	int			option;
 	t_map		map;
-	int			height;
+	int			hg;
 	int			thread;
 }	t_drown;
 
