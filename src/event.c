@@ -6,13 +6,13 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:21:31 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/01/27 15:18:48 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/01/27 16:10:27 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "doom_nukem.h"
+#include "drowning.h"
 
-void	deal_key(int key, t_main *data)
+void	deal_key(int key, t_drown *data)
 {
 	if (key == SDLK_ESCAPE)
 		data->option = EXIT;
@@ -24,7 +24,7 @@ void	deal_key(int key, t_main *data)
 		move_player(key, &data->player, data->map);
 }
 
-void	deal_mouse(t_main *data)
+void	deal_mouse(t_drown *data)
 {
 	data->player.dir += data->event.motion.xrel * DEGREES / 2;
 	if (data->player.dir > 2 * PI)
