@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 13:56:34 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/01/26 16:11:57 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/01/27 15:20:01 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,5 +111,7 @@ void	*ft_raycast_thread(void  *args);
 void	strife(int key, t_player *player, t_map map);
 void	draw_thread(t_ray *ray, float distance, t_player wall);
 void	pixel_put(SDL_Surface *screen, int x, int y, Uint32 color);
+void	init_values(t_main *data);
+void	init_data(t_main *data);
 
 #endif

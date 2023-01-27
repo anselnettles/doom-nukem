@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:45:29 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/01/27 14:40:27 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/01/27 15:17:33 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ t_texture	big_checkerboard(Uint32 color_one, Uint32 color_two)
 	while (y < 32)
 	{
 		x = 0;
-		while (x <= 64)
+		while (x < 64)
 		{
 			if (x < 32)
 				texture.texture[y][x] = color_one;
@@ -86,10 +86,10 @@ t_texture	big_checkerboard(Uint32 color_one, Uint32 color_two)
 		}
 		y++;
 	}
-	while (y <= 64)
+	while (y < 64)
 	{
 		x = 0;
-		while (x <= 64)
+		while (x < 64)
 		{
 			if (x < 32)
 				texture.texture[y][x] = color_two;
@@ -155,17 +155,17 @@ void	draw_floor(t_ray *ray, t_player wall, int win_y)
 	dy = sinf(wall.dir);
 	if (!(screen = SDL_GetWindowSurface(ray->window)))
 		printf("screen couldnt be created! SDL_Error: %s\n", SDL_GetError());
-	texture = create_checkerboard(SDL_MapRGB(screen->format, 0xFF, 0xFF, 0xFF), SDL_MapRGB(screen->format, 0x00, 0x00, 0x00));
+	texture = big_checkerboard(SDL_MapRGB(screen->format, 0xFF, 0xFF, 0xFF), SDL_MapRGB(screen->format, 0x00, 0x00, 0x00));
 	//dir = atanf((y - height -  2) / distance);
 	while (win_y < HEIGHT)
 	{
-		dir = atanf((float)(win_y - 400) / (float)1108);
+		dir = atanf((float)(win_y - 400 - ray->height) / (float)1108);
 		distance = (float)32 / dir;
-		distance *= cosf(ray->player.dir - wall.dir);
-		x = ray->player.x + dx * distance;
-		y = ray->player.y + dy * distance;
-		tx = (int)x % 64;
-		ty = (int)y % 64;
+		distance /= cosf(ray->player.dir - wall.dir);
+		x = ray->player.x - dx * distance;
+		y = ray->player.y - dy * distance;
+		tx = (int)roundf(y) % 64;
+		ty = (int)roundf(x) % 64;
 		if (tx < 0)
 			tx *= -1;
 		if (ty < 0)
