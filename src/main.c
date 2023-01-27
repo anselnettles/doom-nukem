@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 18:24:05 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/27 17:42:17 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/27 19:12:55 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,42 +73,22 @@ static int	initialize_media(t_graph *g)
 	return (ERROR);
 }
 
-// Beginning of graphical function calls. Runs the graphical sequences in the
-// order of: initialization, rendering, looping.
-int	graphic_interface(t_drown *drown)
+// Begin of program. Run the binary with no arguments to launch the software
+// and go into the process of initialization.
+
+int	main(void)
 {
-	if (initialize_media(&drown->graph) == ERROR)
+	t_drown	data;
+
+	ft_bzero(&data, sizeof(t_drown));
+	if (initialize_media(&data.graph) == ERROR)
 		return (error(SDL_FAIL));
-	if (initialize_player(drown) == ERROR)
+	if (initialize_player(&data) == ERROR)
 		return (error(PLAYER_FAIL));
-	if (initialize_textures(drown) == ERROR)
+	if (initialize_textures(&data) == ERROR)
 		return (error(TEXTURE_FAIL));
-	if (render(drown) == ERROR)
+	if (render(&data) == ERROR)
 		return (error(RENDER_FAIL));
-	sdl_loop(drown);
-	return (0);
-}
-
-// Begin of program. Run the binary with no arguments to launch the game.
-// Run the binary with a single argument to launch the level editor.
-
-int	main(int argc, char **argv)
-{
-	t_drown	drown;
-
-	ft_bzero(&drown, sizeof(t_drown));
-	drown.system.user_request = argc;
-	(void)argv;
-	//rain.editor.file = argv[1];
-	if (drown.system.user_request == RUN_GAME)
-	{
-	//	rain.editor.file = "maps/alleyway_maze.dn";
-	//	if (!(rain.editor.file))
-	//		return (error(OPEN_FAIL));
-	//	if (read_file(&rain) == ERROR)
-	//		return (ERROR);
-	}
-	else
-		return (error(BAD_ARGS));
+	sdl_loop(&data);
 	return (0);
 }
