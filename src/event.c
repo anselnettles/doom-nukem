@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:21:31 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/01/27 19:43:53 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/27 21:10:52 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ void	deal_mouse(t_drown *data)
 		data->hg = 700;
 	if (data->hg < -400)
 		data->hg = -400;
-	clear_screen(data);
-	render_thread(data);
-	draw_map(data);
-	SDL_UpdateWindowSurface(data->window);
+//	clear_screen(data);
+//	render_thread(data);
+//	draw_map(data);
+//	SDL_UpdateWindowSurface(data->window);
 }
 
 void	move_player(int key, t_player *player, t_map map)
