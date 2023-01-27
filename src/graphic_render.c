@@ -6,12 +6,12 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 10:05:39 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/27 18:05:03 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/27 20:11:28 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "drowning.h"
-
+/*
 //	Draws three distinct vertical lines on the graphical window's vertical
 //	columns with the vline() tool.
 //	The first line is considered the sky color (SKY_PRINT), the middle
@@ -79,7 +79,7 @@ static int	draw_space(t_drown *d)
 		ray_count++;
 	}
 	return (0);
-}
+}*/
 
 //	Draws the user array map in the corner of the screen.
 /*static void	draw_minimap(t_drown *d)
@@ -107,12 +107,12 @@ static int	draw_space(t_drown *d)
 //	array map in the window corner, update the window.
 int	render(t_drown *drown)
 {
-	SDL_FillRect(drown->graph.surf, NULL, 0);
-	if (draw_space(drown) == ERROR)
-		return (ERROR);
+	SDL_FillRect(drown->screen, NULL, 0);
+	//if (draw_space(drown) == ERROR)
+	//	return (ERROR);
 	//draw_overlay(drown);
 	//draw_minimap(drown);
-	if (SDL_UpdateWindowSurface(drown->graph.win) == ERROR)
+	if (SDL_UpdateWindowSurface(drown->window) == ERROR)
 		return (ERROR);
 	return (0);
 }
