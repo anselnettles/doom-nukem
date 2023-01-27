@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 17:50:06 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/27 18:02:43 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/27 20:12:18 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,13 @@ size_t	ft_strlen(const char *s)
 //	Sdl_loop() keeps Simple Direct MediaLayer's PollEvent constantly
 //	running and checks for control calls while rerendering the graphical
 //	view.
-void	sdl_loop(t_drown *drown)
+void	sdl_loop(t_drown *data)
 {
 	while (ENDLESS)
 	{
-		keyboard_input(drown);
-		render(drown);
-		if (SDL_PollEvent(&drown->graph.e) && drown->graph.e.type == SDL_QUIT)
+		//keyboard_input(drown);
+		render(data);
+		if (SDL_PollEvent(&data->event) && data->event.type == SDL_QUIT)
 			break ;
 	}
 }
