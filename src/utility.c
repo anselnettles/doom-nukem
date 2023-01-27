@@ -6,11 +6,11 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:24:14 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/01/26 16:26:13 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/01/27 17:33:11 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "doom_nukem.h"
+#include "drowning.h"
 
 SDL_Surface	*img_load(char *path)
 {
@@ -27,7 +27,7 @@ SDL_Surface	*img_load(char *path)
 	return (ret);
 }
 
-void	clear_screen(t_main *data)
+void	clear_screen(t_drown *data)
 {
 	SDL_Surface	*screen;
 
@@ -37,7 +37,7 @@ void	clear_screen(t_main *data)
 	SDL_FreeSurface(screen);
 }
 
-void	draw_map(t_main *data)		//DRAWS 2D MAP
+void	draw_map(t_drown *data)		//DRAWS 2D MAP
 {
 	int			x;
 	int			y;
