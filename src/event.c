@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:21:31 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/01/27 21:10:52 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/30 16:01:53 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	deal_key(int key, t_drown *data)
 {
 	if (key == SDLK_ESCAPE)
-		data->option = EXIT;
+		data->play_state = EXIT;
 	if (key == SDLK_0)
 		draw_map(data);
 	if (key == SDLK_a || key == SDLK_d)
@@ -38,10 +38,6 @@ void	deal_mouse(t_drown *data)
 		data->hg = 700;
 	if (data->hg < -400)
 		data->hg = -400;
-//	clear_screen(data);
-//	render_thread(data);
-//	draw_map(data);
-//	SDL_UpdateWindowSurface(data->window);
 }
 
 void	move_player(int key, t_player *player, t_map map)

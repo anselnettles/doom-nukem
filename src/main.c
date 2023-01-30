@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 18:24:05 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/30 14:18:24 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/30 16:01:30 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static int	initialize_media(t_drown *d)
 		//g->surf = SDL_GetWindowSurface(g->win);
 
 		//Dofidog:
-		d->option = PLAY;
+		d->play_state = PLAY;
 		d->thread = 1;
 		d->hg = 0; //What exactly is Dofidog's data->height?
 		d->gfx.window = SDL_CreateWindow(TITLE, SDL_WINDOWPOS_UNDEFINED,
@@ -102,20 +102,14 @@ int	main(void)
 	ft_bzero(&data, sizeof(t_drown));
 	if (initialize_media(&data) == ERROR)
 		return (error(SDL_FAIL));
-	write(1, "\nFirst.", 7);
 	read_map("maps/testfile.dn", &data.map);
-	write(1, "\nSecond.", 8);
 	if (initialize_player(&data) == ERROR)
 		return (error(PLAYER_FAIL));
-	write(1, "\nThird.", 7);
 	if (initialize_textures(&data) == ERROR)
 		return (error(TEXTURE_FAIL));
-	write(1, "\nFourth.", 8);
 	if (render(&data) == ERROR)
 		return (error(RENDER_FAIL));
-	write(1, "\nFifth.", 7);
-	SDL_SetRelativeMouseMode(data.cursor);
-	write(1, "\nSixth.", 7);
+	SDL_SetRelativeMouseMode(SDL_TRUE);
 	sdl_loop(&data);
 	return (0);
 }

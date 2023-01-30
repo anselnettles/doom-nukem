@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:45:29 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/01/27 19:48:50 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/30 16:21:18 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,8 @@ void	pixel_put(SDL_Surface *screen, int x, int y, Uint32 color)
 	pix[x + ((y) * WIDTH)] = color;
 }
 
-void	draw_collumn(t_ray *ray, int y, int y_max, Uint32 color)
+void	draw_collumn(t_ray *ray, int y, int y_max, Uint32 color, SDL_Surface *screen)
 {
-	//SDL_Surface *screen;
-
-	//if (!(screen = SDL_GetWindowSurface(ray->window)))
-	//	printf("screen couldnt be created! SDL_Error: %s\n", SDL_GetError());
 	if (y_max > HEIGHT)
 		y_max = HEIGHT;
 	while (y < y_max && y >= 0)
@@ -33,7 +29,6 @@ void	draw_collumn(t_ray *ray, int y, int y_max, Uint32 color)
 		pixel_put(screen, ray->x, y, color);
 		y++;
 	}
-	//SDL_FreeSurface(screen);
 }
 
 t_texture	create_checkerboard(Uint32 color_one, Uint32 color_two)
@@ -102,17 +97,14 @@ t_texture	big_checkerboard(Uint32 color_one, Uint32 color_two)
 	return(texture);
 }
 
-void	draw_texture(t_ray *ray, int y, int y_max, t_player wall)
+void	draw_texture(t_ray *ray, int y, int y_max, t_player wall, SDL_Surface *screen)
 {
-//	SDL_Surface *screen;
 	t_texture	texture;
 	int			texture_y;
 	int			texture_x;
 	float		i;
 	int			j;
 
-	//if (!(screen = SDL_GetWindowSurface(ray->window)))
-	//	printf("screen couldnt be created! SDL_Error: %s\n", SDL_GetError());
 	texture = create_checkerboard(SDL_MapRGB(screen->format, 0xF7, 0xCE, 0x00), SDL_MapRGB(screen->format, 0x00, 0x00, 0x00));
 	i = (y_max - y) / 64;
 	if (i < 1)
@@ -123,7 +115,7 @@ void	draw_texture(t_ray *ray, int y, int y_max, t_player wall)
 	if (ray->map.map[(int)roundf(wall.y)][(int)roundf(wall.x + 1 )] == ' '
 		|| ray->map.map[(int)roundf(wall.y)][(int)roundf(wall.x - 1 )] == ' ')
 		texture_x = (int)wall.y % 64;
-	while (y < y_max && texture_y < 64 && y < HEIGHT && y >= 0)
+	while (y <= y_max && texture_y < 64)
 	{
 		if (j > i)
 		{
@@ -135,12 +127,10 @@ void	draw_texture(t_ray *ray, int y, int y_max, t_player wall)
 		y++;
 		j++;
 	}
-	//SDL_FreeSurface(screen);
 }
 
-void	draw_floor(t_ray *ray, t_player wall, int win_y)
+void	draw_floor(t_ray *ray, t_player wall, int win_y, SDL_Surface *screen)
 {
-	//SDL_Surface *screen;
 	t_texture texture;
 	float x;
 	float y;
@@ -153,10 +143,7 @@ void	draw_floor(t_ray *ray, t_player wall, int win_y)
 
 	dx = cosf(wall.dir);
 	dy = sinf(wall.dir);
-	//if (!(screen = SDL_GetWindowSurface(ray->window)))
-	//	printf("screen couldnt be created! SDL_Error: %s\n", SDL_GetError());
 	texture = big_checkerboard(SDL_MapRGB(screen->format, 0xFF, 0xFF, 0xFF), SDL_MapRGB(screen->format, 0x00, 0x00, 0x00));
-	//dir = atanf((y - height -  2) / distance);
 	while (win_y < HEIGHT)
 	{
 		dir = atanf((float)(win_y - 400 - ray->height) / (float)1108);
@@ -170,21 +157,52 @@ void	draw_floor(t_ray *ray, t_player wall, int win_y)
 			tx *= -1;
 		if (ty < 0)
 			ty *= -1;
-		//printf("direction is %f, distance is %f, dx is %f, dy is %f\n", dir, distance, dx, dy);
-		pixel_put(screen, ray->x, win_y, texture.texture[ty][tx]);
+		if (win_y > 0)
+			pixel_put(screen, ray->x, win_y, texture.texture[ty][tx]);
 		win_y++;
 	}
-	SDL_FreeSurface(screen);
+}
+
+void	draw_ceiling(t_ray *ray, t_player wall, int win_y, SDL_Surface *screen)
+{
+	t_texture texture;
+	float x;
+	float y;
+	float dy;
+	float dx;
+	int tx;
+	int ty;
+	float distance;
+	float	dir;
+
+	dx = cosf(wall.dir);
+	dy = sinf(wall.dir);
+	texture = big_checkerboard(SDL_MapRGB(screen->format, 0xFF, 0xFF, 0xFF), SDL_MapRGB(screen->format, 0x00, 0x00, 0x00));
+	while (win_y > 0)
+	{
+		dir = atanf((float)(win_y - 400 - ray->height) / (float)1108);
+		distance = (float)32 / dir;
+		distance /= cosf(ray->player.dir - wall.dir);
+		x = ray->player.x + dx * distance;
+		y = ray->player.y + dy * distance;
+		tx = (int)roundf(y) % 64;
+		ty = (int)roundf(x) % 64;
+		if (tx < 0)
+			tx *= -1;
+		if (ty < 0)
+			ty *= -1;
+		if (win_y < HEIGHT)
+			pixel_put(screen, ray->x, win_y, texture.texture[ty][tx]);
+		win_y--;
+	}
 }
 
 void	draw_thread(t_ray *ray, float distance, t_player wall)
 {
 	SDL_Surface *screen;
-	//t_texture	floor_texture;
 	int			y;
 	int			y_max;
 
-	//floor_texture = create_texture()
 	if (!(screen = SDL_GetWindowSurface(ray->window)))
 		printf("screen couldnt be created! SDL_Error: %s\n", SDL_GetError());
 	if (distance < 1)
@@ -195,11 +213,9 @@ void	draw_thread(t_ray *ray, float distance, t_player wall)
 		y = 0;
 	if (y_max > HEIGHT)
 		y_max = HEIGHT;
-	draw_collumn(ray, 0, y, SDL_MapRGB(screen->format, 0x03, 0xD3, 0xFC)); // draw sky
-	draw_texture(ray, y, y_max, wall);
-	draw_floor(ray, wall, y_max);
-	//draw_collumn(ray, y, y_max, get_color(wall, screen, distance));			//draw wall
-	//draw_collumn(ray, y_max, HEIGHT, SDL_MapRGB(screen->format, 0xFC, 0xC6, 0x03)); //draw floor
+	draw_ceiling(ray, wall, y, screen);
+	draw_texture(ray, y, y_max, wall, screen);
+	draw_floor(ray, wall, y_max, screen);
 	SDL_FreeSurface(screen);
 }
 
@@ -207,8 +223,8 @@ void	draw_thread(t_ray *ray, float distance, t_player wall)
 void	*ft_raycast_thread(void  *args)
 {
     t_ray		*ray;
-	t_player	wall;
-	float		distance;
+	t_player		wall;
+	float	    distance;
 
     ray = args;
 	distance = 0;
@@ -240,19 +256,15 @@ void	*ft_raycast_thread(void  *args)
 	return (NULL);
 }
 
+
 void    render_thread(t_drown *data)
 {
     pthread_t threads[THREAD];
 	t_ray	ray[THREAD];
-	//SDL_Surface	*screen;
-	SDL_Rect	rect;
     int     i;
     int     rc;
 
 	i = 0;
-	//	if (!(screen = SDL_GetWindowSurface(data->window)))
-	//	printf("screen couldnt be created! SDL_Error: %s\n", SDL_GetError());
-	rect.w = 1;
 	ray[0].x = 0;
 	ray[i].dir = (data->player.dir - 30 * DEGREES);
     while (i < THREAD)
@@ -264,7 +276,7 @@ void    render_thread(t_drown *data)
 			ray[i].dir = (data->player.dir - 30 * DEGREES) + (i * THREADRAY * (60 * DEGREES / WIDTH));
 		}
 		ray[i].height = data->hg;
-		ray[i].window = data->window;
+		ray[i].window = data->gfx.window;
 		ray[i].player = data->player;
 		ray[i].map = data->map;
         rc = pthread_create(&threads[i], NULL, ft_raycast_thread, &ray[i]);
@@ -276,6 +288,4 @@ void    render_thread(t_drown *data)
 		rc = pthread_join(threads[i], NULL);
 		i++;
 	}
-	i = 0;
-	//SDL_FreeSurface(screen);
 }

@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:24:14 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/01/30 14:16:39 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/30 15:24:25 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,21 +27,10 @@ SDL_Surface	*img_load(char *path)
 	return (ret);
 }
 
-void	clear_screen(t_drown *data)
-{
-	//SDL_Surface	*screen;
-
-	//if (!(screen = SDL_GetWindowSurface(data->gfx.window)))
-	//	printf("screen couldnt be created! SDL_Error: %s\n", SDL_GetError());
-	SDL_FillRect(data->gfx.screen, NULL, SDL_MapRGB(data->gfx.screen->format, 0x00, 0x00, 0x00));
-	SDL_FreeSurface(data->gfx.screen);
-}
-
 void	draw_map(t_drown *data)		//DRAWS 2D MAP
 {
 	int			x;
 	int			y;
-	//SDL_Surface	*screen;
 
 	x = 0;
 	y = 0;
@@ -49,8 +38,6 @@ void	draw_map(t_drown *data)		//DRAWS 2D MAP
 	data->rect.y = 0;
 	data->rect.h = MMHEIGHT / (data->map.y_max / BITS);
 	data->rect.w = MMWIDTH / (data->map.x_max / BITS);
-	//if (!(screen = SDL_GetWindowSurface(data->gfx.window)))
-	//	printf("screen couldnt be created! SDL_Error: %s\n", SDL_GetError());
 	while (y < data->map.y_max)
 	{
 		data->rect.x = 0;
@@ -76,5 +63,4 @@ void	draw_map(t_drown *data)		//DRAWS 2D MAP
 	data->rect.h = 5;
 	data->rect.w = 5;
 	SDL_FillRect(data->gfx.screen, &data->rect, SDL_MapRGB(data->gfx.screen->format, 0xFF, 0x00, 0x00));
-//	SDL_FreeSurface(data->gfx.screen);
 }
