@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:45:29 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/01/30 11:24:33 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/01/30 11:46:06 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,6 @@ void	draw_floor(t_ray *ray, t_player wall, int win_y)
 	if (!(screen = SDL_GetWindowSurface(ray->window)))
 		printf("screen couldnt be created! SDL_Error: %s\n", SDL_GetError());
 	texture = big_checkerboard(SDL_MapRGB(screen->format, 0xFF, 0xFF, 0xFF), SDL_MapRGB(screen->format, 0x00, 0x00, 0x00));
-	//dir = atanf((y - height -  2) / distance);
 	while (win_y < HEIGHT)
 	{
 		dir = atanf((float)(win_y - 400 - ray->height) / (float)1108);
@@ -235,11 +234,8 @@ void	draw_thread(t_ray *ray, float distance, t_player wall)
 	if (y_max > HEIGHT)
 		y_max = HEIGHT;
 	draw_ceiling(ray, wall, y);
-	//draw_collumn(ray, 0, y, SDL_MapRGB(screen->format, 0x03, 0xD3, 0xFC)); // draw sky
 	draw_texture(ray, y, y_max, wall);
 	draw_floor(ray, wall, y_max++);
-	//draw_collumn(ray, y, y_max, get_color(wall, screen, distance));			//draw wall
-	//draw_collumn(ray, y_max, HEIGHT, SDL_MapRGB(screen->format, 0xFC, 0xC6, 0x03)); //draw floor
 	SDL_FreeSurface(screen);
 }
 
