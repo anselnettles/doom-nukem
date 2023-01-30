@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 13:56:34 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/01/27 15:20:01 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/01/30 14:36:30 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,16 @@ typedef struct s_player
 	int		flag;
 }				t_player;
 
+typedef struct s_wall
+{
+	float		x;
+	float		y;
+	float		dir;
+	float		dx;
+	float		dy;
+	struct s_player *next;
+}				t_wall;
+
 typedef struct s_ray
 {
 	SDL_Window	*window;
@@ -109,7 +119,7 @@ void	deal_mouse(t_main *data);
 void    render_thread(t_main *data);
 void	*ft_raycast_thread(void  *args);
 void	strife(int key, t_player *player, t_map map);
-void	draw_thread(t_ray *ray, float distance, t_player wall);
+void	draw_thread(t_ray *ray, float distance, t_wall wall);
 void	pixel_put(SDL_Surface *screen, int x, int y, Uint32 color);
 void	init_values(t_main *data);
 void	init_data(t_main *data);

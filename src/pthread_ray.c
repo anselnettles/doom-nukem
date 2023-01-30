@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:45:29 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/01/30 12:59:56 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/01/30 14:31:55 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ t_texture	big_checkerboard(Uint32 color_one, Uint32 color_two)
 	return(texture);
 }
 
-void	draw_texture(t_ray *ray, int y, int y_max, t_player wall, SDL_Surface *screen)
+void	draw_texture(t_ray *ray, int y, int y_max, t_wall wall, SDL_Surface *screen)
 {
 	t_texture	texture;
 	int			texture_y;
@@ -134,7 +134,7 @@ void	draw_texture(t_ray *ray, int y, int y_max, t_player wall, SDL_Surface *scre
 	}
 }
 
-void	draw_floor(t_ray *ray, t_player wall, int win_y, SDL_Surface *screen)
+void	draw_floor(t_ray *ray, t_wall wall, int win_y, SDL_Surface *screen)
 {
 	t_texture texture;
 	float x;
@@ -168,7 +168,7 @@ void	draw_floor(t_ray *ray, t_player wall, int win_y, SDL_Surface *screen)
 	}
 }
 
-void	draw_ceiling(t_ray *ray, t_player wall, int win_y, SDL_Surface *screen)
+void	draw_ceiling(t_ray *ray, t_wall wall, int win_y, SDL_Surface *screen)
 {
 
 	t_texture texture;
@@ -203,7 +203,7 @@ void	draw_ceiling(t_ray *ray, t_player wall, int win_y, SDL_Surface *screen)
 	}
 }
 
-void	draw_thread(t_ray *ray, float distance, t_player wall)
+void	draw_thread(t_ray *ray, float distance, t_wall wall)
 {
 	SDL_Surface *screen;
 	//t_texture	floor_texture;
@@ -231,7 +231,43 @@ void	draw_thread(t_ray *ray, float distance, t_player wall)
 void	*ft_raycast_thread(void  *args)
 {
     t_ray		*ray;
-	t_player	wall;
+	t_wall		wall;
+	float	    distance;
+
+    ray = args;
+	distance = 0;
+	ray->count = 0;
+	wall.dir = ray->dir;
+	while (ray->count < THREADRAY)
+	{
+		if (wall.dir > 2 * PI)
+			wall.dir -= 2 * PI;
+		if (wall.dir < 0)
+			wall.dir += 2 * PI;
+		wall.x = ray->player.x;
+		wall.y = ray->player.y;
+		wall.dx = cosf(wall.dir);
+		wall.dy = sinf(wall.dir);
+		while (ray->map.map[(int)roundf(wall.y)][(int)roundf(wall.x)] == '0')
+		{
+			wall.x -= wall.dx;
+			wall.y -= wall.dy;
+		}
+		ray->distance = sqrtf(((wall.x - ray->player.x) * (wall.x - ray->player.x))
+			+ ((wall.y - ray->player.y) * (wall.y - ray->player.y)));
+		ray->distance *= cosf(ray->player.dir - wall.dir);
+		draw_thread(ray, ray->distance, wall);
+		wall.dir += (60 * DEGREES) / WIDTH;
+		ray->x++;
+		ray->count++;
+	}
+	return (NULL);
+}
+
+void	*ft_raycast_thread_unlimited(void  *args)
+{
+    t_ray		*ray;
+	t_wall		wall;
 	float	    distance;
 
     ray = args;
