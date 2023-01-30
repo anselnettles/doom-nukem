@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 14:16:37 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/27 17:36:13 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/30 13:18:49 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ static void	toggle_scale(t_drown *d)
 
 static void	quit_program(t_drown *d)
 {
-	SDL_FreeSurface(d->gfx.texture[0]);
-	SDL_FreeSurface(d->gfx.texture[1]);
-	SDL_FreeSurface(d->gfx.texture[2]);
-	SDL_FreeSurface(d->gfx.texture[3]);
-	SDL_DestroyWindow(d->gfx.win);
+//	SDL_FreeSurface(d->gfx.texture[0]);
+//	SDL_FreeSurface(d->gfx.texture[1]);
+//	SDL_FreeSurface(d->gfx.texture[2]);
+//	SDL_FreeSurface(d->gfx.texture[3]);
+	SDL_DestroyWindow(d->gfx.window);
 	(void)d;
 	SDL_Quit();
 	exit(0);
@@ -68,8 +68,8 @@ void	keyboard_input(t_drown *d)
 {
 	SDL_Keycode	key;
 
-	key = d->gfx.e.key.keysym.sym;
-	if (d->gfx.e.type == SDL_KEYDOWN)
+	key = d->event.key.keysym.sym;
+	if (d->event.type == SDL_KEYDOWN)
 	{
 		if (key == SDLK_w || key == SDLK_UP
 			|| key == SDLK_s || key == SDLK_DOWN)
@@ -79,6 +79,6 @@ void	keyboard_input(t_drown *d)
 			move_turn(&d->player, key);
 		keyboard_second_batch(d, key);
 	}
-	if (d->gfx.e.window.event == SDL_WINDOWEVENT_CLOSE)
+	if (d->event.window.event == SDL_WINDOWEVENT_CLOSE)
 		quit_program(d);
 }
