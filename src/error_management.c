@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 16:40:37 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/27 18:53:27 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/30 12:59:39 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int	error(int code)
 	error_message[12] = T_RED "Error: Player initialization failure.\n";
 	error_message[13] = T_RED "Error: Graphics rendering failure.\n" T_NUL;
 	error_message[14] = T_RED "Error: Texture initialization failure.\n" T_NUL;
-	if (write(1, error_message[code], ft_strlen(error_message[code]) == -1))
-		return (ERROR);
+	write(1, error_message[code], ft_strlen(error_message[code]));
 	return (ERROR);
 }
