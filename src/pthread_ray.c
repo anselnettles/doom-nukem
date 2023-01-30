@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:45:29 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/01/27 16:35:15 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/01/30 11:24:33 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ void	draw_texture(t_ray *ray, int y, int y_max, t_player wall)
 	if (ray->map.map[(int)roundf(wall.y)][(int)roundf(wall.x + 1 )] == ' '
 		|| ray->map.map[(int)roundf(wall.y)][(int)roundf(wall.x - 1 )] == ' ')
 		texture_x = (int)wall.y % 64;
-	while (y < y_max && texture_y < 64 && y < HEIGHT && y >= 0)
+	while (y < y_max && texture_y < 64)
 	{
 		if (j > i)
 		{
@@ -170,7 +170,8 @@ void	draw_floor(t_ray *ray, t_player wall, int win_y)
 			tx *= -1;
 		if (ty < 0)
 			ty *= -1;
-		pixel_put(screen, ray->x, win_y, texture.texture[ty][tx]);
+		if (win_y > 0)
+			pixel_put(screen, ray->x, win_y, texture.texture[ty][tx]);
 		win_y++;
 	}
 	SDL_FreeSurface(screen);
@@ -208,7 +209,8 @@ void	draw_ceiling(t_ray *ray, t_player wall, int win_y)
 			tx *= -1;
 		if (ty < 0)
 			ty *= -1;
-		pixel_put(screen, ray->x, win_y, texture.texture[ty][tx]);
+		if (win_y < HEIGHT)
+			pixel_put(screen, ray->x, win_y, texture.texture[ty][tx]);
 		win_y--;
 	}
 	SDL_FreeSurface(screen);
