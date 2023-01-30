@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:45:29 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/01/30 12:20:18 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/01/30 12:59:56 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,17 +102,14 @@ t_texture	big_checkerboard(Uint32 color_one, Uint32 color_two)
 	return(texture);
 }
 
-void	draw_texture(t_ray *ray, int y, int y_max, t_player wall)
+void	draw_texture(t_ray *ray, int y, int y_max, t_player wall, SDL_Surface *screen)
 {
-	SDL_Surface *screen;
 	t_texture	texture;
 	int			texture_y;
 	int			texture_x;
 	float		i;
 	int			j;
 
-	if (!(screen = SDL_GetWindowSurface(ray->window)))
-		printf("screen couldnt be created! SDL_Error: %s\n", SDL_GetError());
 	texture = create_checkerboard(SDL_MapRGB(screen->format, 0xF7, 0xCE, 0x00), SDL_MapRGB(screen->format, 0x00, 0x00, 0x00));
 	i = (y_max - y) / 64;
 	if (i < 1)
@@ -135,12 +132,10 @@ void	draw_texture(t_ray *ray, int y, int y_max, t_player wall)
 		y++;
 		j++;
 	}
-	SDL_FreeSurface(screen);
 }
 
-void	draw_floor(t_ray *ray, t_player wall, int win_y)
+void	draw_floor(t_ray *ray, t_player wall, int win_y, SDL_Surface *screen)
 {
-	SDL_Surface *screen;
 	t_texture texture;
 	float x;
 	float y;
@@ -153,8 +148,6 @@ void	draw_floor(t_ray *ray, t_player wall, int win_y)
 
 	dx = cosf(wall.dir);
 	dy = sinf(wall.dir);
-	if (!(screen = SDL_GetWindowSurface(ray->window)))
-		printf("screen couldnt be created! SDL_Error: %s\n", SDL_GetError());
 	texture = big_checkerboard(SDL_MapRGB(screen->format, 0xFF, 0xFF, 0xFF), SDL_MapRGB(screen->format, 0x00, 0x00, 0x00));
 	while (win_y < HEIGHT)
 	{
@@ -173,13 +166,11 @@ void	draw_floor(t_ray *ray, t_player wall, int win_y)
 			pixel_put(screen, ray->x, win_y, texture.texture[ty][tx]);
 		win_y++;
 	}
-	SDL_FreeSurface(screen);
 }
 
-void	draw_ceiling(t_ray *ray, t_player wall, int win_y)
+void	draw_ceiling(t_ray *ray, t_player wall, int win_y, SDL_Surface *screen)
 {
 
-	SDL_Surface *screen;
 	t_texture texture;
 	float x;
 	float y;
@@ -192,8 +183,6 @@ void	draw_ceiling(t_ray *ray, t_player wall, int win_y)
 
 	dx = cosf(wall.dir);
 	dy = sinf(wall.dir);
-	if (!(screen = SDL_GetWindowSurface(ray->window)))
-		printf("screen couldnt be created! SDL_Error: %s\n", SDL_GetError());
 	texture = big_checkerboard(SDL_MapRGB(screen->format, 0xFF, 0xFF, 0xFF), SDL_MapRGB(screen->format, 0x00, 0x00, 0x00));
 	while (win_y > 0)
 	{
@@ -212,7 +201,6 @@ void	draw_ceiling(t_ray *ray, t_player wall, int win_y)
 			pixel_put(screen, ray->x, win_y, texture.texture[ty][tx]);
 		win_y--;
 	}
-	SDL_FreeSurface(screen);
 }
 
 void	draw_thread(t_ray *ray, float distance, t_player wall)
@@ -233,9 +221,9 @@ void	draw_thread(t_ray *ray, float distance, t_player wall)
 		y = 0;
 	if (y_max > HEIGHT)
 		y_max = HEIGHT;
-	draw_ceiling(ray, wall, y);
-	draw_texture(ray, y, y_max, wall);
-	draw_floor(ray, wall, y_max++);
+	draw_ceiling(ray, wall, y, screen);
+	draw_texture(ray, y, y_max, wall, screen);
+	draw_floor(ray, wall, y_max++, screen);
 	SDL_FreeSurface(screen);
 }
 
