@@ -3,42 +3,119 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/04 13:56:29 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/01/27 15:07:38 by tpaaso           ###   ########.fr       */
+/*   Created: 2022/10/31 18:24:05 by aviholai          #+#    #+#             */
+/*   Updated: 2023/01/30 14:18:24 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "doom_nukem.h"
+#include "drowning.h"
 
-int	main(int ac, char **av)
+//	Loads the texture files for walls from the 'textures' folder and
+//	saves them to the 't_texture' structure's SDL_Surface file[].
+static int	initialize_textures(t_drown *drown)
 {
-	t_main	data;
+	(void)drown;
+//	drown->graph.texture[0] = img_load("textures/bricks_med.png");
+//	drown->graph.texture[1] = img_load("textures/bricks_dark.png");
+//	drown->graph.texture[2] = img_load("textures/bricks_med2.png");
+//	drown->graph.texture[3] = img_load("textures/bricks_lit.png");
+//	if (!(drown->graph.texture[0]) || !(drown->graph.texture[1])
+//		|| !(drown->graph.texture[2]) || !(drown->graph.texture[3]))
+//		return (ERROR);
+	return (0);
+}
 
-	if (ac != 2)
-		ft_exit("invalid arguments");
-	read_map(av[1], &data.map);
-	init_values(&data);
-	render_thread(&data);
-	draw_map(&data);
-	SDL_UpdateWindowSurface(data.window);
-	SDL_SetRelativeMouseMode(data.cursor);
-	while (data.option != EXIT)
+//	Initializes the necessary player variables before rendering.
+static int	initialize_player(t_drown *d)
+{
+	//if (!(d->editor.start_x) || !(d->editor.start_y))
+	//	return (ERROR);
+	//d->player.move_speed = MOVE_SPEED;
+	//d->player.pos_x = (float)(SQUARE_SIZE * (d->editor.start_x + 1)
+	//		- (SQUARE_SIZE / 2.0));
+	//d->player.pos_y = (float)(SQUARE_SIZE * (d->editor.start_y + 1)
+	//		- (SQUARE_SIZE / 2.0));
+	//d->player.pos_angle = 90;
+	//d->player.dir_x = (float)cos(deg_to_rad(d->player.pos_angle));
+	//d->player.dir_y = (float)-sin(deg_to_rad(d->player.pos_angle));
+
+
+	//Dofidog:
+	d->player.dir = PI;
+	d->player.x = BITS * 2;
+	d->player.y = BITS * 2;
+	d->player.dx = cosf(PI);
+	d->player.dy = sinf(PI);
+	d->player.height = 32;
+	return (0);
+}
+
+//	Initializes the SDL (Simple DirectMedia Layer) library functions and sets
+//	all the necessary variables for graphical rendering.
+static int	initialize_media(t_drown *d)
+{
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS) > SDL_ERROR)
 	{
-		while (SDL_PollEvent(&data.event) != 0)
+		d->gfx.scale = SCALE;
+		d->gfx.width = (WIDTH * d->gfx.scale);
+		d->gfx.height = (HEIGHT * d->gfx.scale);
+		d->gfx.scanline = FALSE;
+		//g->win = SDL_CreateWindow(TITLE, 0, 0, g->width, g->height, 0);
+		//g->surf = SDL_GetWindowSurface(g->win);
+
+		//Dofidog:
+		d->option = PLAY;
+		d->thread = 1;
+		d->hg = 0; //What exactly is Dofidog's data->height?
+		d->gfx.window = SDL_CreateWindow(TITLE, SDL_WINDOWPOS_UNDEFINED,
+				SDL_WINDOWPOS_UNDEFINED, d->gfx.width,
+				d->gfx.height, SDL_WINDOW_SHOWN);
+		d->gfx.screen = SDL_GetWindowSurface(d->gfx.window);
+		if (d->gfx.window != NULL || d->gfx.screen != NULL)
 		{
-			if (data.event.type == SDL_QUIT)
-				data.option = EXIT;
-			else if (data.event.type == SDL_KEYDOWN)
-				deal_key(data.event.key.keysym.sym, &data);
-			else if (data.event.type == SDL_MOUSEMOTION)
-				deal_mouse(&data);
+		//	g->map = PLAYER_MAP;
+		//	g->cast.plane_dist = (double)(g->width / 2)
+		//		/ tan(deg_to_rad(FOV / 2));
+		//	g->cast.degrees_per_column = (double)g->width / (double)FOV;
+		//	g->cast.degrees_per_ray = (double)FOV / (double)g->width;
+			return (0);
 		}
-		clear_screen(&data);
-		render_thread(&data);
-		draw_map(&data);
-		SDL_UpdateWindowSurface(data.window);
 	}
+	else
+	{
+		d->gfx.sdl_error_string = SDL_GetError();
+		write(1, "SDL Error: ", 11);
+		write(1, d->gfx.sdl_error_string, ft_strlen(d->gfx.sdl_error_string));
+	}
+	return (ERROR);
+}
+
+// Begin of program. Run the binary with no arguments to launch the software
+// and go into the process of initialization.
+
+int	main(void)
+{
+	t_drown	data;
+
+	ft_bzero(&data, sizeof(t_drown));
+	if (initialize_media(&data) == ERROR)
+		return (error(SDL_FAIL));
+	write(1, "\nFirst.", 7);
+	read_map("maps/testfile.dn", &data.map);
+	write(1, "\nSecond.", 8);
+	if (initialize_player(&data) == ERROR)
+		return (error(PLAYER_FAIL));
+	write(1, "\nThird.", 7);
+	if (initialize_textures(&data) == ERROR)
+		return (error(TEXTURE_FAIL));
+	write(1, "\nFourth.", 8);
+	if (render(&data) == ERROR)
+		return (error(RENDER_FAIL));
+	write(1, "\nFifth.", 7);
+	SDL_SetRelativeMouseMode(data.cursor);
+	write(1, "\nSixth.", 7);
+	sdl_loop(&data);
 	return (0);
 }

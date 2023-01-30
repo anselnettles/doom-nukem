@@ -6,11 +6,11 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:24:14 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/01/30 12:22:20 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/01/30 14:16:39 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "doom_nukem.h"
+#include "drowning.h"
 
 SDL_Surface	*img_load(char *path)
 {
@@ -27,21 +27,21 @@ SDL_Surface	*img_load(char *path)
 	return (ret);
 }
 
-void	clear_screen(t_main *data)
+void	clear_screen(t_drown *data)
 {
-	SDL_Surface	*screen;
+	//SDL_Surface	*screen;
 
-	if (!(screen = SDL_GetWindowSurface(data->window)))
-		printf("screen couldnt be created! SDL_Error: %s\n", SDL_GetError());
-	SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0x00, 0x00, 0x00));
-	SDL_FreeSurface(screen);
+	//if (!(screen = SDL_GetWindowSurface(data->gfx.window)))
+	//	printf("screen couldnt be created! SDL_Error: %s\n", SDL_GetError());
+	SDL_FillRect(data->gfx.screen, NULL, SDL_MapRGB(data->gfx.screen->format, 0x00, 0x00, 0x00));
+	SDL_FreeSurface(data->gfx.screen);
 }
 
-void	draw_map(t_main *data)		//DRAWS 2D MAP
+void	draw_map(t_drown *data)		//DRAWS 2D MAP
 {
 	int			x;
 	int			y;
-	SDL_Surface	*screen;
+	//SDL_Surface	*screen;
 
 	x = 0;
 	y = 0;
@@ -49,22 +49,22 @@ void	draw_map(t_main *data)		//DRAWS 2D MAP
 	data->rect.y = 0;
 	data->rect.h = MMHEIGHT / (data->map.y_max / BITS);
 	data->rect.w = MMWIDTH / (data->map.x_max / BITS);
-	if (!(screen = SDL_GetWindowSurface(data->window)))
-		printf("screen couldnt be created! SDL_Error: %s\n", SDL_GetError());
+	//if (!(screen = SDL_GetWindowSurface(data->gfx.window)))
+	//	printf("screen couldnt be created! SDL_Error: %s\n", SDL_GetError());
 	while (y < data->map.y_max)
 	{
 		data->rect.x = 0;
 		x = 0;
 		while (x < data->map.x_max)
 		{
-			if (data->map.map[y][x] != '0')
+			if (data->map.map[y][x] != ' ')
 			{
-				SDL_FillRect(screen, &data->rect,
-					SDL_MapRGB(screen->format, 0xFF, 0xFF, 0xFF));
+				SDL_FillRect(data->gfx.screen, &data->rect,
+					SDL_MapRGB(data->gfx.screen->format, 0xFF, 0xFF, 0xFF));
 			}
 			else
-				SDL_FillRect(screen, &data->rect,
-					SDL_MapRGB(screen->format, 0x00, 0x00, 0x00));
+				SDL_FillRect(data->gfx.screen, &data->rect,
+					SDL_MapRGB(data->gfx.screen->format, 0x00, 0x00, 0x00));
 			data->rect.x += MMWIDTH / (data->map.x_max / BITS);
 			x += BITS;
 		}
@@ -75,6 +75,6 @@ void	draw_map(t_main *data)		//DRAWS 2D MAP
 	data->rect.y = MMHEIGHT / (data->map.y_max / BITS) * (data->player.y / BITS);
 	data->rect.h = 5;
 	data->rect.w = 5;
-	SDL_FillRect(screen, &data->rect, SDL_MapRGB(screen->format, 0xFF, 0x00, 0x00));
-	SDL_FreeSurface(screen);
+	SDL_FillRect(data->gfx.screen, &data->rect, SDL_MapRGB(data->gfx.screen->format, 0xFF, 0x00, 0x00));
+//	SDL_FreeSurface(data->gfx.screen);
 }

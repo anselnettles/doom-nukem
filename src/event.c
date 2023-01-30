@@ -6,13 +6,13 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:21:31 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/01/30 12:20:52 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/01/27 21:10:52 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "doom_nukem.h"
+#include "drowning.h"
 
-void	deal_key(int key, t_main *data)
+void	deal_key(int key, t_drown *data)
 {
 	if (key == SDLK_ESCAPE)
 		data->option = EXIT;
@@ -24,7 +24,7 @@ void	deal_key(int key, t_main *data)
 		move_player(key, &data->player, data->map);
 }
 
-void	deal_mouse(t_main *data)
+void	deal_mouse(t_drown *data)
 {
 	data->player.dir += data->event.motion.xrel * DEGREES / 2;
 	if (data->player.dir > 2 * PI)
@@ -33,15 +33,15 @@ void	deal_mouse(t_main *data)
 		data->player.dir += 2 * PI;
 	data->player.dx = cosf(data->player.dir);
 	data->player.dy = sinf(data->player.dir);
-	data->height -= data->event.motion.yrel * 8;
-	if (data->height > 700)
-		data->height = 700;
-	if (data->height < -400)
-		data->height = -400;
-	clear_screen(data);
-	render_thread(data);
-	draw_map(data);
-	SDL_UpdateWindowSurface(data->window);
+	data->hg -= data->event.motion.yrel * 8;
+	if (data->hg > 700)
+		data->hg = 700;
+	if (data->hg < -400)
+		data->hg = -400;
+//	clear_screen(data);
+//	render_thread(data);
+//	draw_map(data);
+//	SDL_UpdateWindowSurface(data->window);
 }
 
 void	move_player(int key, t_player *player, t_map map)
@@ -61,7 +61,7 @@ void	move_player(int key, t_player *player, t_map map)
 			player->x += player->dx;
 			player->y += player->dy;
 		}
-		if (map.map[(int)roundf(player->y)][(int)roundf(player->x)] != '0')
+		if (map.map[(int)roundf(player->y)][(int)roundf(player->x)] != ' ')
 		{
 			if (key == SDLK_s)
 			{
@@ -103,7 +103,7 @@ void	strife(int key, t_player *player, t_map map)
 			player->x -= dx;
 			player->y -= dy;
 		}
-		if (map.map[(int)roundf(player->y)][(int)roundf(player->x)] != '0')
+		if (map.map[(int)roundf(player->y)][(int)roundf(player->x)] != ' ')
 		{
 			if (key == SDLK_a)
 			{
