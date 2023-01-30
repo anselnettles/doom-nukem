@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 14:28:01 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/01/26 16:26:27 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/01/30 12:19:35 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	*copy_line(char *line, t_map *data)
 	}
 	while (x - 1 < data->x_max)
 	{
-		str[x - 1] = '0';
+		str[x - 1] = '8';
 		x++;
 	}
 	str[x - 1] = '\0';
@@ -92,7 +92,7 @@ void	fill_gaps(char *line)
 		ft_exit("error; empty line");
 	while (line [i] != '\0')
 	{
-		line[i] = '0';
+		line[i] = '8';
 		i++;
 	}
 }
@@ -118,7 +118,7 @@ void	read_map(char *file, t_map *data)
 	fd = open(file, O_RDONLY);
 	while (get_next_line(fd, &line))
 	{
-		if (line[0] == ' ')// || y == 0 || y > data->y_max - BITS * 2)
+		if (line[0] == '0')// || y == 0 || y > data->y_max - BITS * 2)
 			fill_gaps(line);
 		while (y <= (i + 1) * BITS - 1)
 		{

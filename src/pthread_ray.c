@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:45:29 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/01/30 11:46:06 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/01/30 12:20:18 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,8 +120,8 @@ void	draw_texture(t_ray *ray, int y, int y_max, t_player wall)
 	j = 0;
 	texture_y = 0;
 	texture_x = (int)wall.x % 64;
-	if (ray->map.map[(int)roundf(wall.y)][(int)roundf(wall.x + 1 )] == ' '
-		|| ray->map.map[(int)roundf(wall.y)][(int)roundf(wall.x - 1 )] == ' ')
+	if (ray->map.map[(int)roundf(wall.y)][(int)roundf(wall.x + 1 )] == '0'
+		|| ray->map.map[(int)roundf(wall.y)][(int)roundf(wall.x - 1 )] == '0')
 		texture_x = (int)wall.y % 64;
 	while (y < y_max && texture_y < 64)
 	{
@@ -260,7 +260,7 @@ void	*ft_raycast_thread(void  *args)
 		wall.y = ray->player.y;
 		wall.dx = cosf(wall.dir);
 		wall.dy = sinf(wall.dir);
-		while (ray->map.map[(int)roundf(wall.y)][(int)roundf(wall.x)] == ' ')
+		while (ray->map.map[(int)roundf(wall.y)][(int)roundf(wall.x)] == '0')
 		{
 			wall.x -= wall.dx;
 			wall.y -= wall.dy;

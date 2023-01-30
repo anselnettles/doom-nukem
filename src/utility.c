@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:24:14 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/01/26 16:26:13 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/01/30 12:22:20 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	draw_map(t_main *data)		//DRAWS 2D MAP
 		x = 0;
 		while (x < data->map.x_max)
 		{
-			if (data->map.map[y][x] != ' ')
+			if (data->map.map[y][x] != '0')
 			{
 				SDL_FillRect(screen, &data->rect,
 					SDL_MapRGB(screen->format, 0xFF, 0xFF, 0xFF));

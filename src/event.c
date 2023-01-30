@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:21:31 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/01/27 15:18:48 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/01/30 12:20:52 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	move_player(int key, t_player *player, t_map map)
 			player->x += player->dx;
 			player->y += player->dy;
 		}
-		if (map.map[(int)roundf(player->y)][(int)roundf(player->x)] != ' ')
+		if (map.map[(int)roundf(player->y)][(int)roundf(player->x)] != '0')
 		{
 			if (key == SDLK_s)
 			{
@@ -103,7 +103,7 @@ void	strife(int key, t_player *player, t_map map)
 			player->x -= dx;
 			player->y -= dy;
 		}
-		if (map.map[(int)roundf(player->y)][(int)roundf(player->x)] != ' ')
+		if (map.map[(int)roundf(player->y)][(int)roundf(player->x)] != '0')
 		{
 			if (key == SDLK_a)
 			{
