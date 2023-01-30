@@ -1,8 +1,8 @@
 # WIP-Doom-Nukem
 
-My current project, which is still a work in progress.
-
-The goal of this project is to create a mix of Doom and Duke Nukem
+This C project is about creating a 3D polygonal game with ray-casting technique,
+that utilizes no GPU. Just like the breakthrough shooter games in the 90s.
+As of January 24th 2023, this is a collaboration project with @Dofidog and @UItsi.
 
 
 # Controls:
