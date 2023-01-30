@@ -6,12 +6,12 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 15:49:19 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/20 10:12:40 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/30 12:59:20 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "bitter_cold_droplets_in_autumn_rain.h"
-
+#include "drowning.h"
+/*
 float	ray_collision_distance(t_player *player, t_corf collision)
 {
 	float	distance;
@@ -27,116 +27,116 @@ float	ray_collision_distance(t_player *player, t_corf collision)
 	return (distance);
 }
 
-static int	scan_horizontal_collision_point(t_rain *r)
+static int	scan_horizontal_collision_point(t_drown *d)
 {
-	if (r->graph.cast.ray_angle > 0 && r->graph.cast.ray_angle < 180)
+	if (d->graph.cast.ray_angle > 0 && d->graph.cast.ray_angle < 180)
 	{
-		r->graph.cast.ray_y = (((int)r->player.pos_y >> 6) << 6) - 0.001f;
-		r->graph.cast.ray_x
-			= r->player.pos_x + (r->player.pos_y - r->graph.cast.ray_y)
-			/ tan(deg_to_rad(r->graph.cast.ray_angle));
-		r->graph.cast.offset_y = -SQUARE_SIZE;
-		r->graph.cast.offset_x = -r->graph.cast.offset_y
-			/ tan(deg_to_rad(r->graph.cast.ray_angle));
+		d->graph.cast.ray_y = (((int)d->player.pos_y >> 6) << 6) - 0.001f;
+		d->graph.cast.ray_x
+			= d->player.pos_x + (d->player.pos_y - d->graph.cast.ray_y)
+			/ tan(deg_to_rad(d->graph.cast.ray_angle));
+		d->graph.cast.offset_y = -SQUARE_SIZE;
+		d->graph.cast.offset_x = -d->graph.cast.offset_y
+			/ tan(deg_to_rad(d->graph.cast.ray_angle));
 	}
-	else if (r->graph.cast.ray_angle > 180 && r->graph.cast.ray_angle < 360)
+	else if (d->graph.cast.ray_angle > 180 && d->graph.cast.ray_angle < 360)
 	{
-		r->graph.cast.ray_y = (((int)r->player.pos_y >> 6) << 6) + SQUARE_SIZE;
-		r->graph.cast.ray_x
-			= r->player.pos_x + (r->player.pos_y - r->graph.cast.ray_y)
-			/ tan(deg_to_rad(r->graph.cast.ray_angle));
-		r->graph.cast.offset_y = SQUARE_SIZE;
-		r->graph.cast.offset_x = -r->graph.cast.offset_y
-			/ tan(deg_to_rad(r->graph.cast.ray_angle));
+		d->graph.cast.ray_y = (((int)d->player.pos_y >> 6) << 6) + SQUARE_SIZE;
+		d->graph.cast.ray_x
+			= d->player.pos_x + (d->player.pos_y - d->graph.cast.ray_y)
+			/ tan(deg_to_rad(d->graph.cast.ray_angle));
+		d->graph.cast.offset_y = SQUARE_SIZE;
+		d->graph.cast.offset_x = -d->graph.cast.offset_y
+			/ tan(deg_to_rad(d->graph.cast.ray_angle));
 	}
 	else
 		return (0);
 	return (1);
 }
 
-static int	scan_vertical_collision_point(t_rain *r)
+static int	scan_vertical_collision_point(t_drown *d)
 {
-	if (r->graph.cast.ray_angle > 90 && r->graph.cast.ray_angle < 270)
+	if (d->graph.cast.ray_angle > 90 && d->graph.cast.ray_angle < 270)
 	{
-		r->graph.cast.ray_x = (((int)r->player.pos_x >> 6) << 6) - 0.001f;
-		r->graph.cast.ray_y
-			= r->player.pos_y + (r->player.pos_x - r->graph.cast.ray_x)
-			* tan(deg_to_rad(r->graph.cast.ray_angle));
-		r->graph.cast.offset_x = -SQUARE_SIZE;
-		r->graph.cast.offset_y = -r->graph.cast.offset_x
-			* tan(deg_to_rad(r->graph.cast.ray_angle));
+		d->graph.cast.ray_x = (((int)d->player.pos_x >> 6) << 6) - 0.001f;
+		d->graph.cast.ray_y
+			= d->player.pos_y + (d->player.pos_x - d->graph.cast.ray_x)
+			* tan(deg_to_rad(d->graph.cast.ray_angle));
+		d->graph.cast.offset_x = -SQUARE_SIZE;
+		d->graph.cast.offset_y = -d->graph.cast.offset_x
+			* tan(deg_to_rad(d->graph.cast.ray_angle));
 	}
-	else if ((r->graph.cast.ray_angle > 270
-			&& r->graph.cast.ray_angle <= 360)
-		|| (r->graph.cast.ray_angle >= 0 && r->graph.cast.ray_angle < 90))
+	else if ((d->graph.cast.ray_angle > 270
+			&& d->graph.cast.ray_angle <= 360)
+		|| (d->graph.cast.ray_angle >= 0 && d->graph.cast.ray_angle < 90))
 	{
-		r->graph.cast.ray_x = (((int)r->player.pos_x >> 6) << 6) + SQUARE_SIZE;
-		r->graph.cast.ray_y = r->player.pos_y
-			+ (r->player.pos_x - r->graph.cast.ray_x)
-			* tan(deg_to_rad(r->graph.cast.ray_angle));
-		r->graph.cast.offset_x = SQUARE_SIZE;
-		r->graph.cast.offset_y = -r->graph.cast.offset_x
-			* tan(deg_to_rad(r->graph.cast.ray_angle));
+		d->graph.cast.ray_x = (((int)d->player.pos_x >> 6) << 6) + SQUARE_SIZE;
+		d->graph.cast.ray_y = d->player.pos_y
+			+ (d->player.pos_x - d->graph.cast.ray_x)
+			* tan(deg_to_rad(d->graph.cast.ray_angle));
+		d->graph.cast.offset_x = SQUARE_SIZE;
+		d->graph.cast.offset_y = -d->graph.cast.offset_x
+			* tan(deg_to_rad(d->graph.cast.ray_angle));
 	}
 	else
 		return (0);
 	return (1);
 }
 
-float	calculate_collision_distance(t_rain *r, int i, int toggle, float dist)
+float	calculate_collision_distance(t_drown *d, int i, int toggle, float dist)
 {
 	while (i < (MAP_WIDTH / 2))
 	{
-		r->graph.cast.mapx = ((int)r->graph.cast.ray_x) >> 6;
-		r->graph.cast.mapy = ((int)r->graph.cast.ray_y) >> 6;
-		if (r->graph.cast.mapx >= 0 && r->graph.cast.mapx < (MAP_WIDTH) / 2
-			&& r->graph.cast.mapy >= 0 && r->graph.cast.mapy < (MAP_WIDTH) / 2
-			&& r->editor.map[r->graph.cast.mapy][r->graph.cast.mapx][0] == '#')
+		d->graph.cast.mapx = ((int)d->graph.cast.ray_x) >> 6;
+		d->graph.cast.mapy = ((int)d->graph.cast.ray_y) >> 6;
+		if (d->graph.cast.mapx >= 0 && d->graph.cast.mapx < (MAP_WIDTH) / 2
+			&& d->graph.cast.mapy >= 0 && d->graph.cast.mapy < (MAP_WIDTH) / 2
+			&& d->editor.map[d->graph.cast.mapy][d->graph.cast.mapx][0] == '#')
 		{
 			if (toggle)
-				r->graph.cast.hor_coll_point_x = r->graph.cast.ray_x;
+				d->graph.cast.hor_coll_point_x = d->graph.cast.ray_x;
 			else
-				r->graph.cast.ver_coll_point_y = r->graph.cast.ray_y;
-			r->corf.x = r->graph.cast.ray_x;
-			r->corf.y = r->graph.cast.ray_y;
-			dist = ray_collision_distance(&r->player, r->corf);
+				d->graph.cast.ver_coll_point_y = d->graph.cast.ray_y;
+			d->corf.x = d->graph.cast.ray_x;
+			d->corf.y = d->graph.cast.ray_y;
+			dist = ray_collision_distance(&d->player, d->corf);
 			return (dist);
 		}
 		else
 		{
-			r->graph.cast.ray_x += r->graph.cast.offset_x;
-			r->graph.cast.ray_y += r->graph.cast.offset_y;
+			d->graph.cast.ray_x += d->graph.cast.offset_x;
+			d->graph.cast.ray_y += d->graph.cast.offset_y;
 			i++;
 		}
 	}
 	return (100000);
 }
 
-int	raycast(t_rain *r, float hor_coll_dist, float ver_coll_dist)
+int	raycast(t_drown *d, float hor_coll_dist, float ver_coll_dist)
 {
-	if (scan_horizontal_collision_point(r))
-		hor_coll_dist = calculate_collision_distance(r, 0, HORIZONTAL, 0);
-	if (scan_vertical_collision_point(r))
-		ver_coll_dist = calculate_collision_distance(r, 0, VERTICAL, 0);
+	if (scan_horizontal_collision_point(d))
+		hor_coll_dist = calculate_collision_distance(d, 0, HORIZONTAL, 0);
+	if (scan_vertical_collision_point(d))
+		ver_coll_dist = calculate_collision_distance(d, 0, VERTICAL, 0);
 	if (ver_coll_dist < hor_coll_dist)
 	{
-		r->graph.cast.closest_coll = ver_coll_dist;
-		r->graph.cast.texture_xoffset
-			= (int)r->graph.cast.ver_coll_point_y % SQUARE_SIZE;
-		if (r->graph.cast.ray_angle > 90 && r->graph.cast.ray_angle < 270)
-			r->player.compass = WEST;
+		d->graph.cast.closest_coll = ver_coll_dist;
+		d->graph.cast.texture_xoffset
+			= (int)d->graph.cast.ver_coll_point_y % SQUARE_SIZE;
+		if (d->graph.cast.ray_angle > 90 && d->graph.cast.ray_angle < 270)
+			d->player.compass = WEST;
 		else
-			r->player.compass = EAST;
+			d->player.compass = EAST;
 	}
 	else
 	{
-		r->graph.cast.closest_coll = hor_coll_dist;
-		r->graph.cast.texture_xoffset
-			= (int)r->graph.cast.hor_coll_point_x % SQUARE_SIZE;
-		if (r->graph.cast.ray_angle > 0 && r->graph.cast.ray_angle < 180)
-			r->player.compass = NORTH;
+		d->graph.cast.closest_coll = hor_coll_dist;
+		d->graph.cast.texture_xoffset
+			= (int)d->graph.cast.hor_coll_point_x % SQUARE_SIZE;
+		if (d->graph.cast.ray_angle > 0 && d->graph.cast.ray_angle < 180)
+			d->player.compass = NORTH;
 		else
-			r->player.compass = SOUTH;
+			d->player.compass = SOUTH;
 	}
 	return (0);
-}
+}*/

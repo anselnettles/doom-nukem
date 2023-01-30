@@ -1,75 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utility_functions.c                                :+:      :+:    :+:   */
+/*   utilities_system.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 17:50:06 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/16 09:03:37 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/30 16:24:32 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "bitter_cold_droplets_in_autumn_rain.h"
-
-//	Ft_memset() (memory set) copies the argument 'len' amount of argument value
-//	'c' to a newly created char string 's' pointed by the argument '*b'.
-//	Returns the argument 'b'.
-void	*ft_memset(void *b, int c, size_t len)
-{
-	char	*s;
-
-	s = (char *)b;
-	while (len > 0)
-	{
-		s[len - 1] = (char )c;
-		len--;
-	}
-	return (b);
-}
-
-//	Ft_memalloc() (memory allocation) allocates a section of memory the size
-//	of argument 'size' with function 'malloc()' and uses the library function
-//	'memset()' to set its area to '0'. The first process is a failsafe.
-//	If allocation fails, returns NULL.
-void	*ft_memalloc(size_t size)
-{
-	void	*area;
-
-	area = malloc(size);
-	if (area == NULL)
-		return (NULL);
-	ft_memset(area, 0, size);
-	return (area);
-}
-
-//	Ft_bzero() (byte zero) writes an amount of 'n' zeroed bytes to a string.
-void	ft_bzero(void *s, size_t n)
-{
-	ft_memset(s, 0, n);
-}
-
-// Ft_strlen() (String length) measures the length of the applied string '*s'
-size_t	ft_strlen(const char *s)
-{
-	size_t	len;
-
-	len = 0;
-	while (s[len] != '\0')
-		len++;
-	return (len);
-}
+#include "drowning.h"
 
 //	Sdl_loop() keeps Simple Direct MediaLayer's PollEvent constantly
 //	running and checks for control calls while rerendering the graphical
 //	view.
-void	sdl_loop(t_rain *rain)
+void	sdl_loop(t_drown *data)
 {
-	while (ENDLESS)
+	while (data->play_state == PLAY)
 	{
-		keyboard_input(rain);
-		render(rain);
-		if (SDL_PollEvent(&rain->graph.e) && rain->graph.e.type == SDL_QUIT)
-			break ;
+		while(SDL_PollEvent(&data->event) != 0)
+		{
+			if (data->event.type == SDL_QUIT)
+				data->play_state = EXIT;
+			else if (data->event.type == SDL_KEYDOWN)
+				deal_key(data->event.key.keysym.sym, data);
+			else if (data->event.type == SDL_MOUSEMOTION)
+				deal_mouse(data);
+		}
+		render(data);
 	}
 }

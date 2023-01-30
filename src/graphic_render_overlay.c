@@ -6,34 +6,34 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 11:08:33 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/20 10:08:55 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/27 17:40:45 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "bitter_cold_droplets_in_autumn_rain.h"
+#include "drowning.h"
 
 //This is a very very poorly optimized, simple rain overlay effect.
 //It is what the bitter cold autumn droplets are. It symbolizes the
 //anxiety and dread of my HIVE studies.
 //By using static integers in draw_overlay(), we can memorize the position
 //of the rain drops.
-
-static void	droplet(t_rain *r, int x, int y)
+/*
+static void	droplet(t_drown *d, int x, int y)
 {
-	pixel_put(&r->graph, x, y, 0xC1BCCB);
-	pixel_put(&r->graph, x, y + 2, 0xC1BCCB);
-	pixel_put(&r->graph, x, y + 4, 0xC1BCCB);
-	pixel_put(&r->graph, x, y + 6, 0xD4D0DE);
-	pixel_put(&r->graph, x, y + 7, 0xD4D0DE);
-	pixel_put(&r->graph, x, y + 8, 0xD4D0DE);
-	pixel_put(&r->graph, x, y + 9, 0xD4D0DE);
-	pixel_put(&r->graph, x, y + 10, 0xD4D0DE);
-	pixel_put(&r->graph, x, y + 11, 0xD4D0DE);
-	pixel_put(&r->graph, x, y + 12, 0xD4D0DE);
-	pixel_put(&r->graph, x, y + 13, 0xD4D0DE);
+	pixel_put(&d->graph, x, y, 0xC1BCCB);
+	pixel_put(&d->graph, x, y + 2, 0xC1BCCB);
+	pixel_put(&d->graph, x, y + 4, 0xC1BCCB);
+	pixel_put(&d->graph, x, y + 6, 0xD4D0DE);
+	pixel_put(&d->graph, x, y + 7, 0xD4D0DE);
+	pixel_put(&d->graph, x, y + 8, 0xD4D0DE);
+	pixel_put(&d->graph, x, y + 9, 0xD4D0DE);
+	pixel_put(&d->graph, x, y + 10, 0xD4D0DE);
+	pixel_put(&d->graph, x, y + 11, 0xD4D0DE);
+	pixel_put(&d->graph, x, y + 12, 0xD4D0DE);
+	pixel_put(&d->graph, x, y + 13, 0xD4D0DE);
 }
 
-void	draw_overlay(t_rain *r)
+void	draw_overlay(t_drown *d)
 {
 	static int	y[24] = {10, 90, 50, 180, 80, 250, 140, 320, 220, 150,
 		30, 40, 32, 450, 23, 53, 423, 54, 4, 12, 234, 123, 153, 231};
@@ -53,4 +53,4 @@ void	draw_overlay(t_rain *r)
 			x[i] = rand() % 639 + 1;
 		}
 	}
-}
+}*/

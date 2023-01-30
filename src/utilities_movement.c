@@ -6,18 +6,18 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 14:16:37 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/18 10:12:06 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/30 14:13:41 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "bitter_cold_droplets_in_autumn_rain.h"
+#include "drowning.h"
 
-void	raycast_angle_check(t_graph *graph)
+void	raycast_angle_check(t_gfx *gfx)
 {
-	if (graph->cast.ray_angle >= 360)
-		graph->cast.ray_angle -= 360;
-	else if (graph->cast.ray_angle < 0)
-		graph->cast.ray_angle += 360;
+	if (gfx->cast.ray_angle >= 360)
+		gfx->cast.ray_angle -= 360;
+	else if (gfx->cast.ray_angle < 0)
+		gfx->cast.ray_angle += 360;
 }
 
 static void	collision_check(t_player *p)

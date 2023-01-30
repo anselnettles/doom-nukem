@@ -6,15 +6,15 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 13:35:22 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/19 14:19:55 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/30 14:13:12 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "bitter_cold_droplets_in_autumn_rain.h"
+#include "drowning.h"
 
 //	The image loading function, used to saving the .png texture files
 //	from the 'textures' folder into the graphical wall textures.
-SDL_Surface	*img_load(char *path)
+/*SDL_Surface	*img_load(char *path)
 {
 	SDL_Surface	*ret;
 	SDL_Surface	*tmp;
@@ -27,7 +27,7 @@ SDL_Surface	*img_load(char *path)
 	ret = SDL_ConvertSurfaceFormat(tmp, SDL_PIXELFORMAT_ARGB8888, 0);
 	SDL_FreeSurface(tmp);
 	return (ret);
-}
+}*/
 
 //	A pixel drawing function for the SDL surface, created to make the rendering
 //	process more simpler.
@@ -35,7 +35,7 @@ SDL_Surface	*img_load(char *path)
 //	one pixel for 1X scale, four pixels for 2X scale and nine pixels for 3X.
 //	The scanline visual effect ('g->scanline') is applied on every second pixel
 //	color of the column to create an aesthetic alternating scanline effect.
-void	pixel_put(t_graph *g, int x_src, int y_src, uint32_t color)
+/*void	pixel_put(t_graph *g, int x_src, int y_src, uint32_t color)
 {
 	uint32_t	*pix;
 	int			x;
@@ -61,11 +61,12 @@ void	pixel_put(t_graph *g, int x_src, int y_src, uint32_t color)
 			pix[(x +2) + ((y +2) * wth)] = color << (g->scanline * (y_src % 2));
 		}
 	}
-}
+}*/
 
+/*
 //'Texture_color()' picks the correct RGB color from the correct texture
 //file's pixels, corresponding to the parameter texture_y location.
-static uint32_t	txtr(t_rain *r, float texture_y)
+static uint32_t	txtr(t_drown *d, float texture_y)
 {
 	SDL_Surface	*texture;
 	uint32_t	color;
@@ -74,15 +75,15 @@ static uint32_t	txtr(t_rain *r, float texture_y)
 
 	texture = NULL;
 	scale_y = (int)(156 * texture_y) / SQUARE_SIZE;
-	scale_x = (256 * r->graph.cast.texture_xoffset) / SQUARE_SIZE;
-	if (r->player.compass == NORTH)
-		texture = r->graph.texture[0];
-	else if (r->player.compass == EAST)
-		texture = r->graph.texture[1];
-	else if (r->player.compass == SOUTH)
-		texture = r->graph.texture[2];
-	else if (r->player.compass == WEST)
-		texture = r->graph.texture[3];
+	scale_x = (256 * d->graph.cast.texture_xoffset) / SQUARE_SIZE;
+	if (d->player.compass == NORTH)
+		texture = d->graph.texture[0];
+	else if (d->player.compass == EAST)
+		texture = d->graph.texture[1];
+	else if (d->player.compass == SOUTH)
+		texture = d->graph.texture[2];
+	else if (d->player.compass == WEST)
+		texture = d->graph.texture[3];
 	color = ((uint32_t *)texture->pixels)[scale_x + (scale_y * texture->w)];
 	return (color);
 }
@@ -100,31 +101,31 @@ static uint32_t	txtr(t_rain *r, float texture_y)
 //	point of each column line.
 //	The scanline visual effect ('r->graph.sl') is applied on every second
 //	main color pixel to create an aesthetic alternating scanline effect. 
-void	vline(t_rain *r, t_location lo, float y, uint32_t color)
+void	vline(t_drown *d, t_location lo, float y, uint32_t color)
 {
 	uint32_t	*pix;
 
-	pix = r->graph.surf->pixels;
-	lo.y1 = clamp((int)lo.start_y, 0, r->graph.height - 1);
-	lo.y2 = clamp((int)lo.end_y, 0, r->graph.height - 1);
+	pix = d->graph.surf->pixels;
+	lo.y1 = clamp((int)lo.start_y, 0, d->graph.height - 1);
+	lo.y2 = clamp((int)lo.end_y, 0, d->graph.height - 1);
 	if (lo.y2 == lo.y1)
-		pix[(lo.y1 * r->graph.width) + (int)lo.start_x] = BLUE_OUTLINE;
+		pix[(lo.y1 * d->graph.width) + (int)lo.start_x] = BLUE_OUTLINE;
 	else if (lo.y2 > lo.y1)
 	{
-		pix[(lo.y1 * r->graph.width) + (int)lo.start_x] = BLUE_OUTLINE;
+		pix[(lo.y1 * d->graph.width) + (int)lo.start_x] = BLUE_OUTLINE;
 		lo.y = lo.y1 + 1;
 		while (lo.y < lo.y2)
 		{
 			if (color == 0)
-				pix[((lo.y++) * r->graph.width) + (int)lo.start_x] = txtr(r, y);
+				pix[((lo.y++) * d->graph.width) + (int)lo.start_x] = txtr(d, y);
 			else
 			{
-				pix[((lo.y++) * r->graph.width) + (int)lo.start_x] = color++;
-				if (r->graph.scale >= 2)
-					pix[((lo.y++) * r->graph.width) + (int)lo.start_x] = color;
+				pix[((lo.y++) * d->graph.width) + (int)lo.start_x] = color++;
+				if (d->graph.scale >= 2)
+					pix[((lo.y++) * d->graph.width) + (int)lo.start_x] = color;
 			}
-			y += (float)r->graph.cast.texture_yincrement;
+			y += (float)d->graph.cast.texture_yincrement;
 		}
-		pix[(lo.y2 * r->graph.width) + (int)lo.start_x] = BROWN_OUTLINE;
+		pix[(lo.y2 * d->graph.width) + (int)lo.start_x] = BROWN_OUTLINE;
 	}
-}
+}*/
