@@ -58,10 +58,10 @@ static int	initialize_media(t_drown *d)
 {
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS) > SDL_ERROR)
 	{
-		d->graph.scale = SCALE;
-		d->graph.width = (WIDTH * d->graph.scale);
-		d->graph.height = (HEIGHT * d->graph.scale);
-		d->graph.scanline = FALSE;
+		d->gfx.scale = SCALE;
+		d->gfx.width = (WIDTH * d->gfx.scale);
+		d->gfx.height = (HEIGHT * d->gfx.scale);
+		d->gfx.scanline = FALSE;
 		//g->win = SDL_CreateWindow(TITLE, 0, 0, g->width, g->height, 0);
 		//g->surf = SDL_GetWindowSurface(g->win);
 
@@ -70,12 +70,9 @@ static int	initialize_media(t_drown *d)
 		d->thread = 1;
 		d->hg = 0; //What exactly is Dofidog's data->height?
 		d->window = SDL_CreateWindow(TITLE, SDL_WINDOWPOS_UNDEFINED,
-			SDL_WINDOWPOS_UNDEFINED, d->graph.width, d->graph.height, SDL_WINDOW_SHOWN);
-
+				SDL_WINDOWPOS_UNDEFINED, d->gfx.width,
+				d->gfx.height, SDL_WINDOW_SHOWN);
 		d->screen = SDL_GetWindowSurface(d->window);
-		//if (init_sdl(data->window, data->screen) == 0)
-		//	exit(-1);
-
 		if (d->window != NULL || d->screen != NULL)
 		{
 		//	g->map = PLAYER_MAP;
@@ -88,9 +85,9 @@ static int	initialize_media(t_drown *d)
 	}
 	else
 	{
-		d->graph.sdl_error_string = SDL_GetError();
+		d->gfx.sdl_error_string = SDL_GetError();
 		write(1, "SDL Error: ", 11);
-		write(1, d->graph.sdl_error_string, ft_strlen(d->graph.sdl_error_string));
+		write(1, d->gfx.sdl_error_string, ft_strlen(d->gfx.sdl_error_string));
 	}
 	return (ERROR);
 }
