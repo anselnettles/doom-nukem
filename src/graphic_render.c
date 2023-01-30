@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   graphic_render.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 10:05:39 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/30 14:19:31 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/30 15:22:49 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ static int	draw_space(t_drown *d)
 
 //	The graphical render order: Fill in black, draw the 3D space, draw the
 //	array map in the window corner, update the window.
+
 int	render(t_drown *data)
 {
 	//SDL_FillRect(data->gfx.screen, NULL, 0);
@@ -112,13 +113,10 @@ int	render(t_drown *data)
 	//	return (ERROR);
 	//draw_overlay(drown);
 	//draw_minimap(drown);
-	write(1, ".", 1);
+	//clear_screen(data);
 	render_thread(data);
-	write(1, ".", 1);
 	draw_map(data);
-	write(1, ".", 1);
 	if (SDL_UpdateWindowSurface(data->gfx.window) == ERROR)
 		return (ERROR);
-	write(1, ".", 1);
 	return (0);
 }

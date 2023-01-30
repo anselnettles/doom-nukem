@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   drowning.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/30 14:10:18 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/30 15:59:22 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <fcntl.h>							//File Control library.
 # include <pthread.h>
 # include <SDL2/SDL.h>						//Simple DirectMedia Layer.
+# include "../libft/libft.h"
 
 # ifdef __APPLE__
 #  include "SDL_image.h"
@@ -70,8 +71,6 @@
 # define THREADRAY 213				//Topi's build.
 # define EXIT 0						//Topi's build.
 # define PLAY 1						//Topi's build.
-# define BUFF_SIZE 32				//Topi's build.
-# define MAX_FD 8192				//Topi's build.
 # define DEGREE 0.0174532
 # define DEGREES 0.0174532
 # define NORTH 1					//Reference to wall texture direction.
@@ -254,8 +253,7 @@ typedef struct s_project_drowning {
 	t_collide				collide;
 	SDL_Rect	rect;
 	SDL_Event	event;
-	SDL_bool	cursor;
-	int			option;
+	int			play_state;
 	t_map		map;
 	int			hg;
 	int			thread;
@@ -308,10 +306,6 @@ double		deg_to_rad(double degrees);
 
 int			error(int code);
 
-void		*ft_memalloc(size_t size);
-void		*ft_memset(void *b, int c, size_t len);
-void		ft_bzero(void *s, size_t n);
-size_t		ft_strlen(const char *s);
 void		sdl_loop(t_drown *drown);
 
 //Topi's build.
@@ -324,32 +318,16 @@ void	draw_map(t_drown *data);
 void	init_player(t_player *player);
 void	move_player(int key, t_player *player, t_map map);
 void	rotate_player(int key, t_player *player);
-void	clear_screen(t_drown *data);
 void	deal_key(int key, t_drown *data);
 void	deal_mouse(t_drown *data);
 void    render_thread(t_drown *data);
-void	*ft_raycast_thread(t_gfx *gfx);
+void	*ft_raycast_thread(void  *args);
 void	strife(int key, t_player *player, t_map map);
-void	draw_thread(t_gfx *gfx, t_ray *ray, float distance, t_player wall);
-void	pixel_put(t_gfx *gfx, int x, int y, Uint32 color);
-
-int	get_next_line(const int fd, char **line);
-int	searchnewline(char **s, char **line, int fd, int ret);
-char	*ft_strchr(const char *s, int c);
-char	*ft_strdup(const char *src);
-void	ft_memdel(void **ap);
-void	ft_strdel(char **as);
-char	*ft_strsub(char const *s, unsigned int start, size_t len);
-char	*ft_strjoin(char const *s1, char const *s2);
-char	*ft_strnew(size_t size);
-int	searchnewline(char **s, char **line, int fd, int ret);
-int	get_next_line(const int fd, char **line);
-void	ft_putchar(char c);
-void	ft_putchar_fd(char c, int fd);
-void	ft_putstr(char *str);
-void	ft_putstr_fd(char const *s, int fd);
-void	ft_putendl(char *str);
-void	ft_putendl_fd(char const *s, int fd);
-void	ft_exit(char *str);
+void	draw_thread(t_ray *ray, float distance, t_player wall);
+void	pixel_put(SDL_Surface *screen, int x, int y, Uint32 color);
+void	draw_collumn(t_ray *ray, int y, int y_max, Uint32 color, SDL_Surface *screen);
+void	draw_texture(t_ray *ray, int y, int y_max, t_player wall, SDL_Surface *screen);
+void	draw_floor(t_ray *ray, t_player wall, int win_y, SDL_Surface *screen);
+void	draw_ceiling(t_ray *ray, t_player wall, int win_y, SDL_Surface *screen);
 
 #endif

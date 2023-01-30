@@ -38,8 +38,9 @@ SRC					=	$(addprefix src/, $(addsuffix .c, $(FILES)))
 OBJ					=	$(addprefix obj/, $(addsuffix .o, $(FILES)))
 OBJ_DIR				=	obj
 LISTSRC				=	$(foreach part,$(SRC), 	$(PL)		${G}| $(part)\n)
-FLAGS				=	-Wall -Wextra #-Werror -O3 -g
+FLAGS				=	-Wall -Wextra -Werror -O3 -g
 HEADER				=	-I./src
+LIBFT				=	libft/
 
 OS = $(shell uname)
 ifeq ($(OS), Linux)
@@ -64,6 +65,7 @@ endif
 all : $(NAME)
 
 $(NAME) : $(OBJ_DIR) $(OBJ)
+	@make -C $(LIBFT)
 	@${RUN_HEAD}
 	@printf "	${PL}									${PR}"
 	@printf "	${PL}	${Yb}Ｃｏｍｐｉｌｉｎｇ.		 				${PR}"
@@ -71,7 +73,7 @@ $(NAME) : $(OBJ_DIR) $(OBJ)
 	@printf "	$(PL)		${G}| following source files:				${PR}${Nul}"
 	@printf "$(LISTSRC)"
 	@printf "	${PL}									${PR}${Nul}"
-	@$(CC) -o $(NAME) $(FLAGS) $(OBJ) $(CGFLAGS) $(FRAMEWORKS)
+	@$(CC) -o $(NAME) $(FLAGS) $(OBJ) $(CGFLAGS) $(FRAMEWORKS) libft/libft.a
 	@printf "	${PL}									${PR}"
 	@printf "	${PL}	${Yb}Ｆｉｎｉｓｈｅｄ ｂｉｎａｒｙ.					${PR}"
 	@printf "	${PL}		${G}| Executable '$(NAME)' compiled with '$(CC)'.		${PR}"
