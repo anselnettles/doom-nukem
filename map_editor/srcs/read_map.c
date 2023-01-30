@@ -1,6 +1,6 @@
 #include "../includes/map_editor.h"
 
-static void buffer_to_3D_map_array(char *buf, t_map *dimensions)
+static void buffer_to_3D_map_array(char *buf, t_map *data)
 {
     int i2;
     int i1;
@@ -13,7 +13,7 @@ static void buffer_to_3D_map_array(char *buf, t_map *dimensions)
     {
         while (*buf != ' ' && *buf != '\n')
         {
-            dimensions->map[i2][i1][i0] = *buf;
+            data->map[i2][i1][i0] = *buf;
             i0++;
             buf++;
         }
@@ -33,7 +33,7 @@ static void buffer_to_3D_map_array(char *buf, t_map *dimensions)
     }
 }
 
-static void malloc_3D_map_array(t_map *dimensions, t_editor_images *lim)
+static void malloc_3D_map_array(t_map *data, t_editor_images *images)
 {
     //map[row][column][parameter]
     int     row;
@@ -41,34 +41,34 @@ static void malloc_3D_map_array(t_map *dimensions, t_editor_images *lim)
     int     row_temp;
     int     column_temp;
 
-    row_temp = lim->row1;
+    row_temp = images->row1;
     row = 0;
-    dimensions->map = (char ***)malloc(sizeof(char **) * lim->row1);
-    if (!dimensions->map)
+    data->map = (char ***)malloc(sizeof(char **) * images->row1);
+    if (!data->map)
     {
         tt_errors("malloc_3d_map_array: malloc() fail.\nmap[X][][]");
         exit (-1);
     }
     while (row_temp > 0)
     {
-        dimensions->map[row] = (char **)malloc(sizeof(char *) * lim->column1);
-        if (!dimensions->map[row])
+        data->map[row] = (char **)malloc(sizeof(char *) * images->column1);
+        if (!data->map[row])
         {
             tt_errors("malloc_3d_map_array: malloc() fail.\nmap[][X][]");
             exit (-1);
          }
-        column_temp = lim->column1;
+        column_temp = images->column1;
         column = 0;
         while (column_temp > 0)
         {
             //We have discussed the parameter count per map element is 4. 
-            dimensions->map[row][column] = (char *)malloc(sizeof(char) * (PARAM_COUNT + 1));
-            if (!dimensions->map[row][column])
+            data->map[row][column] = (char *)malloc(sizeof(char) * (PARAM_COUNT + 1));
+            if (!data->map[row][column])
             {
                 tt_errors("malloc_3d_map_array: malloc() fail.\nmap[][][X]");
                 exit (-1);
             }
-            dimensions->map[row][column][PARAM_COUNT] = '\0';
+            data->map[row][column][PARAM_COUNT] = '\0';
             column++;
             column_temp--;
         }
@@ -78,7 +78,7 @@ static void malloc_3D_map_array(t_map *dimensions, t_editor_images *lim)
 }
 
 //Currently the map data file is dictated to be a square, despite the movement area shape
-static void count_map_dimensions(char *buf, t_map *dimensions, t_editor_images *lim)
+static void count_map_data(char *buf, t_map *data, t_editor_images *images)
 {
     //row_bytes = number of bytes per row
     int row_bytes;
@@ -94,16 +94,16 @@ static void count_map_dimensions(char *buf, t_map *dimensions, t_editor_images *
     //Addition "+ 1" to row_bytes is only a beauty element,
     //  since after the last map element there is '\n' instead of ' '.
     //  Addition "+ 1" to PARAM_COUNT negates ' ' between the elements.
-    lim->column1 = (row_bytes + 1) / (PARAM_COUNT + 1);
+    images->column1 = (row_bytes + 1) / (PARAM_COUNT + 1);
     while(*buf != '\0')
     {
         if (*buf == '\n')
-            lim->row1++;
+            images->row1++;
         buf++;
     }
 }
 
-void    read_map(char *map_file, t_map *dimensions, t_editor_images *lim)
+void    read_map(char *map_file, t_map *data, t_editor_images *images)
 {
     int     fd;
     int     ret;
@@ -123,7 +123,7 @@ void    read_map(char *map_file, t_map *dimensions, t_editor_images *lim)
     }
     buf[ret] = '\0';
     //validate_map(buf);
-    count_map_dimensions(buf, dimensions, lim);
-    malloc_3D_map_array(dimensions, lim);
-    buffer_to_3D_map_array(buf, dimensions);
+    count_map_data(buf, data, images);
+    malloc_3D_map_array(data, images);
+    buffer_to_3D_map_array(buf, data);
 }

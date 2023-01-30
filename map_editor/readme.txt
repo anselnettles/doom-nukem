@@ -1,7 +1,19 @@
-Left off: map_editor, row 39-41
+---------------------------------------------------------------------------------
+Left off:   select_new_param_value()
+---------------------------------------------------------------------------------
+            1)OK  main: copy_map_to_map_temp()  //this will be called after read_map() and looped upon param changes
+            2) select_new_param_value()
+---------------------------------------------------------------------------------
+Fix notes:
+---------------------------------------------------------------------------------
+
+end:        unused parameters (functions calls with unnecessarys structs)
+---------------------------------------------------------------------------------
+Progress:
+---------------------------------------------------------------------------------
 
 1)OK  make parameter modification column dependant on the parameter (1 x n)
-2)  map to contain W, P, M, T - to indicate Wall, Player, Mob, is_transparent
+2)OK  map to contain W, P, M, T - to indicate Wall, Player, Mob, is_transparent
 2)  save modification to buffer
 3)  continue/finish editing
     A)  if continue, loop editing_program
@@ -15,6 +27,9 @@ renaming suggestions:
     get_m1_pressed_img_grid_element => is_mouse_in_grid3   //note that this functions already update to struct the grid_x/y
 
 -------------------------------------------------------------------------------
+Map contents:
+-------------------------------------------------------------------------------
+
 map[x][y][z]
     x/y =   coordinates
     z   =   parameter indicating what the coordinate point contains.
@@ -40,7 +55,6 @@ map[x][y][z]
     s   = player_spawn
     m   = enemy_spawn
     
-----------------------------------------------------------------------------
 #### #A## #A## #B## ####
 #B## 2A.. 0... 0..m #C##
 #BT# 1A.. 0... 0... #C##
@@ -56,7 +70,9 @@ XXXX
 
 '.' = empty, no parameter value
 
-----------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Enhancement options:
+---------------------------------------------------------------------------------
 
 typedef struct s_map
 {
