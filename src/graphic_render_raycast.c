@@ -6,12 +6,12 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 15:49:19 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/27 17:41:23 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/30 12:59:20 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "drowning.h"
-
+/*
 float	ray_collision_distance(t_player *player, t_corf collision)
 {
 	float	distance;
@@ -139,4 +139,4 @@ int	raycast(t_drown *d, float hor_coll_dist, float ver_coll_dist)
 			d->player.compass = SOUTH;
 	}
 	return (0);
-}
+}*/
