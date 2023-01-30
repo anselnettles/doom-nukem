@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 13:35:22 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/27 18:05:18 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/30 14:13:12 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@
 	}
 }*/
 
+/*
 //'Texture_color()' picks the correct RGB color from the correct texture
 //file's pixels, corresponding to the parameter texture_y location.
 static uint32_t	txtr(t_drown *d, float texture_y)
@@ -127,4 +128,4 @@ void	vline(t_drown *d, t_location lo, float y, uint32_t color)
 		}
 		pix[(lo.y2 * d->graph.width) + (int)lo.start_x] = BROWN_OUTLINE;
 	}
-}
+}*/

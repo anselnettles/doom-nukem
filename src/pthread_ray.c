@@ -22,10 +22,10 @@ void	pixel_put(SDL_Surface *screen, int x, int y, Uint32 color)
 
 void	draw_collumn(t_ray *ray, int y, int y_max, Uint32 color)
 {
-	SDL_Surface *screen;
+	//SDL_Surface *screen;
 
-	if (!(screen = SDL_GetWindowSurface(ray->window)))
-		printf("screen couldnt be created! SDL_Error: %s\n", SDL_GetError());
+	//if (!(screen = SDL_GetWindowSurface(ray->window)))
+	//	printf("screen couldnt be created! SDL_Error: %s\n", SDL_GetError());
 	if (y_max > HEIGHT)
 		y_max = HEIGHT;
 	while (y < y_max && y >= 0)
@@ -33,7 +33,7 @@ void	draw_collumn(t_ray *ray, int y, int y_max, Uint32 color)
 		pixel_put(screen, ray->x, y, color);
 		y++;
 	}
-	SDL_FreeSurface(screen);
+	//SDL_FreeSurface(screen);
 }
 
 t_texture	create_checkerboard(Uint32 color_one, Uint32 color_two)
@@ -104,15 +104,15 @@ t_texture	big_checkerboard(Uint32 color_one, Uint32 color_two)
 
 void	draw_texture(t_ray *ray, int y, int y_max, t_player wall)
 {
-	SDL_Surface *screen;
+//	SDL_Surface *screen;
 	t_texture	texture;
 	int			texture_y;
 	int			texture_x;
 	float		i;
 	int			j;
 
-	if (!(screen = SDL_GetWindowSurface(ray->window)))
-		printf("screen couldnt be created! SDL_Error: %s\n", SDL_GetError());
+	//if (!(screen = SDL_GetWindowSurface(ray->window)))
+	//	printf("screen couldnt be created! SDL_Error: %s\n", SDL_GetError());
 	texture = create_checkerboard(SDL_MapRGB(screen->format, 0xF7, 0xCE, 0x00), SDL_MapRGB(screen->format, 0x00, 0x00, 0x00));
 	i = (y_max - y) / 64;
 	if (i < 1)
@@ -135,12 +135,12 @@ void	draw_texture(t_ray *ray, int y, int y_max, t_player wall)
 		y++;
 		j++;
 	}
-	SDL_FreeSurface(screen);
+	//SDL_FreeSurface(screen);
 }
 
 void	draw_floor(t_ray *ray, t_player wall, int win_y)
 {
-	SDL_Surface *screen;
+	//SDL_Surface *screen;
 	t_texture texture;
 	float x;
 	float y;
@@ -153,8 +153,8 @@ void	draw_floor(t_ray *ray, t_player wall, int win_y)
 
 	dx = cosf(wall.dir);
 	dy = sinf(wall.dir);
-	if (!(screen = SDL_GetWindowSurface(ray->window)))
-		printf("screen couldnt be created! SDL_Error: %s\n", SDL_GetError());
+	//if (!(screen = SDL_GetWindowSurface(ray->window)))
+	//	printf("screen couldnt be created! SDL_Error: %s\n", SDL_GetError());
 	texture = big_checkerboard(SDL_MapRGB(screen->format, 0xFF, 0xFF, 0xFF), SDL_MapRGB(screen->format, 0x00, 0x00, 0x00));
 	//dir = atanf((y - height -  2) / distance);
 	while (win_y < HEIGHT)
@@ -244,14 +244,14 @@ void    render_thread(t_drown *data)
 {
     pthread_t threads[THREAD];
 	t_ray	ray[THREAD];
-	SDL_Surface	*screen;
+	//SDL_Surface	*screen;
 	SDL_Rect	rect;
     int     i;
     int     rc;
 
 	i = 0;
-		if (!(screen = SDL_GetWindowSurface(data->window)))
-		printf("screen couldnt be created! SDL_Error: %s\n", SDL_GetError());
+	//	if (!(screen = SDL_GetWindowSurface(data->window)))
+	//	printf("screen couldnt be created! SDL_Error: %s\n", SDL_GetError());
 	rect.w = 1;
 	ray[0].x = 0;
 	ray[i].dir = (data->player.dir - 30 * DEGREES);
@@ -277,5 +277,5 @@ void    render_thread(t_drown *data)
 		i++;
 	}
 	i = 0;
-	SDL_FreeSurface(screen);
+	//SDL_FreeSurface(screen);
 }

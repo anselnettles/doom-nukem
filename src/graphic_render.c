@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 10:05:39 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/27 20:29:12 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/30 14:19:31 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,14 +107,18 @@ static int	draw_space(t_drown *d)
 //	array map in the window corner, update the window.
 int	render(t_drown *data)
 {
-	SDL_FillRect(data->screen, NULL, 0);
+	//SDL_FillRect(data->gfx.screen, NULL, 0);
 	//if (draw_space(drown) == ERROR)
 	//	return (ERROR);
 	//draw_overlay(drown);
 	//draw_minimap(drown);
+	write(1, ".", 1);
 	render_thread(data);
+	write(1, ".", 1);
 	draw_map(data);
-	if (SDL_UpdateWindowSurface(data->window) == ERROR)
+	write(1, ".", 1);
+	if (SDL_UpdateWindowSurface(data->gfx.window) == ERROR)
 		return (ERROR);
+	write(1, ".", 1);
 	return (0);
 }

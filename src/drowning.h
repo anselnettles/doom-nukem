@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/27 19:38:23 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/30 14:10:18 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,7 +174,7 @@ typedef struct s_player {
 	int		flag;
 }	t_player;
 
-//	Raycast handling variables, stored within the graph structure.
+//	Raycast handling variables, stored within the graphics structure.
 typedef struct s_raycast {
 	double	ray_angle;
 	double	ray_x;
@@ -197,11 +197,15 @@ typedef struct s_raycast {
 
 //	Graphical-wise variables used for SDL and graphical drawing.
 //	Mother to raycast struct.
-typedef struct s_graphical {
-	SDL_Event		e;
-	SDL_Window		*win;
-	SDL_Surface		*surf;
-	SDL_Surface		*texture[4];
+typedef struct s_graphics {
+	SDL_Window		*window;
+	SDL_Surface		*screen;
+	SDL_Surface		*image;
+
+//	SDL_Event		e;
+//	SDL_Window		*win;
+//	SDL_Surface		*surf;
+//	SDL_Surface		*texture[4];
 	const char		*sdl_error_string;
 	int				width;
 	int				height;
@@ -212,7 +216,7 @@ typedef struct s_graphical {
 	int				map;
 	int				scanline;
 	t_cast			cast;
-}	t_graph;
+}	t_gfx;
 
 typedef struct s_map
 {
@@ -244,16 +248,12 @@ typedef struct s_project_drowning {
 	t_editor				editor;
 	t_index					index;
 	t_player				player;
-	t_graph					graph;
+	t_gfx					gfx;
 	t_corf					corf;
 	t_location				loca;
 	t_collide				collide;
-
-	SDL_Window	*window;
-	SDL_Surface	*screen;
-	SDL_Surface	*image;
-	SDL_Event	event;
 	SDL_Rect	rect;
+	SDL_Event	event;
 	SDL_bool	cursor;
 	int			option;
 	t_map		map;
@@ -285,10 +285,9 @@ typedef enum e_error
 int			main(void);
 int			read_file(t_drown *drown);
 int			buffer_to_map(char b[MAX + 1], t_editor *e, t_index *i, int width);
-int			graphic_interface(t_drown *drown);
 int			render(t_drown *d);
 int			raycast(t_drown *d, float hor_coll_dist, float ver_coll_dist);
-void		raycast_angle_check(t_graph *g);
+void		raycast_angle_check(t_gfx *g);
 void		draw_minimap_slot(t_drown *d);
 void		draw_overlay(t_drown *d);
 void		print_array(t_editor *editor, t_index *index);
@@ -329,10 +328,10 @@ void	clear_screen(t_drown *data);
 void	deal_key(int key, t_drown *data);
 void	deal_mouse(t_drown *data);
 void    render_thread(t_drown *data);
-void	*ft_raycast_thread(void  *args);
+void	*ft_raycast_thread(t_gfx *gfx);
 void	strife(int key, t_player *player, t_map map);
-void	draw_thread(t_ray *ray, float distance, t_player wall);
-void	pixel_put(SDL_Surface *screen, int x, int y, Uint32 color);
+void	draw_thread(t_gfx *gfx, t_ray *ray, float distance, t_player wall);
+void	pixel_put(t_gfx *gfx, int x, int y, Uint32 color);
 
 int	get_next_line(const int fd, char **line);
 int	searchnewline(char **s, char **line, int fd, int ret);
