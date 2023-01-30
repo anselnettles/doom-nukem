@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:25:23 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/01/27 15:19:51 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/01/27 16:22:51 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,4 @@ void	init_values(t_main *data)
 	}
 	init_player(&data->player);
 	init_data(data);
-
 }
