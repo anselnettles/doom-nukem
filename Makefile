@@ -38,7 +38,7 @@ SRC					=	$(addprefix src/, $(addsuffix .c, $(FILES)))
 OBJ					=	$(addprefix obj/, $(addsuffix .o, $(FILES)))
 OBJ_DIR				=	obj
 LISTSRC				=	$(foreach part,$(SRC), 	$(PL)		${G}| $(part)\n)
-FLAGS				=	-Wall -Wextra -Werror -O3 -g
+FLAGS				=	-Wall -Wextra #-Werror -O3 -g
 HEADER				=	-I./src
 
 OS = $(shell uname)
