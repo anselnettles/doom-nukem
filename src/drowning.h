@@ -174,7 +174,7 @@ typedef struct s_player {
 	int		flag;
 }	t_player;
 
-//	Raycast handling variables, stored within the graph structure.
+//	Raycast handling variables, stored within the graphics structure.
 typedef struct s_raycast {
 	double	ray_angle;
 	double	ray_x;
@@ -197,7 +197,7 @@ typedef struct s_raycast {
 
 //	Graphical-wise variables used for SDL and graphical drawing.
 //	Mother to raycast struct.
-typedef struct s_graphical {
+typedef struct s_graphics {
 	SDL_Event		e;
 	SDL_Window		*win;
 	SDL_Surface		*surf;
@@ -212,7 +212,7 @@ typedef struct s_graphical {
 	int				map;
 	int				scanline;
 	t_cast			cast;
-}	t_graph;
+}	t_gfx;
 
 typedef struct s_map
 {
@@ -244,7 +244,7 @@ typedef struct s_project_drowning {
 	t_editor				editor;
 	t_index					index;
 	t_player				player;
-	t_graph					graph;
+	t_gfx					gfx;
 	t_corf					corf;
 	t_location				loca;
 	t_collide				collide;
@@ -285,10 +285,9 @@ typedef enum e_error
 int			main(void);
 int			read_file(t_drown *drown);
 int			buffer_to_map(char b[MAX + 1], t_editor *e, t_index *i, int width);
-int			graphic_interface(t_drown *drown);
 int			render(t_drown *d);
 int			raycast(t_drown *d, float hor_coll_dist, float ver_coll_dist);
-void		raycast_angle_check(t_graph *g);
+void		raycast_angle_check(t_gfx *g);
 void		draw_minimap_slot(t_drown *d);
 void		draw_overlay(t_drown *d);
 void		print_array(t_editor *editor, t_index *index);
