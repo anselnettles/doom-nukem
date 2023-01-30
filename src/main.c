@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 18:24:05 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/27 21:05:58 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/01/30 14:18:24 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,11 @@ static int	initialize_media(t_drown *d)
 		d->option = PLAY;
 		d->thread = 1;
 		d->hg = 0; //What exactly is Dofidog's data->height?
-		d->window = SDL_CreateWindow(TITLE, SDL_WINDOWPOS_UNDEFINED,
+		d->gfx.window = SDL_CreateWindow(TITLE, SDL_WINDOWPOS_UNDEFINED,
 				SDL_WINDOWPOS_UNDEFINED, d->gfx.width,
 				d->gfx.height, SDL_WINDOW_SHOWN);
-		d->screen = SDL_GetWindowSurface(d->window);
-		if (d->window != NULL || d->screen != NULL)
+		d->gfx.screen = SDL_GetWindowSurface(d->gfx.window);
+		if (d->gfx.window != NULL || d->gfx.screen != NULL)
 		{
 		//	g->map = PLAYER_MAP;
 		//	g->cast.plane_dist = (double)(g->width / 2)
@@ -102,14 +102,20 @@ int	main(void)
 	ft_bzero(&data, sizeof(t_drown));
 	if (initialize_media(&data) == ERROR)
 		return (error(SDL_FAIL));
+	write(1, "\nFirst.", 7);
 	read_map("maps/testfile.dn", &data.map);
+	write(1, "\nSecond.", 8);
 	if (initialize_player(&data) == ERROR)
 		return (error(PLAYER_FAIL));
+	write(1, "\nThird.", 7);
 	if (initialize_textures(&data) == ERROR)
 		return (error(TEXTURE_FAIL));
+	write(1, "\nFourth.", 8);
 	if (render(&data) == ERROR)
 		return (error(RENDER_FAIL));
+	write(1, "\nFifth.", 7);
 	SDL_SetRelativeMouseMode(data.cursor);
+	write(1, "\nSixth.", 7);
 	sdl_loop(&data);
 	return (0);
 }
