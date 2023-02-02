@@ -1,4 +1,5 @@
 ## ASCII legends:
+<br>
 
 `#`       : Full wall height<br>
 `1` - `9` : Floor height<br>
@@ -12,3 +13,14 @@
 `G`       : Player goal location<br>
 
 ![grid](https://user-images.githubusercontent.com/70949716/215891616-95f20a7d-46b5-4d31-8b32-6126ade45873.jpg)
+
+## In-recorded textures graphics:
+<br>
+
+`texture_a` : Floor.<br> 
+
+![image](https://user-images.githubusercontent.com/70949716/216399368-b52723d5-13c3-40b9-92d7-0153e7ee3758.png) <br>
+
+`texture_d` : Crate.<br> 
+
+![image](https://user-images.githubusercontent.com/70949716/216399608-7c2a9388-4216-4df1-b475-a01df5fe807c.png) <br>
