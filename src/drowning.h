@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/31 12:16:30 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/02 13:18:51 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,6 +169,7 @@ typedef struct s_player {
 	float		dir;
 	float		dx;
 	float		dy;
+	int		altitude;
 	int		height;
 	int		flag;
 }	t_player;
@@ -338,7 +339,7 @@ void	strife(int key, t_player *player, t_map map);
 void	draw_thread(t_ray *ray, float distance, t_wall wall);
 void	pixel_put(SDL_Surface *screen, int x, int y, Uint32 color);
 void	draw_collumn(t_ray *ray, int y, int y_max, Uint32 color, SDL_Surface *screen);
-void	draw_texture(t_ray *ray, int y, int y_max, t_wall wall, SDL_Surface *screen);
+void	draw_texture(t_ray *ray, int y, int y_max, t_wall wall, SDL_Surface *screen, int texture_y);
 void	draw_floor(t_ray *ray, t_wall wall, int win_y, SDL_Surface *screen);
 void	draw_ceiling(t_ray *ray, t_wall wall, int win_y, SDL_Surface *screen);
 

@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 18:24:05 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/30 16:01:30 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/02 11:34:17 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ static int	initialize_player(t_drown *d)
 	d->player.dx = cosf(PI);
 	d->player.dy = sinf(PI);
 	d->player.height = 32;
+	d->player.altitude = 0;
 	return (0);
 }
 
@@ -102,7 +103,7 @@ int	main(void)
 	ft_bzero(&data, sizeof(t_drown));
 	if (initialize_media(&data) == ERROR)
 		return (error(SDL_FAIL));
-	read_map("maps/testfile.dn", &data.map);
+	read_map("maps/numbers.dn", &data.map);
 	if (initialize_player(&data) == ERROR)
 		return (error(PLAYER_FAIL));
 	if (initialize_textures(&data) == ERROR)
