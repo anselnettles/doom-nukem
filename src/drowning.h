@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/02 13:18:51 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/03 11:07:05 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,7 +183,7 @@ typedef struct s_wall
 	float		dx;
 	float		dy;
 	float		distance;
-	struct s_wall	*next;
+	int			prev_y;
 }	t_wall;
 
 //	Raycast handling variables, stored within the graphics structure.
@@ -336,7 +336,7 @@ void	deal_mouse(t_drown *data);
 void    render_thread(t_drown *data);
 void	*ft_raycast_thread(void  *args);
 void	strife(int key, t_player *player, t_map map);
-void	draw_thread(t_ray *ray, float distance, t_wall wall);
+void	draw_thread(t_ray *ray, float distance, t_wall *wall);
 void	pixel_put(SDL_Surface *screen, int x, int y, Uint32 color);
 void	draw_collumn(t_ray *ray, int y, int y_max, Uint32 color, SDL_Surface *screen);
 void	draw_texture(t_ray *ray, int y, int y_max, t_wall wall, SDL_Surface *screen, int texture_y);

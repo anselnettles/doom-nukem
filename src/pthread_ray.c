@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:45:29 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/02/03 10:16:23 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/03 12:09:46 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,18 +35,19 @@ int		get_modulo(t_wall wall)
 		return (modul_y);
 	return (modul_x);
 }
+
 void	*ft_raycast_thread(void  *args)
 {
     t_ray		*ray;
 	t_wall		wall;
 	float	    distance;
 	int			modul;
+	int			remember;
 
     ray = args;
-	distance = 0;
 	ray->count = 0;
 	wall.dir = ray->dir;
-	modul = 0;
+	wall.prev_y = HEIGHT;
 	while (ray->count < THREADRAY)
 	{
 		if (wall.dir > 2 * PI)
@@ -57,18 +58,23 @@ void	*ft_raycast_thread(void  *args)
 		wall.dy = sinf(wall.dir);
 		wall.x = ray->player.x;
 		wall.y = ray->player.y;
-		modul = get_modulo(wall);
-		while (ray->map.map[(int)roundf(wall.y)][(int)roundf(wall.x)] ==
-			ray->map.map[(int)roundf(ray->player.y)][(int)roundf(ray->player.x)])
+		wall.prev_y = HEIGHT;
+		remember = ray->map.map[(int)roundf(wall.y)][(int)roundf(wall.x)] - '0';
+		while (ray->map.map[(int)roundf(wall.y)][(int)roundf(wall.x)] != '8')
 		{
-			modul = get_modulo(wall);
-			wall.x -= wall.dx * modul;
-			wall.y -= wall.dy * modul;
+			remember = ray->map.map[(int)roundf(wall.y)][(int)roundf(wall.x)] - '0';
+			while (ray->map.map[(int)roundf(wall.y)][(int)roundf(wall.x)] - '0' <=
+				remember)
+			{
+				modul = get_modulo(wall);
+				wall.x -= wall.dx * modul;
+				wall.y -= wall.dy * modul;
+			}
+			distance = sqrtf(((wall.x - ray->player.x) * (wall.x - ray->player.x))
+				+ ((wall.y - ray->player.y) * (wall.y - ray->player.y)));
+			distance *= cosf(ray->player.dir - wall.dir);
+			draw_thread(ray, distance, &wall);
 		}
-		distance = sqrtf(((wall.x - ray->player.x) * (wall.x - ray->player.x))
-			+ ((wall.y - ray->player.y) * (wall.y - ray->player.y)));
-		distance *= cosf(ray->player.dir - wall.dir);
-		draw_thread(ray, distance, wall);
 		wall.dir += (60 * DEGREES) / WIDTH;
 		ray->x++;
 		ray->count++;
@@ -103,7 +109,7 @@ void    render_thread(t_drown *data)
 		i++;
     }
 	i = 0;
-	while (i <= THREAD)
+	while (i < THREAD)
 	{
 		rc = pthread_join(threads[i], NULL);
 		i++;
