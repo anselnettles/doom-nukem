@@ -21,6 +21,10 @@
 
 ![image](https://user-images.githubusercontent.com/70949716/216399368-b52723d5-13c3-40b9-92d7-0153e7ee3758.png) <br>
 
+`texture_b` : Wall.<br>
+
+![image](https://user-images.githubusercontent.com/70949716/216617733-ba63c1f7-67b5-49d9-944a-1092b340e125.png) <br>
+
 `texture_d` : Crate.<br> 
 
 ![image](https://user-images.githubusercontent.com/70949716/216399608-7c2a9388-4216-4df1-b475-a01df5fe807c.png) <br>
