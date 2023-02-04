@@ -28,3 +28,7 @@
 `texture_d` : Crate.<br> 
 
 ![image](https://user-images.githubusercontent.com/70949716/216399608-7c2a9388-4216-4df1-b475-a01df5fe807c.png) <br>
+
+`texture_skybox`  : Water surface.<br> 
+
+![image](https://user-images.githubusercontent.com/70949716/216763126-8dc46de6-ee83-449e-aff6-b13f54279044.png) <br>
