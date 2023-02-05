@@ -11,8 +11,7 @@
 `a` - `c` : Texture reference<br>
 `S`       : Player start position<br>
 `G`       : Player goal location<br>
-
-![grid](https://user-images.githubusercontent.com/70949716/215891616-95f20a7d-46b5-4d31-8b32-6126ade45873.jpg)
+`R`       : A map square with a ceiling texture over it. A roof of cubes should be applied over this square up to full height (`#`)<br>
 
 ## In-recorded textures graphics:
 <br>
