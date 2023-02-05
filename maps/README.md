@@ -24,6 +24,10 @@
 
 ![image](https://user-images.githubusercontent.com/70949716/216617733-ba63c1f7-67b5-49d9-944a-1092b340e125.png) <br>
 
+`texture_c` : Pillar.<br>
+
+![image](https://user-images.githubusercontent.com/70949716/216831640-89a83d30-060e-4251-9ac7-59f3d895c929.png) <br>
+
 `texture_d` : Crate.<br> 
 
 ![image](https://user-images.githubusercontent.com/70949716/216399608-7c2a9388-4216-4df1-b475-a01df5fe807c.png) <br>
