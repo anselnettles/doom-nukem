@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   drowning.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/03 11:07:05 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/06 09:57:55 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,35 +32,31 @@
 # define TITLE "Project Drowning | github.com/AnselNettles/doom-nukem"
 # define NAME "doom-nukem"
 
-
 # define WIDTH 1280					//Window resolution width.
 # define HEIGHT 800					//Window resolution height.
-# define TOP_MARGIN 10				//Top margin length for the UI.
-# define MAP_MARGIN 460				//Width margin distance for the map UI.
+# define MARGIN 10					//Margin difference for the UI.
 
 //	SYSTEM MECHANICS GLOBAL DEFINITIONS
-# define RUN_GAME 1					//User request for running the game.
-# define RUN_LEVEL_EDITOR 2			//User request for running the editor.
 # define TRUE 1						//Set to true.
 # define FALSE 0					//Set to false.
 # define ERROR 1					//Reference to return value.
 # define NEW_LINE 2					//Reference to file parser return value.
 # define SDL_ERROR -1				//Reference to SDL function's return.
-# define ENDLESS 1					//Reference to an endless SDL while loop.
+//# define ENDLESS 1					//Reference to an endless SDL while loop.
 # define SCALE 1					//Resolution scale.
-# define BUFFER_MAX 2550			//Level file maximum size.
-# define MAX 50						//Map array dimension maximum.
-# define PARAMS 10					//Map array parameter dimension maximum.
-# define MAP_WIDTH 50				//Level map line width.
-# define HORIZONTAL 1				// A toggle variable for raycast calculation
-# define VERTICAL 0					// A toggle variable for raycast calculation
-# define PLAYER_MAP 1				//Block map definition when rendering map.
-# define DEV_MAP 2					//Array map definition when rendering map.
-# define FOV 40						//Field of vision.
-# define SQUARE_SIZE 64				//Size of a side of a terrain block.
-# define MOVE_SPEED 8				//Player's movement speed.
-# define RAY_LENGTH 3				//Length of a cast ray.
-# define TURN_SPEED 4				//Player's turning speed.
+//# define BUFFER_MAX 2550			//Level file maximum size.
+//# define MAX 50						//Map array dimension maximum.
+//# define PARAMS 10					//Map array parameter dimension maximum.
+//# define MAP_WIDTH 50				//Level map line width.
+//# define HORIZONTAL 1				// A toggle variable for raycast calculation
+//# define VERTICAL 0					// A toggle variable for raycast calculation
+//# define PLAYER_MAP 1				//Block map definition when rendering map.
+//# define DEV_MAP 2					//Array map definition when rendering map.
+//# define FOV 40						//Field of vision.
+//# define SQUARE_SIZE 64				//Size of a side of a terrain block.
+//# define MOVE_SPEED 8				//Player's movement speed.
+//# define RAY_LENGTH 3				//Length of a cast ray.
+//# define TURN_SPEED 4				//Player's turning speed.
 # define PI 3.1415927				//Topi's build.
 # define SPEED 10					//Topi's build.
 # define BITS 64					//Topi's build.
@@ -71,28 +67,12 @@
 # define THREADRAY 213				//Topi's build.
 # define EXIT 0						//Topi's build.
 # define PLAY 1						//Topi's build.
-# define DEGREE 0.0174532
+//# define DEGREE 0.0174532
 # define DEGREES 0.0174532
-# define NORTH 1					//Reference to wall texture direction.
-# define EAST 2
-# define SOUTH 3
-# define WEST 4
-
-//	GRAPHICAL RENDER COLOR DEFINITIONS
-# define SKY_PRINT 0xad6f43			//Default color for sky.
-# define FLOOR_PRINT 0x37352f		//Default color for floor.
-# define BLUE_OUTLINE 0x042b49		//Color for vertical line border.
-# define BROWN_OUTLINE 0x593e1c		//Color for vertical line border.
-
-//	PLAYER MAP COLOR DEFINITIONS
-# define WALL 0xFF772E
-# define SKY 0x004744
-# define CEILING 0x11736E
-# define PIT 0x364007
-# define FLOOR 0x6f8410
-# define EMPTY 0x171717
-# define START_POINT 0x8aad34
-# define SLOT 0x303030 
+//# define NORTH 1					//Reference to wall texture direction.
+//# define EAST 2
+//# define SOUTH 3
+//# define WEST 4
 
 //	TERMINAL OUTPUT COLOR DEFINITIONS
 # define T_NUL "\033[0m"				//Default terminal type color.
@@ -108,11 +88,11 @@ typedef struct s_system {
 
 //	Editor-wise variables used mainly for resolving the level editor program.
 typedef struct s_editor {
-	char			*file;
-	char			buffer[BUFFER_MAX + 1];
-	char			map[MAX + 1][MAX + 1][PARAMS + 1];
-	int				start_x;
-	int				start_y;
+//	char			*file;
+//	char			buffer[BUFFER_MAX + 1];
+//	char			map[MAX + 1][MAX + 1][PARAMS + 1];
+//	int				start_x;
+//	int				start_y;
 }	t_editor;
 
 //	Index-wise variables used for counts. Index 'i' is used for the level
@@ -164,14 +144,14 @@ typedef struct s_player {
 	int				compass;
 	t_collide		collide;
 
-	float		x;
-	float		y;
-	float		dir;
-	float		dx;
-	float		dy;
-	int		altitude;
-	int		height;
-	int		flag;
+	float			x;
+	float			y;
+	float			dir;
+	float			dx;
+	float			dy;
+	int				altitude;
+	int				height;
+	int				flag;
 }	t_player;
 
 // Wall location coordinates & trigonometric values.
@@ -295,7 +275,7 @@ typedef enum e_error
 //	Non-static functions'.
 int			main(void);
 int			read_file(t_drown *drown);
-int			buffer_to_map(char b[MAX + 1], t_editor *e, t_index *i, int width);
+//int			buffer_to_map(char b[MAX + 1], t_editor *e, t_index *i, int width);
 int			render(t_drown *d);
 int			raycast(t_drown *d, float hor_coll_dist, float ver_coll_dist);
 void		raycast_angle_check(t_gfx *g);
@@ -311,11 +291,11 @@ SDL_Surface	*img_load(char *path);
 //void		pixel_put(t_graph *g, int x_src, int y_src, uint32_t color);
 void		vline(t_drown *d, t_location lo, float y, uint32_t color);
 
-float		square_root(float nb);
-int			max(int a, int b);
-int			min(int a, int b);
-int			clamp(int a, int lower, int upper);
-double		deg_to_rad(double degrees);
+//float		square_root(float nb);
+//int			max(int a, int b);
+//int			min(int a, int b);
+//int			clamp(int a, int lower, int upper);
+//double		deg_to_rad(double degrees);
 
 int			error(int code);
 
