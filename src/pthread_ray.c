@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:45:29 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/02/03 12:09:46 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/06 09:46:01 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,18 +83,18 @@ void	*ft_raycast_thread(void  *args)
 }
 
 
-void    render_thread(t_drown *data)
+void	render_thread(t_drown *data)
 {
-    pthread_t threads[THREAD];
-	t_ray	ray[THREAD];
-    int     i;
-    int     rc;
+	pthread_t	threads[THREAD];
+	t_ray		ray[THREAD];
+	int			i;
+	int			rc;
 
 	i = 0;
 	ray[0].x = 0;
 	ray[i].dir = (data->player.dir - 30 * DEGREES);
-    while (i < THREAD)
-    {
+	while (i < THREAD)
+	{
 		ray[i].count = 0;
 		if( i != 0)
 		{

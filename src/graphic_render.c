@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 10:05:39 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/30 15:22:49 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/06 09:47:11 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,14 +108,10 @@ static int	draw_space(t_drown *d)
 
 int	render(t_drown *data)
 {
-	//SDL_FillRect(data->gfx.screen, NULL, 0);
-	//if (draw_space(drown) == ERROR)
-	//	return (ERROR);
-	//draw_overlay(drown);
-	//draw_minimap(drown);
-	//clear_screen(data);
 	render_thread(data);
+		//add error checks;
 	draw_map(data);
+		//add error checks;
 	if (SDL_UpdateWindowSurface(data->gfx.window) == ERROR)
 		return (ERROR);
 	return (0);

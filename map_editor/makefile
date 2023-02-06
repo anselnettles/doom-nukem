@@ -1,9 +1,23 @@
 NAME =	editor
-SRCS =	srcs/main.c srcs/tt_errors.c srcs/read_map.c srcs/map_editor.c srcs/init.c \
-		srcs/close_program.c srcs/set_image_limits.c \
-		srcs/get_m1_pressed_map_element.c srcs/img1_and_img2.c \
-		srcs/img1_to_gui.c srcs/img2_to_gui.c srcs/img3_to_gui.c srcs/get_m1_pressed_img3_grid_element.c \
+SRCS =	srcs/choose_to_reset_map_or_exit.c \
+		srcs/close_program.c \
+		srcs/copy_map_to_map_temp.c \
+		srcs/create_map_temp.c \
+		srcs/get_m1_pressed_img3_grid_element.c \
+		srcs/get_m1_pressed_map_element.c \
+		srcs/img1_and_img2.c \
+		srcs/img1_to_gui.c \
+		srcs/img2_to_gui.c \
+		srcs/img3_to_gui.c \
+		srcs/init.c \
+		srcs/map_editor.c \
 		srcs/param_to_modify.c \
+		srcs/read_map.c \
+		srcs/main.c \
+		srcs/select_new_param_value.c \
+		srcs/set_image_limits.c \
+		srcs/set_values_for_parameters.c \
+		srcs/tt_errors.c \
 		srcs/testing_print_map.c \
 	   #save_map.c \
 		

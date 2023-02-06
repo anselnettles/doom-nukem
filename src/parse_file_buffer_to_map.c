@@ -6,12 +6,12 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 15:16:02 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/27 16:04:00 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/06 09:50:14 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "drowning.h"
-
+/*
 static char	check_for_start(char b[MAX + 1], t_index *i, t_editor *editor)
 {
 	if (b[i->i] == 'S' || b[i->i + 1] == 'S'
@@ -61,4 +61,4 @@ int	buffer_to_map(char b[MAX + 1], t_editor *e, t_index *i, int width)
 			return (error(BAD_WALL));
 	}
 	return (0);
-}
+}*/

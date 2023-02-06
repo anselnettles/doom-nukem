@@ -6,12 +6,12 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 17:50:06 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/27 16:04:35 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/06 09:49:57 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "drowning.h"
-
+/*
 //Return the greater of the applied values
 int	max(int a, int b)
 {
@@ -56,4 +56,4 @@ float	square_root(float nb)
 double	deg_to_rad(double degrees)
 {
 	return (degrees * (double)M_PI / 180.0);
-}
+}*/
