@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 10:03:55 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/02/04 11:52:53 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/06 14:29:57 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,27 +110,20 @@ void	draw_texture(t_ray *ray, int y, int y_max, t_wall wall, SDL_Surface *screen
 void	draw_floor(t_ray *ray, t_wall wall, int win_y, SDL_Surface *screen)
 {
 	t_texture texture;
-	float x;
-	float y;
-	float dy;
-	float dx;
 	int tx;
 	int ty;
-	float distance;
 	float	dir;
 
-	dx = cosf(wall.dir);
-	dy = sinf(wall.dir);
-	texture = big_checkerboard(SDL_MapRGB(screen->format, 0xFF, 0xFF, 0xFF), SDL_MapRGB(screen->format, 0x00, 0x00, 0x00));
+	texture = big_checkerboard(SDL_MapRGB(screen->format, 0x00, 0x00, 0x00), SDL_MapRGB(screen->format, 0xFF, 0xFF, 0xFF));
 	while (win_y < wall.prev_y && win_y < HEIGHT)
 	{
-		dir = atanf((float)(win_y - 400 - ray->height) / (float)1108);
-		distance = (float)32 / dir;
-		distance /= cosf(ray->player.dir - wall.dir);
-		x = ray->player.x - dx * distance;
-		y = ray->player.y - dy * distance;
-		tx = (int)roundf(y) % 64;
-		ty = (int)roundf(x) % 64;
+		dir = atanf((float)(win_y - (HEIGHT/ 2) - ray->height) / (float)700);
+		wall.distance = (float)32 / dir;
+		wall.distance /= cosf(ray->player.dir - wall.dir);
+		wall.x = ray->player.x - wall.dx * wall.distance;
+		wall.y = ray->player.y - wall.dy * wall.distance;
+		tx = (int)roundf(wall.y) % 64;
+		ty = (int)roundf(wall.x) % 64;
 		if (tx < 0)
 			tx *= -1;
 		if (ty < 0)
@@ -144,27 +137,20 @@ void	draw_floor(t_ray *ray, t_wall wall, int win_y, SDL_Surface *screen)
 void	draw_ceiling(t_ray *ray, t_wall wall, int win_y, SDL_Surface *screen)
 {
 	t_texture texture;
-	float x;
-	float y;
-	float dy;
-	float dx;
 	int tx;
 	int ty;
-	float distance;
 	float	dir;
 
-	dx = cosf(wall.dir);
-	dy = sinf(wall.dir);
 	texture = big_checkerboard(SDL_MapRGB(screen->format, 0xFF, 0xFF, 0xFF), SDL_MapRGB(screen->format, 0x00, 0x00, 0x00));
 	while (win_y >= 0)
 	{
-		dir = atanf((float)(win_y - 400 - ray->height) / (float)1108);
-		distance = (float)32 / dir;
-		distance /= cosf(ray->player.dir - wall.dir);
-		x = ray->player.x + dx * distance;
-		y = ray->player.y + dy * distance;
-		tx = (int)roundf(y) % 64;
-		ty = (int)roundf(x) % 64;
+		dir = atanf((float)(win_y - (HEIGHT / 2) - ray->height) / (float)700);
+		wall.distance = (float)32 / dir;
+		wall.distance /= cosf(ray->player.dir - wall.dir);
+		wall.x = ray->player.x + wall.dx * wall.distance;
+		wall.y = ray->player.y + wall.dy * wall.distance;
+		tx = (int)roundf(wall.y) % 64;
+		ty = (int)roundf(wall.x) % 64;
 		if (tx < 0)
 			tx *= -1;
 		if (ty < 0)
@@ -174,7 +160,56 @@ void	draw_ceiling(t_ray *ray, t_wall wall, int win_y, SDL_Surface *screen)
 		win_y--;
 	}
 }
+/*
+void	draw_wall_top(t_ray *ray, t_wall wall, int win_y, SDL_Surface *screen)			//IN PROGRESS
+{
+	t_texture	texture;
+	float	x;
+	float	y;
+	float	dir;
+	int tx;
+	int ty;
+	int height;
 
+	texture = create_checkerboard(SDL_MapRGB(screen->format, 0xF7, 0xCE, 0x00), SDL_MapRGB(screen->format, 0x00, 0x00, 0x00));
+	x = wall.x;
+	y = wall.y;
+	height = 8 * ray->map.map[(int)roundf(y)][(int)roundf(x)] - '0';
+	while(ray->map.map[(int)roundf(y)][(int)roundf(x)] != '0'&& y > 0 && y < HEIGHT)
+	{
+		dir = atanf((float)(win_y - (HEIGHT / 2) - ray->height) / (float)700);
+		wall.distance = (float)32 / dir;
+		wall.distance /= cosf(ray->player.dir - wall.dir);
+		wall.x = ray->player.x + wall.dx * wall.distance;
+		wall.y = ray->player.y + wall.dy * wall.distance;
+		tx = (int)roundf(wall.y) % 64;
+		ty = (int)roundf(wall.x) % 64;
+		if (tx < 0)
+			tx *= -1;
+		if (ty < 0)
+			ty *= -1;
+		if (win_y < HEIGHT)
+			pixel_put(screen, ray->x, win_y, texture.texture[ty][tx]);
+		win_y--;
+		
+		// height = 8 * ray->map.map[(int)roundf(y)][(int)roundf(x)] - '0';
+		// dir = atanf((float)((win_y + (height * (HEIGHT / 64))) - (HEIGHT / 2) - ray->height) /  (float)700);
+		// wall.distance = ((float)32 - (float)height) / dir;
+		// wall.distance /= cosf(ray->player.dir - wall.dir);
+		// x = ray->player.x + wall.dx * wall.distance;
+		// y = ray->player.y + wall.dy * wall.distance;
+		// tx = (int)roundf(y) % 64;
+		// ty = (int)roundf(x) % 64;
+		// if (tx < 0)
+		// 	tx *= -1;
+		// if (ty < 0)
+		// 	ty *= -1;
+		// if (win_y > 0)
+		// 	pixel_put(screen, ray->x, win_y, texture.texture[ty][tx]);
+		// win_y--;
+	}
+}
+*/
 void	draw_thread(t_ray *ray, float distance, t_wall *wall)
 {
 	SDL_Surface *screen;
@@ -188,20 +223,22 @@ void	draw_thread(t_ray *ray, float distance, t_wall *wall)
 	if (distance < 1)
 		distance = 1;
 	height =  ray->map.map[(int)roundf(wall->y)][(int)roundf(wall->x)] - '0';
-	height -= 4;
-	scaled_y = (int)((HEIGHT / 2) - (BITS * (600 / distance)) + ray->height);
-	y = (int)((HEIGHT / 2) - ((16 * height) * (600 / distance)) + ray->height);
-	y_max = (int)((HEIGHT / 2) + (BITS * (600 / distance)) + ray->height);
+	scaled_y = (int)((HEIGHT / 2) - (BITS * (350 / distance)) + ray->height);
+	y = (int)((HEIGHT / 2) - ((16 * (height - 4)) * (350 / distance)) + ray->height);
+	y_max = (int)((HEIGHT / 2) + (BITS * (350 / distance)) + ray->height);
 	if (y < 0)
 		y = 0;
 	if (y_max > HEIGHT)
 		y_max = HEIGHT;
 	if (y_max > wall->prev_y || y > wall->prev_y)
 		y_max = wall->prev_y;
+	if (y < wall->prev_y || y > HEIGHT)
+		draw_ceiling(ray, *wall, y - 1, screen);
+	// if (height * 8 < 32)
+	// 	draw_wall_top(ray, *wall, y - 1, screen);
+	draw_floor(ray, *wall, y_max + 1, screen);
 	draw_texture(ray, scaled_y, y_max, *wall, screen, y);
-	//if (y <= wall->prev_y)
-	draw_ceiling(ray, *wall, y, screen);
-	draw_floor(ray, *wall, y_max, screen);
-	wall->prev_y = y;
+	if (y < wall->prev_y)
+		wall->prev_y = y;
 	SDL_FreeSurface(screen);
 }
