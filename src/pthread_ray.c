@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:45:29 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/02/06 12:33:38 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/06 16:28:36 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,10 @@ void	*ft_raycast_thread(void  *args)
 		wall.y = ray->player.y;
 		wall.prev_y = HEIGHT;
 		remember = ray->map.map[(int)roundf(wall.y)][(int)roundf(wall.x)] - '0';
-		while (ray->map.map[(int)roundf(wall.y)][(int)roundf(wall.x)] != '8')
+		while (ray->map.map[(int)roundf(wall.y)][(int)roundf(wall.x)] != '#')
 		{
 			remember = ray->map.map[(int)roundf(wall.y)][(int)roundf(wall.x)] - '0';
-			while (ray->map.map[(int)roundf(wall.y)][(int)roundf(wall.x)] - '0' <=
-				remember)
+			while (ray->map.map[(int)roundf(wall.y)][(int)roundf(wall.x)] - '0' == remember)
 			{
 				modul = get_modulo(wall);
 				wall.x -= wall.dx * modul;

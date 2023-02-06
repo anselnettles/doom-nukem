@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/06 11:35:27 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/06 16:29:04 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,7 @@ typedef struct s_player {
 	float			dx;
 	float			dy;
 	int				altitude;
-	int				height;
+	float			height;
 	int				flag;
 }	t_player;
 
