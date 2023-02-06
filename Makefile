@@ -32,7 +32,8 @@ FILES				=	\
 						utilities_math\
 						utilities_movement\
 						utilities_system\
-						utility
+						utility\
+						draw
 
 SRC					=	$(addprefix src/, $(addsuffix .c, $(FILES)))
 OBJ					=	$(addprefix obj/, $(addsuffix .o, $(FILES)))
