@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:21:31 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/02/03 11:58:16 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/06 16:28:18 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,10 @@ void	deal_mouse(t_drown *data)
 void	move_player(int key, t_player *player, t_map map)
 {
 	int		i;
-	int		height;
+	//int		height;
 
 	i = 0;
-	height = map.map[(int)roundf(player->y)][(int)roundf(player->x)] - '0';
+	player->height = 32 + (map.map[(int)roundf(player->y)][(int)roundf(player->x)] - '0') * 8;
 	while (i < SPEED)
 	{
 		if (key == SDLK_w)
@@ -59,7 +59,8 @@ void	move_player(int key, t_player *player, t_map map)
 			player->x += player->dx;
 			player->y += player->dy;
 		}
-		if (map.map[(int)roundf(player->y)][(int)roundf(player->x)] - '0' > height + 1)
+		if ((map.map[(int)roundf(player->y)][(int)roundf(player->x)] - '0') * 8 > player->height - 24 ||
+		 map.map[(int)roundf(player->y)][(int)roundf(player->x)] == '#')
 		{
 			if (key == SDLK_s)
 			{
@@ -84,13 +85,13 @@ void	strife(int key, t_player *player, t_map map)
 	float	dx;
 	float	dy;
 	int		i;
-	int		height;
+	//int		height;
 
 
 	i = 0;
 	dx = cosf(player->dir + 90 * DEGREES);
 	dy = sinf(player->dir + 90 * DEGREES);
-	height = map.map[(int)roundf(player->y)][(int)roundf(player->x)] - '0';
+	player->height = 32 + (map.map[(int)roundf(player->y)][(int)roundf(player->x)] - '0') * 8;
 	while (i < SPEED)
 	{
 		if (key == SDLK_a)
@@ -103,7 +104,8 @@ void	strife(int key, t_player *player, t_map map)
 			player->x -= dx;
 			player->y -= dy;
 		}
-		if (map.map[(int)roundf(player->y)][(int)roundf(player->x)] - '0' > height + 1)
+		if ((map.map[(int)roundf(player->y)][(int)roundf(player->x)] - '0') * 8 > player->height -24 ||
+		 map.map[(int)roundf(player->y)][(int)roundf(player->x)] == '#')
 		{
 			if (key == SDLK_a)
 			{

@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 10:03:55 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/02/06 14:29:57 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/06 16:28:32 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ void	draw_floor(t_ray *ray, t_wall wall, int win_y, SDL_Surface *screen)
 	while (win_y < wall.prev_y && win_y < HEIGHT)
 	{
 		dir = atanf((float)(win_y - (HEIGHT/ 2) - ray->height) / (float)700);
-		wall.distance = (float)32 / dir;
+		wall.distance = ray->player.height / dir;
 		wall.distance /= cosf(ray->player.dir - wall.dir);
 		wall.x = ray->player.x - wall.dx * wall.distance;
 		wall.y = ray->player.y - wall.dy * wall.distance;
@@ -139,13 +139,17 @@ void	draw_ceiling(t_ray *ray, t_wall wall, int win_y, SDL_Surface *screen)
 	t_texture texture;
 	int tx;
 	int ty;
+	float	player_height;
 	float	dir;
 
+	player_height = 64 - ray->player.height;
+	if (player_height < 8)
+		player_height = 4;
 	texture = big_checkerboard(SDL_MapRGB(screen->format, 0xFF, 0xFF, 0xFF), SDL_MapRGB(screen->format, 0x00, 0x00, 0x00));
 	while (win_y >= 0)
 	{
 		dir = atanf((float)(win_y - (HEIGHT / 2) - ray->height) / (float)700);
-		wall.distance = (float)32 / dir;
+		wall.distance = player_height / dir;
 		wall.distance /= cosf(ray->player.dir - wall.dir);
 		wall.x = ray->player.x + wall.dx * wall.distance;
 		wall.y = ray->player.y + wall.dy * wall.distance;
@@ -222,7 +226,9 @@ void	draw_thread(t_ray *ray, float distance, t_wall *wall)
 		printf("screen couldnt be created! SDL_Error: %s\n", SDL_GetError());
 	if (distance < 1)
 		distance = 1;
-	height =  ray->map.map[(int)roundf(wall->y)][(int)roundf(wall->x)] - '0';
+	height = 8;
+	if (ray->map.map[(int)roundf(wall->y)][(int)roundf(wall->x)] != '#')
+		height =  ray->map.map[(int)roundf(wall->y)][(int)roundf(wall->x)] - '0';
 	scaled_y = (int)((HEIGHT / 2) - (BITS * (350 / distance)) + ray->height);
 	y = (int)((HEIGHT / 2) - ((16 * (height - 4)) * (350 / distance)) + ray->height);
 	y_max = (int)((HEIGHT / 2) + (BITS * (350 / distance)) + ray->height);
@@ -233,7 +239,7 @@ void	draw_thread(t_ray *ray, float distance, t_wall *wall)
 	if (y_max > wall->prev_y || y > wall->prev_y)
 		y_max = wall->prev_y;
 	if (y < wall->prev_y || y > HEIGHT)
-		draw_ceiling(ray, *wall, y - 1, screen);
+		draw_ceiling(ray, *wall, wall->prev_y, screen);
 	// if (height * 8 < 32)
 	// 	draw_wall_top(ray, *wall, y - 1, screen);
 	draw_floor(ray, *wall, y_max + 1, screen);
