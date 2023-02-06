@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   drowning.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/06 09:57:55 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/06 11:35:27 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@
 # define TITLE "Project Drowning | github.com/AnselNettles/doom-nukem"
 # define NAME "doom-nukem"
 
-# define WIDTH 1280					//Window resolution width.
-# define HEIGHT 800					//Window resolution height.
+# define WIDTH 854					//Window resolution width.
+# define HEIGHT 480					//Window resolution height.
 # define MARGIN 10					//Margin difference for the UI.
 
 //	SYSTEM MECHANICS GLOBAL DEFINITIONS
@@ -60,11 +60,11 @@
 # define PI 3.1415927				//Topi's build.
 # define SPEED 10					//Topi's build.
 # define BITS 64					//Topi's build.
-# define MMWIDTH 420				//Topi's build.
-# define MMHEIGHT 200				//Topi's build.
+# define MMWIDTH 210				//Topi's build.
+# define MMHEIGHT 100				//Topi's build.
 # define LIMIT 100					//Topi's build.
 # define THREAD 6					//Topi's build.
-# define THREADRAY 213				//Topi's build.
+# define THREADRAY 142				//Topi's build.
 # define EXIT 0						//Topi's build.
 # define PLAY 1						//Topi's build.
 //# define DEGREE 0.0174532
