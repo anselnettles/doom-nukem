@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 10:03:55 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/02/04 11:52:53 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/04 12:06:59 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,8 +199,8 @@ void	draw_thread(t_ray *ray, float distance, t_wall *wall)
 	if (y_max > wall->prev_y || y > wall->prev_y)
 		y_max = wall->prev_y;
 	draw_texture(ray, scaled_y, y_max, *wall, screen, y);
-	//if (y <= wall->prev_y)
-	draw_ceiling(ray, *wall, y, screen);
+	if (y <= wall->prev_y || y >= HEIGHT)
+		draw_ceiling(ray, *wall, y, screen);
 	draw_floor(ray, *wall, y_max, screen);
 	wall->prev_y = y;
 	SDL_FreeSurface(screen);

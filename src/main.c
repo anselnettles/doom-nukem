@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 18:24:05 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/02 11:34:17 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/04 12:04:19 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,22 @@ static int	initialize_media(t_drown *d)
 		write(1, d->gfx.sdl_error_string, ft_strlen(d->gfx.sdl_error_string));
 	}
 	return (ERROR);
+}
+
+void	edit_map(t_map *map)
+{
+	int i;
+	char c;
+	
+	i = 0;
+	c = '1';
+	while (i < 64)
+	{
+		map->map[128][128 + i] = c;
+		if(i % 8 == 0)
+			c += 1;
+		i++;
+	}
 }
 
 // Begin of program. Run the binary with no arguments to launch the software
