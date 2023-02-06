@@ -6,12 +6,12 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 14:16:37 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/30 13:18:49 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/06 09:51:28 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "drowning.h"
-
+/*
 static void	toggle_scale(t_drown *d)
 {
 	if (d->gfx.scale == 1)
@@ -81,4 +81,4 @@ void	keyboard_input(t_drown *d)
 	}
 	if (d->event.window.event == SDL_WINDOWEVENT_CLOSE)
 		quit_program(d);
-}
+}*/
