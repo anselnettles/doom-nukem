@@ -6,12 +6,12 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 14:16:37 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/30 14:13:41 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/06 09:49:42 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "drowning.h"
-
+/*
 void	raycast_angle_check(t_gfx *gfx)
 {
 	if (gfx->cast.ray_angle >= 360)
@@ -72,4 +72,4 @@ void	move_turn(t_player *p, SDL_Keycode key)
 		p->pos_angle += 360;
 	p->dir_x = (float)cos(deg_to_rad(p->pos_angle));
 	p->dir_y = (float)-sin(deg_to_rad(p->pos_angle));
-}
+}*/
