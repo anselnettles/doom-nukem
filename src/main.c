@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 18:24:05 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/02 11:34:17 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/06 09:42:39 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,6 @@ static int	initialize_player(t_drown *d)
 	//d->player.pos_angle = 90;
 	//d->player.dir_x = (float)cos(deg_to_rad(d->player.pos_angle));
 	//d->player.dir_y = (float)-sin(deg_to_rad(d->player.pos_angle));
-
-
-	//Dofidog:
 	d->player.dir = PI;
 	d->player.x = BITS * 2;
 	d->player.y = BITS * 2;
@@ -63,10 +60,6 @@ static int	initialize_media(t_drown *d)
 		d->gfx.width = (WIDTH * d->gfx.scale);
 		d->gfx.height = (HEIGHT * d->gfx.scale);
 		d->gfx.scanline = FALSE;
-		//g->win = SDL_CreateWindow(TITLE, 0, 0, g->width, g->height, 0);
-		//g->surf = SDL_GetWindowSurface(g->win);
-
-		//Dofidog:
 		d->play_state = PLAY;
 		d->thread = 1;
 		d->hg = 0; //What exactly is Dofidog's data->height?
@@ -75,14 +68,7 @@ static int	initialize_media(t_drown *d)
 				d->gfx.height, SDL_WINDOW_SHOWN);
 		d->gfx.screen = SDL_GetWindowSurface(d->gfx.window);
 		if (d->gfx.window != NULL || d->gfx.screen != NULL)
-		{
-		//	g->map = PLAYER_MAP;
-		//	g->cast.plane_dist = (double)(g->width / 2)
-		//		/ tan(deg_to_rad(FOV / 2));
-		//	g->cast.degrees_per_column = (double)g->width / (double)FOV;
-		//	g->cast.degrees_per_ray = (double)FOV / (double)g->width;
 			return (0);
-		}
 	}
 	else
 	{
