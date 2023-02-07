@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/06 16:29:04 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/07 16:16:05 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,10 @@
 //	System-wise variables for run and check-up calls through the program.
 typedef struct s_system {
 	int				user_request;
+	uint32_t		current_time;
+	uint32_t		last_time;
+	uint32_t		delta_time;
+	uint32_t		second;
 }	t_system;
 
 //	Editor-wise variables used mainly for resolving the level editor program.
@@ -167,7 +171,7 @@ typedef struct s_wall
 }	t_wall;
 
 //	Raycast handling variables, stored within the graphics structure.
-typedef struct s_raycast {
+/*typedef struct s_raycast {
 	double	ray_angle;
 	double	ray_x;
 	double	ray_y;
@@ -185,7 +189,7 @@ typedef struct s_raycast {
 	int		texture_xoffset;
 	int		texture_yoffset;
 	double	texture_yincrement;
-}	t_cast;
+}	t_cast;*/
 
 //	Graphical-wise variables used for SDL and graphical drawing.
 //	Mother to raycast struct.
@@ -193,7 +197,6 @@ typedef struct s_graphics {
 	SDL_Window		*window;
 	SDL_Surface		*screen;
 	SDL_Surface		*image;
-
 //	SDL_Event		e;
 //	SDL_Window		*win;
 //	SDL_Surface		*surf;
@@ -207,7 +210,8 @@ typedef struct s_graphics {
 	int				scale;
 	int				map;
 	int				scanline;
-	t_cast			cast;
+	uint32_t		sprite_right_arm[3][238][250];
+//	t_cast			cast;
 }	t_gfx;
 
 typedef struct s_map
