@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 17:14:13 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/07 17:15:15 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/07 18:15:41 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -743,7 +743,7 @@ void	sprite_right_arm(t_drown *d)
 		{
 			while (d->index.x <= 249)
 			{
-				d->gfx.sprite_right_arm[d->index.i][d->index.y][d->index.x]
+				d->gfx.sprite.right_arm[d->index.i][d->index.y][d->index.x]
 					= sprite_to_data(d->index.i, d->index.y, d->index.x);
 				d->index.x++;
 			}
@@ -753,5 +753,4 @@ void	sprite_right_arm(t_drown *d)
 		d->index.i++;
 		d->index.y = 0;
 	}
-	d->index.i = 0;
 }
