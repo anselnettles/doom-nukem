@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 10:05:39 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/07 16:31:49 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/07 19:19:06 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,18 +103,16 @@ static int	draw_space(t_drown *d)
 	}
 }*/
 
-int	render_sprites(t_drown *d)
+static int	render_right_arm(t_drown *d)
 {
-		if (d->index.i > 2)
-			d->index.i = 0;
 	d->index.y = 0;
 	d->index.x = 0;
 	while (d->index.y <= 237)
 		{
 			while (d->index.x <= 249)
 			{
-				if (d->gfx.sprite_right_arm[d->index.i][d->index.y][d->index.x] != 0x00000000)
-					pixel_put(d->gfx.screen, ((d->gfx.width - 250) + d->index.x), ((d->gfx.height - 238) + d->index.y), d->gfx.sprite_right_arm[d->index.i][d->index.y][d->index.x]);
+				if (d->gfx.sprite.right_arm[d->gfx.frame.right_arm][d->index.y][d->index.x] != 0x00000000)
+					pixel_put(d->gfx.screen, ((d->gfx.width - 250) + d->index.x), ((d->gfx.height - 238) + d->index.y), d->gfx.sprite.right_arm[d->gfx.frame.right_arm][d->index.y][d->index.x]);
 				d->index.x++;
 			}
 			d->index.y++;
@@ -130,7 +128,7 @@ int	render(t_drown *data)
 {
 	render_thread(data);
 		//add error checks;
-	render_sprites(data);
+	render_right_arm(data);
 		//add error checks;
 	draw_map(data);
 		//add error checks;
