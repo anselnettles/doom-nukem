@@ -6,33 +6,18 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:24:14 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/02/03 10:02:37 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/07 14:11:57 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "drowning.h"
 
-void	pixel_put(SDL_Surface *screen, int x, int y, Uint32 color)
+void	pixel_put(SDL_Surface *screen, int x, int y, uint32_t color)
 {
 	uint32_t	*pix;
 
 	pix = screen->pixels;
 	pix[x + ((y) * WIDTH)] = color;
-}
-
-SDL_Surface	*img_load(char *path)
-{
-	SDL_Surface	*ret;
-	SDL_Surface	*tmp;
-	SDL_RWops	*rwops;
-
-	rwops = SDL_RWFromFile(path, "r");
-	tmp = IMG_Load_RW(rwops, 1);
-	if (tmp == NULL || rwops == NULL)
-		return (NULL);
-	ret = SDL_ConvertSurfaceFormat(tmp, SDL_PIXELFORMAT_ARGB8888, 0);
-	SDL_FreeSurface(tmp);
-	return (ret);
 }
 
 void	draw_map(t_drown *data)		//DRAWS 2D MAP

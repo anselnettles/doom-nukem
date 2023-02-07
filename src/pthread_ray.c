@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:45:29 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/02/06 16:28:36 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/07 11:32:16 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@ int		get_modulo(t_wall wall)
 		modul_x = 64 - modul_x;
 	if (modul_x == 0)
 	{
-		return(1);
+		modul_x = 1;
 	}
 	if (wall.dy < 0)
 		modul_y = 64 - modul_y;
 	if (modul_y == 0)
 	{
-		return(1);
+		modul_y = 1;
 	}
 	if (modul_y < modul_x)
 		return (modul_y);

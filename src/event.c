@@ -6,22 +6,31 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:21:31 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/02/06 16:28:18 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/07 17:30:50 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "drowning.h"
 
-void	deal_key(int key, t_drown *data)
+void	deal_key(t_drown *data)
 {
-	if (key == SDLK_ESCAPE)
-		data->play_state = EXIT;
-	if (key == SDLK_0)
-		draw_map(data);
-	if (key == SDLK_a || key == SDLK_d)
-		strife(key, &data->player, data->map);
-	if (key == SDLK_w || key == SDLK_s)
-		move_player(key, &data->player, data->map);
+	if (data->event.type == SDL_KEYDOWN)
+	{
+		if (data->keyboard[SDL_SCANCODE_ESCAPE])
+			data->play_state = EXIT;
+		
+		if (data->keyboard[SDL_SCANCODE_A] ||data->keyboard[SDL_SCANCODE_D])
+			strife(data);
+		if (data->keyboard[SDL_SCANCODE_W] || data->keyboard[SDL_SCANCODE_S])
+			move_player(data);
+	}
+	/*
+	if (data->event.type == SDL_KEYUP)
+	{
+		if (key == SDLK_c)
+			data->player.height = 32 + (data->map.map[(int)roundf(data->player.y)][(int)roundf(data->player.x)] - '0') * 8;
+	}*/
+	//if (SDL_GetKeyboardState)
 }
 
 void	deal_mouse(t_drown *data)
@@ -36,51 +45,51 @@ void	deal_mouse(t_drown *data)
 	data->hg -= data->event.motion.yrel * 8;
 	if (data->hg > 700)
 		data->hg = 700;
-	if (data->hg < -400)
-		data->hg = -400;
+	if (data->hg < -800)
+		data->hg = -800;
 }
 
-void	move_player(int key, t_player *player, t_map map)
+void	move_player(t_drown *data)
 {
 	int		i;
 	//int		height;
 
 	i = 0;
-	player->height = 32 + (map.map[(int)roundf(player->y)][(int)roundf(player->x)] - '0') * 8;
+	data->player.height = 32 + (data->map.map[(int)roundf(data->player.y)][(int)roundf(data->player.x)] - '0') * 8;
 	while (i < SPEED)
 	{
-		if (key == SDLK_w)
+		if (data->keyboard[SDL_SCANCODE_W])
 		{
-			player->x -= player->dx;
-			player->y -= player->dy;
+			data->player.x -= data->player.dx;
+			data->player.y -= data->player.dy;
 		}
-		if (key == SDLK_s)
+		if (data->keyboard[SDL_SCANCODE_S])
 		{
-			player->x += player->dx;
-			player->y += player->dy;
+			data->player.x += data->player.dx;
+			data->player.y += data->player.dy;
 		}
-		if ((map.map[(int)roundf(player->y)][(int)roundf(player->x)] - '0') * 8 > player->height - 24 ||
-		 map.map[(int)roundf(player->y)][(int)roundf(player->x)] == '#')
+		if ((data->map.map[(int)roundf(data->player.y)][(int)roundf(data->player.x)] - '0') * 8 > data->player.height - 24 ||
+		 data->map.map[(int)roundf(data->player.y)][(int)roundf(data->player.x)] == '#')
 		{
-			if (key == SDLK_s)
+			if (data->keyboard[SDL_SCANCODE_S])
 			{
-				player->x -= player->dx;
-				player->y -= player->dy;
+				data->player.x -= data->player.dx;
+			data->player.y -= data->player.dy;
 			}
 			else
 			{
-				player->x += player->dx;
-				player->y += player->dy;
+				data->player.x += data->player.dx;
+				data->player.y += data->player.dy;
 			}
 			i = SPEED;
 		}
 		i++;
 	}
-	player->x = roundf(player->x);
-	player->y = roundf(player->y);
+	data->player.x = roundf(data->player.x);
+	data->player.y = roundf(data->player.y);
 }
 
-void	strife(int key, t_player *player, t_map map)
+void	strife(t_drown *data)
 {
 	float	dx;
 	float	dy;
@@ -89,38 +98,38 @@ void	strife(int key, t_player *player, t_map map)
 
 
 	i = 0;
-	dx = cosf(player->dir + 90 * DEGREES);
-	dy = sinf(player->dir + 90 * DEGREES);
-	player->height = 32 + (map.map[(int)roundf(player->y)][(int)roundf(player->x)] - '0') * 8;
+	dx = cosf(data->player.dir + 90 * DEGREES);
+	dy = sinf(data->player.dir + 90 * DEGREES);
+	data->player.height = 32 + (data->map.map[(int)roundf(data->player.y)][(int)roundf(data->player.x)] - '0') * 8;
 	while (i < SPEED)
 	{
-		if (key == SDLK_a)
+		if (data->keyboard[SDL_SCANCODE_D])
 		{
-			player->x += dx;
-			player->y += dy;
+			data->player.x -= dx;
+			data->player.y -= dy;
 		}
-		if (key == SDLK_d)
+		if (data->keyboard[SDL_SCANCODE_A])
 		{
-			player->x -= dx;
-			player->y -= dy;
+			data->player.x += dx;
+			data->player.y += dy;
 		}
-		if ((map.map[(int)roundf(player->y)][(int)roundf(player->x)] - '0') * 8 > player->height -24 ||
-		 map.map[(int)roundf(player->y)][(int)roundf(player->x)] == '#')
+		if ((data->map.map[(int)roundf(data->player.y)][(int)roundf(data->player.x)] - '0') * 8 > data->player.height - 24 ||
+		 data->map.map[(int)roundf(data->player.y)][(int)roundf(data->player.x)] == '#')
 		{
-			if (key == SDLK_a)
+			if (data->keyboard[SDL_SCANCODE_A])
 			{
-				player->x -= dx;
-				player->y -= dy;
+				data->player.x -= dx;
+			data->player.y -= dy;
 			}
 			else
 			{
-				player->x += dx;
-				player->y += dy;
+				data->player.x += dx;
+				data->player.y += dy;
 			}
 			i = SPEED;
 		}
 		i++;
 	}
-	player->x = roundf(player->x);
-	player->y = roundf(player->y);
+	data->player.x = roundf(data->player.x);
+	data->player.y = roundf(data->player.y);
 }

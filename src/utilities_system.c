@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utilities_system.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 17:50:06 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/06 10:03:12 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/07 17:22:50 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,16 @@
 //	view.
 void	sdl_loop(t_drown *data)
 {
+	data->keyboard = SDL_GetKeyboardState(NULL);
 	while (data->play_state == PLAY)
 	{
-		while(SDL_PollEvent(&data->event) != 0)
+		while(SDL_PollEvent(&data->event))
 		{
 			if (data->event.type == SDL_QUIT)
 				data->play_state = EXIT;
-			else if (data->event.type == SDL_KEYDOWN)
-				deal_key(data->event.key.keysym.sym, data);
-			else if (data->event.type == SDL_MOUSEMOTION)
+			if (data->event.type == SDL_KEYDOWN || data->event.type == SDL_KEYUP)
+				deal_key(data);
+			if (data->event.type == SDL_MOUSEMOTION)
 				deal_mouse(data);
 		}
 		render(data);

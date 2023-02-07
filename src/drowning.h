@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/06 16:29:04 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/07 16:59:07 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,7 +219,7 @@ typedef struct s_map
 
 typedef struct s_texture
 {
-	Uint32	texture[64][64];
+	uint32_t	texture[64][64];
 }			t_texture;
 
 typedef struct s_ray
@@ -250,6 +250,7 @@ typedef struct s_project_drowning {
 	t_map		map;
 	int			hg;
 	int			thread;
+	const uint8_t		*keyboard;
 }	t_drown;
 
 //	Listed error types. See 'error_management.c' for their output.
@@ -309,13 +310,13 @@ void	read_map(char *file, t_map *data);
 int		init_sdl(SDL_Window *window, SDL_Surface *screen);
 void	draw_map(t_drown *data);
 void	init_player(t_player *player);
-void	move_player(int key, t_player *player, t_map map);
+void	move_player(t_drown *data);
 void	rotate_player(int key, t_player *player);
-void	deal_key(int key, t_drown *data);
+void	deal_key(t_drown *data);
 void	deal_mouse(t_drown *data);
 void    render_thread(t_drown *data);
 void	*ft_raycast_thread(void  *args);
-void	strife(int key, t_player *player, t_map map);
+void	strife(t_drown *data);
 void	draw_thread(t_ray *ray, float distance, t_wall *wall);
 void	pixel_put(SDL_Surface *screen, int x, int y, Uint32 color);
 void	draw_collumn(t_ray *ray, int y, int y_max, Uint32 color, SDL_Surface *screen);
