@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/07 16:16:05 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/07 18:13:17 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@
 # define ERROR 1					//Reference to return value.
 # define NEW_LINE 2					//Reference to file parser return value.
 # define SDL_ERROR -1				//Reference to SDL function's return.
-//# define ENDLESS 1					//Reference to an endless SDL while loop.
 # define SCALE 1					//Resolution scale.
 //# define BUFFER_MAX 2550			//Level file maximum size.
 //# define MAX 50						//Map array dimension maximum.
@@ -110,7 +109,7 @@ typedef struct s_index {
 	int				p;
 	int				width;
 }	t_index;
-
+/*
 //	A middle-man coordination variables in double format.
 typedef struct s_coordinate_double {
 	double			x;
@@ -135,18 +134,18 @@ typedef struct s_collision_detection {
 	int				y;
 	int				y_pos_offset;
 	int				y_neg_offset;
-}	t_collide;
+}	t_collide;*/
 
 //	Player location and movement structure. Mother to collision struct.
 typedef struct s_player {
-	float			pos_angle;
-	float			pos_x;
-	float			pos_y;
-	float			dir_x;
-	float			dir_y;
-	int				move_speed;
-	int				compass;
-	t_collide		collide;
+//	float			pos_angle;
+//	float			pos_x;
+//	float			pos_y;
+//	float			dir_x;
+//	float			dir_y;
+//	int				move_speed;
+//	int				compass;
+//	t_collide		collide;
 
 	float			x;
 	float			y;
@@ -159,8 +158,7 @@ typedef struct s_player {
 }	t_player;
 
 // Wall location coordinates & trigonometric values.
-typedef struct s_wall
-{
+typedef struct s_wall {
 	float		x;
 	float		y;
 	float		dir;
@@ -170,26 +168,17 @@ typedef struct s_wall
 	int			prev_y;
 }	t_wall;
 
-//	Raycast handling variables, stored within the graphics structure.
-/*typedef struct s_raycast {
-	double	ray_angle;
-	double	ray_x;
-	double	ray_y;
-	int		mapx;
-	int		mapy;
-	double	offset_x;
-	double	offset_y;
-	double	plane_dist;
-	double	degrees_per_column;
-	double	degrees_per_ray;
-	double	hor_coll_point_x;
-	double	ver_coll_point_y;
-	double	closest_coll;
-	int		slice_height;
-	int		texture_xoffset;
-	int		texture_yoffset;
-	double	texture_yincrement;
-}	t_cast;*/
+typedef struct s_animations {
+	uint32_t	right_arm;
+}	t_frame;
+
+typedef struct	s_sprites {
+	uint32_t	right_arm[3][238][250];
+}	t_sprite;
+
+typedef struct s_textures {
+	uint32_t	texture[64][64];
+}	t_txt;
 
 //	Graphical-wise variables used for SDL and graphical drawing.
 //	Mother to raycast struct.
@@ -197,10 +186,6 @@ typedef struct s_graphics {
 	SDL_Window		*window;
 	SDL_Surface		*screen;
 	SDL_Surface		*image;
-//	SDL_Event		e;
-//	SDL_Window		*win;
-//	SDL_Surface		*surf;
-//	SDL_Surface		*texture[4];
 	const char		*sdl_error_string;
 	int				width;
 	int				height;
@@ -210,8 +195,9 @@ typedef struct s_graphics {
 	int				scale;
 	int				map;
 	int				scanline;
-	uint32_t		sprite_right_arm[3][238][250];
-//	t_cast			cast;
+	t_txt			txt;
+	t_sprite		sprite;
+	t_frame			frame;
 }	t_gfx;
 
 typedef struct s_map
@@ -219,12 +205,12 @@ typedef struct s_map
 	char	**map;
 	int		y_max;
 	int		x_max;
-}			t_map;
+}	t_map;
 
-typedef struct s_texture
-{
-	Uint32	texture[64][64];
-}			t_texture;
+//typedef struct s_texture
+//{
+//	Uint32	texture[64][64];
+//}	t_texture;
 
 typedef struct s_ray
 {
@@ -236,7 +222,7 @@ typedef struct s_ray
 	int			x;
 	int			count;
 	int			height;
-}				t_ray;
+}	t_ray;
 
 //	Mother structure.
 typedef struct s_project_drowning {
@@ -245,15 +231,12 @@ typedef struct s_project_drowning {
 	t_index					index;
 	t_player				player;
 	t_gfx					gfx;
-	t_corf					corf;
-	t_location				loca;
-	t_collide				collide;
-	SDL_Rect	rect;
-	SDL_Event	event;
-	int			play_state;
-	t_map		map;
-	int			hg;
-	int			thread;
+	SDL_Rect				rect;
+	SDL_Event				event;
+	int						play_state;
+	t_map					map;
+	int						hg;
+	int						thread;
 }	t_drown;
 
 //	Listed error types. See 'error_management.c' for their output.
@@ -291,9 +274,9 @@ void		keyboard_input(t_drown *d);
 void		move_forward_back(t_editor *editor, t_player *p, SDL_Keycode key);
 void		move_turn(t_player *p, SDL_Keycode key);
 
-SDL_Surface	*img_load(char *path);
+//SDL_Surface	*img_load(char *path);
 //void		pixel_put(t_graph *g, int x_src, int y_src, uint32_t color);
-void		vline(t_drown *d, t_location lo, float y, uint32_t color);
+//void		vline(t_drown *d, t_location lo, float y, uint32_t color);
 
 //float		square_root(float nb);
 //int			max(int a, int b);
@@ -326,5 +309,8 @@ void	draw_collumn(t_ray *ray, int y, int y_max, Uint32 color, SDL_Surface *scree
 void	draw_texture(t_ray *ray, int y, int y_max, t_wall wall, SDL_Surface *screen, int texture_y);
 void	draw_floor(t_ray *ray, t_wall wall, int win_y, SDL_Surface *screen);
 void	draw_ceiling(t_ray *ray, t_wall wall, int win_y, SDL_Surface *screen);
+
+//To be removed
+void	sprite_right_arm(t_drown *d);
 
 #endif
