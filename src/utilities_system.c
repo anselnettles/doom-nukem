@@ -15,13 +15,25 @@
 static void	animations(t_drown *d)
 {
 	if (d->system.current_time % 600 > 0 && d->system.current_time % 600 < 600)
+	{
 		d->gfx.frame.right_arm = 1;
+		d->gfx.shake_x = 5;
+	}
 	if (d->system.current_time % 1200 > 0 && d->system.current_time % 1200 < 600)
+	{
 		d->gfx.frame.right_arm = 2;
+		d->gfx.shake_x = 10;
+	}
 	if (d->system.current_time % 1800 > 0 && d->system.current_time % 1800 < 600)
+	{
 		d->gfx.frame.right_arm = 1;
+		d->gfx.shake_x = 5;
+	}
 	if (d->system.current_time % 2400 > 0 && d->system.current_time % 2400 < 600)
+	{
 		d->gfx.frame.right_arm = 0;
+		d->gfx.shake_x = 0;
+	}
 }
 
 static void	track_time(t_drown *d)
