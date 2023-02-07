@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 10:05:39 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/06 09:47:11 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/07 16:31:49 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,12 +103,34 @@ static int	draw_space(t_drown *d)
 	}
 }*/
 
+int	render_sprites(t_drown *d)
+{
+		if (d->index.i > 2)
+			d->index.i = 0;
+	d->index.y = 0;
+	d->index.x = 0;
+	while (d->index.y <= 237)
+		{
+			while (d->index.x <= 249)
+			{
+				if (d->gfx.sprite_right_arm[d->index.i][d->index.y][d->index.x] != 0x00000000)
+					pixel_put(d->gfx.screen, ((d->gfx.width - 250) + d->index.x), ((d->gfx.height - 238) + d->index.y), d->gfx.sprite_right_arm[d->index.i][d->index.y][d->index.x]);
+				d->index.x++;
+			}
+			d->index.y++;
+			d->index.x = 0;
+		}
+	return (0);
+}
+
 //	The graphical render order: Fill in black, draw the 3D space, draw the
 //	array map in the window corner, update the window.
 
 int	render(t_drown *data)
 {
 	render_thread(data);
+		//add error checks;
+	render_sprites(data);
 		//add error checks;
 	draw_map(data);
 		//add error checks;
