@@ -6,14 +6,14 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 10:03:55 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/02/06 16:28:32 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/07 18:22:33 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "drowning.h"
-t_texture	create_checkerboard(Uint32 color_one, Uint32 color_two)
+t_txt	create_checkerboard(Uint32 color_one, Uint32 color_two)
 {
-	t_texture	texture;
+	t_txt	texture;
 	int		x;
 	int		y;
 	int		rotate;
@@ -40,9 +40,9 @@ t_texture	create_checkerboard(Uint32 color_one, Uint32 color_two)
 	return(texture);
 }
 
-t_texture	big_checkerboard(Uint32 color_one, Uint32 color_two)
+t_txt	big_checkerboard(Uint32 color_one, Uint32 color_two)
 {
-	t_texture	texture;
+	t_txt	texture;
 	int			x;
 	int			y;
 
@@ -79,7 +79,7 @@ t_texture	big_checkerboard(Uint32 color_one, Uint32 color_two)
 
 void	draw_texture(t_ray *ray, int y, int y_max, t_wall wall, SDL_Surface *screen, int limiter)
 {
-	t_texture	texture;
+	t_txt	texture;
 	int			texture_y;
 	int			texture_x;
 	float		i;
@@ -109,7 +109,7 @@ void	draw_texture(t_ray *ray, int y, int y_max, t_wall wall, SDL_Surface *screen
 
 void	draw_floor(t_ray *ray, t_wall wall, int win_y, SDL_Surface *screen)
 {
-	t_texture texture;
+	t_txt texture;
 	int tx;
 	int ty;
 	float	dir;
@@ -136,7 +136,7 @@ void	draw_floor(t_ray *ray, t_wall wall, int win_y, SDL_Surface *screen)
 
 void	draw_ceiling(t_ray *ray, t_wall wall, int win_y, SDL_Surface *screen)
 {
-	t_texture texture;
+	t_txt texture;
 	int tx;
 	int ty;
 	float	player_height;
