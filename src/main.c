@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 18:24:05 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/07 17:25:52 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/08 12:04:43 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,7 @@ static int	initialize_media(t_drown *d)
 		d->gfx.width = (WIDTH * d->gfx.scale);
 		d->gfx.height = (HEIGHT * d->gfx.scale);
 //		d->gfx.scanline = FALSE;
-		d->play_state = PLAY;
-		d->thread = 1;
+		d->system.play_state = PLAY;
 		d->hg = 0; //What exactly is Dofidog's data->height?
 		d->gfx.window = SDL_CreateWindow(TITLE, SDL_WINDOWPOS_UNDEFINED,
 				SDL_WINDOWPOS_UNDEFINED, d->gfx.width,
