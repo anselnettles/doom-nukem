@@ -6,19 +6,11 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:24:14 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/02/03 10:02:37 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/08 13:01:52 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "drowning.h"
-
-void	pixel_put(SDL_Surface *screen, int x, int y, Uint32 color)
-{
-	uint32_t	*pix;
-
-	pix = screen->pixels;
-	pix[x + ((y) * WIDTH)] = color;
-}
 
 SDL_Surface	*img_load(char *path)
 {

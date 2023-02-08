@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 10:03:55 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/02/08 12:54:57 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/08 13:03:07 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void	draw_texture(t_ray *ray, int y, int y_max, t_wall wall, SDL_Surface *screen
 			texture_y += 1;
 		}
 		if (y >= 0 && y < ray->gfx.height  && y >= limiter)
-			pixel_put(screen, ray->x, y, texture.texture[texture_y][texture_x]);
+			pixel_put(&ray->gfx, ray->x, y, texture.texture[texture_y][texture_x]);
 		y++;
 		j++;
 	}
@@ -129,7 +129,7 @@ void	draw_floor(t_ray *ray, t_wall wall, int win_y, SDL_Surface *screen)
 		if (ty < 0)
 			ty *= -1;
 		if (win_y > 0)
-			pixel_put(screen, ray->x, win_y, texture.texture[ty][tx]);
+			pixel_put(&ray->gfx, ray->x, win_y, texture.texture[ty][tx]);
 		win_y++;
 	}
 }
@@ -160,7 +160,7 @@ void	draw_ceiling(t_ray *ray, t_wall wall, int win_y, SDL_Surface *screen)
 		if (ty < 0)
 			ty *= -1;
 		if (win_y < ray->gfx.height )
-			pixel_put(screen, ray->x, win_y, texture.texture[ty][tx]);
+			pixel_put(&ray->gfx, ray->x, win_y, texture.texture[ty][tx]);
 		win_y--;
 	}
 }
