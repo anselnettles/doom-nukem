@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/08 13:08:51 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/08 13:26:35 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -260,6 +260,7 @@ typedef enum e_error
 	PLAYER_FAIL,
 	RENDER_FAIL,
 	TEXTURE_FAIL,
+	OVERLAY_ERROR,
 }	t_error;
 
 //	Non-static functions'.
@@ -281,7 +282,7 @@ void		move_forward_back(t_editor *editor, t_player *p, SDL_Keycode key);
 void		move_turn(t_player *p, SDL_Keycode key);
 
 //SDL_Surface	*img_load(char *path);
-void		pixel_put(t_gfx *gfx, int x_src, int y_src, uint32_t color);
+int			pixel_put(t_gfx *gfx, int x_src, int y_src, uint32_t color);
 //void		vline(t_drown *d, t_location lo, float y, uint32_t color);
 
 //float		square_root(float nb);
