@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 10:05:39 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/08 10:21:00 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/08 10:31:17 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,34 +103,6 @@ static int	draw_space(t_drown *d)
 	}
 }*/
 
-static void	draw_right_arm(t_drown *d)
-{
-	int	f;
-	int	y;
-	int	x;
-
-	f = d->gfx.frame.right_arm;
-	y = 0;
-	x = 0;
-	d->index.y = ((d->gfx.height - 238 + MARGIN) + d->gfx.shake_y);
-	d->index.x = ((d->gfx.width - 250 + MARGIN) + d->gfx.shake_x);
-	while (d->index.y < d->gfx.height)
-	{
-		while (d->index.x < (d->gfx.width - 2))
-		{
-			if (d->gfx.sprite.right_arm[f][y][x])
-				pixel_put(d->gfx.screen, d->index.x, d->index.y,
-						d->gfx.sprite.right_arm[f][y][x]);
-			d->index.x++;
-			x++;
-		}
-		d->index.y++;
-		y++;
-		d->index.x = ((d->gfx.width - 250 + MARGIN) + d->gfx.shake_x);
-		x = 0;
-	}
-}
-
 //	The graphical render order: Fill in black, draw the 3D space, draw the
 //	array map in the window corner, update the window.
 
@@ -138,7 +110,7 @@ int	render(t_drown *data)
 {
 	render_thread(data);
 		//add error checks;
-	draw_right_arm(data);
+	render_overlay(data);
 		//add error checks;
 	draw_map(data);
 		//add error checks;
