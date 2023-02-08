@@ -6,11 +6,35 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 10:28:04 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/08 10:39:20 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/08 10:45:53 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "drowning.h"
+
+void	x_right_arm_flail(t_gfx *gfx)
+{
+		if (gfx->shake_toggle == FALSE)
+		{
+			gfx->shake_x++;
+			if (gfx->shake_x >= MARGIN)
+				gfx->shake_toggle = TRUE;
+		}
+		else
+		{
+			gfx->shake_x--;
+			if (gfx->shake_x <= -MARGIN)
+				gfx->shake_toggle = FALSE;
+		}
+}
+
+void	y_right_arm_flail(t_gfx *gfx)
+{
+	if ((gfx->shake_x <= -MARGIN / 2) || (gfx->shake_x > MARGIN / 2))
+		gfx->shake_y++;
+	else if ((gfx->shake_x > -MARGIN / 2) || (gfx->shake_x <= -MARGIN / 2))
+		gfx->shake_y--;
+}
 
 static void	right_arm_loop(t_drown *d)
 {
