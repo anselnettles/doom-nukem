@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 17:50:06 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/07 19:37:05 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/08 10:17:57 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,13 @@
 static void	animations(t_drown *d)
 {
 	if (d->system.current_time % 600 > 0 && d->system.current_time % 600 < 600)
-	{
 		d->gfx.frame.right_arm = 1;
-		d->gfx.shake_x = 5;
-	}
 	if (d->system.current_time % 1200 > 0 && d->system.current_time % 1200 < 600)
-	{
 		d->gfx.frame.right_arm = 2;
-		d->gfx.shake_x = 10;
-	}
 	if (d->system.current_time % 1800 > 0 && d->system.current_time % 1800 < 600)
-	{
 		d->gfx.frame.right_arm = 1;
-		d->gfx.shake_x = 5;
-	}
 	if (d->system.current_time % 2400 > 0 && d->system.current_time % 2400 < 600)
-	{
 		d->gfx.frame.right_arm = 0;
-		d->gfx.shake_x = 0;
-	}
 }
 
 static void	track_time(t_drown *d)
@@ -43,6 +31,22 @@ static void	track_time(t_drown *d)
 		if ((d->system.current_time / 1000) >= d->system.second)
 				d->system.second++;
 		animations(d);
+}
+
+static void	x_right_arm_flail(t_gfx *gfx)
+{
+		if (gfx->shake_toggle == FALSE)
+		{
+			gfx->shake_x++;
+			if (gfx->shake_x >= MARGIN)
+				gfx->shake_toggle = TRUE;
+		}
+		else
+		{
+			gfx->shake_x--;
+			if (gfx->shake_x <= -MARGIN)
+				gfx->shake_toggle = FALSE;
+		}
 }
 
 //	Sdl_loop() keeps Simple Direct MediaLayer's PollEvent constantly
@@ -61,6 +65,8 @@ void		sdl_loop(t_drown *d)
 				deal_key(d->event.key.keysym.sym, d);
 			else if (d->event.type == SDL_MOUSEMOTION)
 				deal_mouse(d);
+			if (d->event.type == SDL_KEYDOWN || d->event.type == SDL_MOUSEMOTION)
+				x_right_arm_flail(&d->gfx);
 		}
 		if (d->system.delta_time)
 		{
