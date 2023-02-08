@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:45:29 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/02/08 12:50:25 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/08 13:54:21 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ void	*ft_raycast_thread(void  *args)
     ray = args;
 	ray->count = 0;
 	wall.dir = ray->dir;
-	wall.prev_y = HEIGHT;
-	while (ray->count < THREADRAY)
+	wall.prev_y = ray->gfx.height;
+	while (ray->count < (ray->gfx.width / 6))
 	{
 		if (wall.dir > 2 * PI)
 			wall.dir -= 2 * PI;
@@ -58,7 +58,7 @@ void	*ft_raycast_thread(void  *args)
 		wall.dy = sinf(wall.dir);
 		wall.x = ray->player.x;
 		wall.y = ray->player.y;
-		wall.prev_y = HEIGHT;
+		wall.prev_y = ray->gfx.height;
 		remember = ray->map.map[(int)roundf(wall.y)][(int)roundf(wall.x)] - '0';
 		while (ray->map.map[(int)roundf(wall.y)][(int)roundf(wall.x)] != '#')
 		{
@@ -74,7 +74,7 @@ void	*ft_raycast_thread(void  *args)
 			distance *= cosf(ray->player.dir - wall.dir);
 			draw_thread(ray, distance, &wall);
 		}
-		wall.dir += (60 * DEGREES) / WIDTH;
+		wall.dir += (60 * DEGREES) / ray->gfx.width;
 		ray->x++;
 		ray->count++;
 	}
@@ -97,8 +97,8 @@ void    render_thread(t_drown *data)
 		ray[i].count = 0;
 		if( i != 0)
 		{
-			ray[i].x = i * THREADRAY;
-			ray[i].dir = (data->player.dir - 30 * DEGREES) + (i * THREADRAY * (60 * DEGREES / WIDTH));
+			ray[i].x = i * (data->gfx.width / 6);
+			ray[i].dir = (data->player.dir - 30 * DEGREES) + (i * (data->gfx.width / 6) * (60 * DEGREES / WIDTH));
 		}
 		ray[i].height = data->hg;
 		ray[i].gfx = data->gfx;

@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 10:03:55 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/02/08 13:03:07 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/08 13:50:04 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ void	draw_floor(t_ray *ray, t_wall wall, int win_y, SDL_Surface *screen)
 	texture = big_checkerboard(SDL_MapRGB(screen->format, 0x00, 0x00, 0x00), SDL_MapRGB(screen->format, 0xFF, 0xFF, 0xFF));
 	while (win_y < wall.prev_y && win_y < ray->gfx.height)
 	{
-		dir = atanf((float)(win_y - (ray->gfx.height / 2) - ray->height) / (float)738);
+		dir = atanf((float)(win_y - (ray->gfx.height / 2) - ray->height) / ray->gfx.dop);
 		wall.distance = ray->player.height / dir;
 		wall.distance /= cosf(ray->player.dir - wall.dir);
 		wall.x = ray->player.x - wall.dx * wall.distance;
@@ -148,7 +148,7 @@ void	draw_ceiling(t_ray *ray, t_wall wall, int win_y, SDL_Surface *screen)
 	texture = big_checkerboard(SDL_MapRGB(screen->format, 0xFF, 0xFF, 0xFF), SDL_MapRGB(screen->format, 0x00, 0x00, 0x00));
 	while (win_y >= 0)
 	{
-		dir = atanf((float)(win_y - (ray->gfx.height / 2) - ray->height) / (float)738);
+		dir = atanf((float)(win_y - (ray->gfx.height / 2) - ray->height) / ray->gfx.dop);
 		wall.distance = player_height / dir;
 		wall.distance /= cosf(ray->player.dir - wall.dir);
 		wall.x = ray->player.x + wall.dx * wall.distance;
@@ -229,9 +229,9 @@ void	draw_thread(t_ray *ray, float distance, t_wall *wall)
 	height = 8;
 	if (ray->map.map[(int)roundf(wall->y)][(int)roundf(wall->x)] != '#')
 		height =  ray->map.map[(int)roundf(wall->y)][(int)roundf(wall->x)] - '0';
-	scaled_y = (int)((ray->gfx.height / 2) - (BITS * (369 / distance)) + ray->height + (ray->player.height - 32));
-	y = (int)((ray->gfx.height / 2) - ((16 * (height - 4)) * (350 / distance)) + ray->height + (ray->player.height - 32));
-	y_max = (int)((ray->gfx.height / 2) + (BITS * (369 / distance)) + ray->height + (ray->player.height - 32));
+	scaled_y = (int)((ray->gfx.height / 2) - (BITS * ((ray->gfx.dop / 2) / distance)) + ray->height + (ray->player.height - 32));
+	y = (int)((ray->gfx.height / 2) - ((16 * (height - 4)) * ((ray->gfx.dop / 2) / distance)) + ray->height + (ray->player.height - 32));
+	y_max = (int)((ray->gfx.height / 2) + (BITS * ((ray->gfx.dop / 2) / distance)) + ray->height + (ray->player.height - 32));
 	if (y < 0)
 		y = 0;
 	if (y_max > ray->gfx.height) 
