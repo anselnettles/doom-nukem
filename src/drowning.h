@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/08 12:58:47 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/08 13:08:51 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,7 +199,7 @@ typedef struct s_graphics {
 	int				shake_y;
 	int				shake_toggle;
 //	int				map;
-//	int				scanline;
+	int				scanline;
 	t_txt			txt;
 	t_sprite		sprite;
 	t_frame			frame;
