@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utilities_system.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 17:50:06 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/08 11:42:30 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/08 10:44:18 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,13 @@ static void	track_time(t_drown *d)
 //	view.
 void		sdl_loop(t_drown *d)
 {
-	d->system.keyboard_state = SDL_GetKeyboardState(NULL);
-	while (d->system.play_state == PLAY)
+	while (d->play_state == PLAY)
 	{
 		track_time(d);
 		while (SDL_PollEvent(&d->event) != 0)
 		{
 			if (d->event.type == SDL_QUIT)
-				d->system.play_state = EXIT;
+				d->play_state = EXIT;
 			else if (d->event.type == SDL_KEYDOWN)
 				deal_key(d->event.key.keysym.sym, d);
 			else if (d->event.type == SDL_MOUSEMOTION)
