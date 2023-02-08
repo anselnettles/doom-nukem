@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:21:31 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/02/08 14:27:34 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/08 16:13:16 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void	deal_key(int key, t_drown *data)
 		strife(data);
 	if (data->system.keyboard_state[SDL_SCANCODE_W]|| data->system.keyboard_state[SDL_SCANCODE_S])
 		move_player(data);
+	if (data->system.keyboard_state[SDL_SCANCODE_F1])
+		scale_window(&data->gfx);
 }
 
 void	deal_mouse(t_drown *data)
