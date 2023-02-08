@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 13:35:22 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/08 13:22:38 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/08 14:24:49 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	pixel_put(t_gfx *gfx, int x_src, int y_src, uint32_t color)
 	int			wth;
 
 
-	if (x_src > gfx->width || y_src > gfx->width)
+	if (x_src > gfx->width - 1 || y_src > gfx->height - 1)
 		return (ERROR);
 	pix = gfx->screen->pixels;
 	x = (x_src * gfx->scale);
