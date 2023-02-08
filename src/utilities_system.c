@@ -6,11 +6,24 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 17:50:06 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/08 15:04:22 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/08 16:43:55 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "drowning.h"
+
+void		scale_window(t_gfx *gfx)
+{
+	if (gfx->scale == 1)
+		gfx->scale = 2;
+	else
+		gfx->scale = 1;
+	gfx->width = (WIDTH * gfx->scale);
+	gfx->height = (HEIGHT * gfx->scale);
+	SDL_SetWindowSize(gfx->window, gfx->width, gfx->height);
+	gfx->screen = SDL_GetWindowSurface(gfx->window);
+	gfx->dop = gfx->width / 2 / tan(30 * DEGREES);
+}
 
 static void	track_time(t_drown *d)
 {
