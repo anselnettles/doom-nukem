@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:21:31 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/02/08 14:06:51 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/08 14:27:34 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ void	move_player(t_drown *data)
 	sprint = 1;
 	if (data->system.keyboard_state[SDL_SCANCODE_LSHIFT])
 		sprint = 2;
-	data->player.height = 32 + (data->map.map[(int)roundf(data->player.y)][(int)roundf(data->player.x)] - '0') * 8;
 	while (i < SPEED * sprint)
 	{
 		if (data->system.keyboard_state[SDL_SCANCODE_W])
@@ -81,6 +80,7 @@ void	move_player(t_drown *data)
 		}
 		i++;
 	}
+	data->player.height = 32 + (data->map.map[(int)roundf(data->player.y)][(int)roundf(data->player.x)] - '0') * 8;
 	data->player.x = roundf(data->player.x);
 	data->player.y = roundf(data->player.y);
 	y_right_arm_flail(&data->gfx);
@@ -97,7 +97,6 @@ void	strife(t_drown *data)
 	i = 0;
 	dx = cosf(data->player.dir + 90 * DEGREES);
 	dy = sinf(data->player.dir + 90 * DEGREES);
-	data->player.height = 32 + (data->map.map[(int)roundf(data->player.y)][(int)roundf(data->player.x)] - '0') * 8;
 	while (i < SPEED)
 	{
 		if (data->system.keyboard_state[SDL_SCANCODE_A])
@@ -127,6 +126,7 @@ void	strife(t_drown *data)
 		}
 		i++;
 	}
+	data->player.height = 32 + (data->map.map[(int)roundf(data->player.y)][(int)roundf(data->player.x)] - '0') * 8;
 	data->player.x = roundf(data->player.x);
 	data->player.y = roundf(data->player.y);
 }
