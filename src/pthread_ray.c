@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:45:29 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/02/08 13:54:21 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/08 16:47:40 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void    render_thread(t_drown *data)
 		if( i != 0)
 		{
 			ray[i].x = i * (data->gfx.width / 6);
-			ray[i].dir = (data->player.dir - 30 * DEGREES) + (i * (data->gfx.width / 6) * (60 * DEGREES / WIDTH));
+			ray[i].dir = (data->player.dir - 30 * DEGREES) + (i * (data->gfx.width / 6) * (60 * DEGREES / data->gfx.width));
 		}
 		ray[i].height = data->hg;
 		ray[i].gfx = data->gfx;
