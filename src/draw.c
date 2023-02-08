@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 10:03:55 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/02/07 18:22:33 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/08 13:03:07 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,8 @@ void	draw_texture(t_ray *ray, int y, int y_max, t_wall wall, SDL_Surface *screen
 			j = 0;
 			texture_y += 1;
 		}
-		if (y >= 0 && y < HEIGHT && y >= limiter)
-			pixel_put(screen, ray->x, y, texture.texture[texture_y][texture_x]);
+		if (y >= 0 && y < ray->gfx.height  && y >= limiter)
+			pixel_put(&ray->gfx, ray->x, y, texture.texture[texture_y][texture_x]);
 		y++;
 		j++;
 	}
@@ -115,9 +115,9 @@ void	draw_floor(t_ray *ray, t_wall wall, int win_y, SDL_Surface *screen)
 	float	dir;
 
 	texture = big_checkerboard(SDL_MapRGB(screen->format, 0x00, 0x00, 0x00), SDL_MapRGB(screen->format, 0xFF, 0xFF, 0xFF));
-	while (win_y < wall.prev_y && win_y < HEIGHT)
+	while (win_y < wall.prev_y && win_y < ray->gfx.height)
 	{
-		dir = atanf((float)(win_y - (HEIGHT/ 2) - ray->height) / (float)700);
+		dir = atanf((float)(win_y - (ray->gfx.height / 2) - ray->height) / (float)738);
 		wall.distance = ray->player.height / dir;
 		wall.distance /= cosf(ray->player.dir - wall.dir);
 		wall.x = ray->player.x - wall.dx * wall.distance;
@@ -129,7 +129,7 @@ void	draw_floor(t_ray *ray, t_wall wall, int win_y, SDL_Surface *screen)
 		if (ty < 0)
 			ty *= -1;
 		if (win_y > 0)
-			pixel_put(screen, ray->x, win_y, texture.texture[ty][tx]);
+			pixel_put(&ray->gfx, ray->x, win_y, texture.texture[ty][tx]);
 		win_y++;
 	}
 }
@@ -148,7 +148,7 @@ void	draw_ceiling(t_ray *ray, t_wall wall, int win_y, SDL_Surface *screen)
 	texture = big_checkerboard(SDL_MapRGB(screen->format, 0xFF, 0xFF, 0xFF), SDL_MapRGB(screen->format, 0x00, 0x00, 0x00));
 	while (win_y >= 0)
 	{
-		dir = atanf((float)(win_y - (HEIGHT / 2) - ray->height) / (float)700);
+		dir = atanf((float)(win_y - (ray->gfx.height / 2) - ray->height) / (float)738);
 		wall.distance = player_height / dir;
 		wall.distance /= cosf(ray->player.dir - wall.dir);
 		wall.x = ray->player.x + wall.dx * wall.distance;
@@ -159,8 +159,8 @@ void	draw_ceiling(t_ray *ray, t_wall wall, int win_y, SDL_Surface *screen)
 			tx *= -1;
 		if (ty < 0)
 			ty *= -1;
-		if (win_y < HEIGHT)
-			pixel_put(screen, ray->x, win_y, texture.texture[ty][tx]);
+		if (win_y < ray->gfx.height )
+			pixel_put(&ray->gfx, ray->x, win_y, texture.texture[ty][tx]);
 		win_y--;
 	}
 }
@@ -222,23 +222,23 @@ void	draw_thread(t_ray *ray, float distance, t_wall *wall)
 	int 		height;
 	int			scaled_y;
 
-	if (!(screen = SDL_GetWindowSurface(ray->window)))
+	if (!(screen = SDL_GetWindowSurface(ray->gfx.window)))
 		printf("screen couldnt be created! SDL_Error: %s\n", SDL_GetError());
 	if (distance < 1)
 		distance = 1;
 	height = 8;
 	if (ray->map.map[(int)roundf(wall->y)][(int)roundf(wall->x)] != '#')
 		height =  ray->map.map[(int)roundf(wall->y)][(int)roundf(wall->x)] - '0';
-	scaled_y = (int)((HEIGHT / 2) - (BITS * (350 / distance)) + ray->height);
-	y = (int)((HEIGHT / 2) - ((16 * (height - 4)) * (350 / distance)) + ray->height);
-	y_max = (int)((HEIGHT / 2) + (BITS * (350 / distance)) + ray->height);
+	scaled_y = (int)((ray->gfx.height / 2) - (BITS * (369 / distance)) + ray->height + (ray->player.height - 32));
+	y = (int)((ray->gfx.height / 2) - ((16 * (height - 4)) * (350 / distance)) + ray->height + (ray->player.height - 32));
+	y_max = (int)((ray->gfx.height / 2) + (BITS * (369 / distance)) + ray->height + (ray->player.height - 32));
 	if (y < 0)
 		y = 0;
-	if (y_max > HEIGHT)
-		y_max = HEIGHT;
+	if (y_max > ray->gfx.height) 
+		y_max = ray->gfx.height;
 	if (y_max > wall->prev_y || y > wall->prev_y)
 		y_max = wall->prev_y;
-	if (y < wall->prev_y || y > HEIGHT)
+	if (y < wall->prev_y || y > ray->gfx.height )
 		draw_ceiling(ray, *wall, wall->prev_y, screen);
 	// if (height * 8 < 32)
 	// 	draw_wall_top(ray, *wall, y - 1, screen);

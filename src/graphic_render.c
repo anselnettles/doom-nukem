@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 10:05:39 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/08 10:31:17 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/08 12:44:12 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ int	render(t_drown *data)
 {
 	render_thread(data);
 		//add error checks;
-	render_overlay(data);
+	//render_overlay(data);
 		//add error checks;
 	draw_map(data);
 		//add error checks;
