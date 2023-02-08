@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 10:28:04 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/08 10:45:53 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/08 15:19:24 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,38 @@
 
 void	x_right_arm_flail(t_gfx *gfx)
 {
-		if (gfx->shake_toggle == FALSE)
-		{
-			gfx->shake_x++;
-			if (gfx->shake_x >= MARGIN)
-				gfx->shake_toggle = TRUE;
-		}
-		else
-		{
-			gfx->shake_x--;
-			if (gfx->shake_x <= -MARGIN)
-				gfx->shake_toggle = FALSE;
-		}
+	if (gfx->shake_xtoggle == FALSE)
+	{
+		gfx->shake_x++;
+		if (gfx->shake_x >= MARGIN)
+			gfx->shake_xtoggle = TRUE;
+	}
+	else
+	{
+		gfx->shake_x--;
+		if (gfx->shake_x <= -MARGIN)
+			gfx->shake_xtoggle = FALSE;
+	}
 }
 
 void	y_right_arm_flail(t_gfx *gfx)
 {
-	if ((gfx->shake_x <= -MARGIN / 2) || (gfx->shake_x > MARGIN / 2))
-		gfx->shake_y++;
-	else if ((gfx->shake_x > -MARGIN / 2) || (gfx->shake_x <= -MARGIN / 2))
-		gfx->shake_y--;
+	if (gfx->shake_ytoggle == FALSE)
+	{
+		gfx->shake_y += 0.5;
+		if (gfx->shake_y >= (MARGIN / 2))
+			gfx->shake_y++;
+		if (gfx->shake_y >= MARGIN)
+			gfx->shake_ytoggle = TRUE;
+	}
+	else
+	{
+		gfx->shake_y -= 0.5;
+		if (gfx->shake_y <= (-MARGIN / 2))
+			gfx->shake_y--;
+		if (gfx->shake_y <= -MARGIN)
+			gfx->shake_ytoggle = FALSE;
+	}
 }
 
 static void	right_arm_loop(t_drown *d)
