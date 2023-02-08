@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/08 10:39:08 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/08 10:46:09 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -272,6 +272,8 @@ void		raycast_angle_check(t_gfx *g);
 void		draw_minimap_slot(t_drown *d);
 int			render_overlay(t_drown *d);
 int			animation_loop(t_drown *d);
+void		x_right_arm_flail(t_gfx *gfx);
+void		y_right_arm_flail(t_gfx *gfx);
 void		print_array(t_editor *editor, t_index *index);
 
 void		keyboard_input(t_drown *d);
