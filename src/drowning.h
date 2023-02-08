@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/08 12:54:22 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/08 12:58:47 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,7 +219,7 @@ typedef struct s_map
 
 typedef struct s_ray
 {
-	SDL_Window	*window;
+	t_gfx		gfx;
 	t_player	player;
 	t_map		map;
 	float		distance;
