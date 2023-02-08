@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 13:35:22 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/30 14:13:12 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/08 12:55:25 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,33 +35,33 @@
 //	one pixel for 1X scale, four pixels for 2X scale and nine pixels for 3X.
 //	The scanline visual effect ('g->scanline') is applied on every second pixel
 //	color of the column to create an aesthetic alternating scanline effect.
-/*void	pixel_put(t_graph *g, int x_src, int y_src, uint32_t color)
+void	pixel_put(t_gfx *gfx, int x_src, int y_src, uint32_t color)
 {
 	uint32_t	*pix;
 	int			x;
 	int			y;
 	int			wth;
 
-	pix = g->surf->pixels;
+	pix = gfx->surf->pixels;
 	x = (x_src * g->scale);
 	y = (y_src * g->scale);
-	wth = g->width;
-	pix[(x) + (y * wth)] = color << (g->scanline * (y_src % 2));
-	if (g->scale >= 2)
+	wth = gfx->width;
+	pix[(x) + (y * wth)] = color << (gfx->scanline * (y_src % 2));
+	if (gfx->scale >= 2)
 	{
-		pix[(x + 1) + ((y) * wth)] = color << (g->scanline * (y_src % 2));
+		pix[(x + 1) + ((y) * wth)] = color << (gfx->scanline * (y_src % 2));
 		pix[(x) + ((y + 1) * wth)] = color;
 		pix[(x + 1) + ((y + 1) * wth)] = color;
-		if (g->scale == 3)
+		if (gfx->scale == 3)
 		{
-			pix[(x + 2) + ((y) * wth)] = color << (g->scanline * (y_src % 2));
+			pix[(x + 2) + ((y) * wth)] = color << (gfx->scanline * (y_src % 2));
 			pix[(x + 2) + ((y + 1) * wth)] = color;
-			pix[(x) + ((y + 2) * wth)] = color << (g->scanline * (y_src % 2));
-			pix[(x +1) + ((y +2) * wth)] = color << (g->scanline * (y_src % 2));
-			pix[(x +2) + ((y +2) * wth)] = color << (g->scanline * (y_src % 2));
+			pix[(x) + ((y + 2) * wth)] = color << (gfx->scanline * (y_src % 2));
+			pix[(x +1) + ((y +2) * wth)] = color << (gfx->scanline * (y_src % 2));
+			pix[(x +2) + ((y +2) * wth)] = color << (gfx->scanline * (y_src % 2));
 		}
 	}
-}*/
+}
 
 /*
 //'Texture_color()' picks the correct RGB color from the correct texture

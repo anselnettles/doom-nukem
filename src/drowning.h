@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/08 12:03:49 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/08 12:58:47 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,7 +219,7 @@ typedef struct s_map
 
 typedef struct s_ray
 {
-	SDL_Window	*window;
+	t_gfx		gfx;
 	t_player	player;
 	t_map		map;
 	float		distance;
@@ -281,7 +281,7 @@ void		move_forward_back(t_editor *editor, t_player *p, SDL_Keycode key);
 void		move_turn(t_player *p, SDL_Keycode key);
 
 //SDL_Surface	*img_load(char *path);
-//void		pixel_put(t_graph *g, int x_src, int y_src, uint32_t color);
+void		pixel_put(t_gfx *gfx, int x_src, int y_src, uint32_t color);
 //void		vline(t_drown *d, t_location lo, float y, uint32_t color);
 
 //float		square_root(float nb);
@@ -310,7 +310,6 @@ void    render_thread(t_drown *data);
 void	*ft_raycast_thread(void  *args);
 void	strife(t_drown *data);
 void	draw_thread(t_ray *ray, float distance, t_wall *wall);
-void	pixel_put(SDL_Surface *screen, int x, int y, Uint32 color);
 void	draw_collumn(t_ray *ray, int y, int y_max, Uint32 color, SDL_Surface *screen);
 void	draw_texture(t_ray *ray, int y, int y_max, t_wall wall, SDL_Surface *screen, int texture_y);
 void	draw_floor(t_ray *ray, t_wall wall, int win_y, SDL_Surface *screen);
