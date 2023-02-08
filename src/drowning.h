@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/08 09:45:25 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/08 10:39:08 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@
 //	System-wise variables for run and check-up calls through the program.
 typedef struct s_system {
 	int				user_request;
-	uint32_t		current_time;
+	uint32_t		time;
 	uint32_t		last_time;
 	uint32_t		delta_time;
 	uint32_t		second;
@@ -270,7 +270,8 @@ int			render(t_drown *d);
 int			raycast(t_drown *d, float hor_coll_dist, float ver_coll_dist);
 void		raycast_angle_check(t_gfx *g);
 void		draw_minimap_slot(t_drown *d);
-void		draw_overlay(t_drown *d);
+int			render_overlay(t_drown *d);
+int			animation_loop(t_drown *d);
 void		print_array(t_editor *editor, t_index *index);
 
 void		keyboard_input(t_drown *d);
