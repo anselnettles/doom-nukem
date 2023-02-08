@@ -6,31 +6,19 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 17:50:06 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/08 10:17:57 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/08 10:39:51 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "drowning.h"
 
-static void	animations(t_drown *d)
-{
-	if (d->system.current_time % 600 > 0 && d->system.current_time % 600 < 600)
-		d->gfx.frame.right_arm = 1;
-	if (d->system.current_time % 1200 > 0 && d->system.current_time % 1200 < 600)
-		d->gfx.frame.right_arm = 2;
-	if (d->system.current_time % 1800 > 0 && d->system.current_time % 1800 < 600)
-		d->gfx.frame.right_arm = 1;
-	if (d->system.current_time % 2400 > 0 && d->system.current_time % 2400 < 600)
-		d->gfx.frame.right_arm = 0;
-}
-
 static void	track_time(t_drown *d)
 {
-		d->system.current_time = SDL_GetTicks();
-		d->system.delta_time = (d->system.current_time - d->system.last_time);
-		if ((d->system.current_time / 1000) >= d->system.second)
+		d->system.time = SDL_GetTicks();
+		d->system.delta_time = (d->system.time - d->system.last_time);
+		if ((d->system.time / 1000) >= d->system.second)
 				d->system.second++;
-		animations(d);
+		animation_loop(d);
 }
 
 static void	x_right_arm_flail(t_gfx *gfx)
@@ -71,7 +59,7 @@ void		sdl_loop(t_drown *d)
 		if (d->system.delta_time)
 		{
 			render(d);
-			d->system.last_time = d->system.current_time;
+			d->system.last_time = d->system.time;
 		}
 	}
 }
