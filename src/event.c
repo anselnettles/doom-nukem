@@ -6,31 +6,22 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:21:31 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/02/07 17:30:50 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/08 11:51:29 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "drowning.h"
 
-void	deal_key(t_drown *data)
+void	deal_key(int key, t_drown *data)
 {
-	if (data->event.type == SDL_KEYDOWN)
-	{
-		if (data->keyboard[SDL_SCANCODE_ESCAPE])
-			data->play_state = EXIT;
-		
-		if (data->keyboard[SDL_SCANCODE_A] ||data->keyboard[SDL_SCANCODE_D])
-			strife(data);
-		if (data->keyboard[SDL_SCANCODE_W] || data->keyboard[SDL_SCANCODE_S])
-			move_player(data);
-	}
-	/*
-	if (data->event.type == SDL_KEYUP)
-	{
-		if (key == SDLK_c)
-			data->player.height = 32 + (data->map.map[(int)roundf(data->player.y)][(int)roundf(data->player.x)] - '0') * 8;
-	}*/
-	//if (SDL_GetKeyboardState)
+	if (data->system.keyboard_state[SDL_SCANCODE_ESCAPE])
+		data->system.play_state = EXIT;
+	if (key == SDLK_0)
+		draw_map(data);
+	if (data->system.keyboard_state[SDL_SCANCODE_A] || data->system.keyboard_state[SDL_SCANCODE_D])
+		strife(data);
+	if (data->system.keyboard_state[SDL_SCANCODE_W]|| data->system.keyboard_state[SDL_SCANCODE_S])
+		move_player(data);
 }
 
 void	deal_mouse(t_drown *data)
@@ -45,8 +36,8 @@ void	deal_mouse(t_drown *data)
 	data->hg -= data->event.motion.yrel * 8;
 	if (data->hg > 700)
 		data->hg = 700;
-	if (data->hg < -800)
-		data->hg = -800;
+	if (data->hg < -400)
+		data->hg = -400;
 }
 
 void	move_player(t_drown *data)
@@ -58,12 +49,12 @@ void	move_player(t_drown *data)
 	data->player.height = 32 + (data->map.map[(int)roundf(data->player.y)][(int)roundf(data->player.x)] - '0') * 8;
 	while (i < SPEED)
 	{
-		if (data->keyboard[SDL_SCANCODE_W])
+		if (data->system.keyboard_state[SDL_SCANCODE_W])
 		{
 			data->player.x -= data->player.dx;
 			data->player.y -= data->player.dy;
 		}
-		if (data->keyboard[SDL_SCANCODE_S])
+		if (data->system.keyboard_state[SDL_SCANCODE_S])
 		{
 			data->player.x += data->player.dx;
 			data->player.y += data->player.dy;
@@ -71,7 +62,7 @@ void	move_player(t_drown *data)
 		if ((data->map.map[(int)roundf(data->player.y)][(int)roundf(data->player.x)] - '0') * 8 > data->player.height - 24 ||
 		 data->map.map[(int)roundf(data->player.y)][(int)roundf(data->player.x)] == '#')
 		{
-			if (data->keyboard[SDL_SCANCODE_S])
+			if (data->system.keyboard_state[SDL_SCANCODE_S])
 			{
 				data->player.x -= data->player.dx;
 			data->player.y -= data->player.dy;
@@ -87,6 +78,7 @@ void	move_player(t_drown *data)
 	}
 	data->player.x = roundf(data->player.x);
 	data->player.y = roundf(data->player.y);
+	y_right_arm_flail(&data->gfx);
 }
 
 void	strife(t_drown *data)
@@ -103,23 +95,23 @@ void	strife(t_drown *data)
 	data->player.height = 32 + (data->map.map[(int)roundf(data->player.y)][(int)roundf(data->player.x)] - '0') * 8;
 	while (i < SPEED)
 	{
-		if (data->keyboard[SDL_SCANCODE_D])
-		{
-			data->player.x -= dx;
-			data->player.y -= dy;
-		}
-		if (data->keyboard[SDL_SCANCODE_A])
+		if (data->system.keyboard_state[SDL_SCANCODE_A])
 		{
 			data->player.x += dx;
 			data->player.y += dy;
 		}
-		if ((data->map.map[(int)roundf(data->player.y)][(int)roundf(data->player.x)] - '0') * 8 > data->player.height - 24 ||
+		if (data->system.keyboard_state[SDL_SCANCODE_D])
+		{
+			data->player.x -= dx;
+			data->player.y -= dy;
+		}
+		if ((data->map.map[(int)roundf(data->player.y)][(int)roundf(data->player.x)] - '0') * 8 > data->player.height -24 ||
 		 data->map.map[(int)roundf(data->player.y)][(int)roundf(data->player.x)] == '#')
 		{
-			if (data->keyboard[SDL_SCANCODE_A])
+			if (data->system.keyboard_state[SDL_SCANCODE_A])
 			{
 				data->player.x -= dx;
-			data->player.y -= dy;
+				data->player.y -= dy;
 			}
 			else
 			{

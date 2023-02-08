@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 10:05:39 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/06 09:47:11 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/08 10:31:17 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,8 @@ static int	draw_space(t_drown *d)
 int	render(t_drown *data)
 {
 	render_thread(data);
+		//add error checks;
+	render_overlay(data);
 		//add error checks;
 	draw_map(data);
 		//add error checks;

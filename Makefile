@@ -6,7 +6,7 @@
 #    By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/16 17:04:55 by aviholai          #+#    #+#              #
-#    Updated: 2023/01/27 20:51:00 by aviholai         ###   ########.fr        #
+#    Updated: 2023/02/08 10:38:50 by aviholai         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,9 +17,11 @@ NAME				=	doom-nukem
 CC					=	gcc
 FILES				=	\
 						controls_keyboard\
+						draw\
 						error_management\
 						event\
 						graphic_render\
+						graphic_render_animations\
 						graphic_render_minimap\
 						graphic_render_overlay\
 						graphic_render_raycast\
@@ -33,7 +35,7 @@ FILES				=	\
 						utilities_movement\
 						utilities_system\
 						utility\
-						draw
+						install_right_arm\
 
 SRC					=	$(addprefix src/, $(addsuffix .c, $(FILES)))
 OBJ					=	$(addprefix obj/, $(addsuffix .o, $(FILES)))

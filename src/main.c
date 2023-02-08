@@ -6,24 +6,15 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 18:24:05 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/06 09:42:39 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/08 11:13:00 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "drowning.h"
 
-//	Loads the texture files for walls from the 'textures' folder and
-//	saves them to the 't_texture' structure's SDL_Surface file[].
-static int	initialize_textures(t_drown *drown)
+static int	initialize_textures(t_drown *d)
 {
-	(void)drown;
-//	drown->graph.texture[0] = img_load("textures/bricks_med.png");
-//	drown->graph.texture[1] = img_load("textures/bricks_dark.png");
-//	drown->graph.texture[2] = img_load("textures/bricks_med2.png");
-//	drown->graph.texture[3] = img_load("textures/bricks_lit.png");
-//	if (!(drown->graph.texture[0]) || !(drown->graph.texture[1])
-//		|| !(drown->graph.texture[2]) || !(drown->graph.texture[3]))
-//		return (ERROR);
+	sprite_right_arm(d);
 	return (0);
 }
 
@@ -56,12 +47,11 @@ static int	initialize_media(t_drown *d)
 {
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS) > SDL_ERROR)
 	{
-		d->gfx.scale = SCALE;
+		d->gfx.scale = 1;
 		d->gfx.width = (WIDTH * d->gfx.scale);
 		d->gfx.height = (HEIGHT * d->gfx.scale);
-		d->gfx.scanline = FALSE;
-		d->play_state = PLAY;
-		d->thread = 1;
+//		d->gfx.scanline = FALSE;
+		d->system.play_state = PLAY;
 		d->hg = 0; //What exactly is Dofidog's data->height?
 		d->gfx.window = SDL_CreateWindow(TITLE, SDL_WINDOWPOS_UNDEFINED,
 				SDL_WINDOWPOS_UNDEFINED, d->gfx.width,
