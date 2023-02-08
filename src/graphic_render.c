@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 10:05:39 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/07 19:19:06 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/08 10:21:00 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ static void	draw_right_arm(t_drown *d)
 	d->index.x = ((d->gfx.width - 250 + MARGIN) + d->gfx.shake_x);
 	while (d->index.y < d->gfx.height)
 	{
-		while (d->index.x < d->gfx.width)
+		while (d->index.x < (d->gfx.width - 2))
 		{
 			if (d->gfx.sprite.right_arm[f][y][x])
 				pixel_put(d->gfx.screen, d->index.x, d->index.y,
