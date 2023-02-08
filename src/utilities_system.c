@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 17:50:06 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/08 10:39:51 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/08 10:44:18 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,6 @@ static void	track_time(t_drown *d)
 		if ((d->system.time / 1000) >= d->system.second)
 				d->system.second++;
 		animation_loop(d);
-}
-
-static void	x_right_arm_flail(t_gfx *gfx)
-{
-		if (gfx->shake_toggle == FALSE)
-		{
-			gfx->shake_x++;
-			if (gfx->shake_x >= MARGIN)
-				gfx->shake_toggle = TRUE;
-		}
-		else
-		{
-			gfx->shake_x--;
-			if (gfx->shake_x <= -MARGIN)
-				gfx->shake_toggle = FALSE;
-		}
 }
 
 //	Sdl_loop() keeps Simple Direct MediaLayer's PollEvent constantly
