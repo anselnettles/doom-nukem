@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 13:35:22 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/08 16:43:41 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/08 19:34:58 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@ int	pixel_put(t_gfx *gfx, int x_src, int y_src, uint32_t color)
 	x = (x_src); //* gfx->scale);
 	y = (y_src); //* gfx->scale);
 	wth = gfx->width;
-	pix[(x) + (y * wth)] = color << (gfx->scanline * (y_src % 2));
-	//if (gfx->scale >= 2)
-	//{
-	//	pix[(x + 1) + ((y) * wth)] = color << (gfx->scanline * (y_src % 2));
-	//	pix[(x) + ((y + 1) * wth)] = color;
-	//	pix[(x + 1) + ((y + 1) * wth)] = color;
-	//}
+	pix[(x) + (y * wth)] = color;// << (gfx->scanline * (y_src % 2));
+	if (gfx->scale >= 2 && !(x_src > gfx->width - 2 || y_src > gfx->height - 2))
+	{
+		pix[(x + 1) + ((y) * wth)] = color;// << (gfx->scanline * (y_src % 2));
+		pix[(x) + ((y + 1) * wth)] = color;
+		pix[(x + 1) + ((y + 1) * wth)] = color;
+	}
 	return (0);
 }
 
