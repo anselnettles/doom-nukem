@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 11:08:33 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/08 15:00:38 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/08 19:28:12 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ static int	draw_right_arm(t_index *index, t_gfx *gfx)
 	gfx->f = gfx->frame.right_arm;
 	gfx->x = 0;
 	gfx->y = 0;
-	index->y = ((gfx->height - 238 + MARGIN) + gfx->shake_y);
-	index->x = ((gfx->width - 250 + MARGIN) + gfx->shake_x);
+	index->y = ((gfx->height - (238 * gfx->scale) + MARGIN) + gfx->shake_y);
+	index->x = ((gfx->width - (250 * gfx->scale) + MARGIN) + gfx->shake_x);
 	while ((index->y) < (gfx->height))
 	{
 		while ((index->x) < (gfx->width))
@@ -27,12 +27,12 @@ static int	draw_right_arm(t_index *index, t_gfx *gfx)
 				if (pixel_put(gfx, index->x, index->y,
 						gfx->sprite.right_arm[gfx->f][gfx->y][gfx->x]) == ERROR)
 					return (ERROR);
-			index->x++;
+			index->x += gfx->scale;
 			gfx->x++;
 		}
-		index->y++;
+		index->y += gfx->scale;
 		gfx->y++;
-		index->x = ((gfx->width - 250 + MARGIN) + gfx->shake_x);
+		index->x = ((gfx->width - (250 * gfx->scale) + MARGIN) + gfx->shake_x);
 		gfx->x = 0;
 	}
 	return (0);
