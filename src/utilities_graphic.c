@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 13:35:22 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/08 12:55:25 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/08 13:10:32 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ void	pixel_put(t_gfx *gfx, int x_src, int y_src, uint32_t color)
 	int			y;
 	int			wth;
 
-	pix = gfx->surf->pixels;
-	x = (x_src * g->scale);
-	y = (y_src * g->scale);
+	pix = gfx->screen->pixels;
+	x = (x_src * gfx->scale);
+	y = (y_src * gfx->scale);
 	wth = gfx->width;
 	pix[(x) + (y * wth)] = color << (gfx->scanline * (y_src % 2));
 	if (gfx->scale >= 2)
