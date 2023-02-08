@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 11:08:33 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/08 10:37:44 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/08 13:06:06 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	draw_right_arm(t_drown *d)
 		while (d->index.x < (d->gfx.width - 2))
 		{
 			if (d->gfx.sprite.right_arm[f][y][x])
-				pixel_put(d->gfx.screen, d->index.x, d->index.y,
+				pixel_put(d->gfx, d->index.x, d->index.y,
 						d->gfx.sprite.right_arm[f][y][x]);
 			d->index.x++;
 			x++;
