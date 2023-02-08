@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/08 13:26:35 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/08 13:56:54 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,6 +187,7 @@ typedef struct s_graphics {
 	SDL_Window		*window;
 	SDL_Surface		*screen;
 	SDL_Surface		*image;
+	float			dop;		//distance to projection plane
 	const char		*sdl_error_string;
 	int				width;
 	int				height;

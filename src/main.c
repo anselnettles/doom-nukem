@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 18:24:05 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/08 12:04:43 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/08 13:52:08 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ static int	initialize_media(t_drown *d)
 				SDL_WINDOWPOS_UNDEFINED, d->gfx.width,
 				d->gfx.height, SDL_WINDOW_SHOWN);
 		d->gfx.screen = SDL_GetWindowSurface(d->gfx.window);
+		d->gfx.dop = d->gfx.width / 2 / tan(30 * DEGREES);
 		if (d->gfx.window != NULL || d->gfx.screen != NULL)
 			return (0);
 	}
