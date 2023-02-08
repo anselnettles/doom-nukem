@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/08 15:25:40 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/08 16:30:02 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # define TITLE "Project Drowning | github.com/AnselNettles/doom-nukem"
 # define NAME "doom-nukem"
 
-# define WIDTH 642			//Window resolution width.
+# define WIDTH 640			//Window resolution width.
 # define HEIGHT 480			//Window resolution height.
 # define MARGIN 20			//Margin difference for the UI.
 
@@ -268,20 +268,21 @@ typedef enum e_error
 //	Non-static functions'.
 int			main(void);
 int			read_file(t_drown *drown);
-//int			buffer_to_map(char b[MAX + 1], t_editor *e, t_index *i, int width);
+//int		buffer_to_map(char b[MAX + 1], t_editor *e, t_index *i, int width);
 int			render(t_drown *d);
-int			raycast(t_drown *d, float hor_coll_dist, float ver_coll_dist);
-void		raycast_angle_check(t_gfx *g);
+//int		raycast(t_drown *d, float hor_coll_dist, float ver_coll_dist);
+//void		raycast_angle_check(t_gfx *g);
 void		draw_minimap_slot(t_drown *d);
 int			render_overlay(t_drown *d);
 int			animation_loop(t_drown *d);
 void		x_right_arm_flail(t_gfx *gfx);
 void		y_right_arm_flail(t_gfx *gfx);
-void		print_array(t_editor *editor, t_index *index);
+//void		print_array(t_editor *editor, t_index *index);
 
 void		keyboard_input(t_drown *d);
-void		move_forward_back(t_editor *editor, t_player *p, SDL_Keycode key);
-void		move_turn(t_player *p, SDL_Keycode key);
+//void		move_forward_back(t_editor *editor, t_player *p, SDL_Keycode key);
+//void		move_turn(t_player *p, SDL_Keycode key);
+void		scale_window(t_gfx *gfx);
 
 //SDL_Surface	*img_load(char *path);
 int			pixel_put(t_gfx *gfx, int x_src, int y_src, uint32_t color);
