@@ -103,22 +103,32 @@ static int	draw_space(t_drown *d)
 	}
 }*/
 
-static int	render_right_arm(t_drown *d)
+static void	draw_right_arm(t_drown *d)
 {
-	d->index.y = 0;
-	d->index.x = 0;
-	while (d->index.y <= 237)
+	int	f;
+	int	y;
+	int	x;
+
+	f = d->gfx.frame.right_arm;
+	y = 0;
+	x = 0;
+	d->index.y = ((d->gfx.height - 238 + MARGIN) + d->gfx.shake_y);
+	d->index.x = ((d->gfx.width - 250 + MARGIN) + d->gfx.shake_x);
+	while (d->index.y < d->gfx.height)
+	{
+		while (d->index.x < d->gfx.width)
 		{
-			while (d->index.x <= 249)
-			{
-				if (d->gfx.sprite.right_arm[d->gfx.frame.right_arm][d->index.y][d->index.x] != 0x00000000)
-					pixel_put(d->gfx.screen, ((d->gfx.width - 250) + d->index.x), ((d->gfx.height - 238) + d->index.y), d->gfx.sprite.right_arm[d->gfx.frame.right_arm][d->index.y][d->index.x]);
-				d->index.x++;
-			}
-			d->index.y++;
-			d->index.x = 0;
+			if (d->gfx.sprite.right_arm[f][y][x])
+				pixel_put(d->gfx.screen, d->index.x, d->index.y,
+						d->gfx.sprite.right_arm[f][y][x]);
+			d->index.x++;
+			x++;
 		}
-	return (0);
+		d->index.y++;
+		y++;
+		d->index.x = ((d->gfx.width - 250 + MARGIN) + d->gfx.shake_x);
+		x = 0;
+	}
 }
 
 //	The graphical render order: Fill in black, draw the 3D space, draw the
@@ -128,7 +138,7 @@ int	render(t_drown *data)
 {
 	render_thread(data);
 		//add error checks;
-	render_right_arm(data);
+	draw_right_arm(data);
 		//add error checks;
 	draw_map(data);
 		//add error checks;

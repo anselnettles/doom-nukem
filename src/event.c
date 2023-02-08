@@ -21,7 +21,7 @@ void	deal_key(int key, t_drown *data)
 	if (key == SDLK_a || key == SDLK_d)
 		strife(key, &data->player, data->map);
 	if (key == SDLK_w || key == SDLK_s)
-		move_player(key, &data->player, data->map);
+		move_player(data, key, &data->player, data->map);
 }
 
 void	deal_mouse(t_drown *data)
@@ -40,7 +40,7 @@ void	deal_mouse(t_drown *data)
 		data->hg = -400;
 }
 
-void	move_player(int key, t_player *player, t_map map)
+void	move_player(t_drown *d, int key, t_player *player, t_map map)
 {
 	int		i;
 	//int		height;
@@ -78,6 +78,18 @@ void	move_player(int key, t_player *player, t_map map)
 	}
 	player->x = roundf(player->x);
 	player->y = roundf(player->y);
+		if (d->gfx.shake_toggle == FALSE)
+		{
+			d->gfx.shake_y++;
+			if (d->gfx.shake_y >= 10)
+				d->gfx.shake_toggle = TRUE;
+		}
+		else
+		{
+			d->gfx.shake_y--;
+			if (d->gfx.shake_y <= -10)
+				d->gfx.shake_toggle = FALSE;
+		}
 }
 
 void	strife(int key, t_player *player, t_map map)

@@ -47,10 +47,10 @@ static int	initialize_media(t_drown *d)
 {
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS) > SDL_ERROR)
 	{
-		d->gfx.scale = SCALE;
+		d->gfx.scale = 1;
 		d->gfx.width = (WIDTH * d->gfx.scale);
 		d->gfx.height = (HEIGHT * d->gfx.scale);
-		d->gfx.scanline = FALSE;
+//		d->gfx.scanline = FALSE;
 		d->play_state = PLAY;
 		d->thread = 1;
 		d->hg = 0; //What exactly is Dofidog's data->height?

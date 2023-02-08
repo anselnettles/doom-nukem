@@ -32,9 +32,9 @@
 # define TITLE "Project Drowning | github.com/AnselNettles/doom-nukem"
 # define NAME "doom-nukem"
 
-# define WIDTH 854					//Window resolution width.
-# define HEIGHT 480					//Window resolution height.
-# define MARGIN 10					//Margin difference for the UI.
+# define WIDTH 854			//Window resolution width.
+# define HEIGHT 480			//Window resolution height.
+# define MARGIN 20			//Margin difference for the UI.
 
 //	SYSTEM MECHANICS GLOBAL DEFINITIONS
 # define TRUE 1						//Set to true.
@@ -42,7 +42,6 @@
 # define ERROR 1					//Reference to return value.
 # define NEW_LINE 2					//Reference to file parser return value.
 # define SDL_ERROR -1				//Reference to SDL function's return.
-# define SCALE 1					//Resolution scale.
 //# define BUFFER_MAX 2550			//Level file maximum size.
 //# define MAX 50						//Map array dimension maximum.
 //# define PARAMS 10					//Map array parameter dimension maximum.
@@ -189,12 +188,16 @@ typedef struct s_graphics {
 	const char		*sdl_error_string;
 	int				width;
 	int				height;
+	int				f;
 	int				x;
 	int				y;
-	uint32_t		color;
+	uint32_t			color;
 	int				scale;
-	int				map;
-	int				scanline;
+	int				shake_x;
+	int				shake_y;
+	int				shake_toggle;
+//	int				map;
+//	int				scanline;
 	t_txt			txt;
 	t_sprite		sprite;
 	t_frame			frame;
@@ -296,7 +299,7 @@ void	read_map(char *file, t_map *data);
 int		init_sdl(SDL_Window *window, SDL_Surface *screen);
 void	draw_map(t_drown *data);
 void	init_player(t_player *player);
-void	move_player(int key, t_player *player, t_map map);
+void	move_player(t_drown *d, int key, t_player *player, t_map map);
 void	rotate_player(int key, t_player *player);
 void	deal_key(int key, t_drown *data);
 void	deal_mouse(t_drown *data);
