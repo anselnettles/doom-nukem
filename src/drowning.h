@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/08 16:30:02 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/08 19:30:27 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # define TITLE "Project Drowning | github.com/AnselNettles/doom-nukem"
 # define NAME "doom-nukem"
 
-# define WIDTH 640			//Window resolution width.
+# define WIDTH 642			//Window resolution width.
 # define HEIGHT 480			//Window resolution height.
 # define MARGIN 20			//Margin difference for the UI.
 
