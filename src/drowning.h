@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/08 13:56:54 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/08 15:20:23 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # define TITLE "Project Drowning | github.com/AnselNettles/doom-nukem"
 # define NAME "doom-nukem"
 
-# define WIDTH 854			//Window resolution width.
+# define WIDTH 642			//Window resolution width.
 # define HEIGHT 480			//Window resolution height.
 # define MARGIN 20			//Margin difference for the UI.
 
@@ -196,9 +196,10 @@ typedef struct s_graphics {
 	int				y;
 	uint32_t			color;
 	int				scale;
-	int				shake_x;
-	int				shake_y;
-	int				shake_toggle;
+	float				shake_x;
+	float				shake_y;
+	int				shake_xtoggle;
+	int				shake_ytoggle;
 //	int				map;
 	int				scanline;
 	t_txt			txt;
