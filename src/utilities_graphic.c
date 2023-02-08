@@ -6,45 +6,32 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 13:35:22 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/08 12:55:25 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/08 13:22:38 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "drowning.h"
 
-//	The image loading function, used to saving the .png texture files
-//	from the 'textures' folder into the graphical wall textures.
-/*SDL_Surface	*img_load(char *path)
-{
-	SDL_Surface	*ret;
-	SDL_Surface	*tmp;
-	SDL_RWops	*rwops;
-
-	rwops = SDL_RWFromFile(path, "r");
-	tmp = IMG_Load_RW(rwops, 1);
-	if (tmp == NULL || rwops == NULL)
-		return (NULL);
-	ret = SDL_ConvertSurfaceFormat(tmp, SDL_PIXELFORMAT_ARGB8888, 0);
-	SDL_FreeSurface(tmp);
-	return (ret);
-}*/
-
 //	A pixel drawing function for the SDL surface, created to make the rendering
 //	process more simpler.
 //	Applies a multiplication of the needed pixels as by the scaling toggle,
-//	one pixel for 1X scale, four pixels for 2X scale and nine pixels for 3X.
-//	The scanline visual effect ('g->scanline') is applied on every second pixel
-//	color of the column to create an aesthetic alternating scanline effect.
-void	pixel_put(t_gfx *gfx, int x_src, int y_src, uint32_t color)
+//	one pixel for 1X scale and four pixels for 2X scale.
+//	The scanline visual effect ('gfx->scanline') is applied alternatively to
+//	color of the column to create an aesthetic alternating scanline effect,
+//	when toggled on.
+int	pixel_put(t_gfx *gfx, int x_src, int y_src, uint32_t color)
 {
 	uint32_t	*pix;
 	int			x;
 	int			y;
 	int			wth;
 
-	pix = gfx->surf->pixels;
-	x = (x_src * g->scale);
-	y = (y_src * g->scale);
+
+	if (x_src > gfx->width || y_src > gfx->width)
+		return (ERROR);
+	pix = gfx->screen->pixels;
+	x = (x_src * gfx->scale);
+	y = (y_src * gfx->scale);
 	wth = gfx->width;
 	pix[(x) + (y * wth)] = color << (gfx->scanline * (y_src % 2));
 	if (gfx->scale >= 2)
@@ -52,15 +39,8 @@ void	pixel_put(t_gfx *gfx, int x_src, int y_src, uint32_t color)
 		pix[(x + 1) + ((y) * wth)] = color << (gfx->scanline * (y_src % 2));
 		pix[(x) + ((y + 1) * wth)] = color;
 		pix[(x + 1) + ((y + 1) * wth)] = color;
-		if (gfx->scale == 3)
-		{
-			pix[(x + 2) + ((y) * wth)] = color << (gfx->scanline * (y_src % 2));
-			pix[(x + 2) + ((y + 1) * wth)] = color;
-			pix[(x) + ((y + 2) * wth)] = color << (gfx->scanline * (y_src % 2));
-			pix[(x +1) + ((y +2) * wth)] = color << (gfx->scanline * (y_src % 2));
-			pix[(x +2) + ((y +2) * wth)] = color << (gfx->scanline * (y_src % 2));
-		}
 	}
+	return (0);
 }
 
 /*

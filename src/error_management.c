@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 16:40:37 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/30 12:59:39 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/08 13:27:29 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	error(int code)
 {
-	const char	*error_message[15];
+	const char	*error_message[16];
 
 	error_message[0] = T_ORANGE "Usage: " T_NUL "./" NAME "\n" T_NUL;
 	error_message[1] = T_RED "Error: No file applied for parsing.\n" T_NUL;
@@ -31,6 +31,7 @@ int	error(int code)
 	error_message[12] = T_RED "Error: Player initialization failure.\n";
 	error_message[13] = T_RED "Error: Graphics rendering failure.\n" T_NUL;
 	error_message[14] = T_RED "Error: Texture initialization failure.\n" T_NUL;
+	error_message[15] = T_RED "Error: Overlay drawing error.\n" T_NUL;
 	write(1, error_message[code], ft_strlen(error_message[code]));
 	return (ERROR);
 }
