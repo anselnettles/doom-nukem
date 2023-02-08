@@ -6,11 +6,35 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:21:31 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/02/06 16:28:18 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/08 10:13:05 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "drowning.h"
+
+void	y_right_arm_flail(t_gfx *gfx)
+{
+	if ((gfx->shake_x <= -MARGIN / 2) || (gfx->shake_x > MARGIN / 2))
+		gfx->shake_y++;
+	else if ((gfx->shake_x > -MARGIN / 2) || (gfx->shake_x <= -MARGIN / 2))
+		gfx->shake_y--;
+}
+/*
+void	x_right_arm_flail(t_gfx *gfx)
+{
+		if (gfx->shake_toggle == FALSE)
+		{
+			gfx->shake_x++;
+			if (gfx->shake_x >= MARGIN)
+				gfx->shake_toggle = TRUE;
+		}
+		else
+		{
+			gfx->shake_x--;
+			if (gfx->shake_x <= -MARGIN)
+				gfx->shake_toggle = FALSE;
+		}
+}*/
 
 void	deal_key(int key, t_drown *data)
 {
@@ -19,9 +43,9 @@ void	deal_key(int key, t_drown *data)
 	if (key == SDLK_0)
 		draw_map(data);
 	if (key == SDLK_a || key == SDLK_d)
-		strife(key, &data->player, data->map);
+		strife(&data->gfx, key, &data->player, data->map);
 	if (key == SDLK_w || key == SDLK_s)
-		move_player(data, key, &data->player, data->map);
+		move_player(&data->gfx, key, &data->player, data->map);
 }
 
 void	deal_mouse(t_drown *data)
@@ -38,9 +62,10 @@ void	deal_mouse(t_drown *data)
 		data->hg = 700;
 	if (data->hg < -400)
 		data->hg = -400;
+	//x_right_arm_flail(&data->gfx);
 }
 
-void	move_player(t_drown *d, int key, t_player *player, t_map map)
+void	move_player(t_gfx *gfx, int key, t_player *player, t_map map)
 {
 	int		i;
 	//int		height;
@@ -78,21 +103,11 @@ void	move_player(t_drown *d, int key, t_player *player, t_map map)
 	}
 	player->x = roundf(player->x);
 	player->y = roundf(player->y);
-		if (d->gfx.shake_toggle == FALSE)
-		{
-			d->gfx.shake_y++;
-			if (d->gfx.shake_y >= 10)
-				d->gfx.shake_toggle = TRUE;
-		}
-		else
-		{
-			d->gfx.shake_y--;
-			if (d->gfx.shake_y <= -10)
-				d->gfx.shake_toggle = FALSE;
-		}
+	//x_right_arm_flail(gfx);
+	y_right_arm_flail(gfx);
 }
 
-void	strife(int key, t_player *player, t_map map)
+void	strife(t_gfx *gfx, int key, t_player *player, t_map map)
 {
 	float	dx;
 	float	dy;
@@ -101,6 +116,7 @@ void	strife(int key, t_player *player, t_map map)
 
 
 	i = 0;
+	(void)gfx;
 	dx = cosf(player->dir + 90 * DEGREES);
 	dy = sinf(player->dir + 90 * DEGREES);
 	player->height = 32 + (map.map[(int)roundf(player->y)][(int)roundf(player->x)] - '0') * 8;
@@ -135,4 +151,5 @@ void	strife(int key, t_player *player, t_map map)
 	}
 	player->x = roundf(player->x);
 	player->y = roundf(player->y);
+	//x_right_arm_flail(gfx);
 }
