@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:21:31 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/02/08 12:03:22 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/08 14:06:51 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,15 @@ void	deal_mouse(t_drown *data)
 void	move_player(t_drown *data)
 {
 	int		i;
+	int		sprint;
 	//int		height;
 
 	i = 0;
+	sprint = 1;
+	if (data->system.keyboard_state[SDL_SCANCODE_LSHIFT])
+		sprint = 2;
 	data->player.height = 32 + (data->map.map[(int)roundf(data->player.y)][(int)roundf(data->player.x)] - '0') * 8;
-	while (i < SPEED)
+	while (i < SPEED * sprint)
 	{
 		if (data->system.keyboard_state[SDL_SCANCODE_W])
 		{
@@ -73,7 +77,7 @@ void	move_player(t_drown *data)
 				data->player.x += data->player.dx;
 				data->player.y += data->player.dy;
 			}
-			i = SPEED;
+			i = SPEED * sprint;
 		}
 		i++;
 	}
