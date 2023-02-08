@@ -6,35 +6,11 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:21:31 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/02/08 10:13:05 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/08 10:46:37 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "drowning.h"
-
-void	y_right_arm_flail(t_gfx *gfx)
-{
-	if ((gfx->shake_x <= -MARGIN / 2) || (gfx->shake_x > MARGIN / 2))
-		gfx->shake_y++;
-	else if ((gfx->shake_x > -MARGIN / 2) || (gfx->shake_x <= -MARGIN / 2))
-		gfx->shake_y--;
-}
-/*
-void	x_right_arm_flail(t_gfx *gfx)
-{
-		if (gfx->shake_toggle == FALSE)
-		{
-			gfx->shake_x++;
-			if (gfx->shake_x >= MARGIN)
-				gfx->shake_toggle = TRUE;
-		}
-		else
-		{
-			gfx->shake_x--;
-			if (gfx->shake_x <= -MARGIN)
-				gfx->shake_toggle = FALSE;
-		}
-}*/
 
 void	deal_key(int key, t_drown *data)
 {
@@ -62,7 +38,6 @@ void	deal_mouse(t_drown *data)
 		data->hg = 700;
 	if (data->hg < -400)
 		data->hg = -400;
-	//x_right_arm_flail(&data->gfx);
 }
 
 void	move_player(t_gfx *gfx, int key, t_player *player, t_map map)
@@ -103,7 +78,6 @@ void	move_player(t_gfx *gfx, int key, t_player *player, t_map map)
 	}
 	player->x = roundf(player->x);
 	player->y = roundf(player->y);
-	//x_right_arm_flail(gfx);
 	y_right_arm_flail(gfx);
 }
 
@@ -151,5 +125,4 @@ void	strife(t_gfx *gfx, int key, t_player *player, t_map map)
 	}
 	player->x = roundf(player->x);
 	player->y = roundf(player->y);
-	//x_right_arm_flail(gfx);
 }
