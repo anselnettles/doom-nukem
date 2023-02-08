@@ -6,45 +6,41 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 11:08:33 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/08 13:28:48 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/08 15:00:38 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "drowning.h"
 
-static int	draw_right_arm(t_drown *d)
+static int	draw_right_arm(t_index *index, t_gfx *gfx)
 {
-	int	f;
-	int	y;
-	int	x;
-
-	f = d->gfx.frame.right_arm;
-	y = 0;
-	x = 0;
-	d->index.y = ((d->gfx.height - 238 + MARGIN) + d->gfx.shake_y);
-	d->index.x = ((d->gfx.width - 250 + MARGIN) + d->gfx.shake_x);
-	while (d->index.y < d->gfx.height)
+	gfx->f = gfx->frame.right_arm;
+	gfx->x = 0;
+	gfx->y = 0;
+	index->y = ((gfx->height - 238 + MARGIN) + gfx->shake_y);
+	index->x = ((gfx->width - 250 + MARGIN) + gfx->shake_x);
+	while ((index->y) < (gfx->height))
 	{
-		while (d->index.x < (d->gfx.width - 2))
+		while ((index->x) < (gfx->width))
 		{
-			if (d->gfx.sprite.right_arm[f][y][x])
-				if (pixel_put(&d->gfx, d->index.x, d->index.y,
-						d->gfx.sprite.right_arm[f][y][x]) == ERROR)
+			if (gfx->sprite.right_arm[gfx->f][gfx->y][gfx->x])
+				if (pixel_put(gfx, index->x, index->y,
+						gfx->sprite.right_arm[gfx->f][gfx->y][gfx->x]) == ERROR)
 					return (ERROR);
-			d->index.x++;
-			x++;
+			index->x++;
+			gfx->x++;
 		}
-		d->index.y++;
-		y++;
-		d->index.x = ((d->gfx.width - 250 + MARGIN) + d->gfx.shake_x);
-		x = 0;
+		index->y++;
+		gfx->y++;
+		index->x = ((gfx->width - 250 + MARGIN) + gfx->shake_x);
+		gfx->x = 0;
 	}
 	return (0);
 }
 
 int		render_overlay(t_drown *d)
 {
-	if (draw_right_arm(d) == ERROR)
+	if (draw_right_arm(&d->index, &d->gfx) == ERROR)
 		return (ERROR);
 	return (0);
 }
