@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 10:03:55 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/02/09 13:56:10 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/09 15:01:23 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,13 +82,11 @@ t_txt	big_checkerboard(Uint32 color_one, Uint32 color_two)
 */
 void	draw_texture(t_ray *ray, int y, int y_max, t_wall wall, int limiter)
 {
-	//t_txt	texture;
 	int			texture_y;
 	int			texture_x;
 	float		i;
 	int			j;
 
-	//texture = create_checkerboard(SDL_MapRGB(ray->gfx.screen->format, 0xF7, 0xCE, 0x00), SDL_MapRGB(ray->gfx.screen->format, 0x00, 0x00, 0x00));
 	i = (float)(y_max - y) / 64;
 	j = 0;
 	texture_y = 0;
@@ -104,7 +102,7 @@ void	draw_texture(t_ray *ray, int y, int y_max, t_wall wall, int limiter)
 			texture_y += 1;
 		}
 		if (y >= 0 && y < ray->gfx.height  && y >= limiter)
-			pixel_put(&ray->gfx, ray->x, y, ray->gfx.txt.texture_a[texture_y][texture_x]);
+			pixel_put(&ray->gfx, ray->x, y, ray->gfx.txt.texture_b[texture_y][texture_x]);
 		y++;
 		j++;
 	}
@@ -112,12 +110,10 @@ void	draw_texture(t_ray *ray, int y, int y_max, t_wall wall, int limiter)
 
 void	draw_floor(t_ray *ray, t_wall wall, int win_y)
 {
-	//t_txt texture;
 	int tx;
 	int ty;
 	float	dir;
 
-	//texture = big_checkerboard(SDL_MapRGB(ray->gfx.screen->format, 0x00, 0x00, 0x00), SDL_MapRGB(ray->gfx.screen->format, 0xFF, 0xFF, 0xFF));
 	while (win_y < wall.prev_y && win_y < ray->gfx.height)
 	{
 		dir = atanf((float)(win_y - ray->height) / ray->gfx.dop);
@@ -139,7 +135,6 @@ void	draw_floor(t_ray *ray, t_wall wall, int win_y)
 
 void	draw_ceiling(t_ray *ray, t_wall wall, int win_y)
 {
-	//t_txt texture;
 	int tx;
 	int ty;
 	float	player_height;
@@ -148,22 +143,21 @@ void	draw_ceiling(t_ray *ray, t_wall wall, int win_y)
 	player_height = 64 - ray->player.height;
 	if (player_height < 8)
 		player_height = 4;
-	//texture = big_checkerboard(SDL_MapRGB(ray->gfx.screen->format, 0xFF, 0xFF, 0xFF), SDL_MapRGB(ray->gfx.screen->format, 0x00, 0x00, 0x00));
 	while (win_y >= 0)
 	{
 		dir = atanf((float)(win_y - ray->height) / ray->gfx.dop);
-		wall.distance = player_height / dir;
+		wall.distance = 320 / dir;
 		wall.distance /= cosf(ray->player.dir - wall.dir);
 		wall.x = ray->player.x + wall.dx * wall.distance;
 		wall.y = ray->player.y + wall.dy * wall.distance;
-		tx = (int)roundf(wall.y) % 64;
-		ty = (int)roundf(wall.x) % 64;
+		tx = (int)roundf(wall.x) % 128;
+		ty = (int)roundf(wall.y) % 64;
 		if (tx < 0)
 			tx *= -1;
 		if (ty < 0)
 			ty *= -1;
 		if (win_y < ray->gfx.height )
-			pixel_put(&ray->gfx, ray->x, win_y, ray->gfx.txt.texture_a[ty][tx]);
+			pixel_put(&ray->gfx, ray->x, win_y, ray->gfx.txt.skybox[ty][tx]);
 		win_y--;
 	}
 }
@@ -179,13 +173,10 @@ void	draw_thread(t_ray *ray, float distance, t_wall *wall)
 
 	if (distance < 1)
 		distance = 1;
-	height = 8; 
+	height = 8;
 	if (ray->map.map[(int)roundf(wall->y)][(int)roundf(wall->x)] != '#')
 		height =  ray->map.map[(int)roundf(wall->y)][(int)roundf(wall->x)] - '0';
 	wall_height = (BITS / 8) / distance * ray->gfx.dop * height;
-	//scaled_y = (int)((ray->gfx.height / 2) - (BITS * ((ray->gfx.dop / 2) / distance)) + ray->height + (ray->player.height - 32));
-	//y = (int)((ray->gfx.height / 2) - ((16 * (height - 4)) * ((ray->gfx.dop / 2) / distance)) + ray->height + (ray->player.height - 32));
-	//y_max = (int)((ray->gfx.height / 2) + (BITS * ((ray->gfx.dop / 2) / distance)) + ray->height + (ray->player.height - 32));
 	y_max = ray->height + ((BITS + ray->player.height - 32) / distance * (ray->gfx.dop) / 2);
 	scaled_y = y_max - ((BITS + ray->player.height - 32) / distance * ray->gfx.dop);
 	y = y_max - wall_height;
