@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:21:31 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/02/08 16:13:16 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/09 11:53:05 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ void	deal_mouse(t_drown *data)
 	data->hg -= data->event.motion.yrel * 8;
 	if (data->hg > 700)
 		data->hg = 700;
-	if (data->hg < -400)
-		data->hg = -400;
+	if (data->hg < 0)
+		data->hg = 0;
 }
 
 void	move_player(t_drown *data)
