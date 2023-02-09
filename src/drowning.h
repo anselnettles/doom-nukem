@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/09 14:25:25 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/09 17:09:48 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@
 # define PLAY 1						//Topi's build.
 //# define DEGREE 0.0174532
 # define DEGREES 0.0174532
+# define LETTER_WIDTH 8				//Width of a letter in sprite.
+# define LETTER_HEIGHT 20			//Height of a letter in sprite.
 //# define NORTH 1					//Reference to wall texture direction.
 //# define EAST 2
 //# define SOUTH 3
@@ -175,13 +177,14 @@ typedef struct s_animations {
 
 typedef struct	s_sprites {
 	uint32_t	right_arm[3][238][250];
+	uint32_t	letters[20][728];
 }	t_sprite;
 
 typedef struct s_textures {
 	uint32_t	texture_a[64][64];
 	uint32_t	texture_b[64][64];
 	uint32_t	texture_c[64][64];
-	uint32_t	textire_d[64][64];
+	uint32_t	texture_d[64][64];
 	uint32_t	skybox[64][128];
 }	t_txt;
 
