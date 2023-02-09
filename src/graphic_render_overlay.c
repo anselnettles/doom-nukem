@@ -12,27 +12,28 @@
 
 #include "drowning.h"
 
-static int	draw_right_arm(t_index *index, t_gfx *gfx)
+static int	draw_right_arm(t_index *index, t_gfx *gfx, int s)
 {
 	gfx->f = gfx->frame.right_arm;
 	gfx->x = 0;
 	gfx->y = 0;
-	index->y = ((gfx->height - (238 * gfx->scale) + MARGIN) + gfx->shake_y);
-	index->x = ((gfx->width - (250 * gfx->scale) + MARGIN) + gfx->shake_x);
+	index->y = ((gfx->height - (238 * s) + MARGIN * s) + gfx->shake_y * s);
+	index->x = ((gfx->width - (250 * s) + MARGIN * s) + gfx->shake_x * s);
 	while ((index->y) < (gfx->height))
 	{
 		while ((index->x) < (gfx->width))
 		{
 			if (gfx->sprite.right_arm[gfx->f][gfx->y][gfx->x])
 				if (pixel_put(gfx, index->x, index->y,
-						gfx->sprite.right_arm[gfx->f][gfx->y][gfx->x]) == ERROR)
+						gfx->sprite.right_arm
+						[gfx->f][gfx->y][gfx->x]) == ERROR)
 					return (ERROR);
-			index->x += gfx->scale;
+			index->x += s;
 			gfx->x++;
 		}
-		index->y += gfx->scale;
+		index->y += s;
 		gfx->y++;
-		index->x = ((gfx->width - (250 * gfx->scale) + MARGIN) + gfx->shake_x);
+		index->x = ((gfx->width - (250 * s) + MARGIN * s) + gfx->shake_x * s);
 		gfx->x = 0;
 	}
 	return (0);
@@ -40,7 +41,7 @@ static int	draw_right_arm(t_index *index, t_gfx *gfx)
 
 int		render_overlay(t_drown *d)
 {
-	if (draw_right_arm(&d->index, &d->gfx) == ERROR)
+	if (draw_right_arm(&d->index, &d->gfx, d->gfx.scale) == ERROR)
 		return (ERROR);
 	return (0);
 }

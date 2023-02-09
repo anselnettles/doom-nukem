@@ -19,24 +19,19 @@
 //	The scanline visual effect ('gfx->scanline') is applied alternatively to
 //	color of the column to create an aesthetic alternating scanline effect,
 //	when toggled on.
-int	pixel_put(t_gfx *gfx, int x_src, int y_src, uint32_t color)
+int	pixel_put(t_gfx *gfx, int x, int y, uint32_t color)
 {
 	uint32_t	*pix;
-	int			x;
-	int			y;
 	int			wth;
 
-
-	if (x_src > gfx->width - 1 || y_src > gfx->height - 1)
+	if (x > gfx->width - 1 || y > gfx->height - 1)
 		return (ERROR);
 	pix = gfx->screen->pixels;
-	x = (x_src); //* gfx->scale);
-	y = (y_src); //* gfx->scale);
 	wth = gfx->width;
-	pix[(x) + (y * wth)] = color;// << (gfx->scanline * (y_src % 2));
-	if (gfx->scale >= 2 && !(x_src > gfx->width - 2 || y_src > gfx->height - 2))
+	pix[(x) + (y * wth)] = color << ((gfx->scanline * 0xFFFFFFFF) * (y % 2));
+	if (gfx->scale >= 2 && !(x > gfx->width - 2 || y > gfx->height - 2))
 	{
-		pix[(x + 1) + ((y) * wth)] = color;// << (gfx->scanline * (y_src % 2));
+		pix[(x + 1) + ((y) * wth)] = color << ((gfx->scanline * 0xFFFFFFFF) * (y % 2));
 		pix[(x) + ((y + 1) * wth)] = color;
 		pix[(x + 1) + ((y + 1) * wth)] = color;
 	}

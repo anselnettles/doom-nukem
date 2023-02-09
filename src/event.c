@@ -25,6 +25,13 @@ void	deal_key(int key, t_drown *data)
 		move_player(data);
 	if (data->system.keyboard_state[SDL_SCANCODE_F1])
 		scale_window(&data->gfx);
+	if (data->system.keyboard_state[SDL_SCANCODE_F2])
+	{
+		if (data->gfx.scanline == FALSE)
+			data->gfx.scanline = TRUE;
+		else
+			data->gfx.scanline = FALSE;
+	}
 }
 
 void	deal_mouse(t_drown *data)
