@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 10:03:55 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/02/09 11:52:20 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/09 12:18:28 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,8 +183,8 @@ void	draw_thread(t_ray *ray, float distance, t_wall *wall)
 	//scaled_y = (int)((ray->gfx.height / 2) - (BITS * ((ray->gfx.dop / 2) / distance)) + ray->height + (ray->player.height - 32));
 	//y = (int)((ray->gfx.height / 2) - ((16 * (height - 4)) * ((ray->gfx.dop / 2) / distance)) + ray->height + (ray->player.height - 32));
 	//y_max = (int)((ray->gfx.height / 2) + (BITS * ((ray->gfx.dop / 2) / distance)) + ray->height + (ray->player.height - 32));
-	y_max = ray->height + (BITS / distance * (ray->gfx.dop) / 2);
-	scaled_y = y_max - (BITS / distance * ray->gfx.dop);
+	y_max = ray->height + ((BITS + ray->player.height - 32) / distance * (ray->gfx.dop) / 2);
+	scaled_y = y_max - ((BITS + ray->player.height - 32) / distance * ray->gfx.dop);
 	y = y_max - wall_height;
 	if (y < 0)
 		y = 0;
