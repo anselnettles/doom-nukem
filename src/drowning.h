@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/09 12:02:12 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/09 13:01:35 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,7 +178,11 @@ typedef struct	s_sprites {
 }	t_sprite;
 
 typedef struct s_textures {
-	uint32_t	texture[64][64];
+	uint32_t	texture_a[64][64];
+	uint32_t	texture_b[64][64];
+	uint32_t	texture_c[64][64];
+	uint32_t	textire_d[64][64];
+	uint32_t	skybox[64][128];
 }	t_txt;
 
 //	Graphical-wise variables used for SDL and graphical drawing.
