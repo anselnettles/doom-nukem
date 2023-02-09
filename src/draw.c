@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 10:03:55 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/02/09 14:36:35 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/09 15:01:23 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void	draw_texture(t_ray *ray, int y, int y_max, t_wall wall, int limiter)
 			texture_y += 1;
 		}
 		if (y >= 0 && y < ray->gfx.height  && y >= limiter)
-			pixel_put(&ray->gfx, ray->x, y, ray->gfx.txt.texture_a[texture_y][texture_x]);
+			pixel_put(&ray->gfx, ray->x, y, ray->gfx.txt.texture_b[texture_y][texture_x]);
 		y++;
 		j++;
 	}
@@ -146,18 +146,18 @@ void	draw_ceiling(t_ray *ray, t_wall wall, int win_y)
 	while (win_y >= 0)
 	{
 		dir = atanf((float)(win_y - ray->height) / ray->gfx.dop);
-		wall.distance = player_height / dir;
+		wall.distance = 320 / dir;
 		wall.distance /= cosf(ray->player.dir - wall.dir);
 		wall.x = ray->player.x + wall.dx * wall.distance;
 		wall.y = ray->player.y + wall.dy * wall.distance;
-		tx = (int)roundf(wall.y) % 64;
-		ty = (int)roundf(wall.x) % 64;
+		tx = (int)roundf(wall.x) % 128;
+		ty = (int)roundf(wall.y) % 64;
 		if (tx < 0)
 			tx *= -1;
 		if (ty < 0)
 			ty *= -1;
 		if (win_y < ray->gfx.height )
-			pixel_put(&ray->gfx, ray->x, win_y, ray->gfx.txt.texture_a[ty][tx]);
+			pixel_put(&ray->gfx, ray->x, win_y, ray->gfx.txt.skybox[ty][tx]);
 		win_y--;
 	}
 }
@@ -173,7 +173,7 @@ void	draw_thread(t_ray *ray, float distance, t_wall *wall)
 
 	if (distance < 1)
 		distance = 1;
-	height = 8; 
+	height = 8;
 	if (ray->map.map[(int)roundf(wall->y)][(int)roundf(wall->x)] != '#')
 		height =  ray->map.map[(int)roundf(wall->y)][(int)roundf(wall->x)] - '0';
 	wall_height = (BITS / 8) / distance * ray->gfx.dop * height;
