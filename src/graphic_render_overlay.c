@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 11:08:33 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/08 19:28:12 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/09 11:45:01 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int	draw_right_arm(t_index *index, t_gfx *gfx, int s)
 	return (0);
 }
 
-int		render_overlay(t_drown *d)
+int	render_overlay(t_drown *d)
 {
 	if (draw_right_arm(&d->index, &d->gfx, d->gfx.scale) == ERROR)
 		return (ERROR);
