@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:21:31 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/02/09 11:57:03 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/09 12:32:47 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,23 @@ void	deal_key(int key, t_drown *data)
 		data->system.play_state = EXIT;
 	if (key == SDLK_0)
 		draw_map(data);
-	if (data->system.keyboard_state[SDL_SCANCODE_A] || data->system.keyboard_state[SDL_SCANCODE_D])
+	if (data->system.keyboard_state[SDL_SCANCODE_A]
+			|| data->system.keyboard_state[SDL_SCANCODE_D])
 		strife(data);
-	if (data->system.keyboard_state[SDL_SCANCODE_W]|| data->system.keyboard_state[SDL_SCANCODE_S])
+	if (data->system.keyboard_state[SDL_SCANCODE_W]
+			|| data->system.keyboard_state[SDL_SCANCODE_S])
 		move_player(data);
 	if (data->system.keyboard_state[SDL_SCANCODE_F1])
 		scale_window(&data->gfx);
 	if (data->system.keyboard_state[SDL_SCANCODE_F2])
 	{
-		if (data->gfx.scanline == FALSE)
-			data->gfx.scanline = TRUE;
-		else
+		if (data->gfx.scanline == TRUE)
 			data->gfx.scanline = FALSE;
+		else
+			data->gfx.scanline = TRUE;
 	}
+	if (data->system.keyboard_state[SDL_SCANCODE_F3])
+		data->gfx.overlay_toggle = -data->gfx.overlay_toggle;
 }
 
 void	deal_mouse(t_drown *data)
