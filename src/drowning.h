@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/09 13:28:54 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/09 13:51:56 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -326,6 +326,5 @@ void	draw_ceiling(t_ray *ray, t_wall wall, int win_y);
 
 //To be removed
 void	sprite_right_arm(t_drown *d);
-void	texture_a_temp(t_drown *d);
-
+void	temp_texture_a(t_drown *d);
 #endif
