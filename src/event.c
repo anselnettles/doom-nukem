@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:21:31 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/02/09 11:53:05 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/09 11:57:03 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ void	deal_mouse(t_drown *data)
 	data->player.dx = cosf(data->player.dir);
 	data->player.dy = sinf(data->player.dir);
 	data->hg -= data->event.motion.yrel * 8;
-	if (data->hg > 700)
-		data->hg = 700;
+	if (data->hg > data->gfx.height)
+		data->hg = data->gfx.height;
 	if (data->hg < 0)
 		data->hg = 0;
 }
