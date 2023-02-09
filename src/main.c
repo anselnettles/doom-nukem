@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 18:24:05 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/09 12:28:57 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/09 13:29:40 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static int	initialize_textures(t_drown *d)
 {
 	sprite_right_arm(d);
+	texture_a_temp(d);
 	return (0);
 }
 
