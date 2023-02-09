@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   install_graphics.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 17:14:13 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/09 13:50:54 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/09 13:57:27 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "drowning.h"
 
-void	txta_to_data(int y, int x)
+static uint32_t	txta_to_data(int y, int x)
 {
 	static const uint32_t	temp_texture[64][64]={
 		{0xff8fbecf, 0xff8fbecf, 0xff8fbecf, 0xff8fbecf, 0xff8fbecf, 0xff8fbecf, 0xff86b9c3, 0xff86b9c3, 0xff86b9c3, 0xff86b9c3, 0xff7282a6, 0xff8fbecf, 0xff8fbecf, 0xff8fbecf, 0xff5f6a82, 0xff8fbecf, 0xff8fbecf, 0xff8fbecf, 0xff8fa3cf, 0xff8fa3cf, 0xff8494b8, 0xff8fb2cf, 0xff8fa3cf, 0xff8fb2cf, 0xff8fa3cf, 0xff8fb2cf, 0xff8494b8, 0xff8fb2cf, 0xff8fa3cf, 0xff8fa3cf, 0xff8494b8, 0xff8fb2cf, 0xff8494b8, 0xff8fb2cf, 0xff8494b8, 0xff8fb2cf, 0xff7282a6, 0xff8fb2cf, 0xff7282a6, 0xff8fb2cf, 0xff8fa3cf, 0xff8fa3cf, 0xff8494b8, 0xff8fb2cf, 0xff8fb2cf, 0xff8fb2cf, 0xff8494b8, 0xff8fb2cf, 0xff8fb2cf, 0xff8fb2cf, 0xff7282a6, 0xff8fb2cf, 0xff8fbecf, 0xff5870a6, 0xff8fbecf, 0xff4e5d7d, 0xff364157, 0xff8fa3cf, 0xff62759e, 0xff8fa3cf, 0xff8fbecf, 0xff596378, 0xff8fbecf, 0xff8fa3cf},{

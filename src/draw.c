@@ -6,11 +6,14 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 10:03:55 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/02/09 12:18:28 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/09 13:56:10 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
 #include "drowning.h"
+
+/*
 t_txt	create_checkerboard(Uint32 color_one, Uint32 color_two)
 {
 	t_txt	texture;
@@ -76,16 +79,16 @@ t_txt	big_checkerboard(Uint32 color_one, Uint32 color_two)
 	}
 	return(texture);
 }
-
+*/
 void	draw_texture(t_ray *ray, int y, int y_max, t_wall wall, int limiter)
 {
-	t_txt	texture;
+	//t_txt	texture;
 	int			texture_y;
 	int			texture_x;
 	float		i;
 	int			j;
 
-	texture = create_checkerboard(SDL_MapRGB(ray->gfx.screen->format, 0xF7, 0xCE, 0x00), SDL_MapRGB(ray->gfx.screen->format, 0x00, 0x00, 0x00));
+	//texture = create_checkerboard(SDL_MapRGB(ray->gfx.screen->format, 0xF7, 0xCE, 0x00), SDL_MapRGB(ray->gfx.screen->format, 0x00, 0x00, 0x00));
 	i = (float)(y_max - y) / 64;
 	j = 0;
 	texture_y = 0;
@@ -101,7 +104,7 @@ void	draw_texture(t_ray *ray, int y, int y_max, t_wall wall, int limiter)
 			texture_y += 1;
 		}
 		if (y >= 0 && y < ray->gfx.height  && y >= limiter)
-			pixel_put(&ray->gfx, ray->x, y, texture.texture[texture_y][texture_x]);
+			pixel_put(&ray->gfx, ray->x, y, ray->gfx.txt.texture_a[texture_y][texture_x]);
 		y++;
 		j++;
 	}
@@ -109,12 +112,12 @@ void	draw_texture(t_ray *ray, int y, int y_max, t_wall wall, int limiter)
 
 void	draw_floor(t_ray *ray, t_wall wall, int win_y)
 {
-	t_txt texture;
+	//t_txt texture;
 	int tx;
 	int ty;
 	float	dir;
 
-	texture = big_checkerboard(SDL_MapRGB(ray->gfx.screen->format, 0x00, 0x00, 0x00), SDL_MapRGB(ray->gfx.screen->format, 0xFF, 0xFF, 0xFF));
+	//texture = big_checkerboard(SDL_MapRGB(ray->gfx.screen->format, 0x00, 0x00, 0x00), SDL_MapRGB(ray->gfx.screen->format, 0xFF, 0xFF, 0xFF));
 	while (win_y < wall.prev_y && win_y < ray->gfx.height)
 	{
 		dir = atanf((float)(win_y - ray->height) / ray->gfx.dop);
@@ -129,14 +132,14 @@ void	draw_floor(t_ray *ray, t_wall wall, int win_y)
 		if (ty < 0)
 			ty *= -1;
 		if (win_y > 0)
-			pixel_put(&ray->gfx, ray->x, win_y, texture.texture[ty][tx]);
+			pixel_put(&ray->gfx, ray->x, win_y, ray->gfx.txt.texture_a[ty][tx]);
 		win_y++;
 	}
 }
 
 void	draw_ceiling(t_ray *ray, t_wall wall, int win_y)
 {
-	t_txt texture;
+	//t_txt texture;
 	int tx;
 	int ty;
 	float	player_height;
@@ -145,7 +148,7 @@ void	draw_ceiling(t_ray *ray, t_wall wall, int win_y)
 	player_height = 64 - ray->player.height;
 	if (player_height < 8)
 		player_height = 4;
-	texture = big_checkerboard(SDL_MapRGB(ray->gfx.screen->format, 0xFF, 0xFF, 0xFF), SDL_MapRGB(ray->gfx.screen->format, 0x00, 0x00, 0x00));
+	//texture = big_checkerboard(SDL_MapRGB(ray->gfx.screen->format, 0xFF, 0xFF, 0xFF), SDL_MapRGB(ray->gfx.screen->format, 0x00, 0x00, 0x00));
 	while (win_y >= 0)
 	{
 		dir = atanf((float)(win_y - ray->height) / ray->gfx.dop);
@@ -160,7 +163,7 @@ void	draw_ceiling(t_ray *ray, t_wall wall, int win_y)
 		if (ty < 0)
 			ty *= -1;
 		if (win_y < ray->gfx.height )
-			pixel_put(&ray->gfx, ray->x, win_y, texture.texture[ty][tx]);
+			pixel_put(&ray->gfx, ray->x, win_y, ray->gfx.txt.texture_a[ty][tx]);
 		win_y--;
 	}
 }
