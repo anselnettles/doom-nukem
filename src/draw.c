@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 10:03:55 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/02/08 15:14:19 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/09 11:52:20 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ void	draw_floor(t_ray *ray, t_wall wall, int win_y)
 	texture = big_checkerboard(SDL_MapRGB(ray->gfx.screen->format, 0x00, 0x00, 0x00), SDL_MapRGB(ray->gfx.screen->format, 0xFF, 0xFF, 0xFF));
 	while (win_y < wall.prev_y && win_y < ray->gfx.height)
 	{
-		dir = atanf((float)(win_y - (ray->gfx.height / 2) - ray->height) / ray->gfx.dop);
+		dir = atanf((float)(win_y - ray->height) / ray->gfx.dop);
 		wall.distance = ray->player.height / dir;
 		wall.distance /= cosf(ray->player.dir - wall.dir);
 		wall.x = ray->player.x - wall.dx * wall.distance;
@@ -148,7 +148,7 @@ void	draw_ceiling(t_ray *ray, t_wall wall, int win_y)
 	texture = big_checkerboard(SDL_MapRGB(ray->gfx.screen->format, 0xFF, 0xFF, 0xFF), SDL_MapRGB(ray->gfx.screen->format, 0x00, 0x00, 0x00));
 	while (win_y >= 0)
 	{
-		dir = atanf((float)(win_y - (ray->gfx.height / 2) - ray->height) / ray->gfx.dop);
+		dir = atanf((float)(win_y - ray->height) / ray->gfx.dop);
 		wall.distance = player_height / dir;
 		wall.distance /= cosf(ray->player.dir - wall.dir);
 		wall.x = ray->player.x + wall.dx * wall.distance;
@@ -165,21 +165,27 @@ void	draw_ceiling(t_ray *ray, t_wall wall, int win_y)
 	}
 }
 
+
 void	draw_thread(t_ray *ray, float distance, t_wall *wall)
 {
 	int			y;
 	int			y_max;
 	int 		height;
 	int			scaled_y;
+	int			wall_height;
 
 	if (distance < 1)
 		distance = 1;
-	height = 8;
+	height = 8; 
 	if (ray->map.map[(int)roundf(wall->y)][(int)roundf(wall->x)] != '#')
 		height =  ray->map.map[(int)roundf(wall->y)][(int)roundf(wall->x)] - '0';
-	scaled_y = (int)((ray->gfx.height / 2) - (BITS * ((ray->gfx.dop / 2) / distance)) + ray->height + (ray->player.height - 32));
-	y = (int)((ray->gfx.height / 2) - ((16 * (height - 4)) * ((ray->gfx.dop / 2) / distance)) + ray->height + (ray->player.height - 32));
-	y_max = (int)((ray->gfx.height / 2) + (BITS * ((ray->gfx.dop / 2) / distance)) + ray->height + (ray->player.height - 32));
+	wall_height = (BITS / 8) / distance * ray->gfx.dop * height;
+	//scaled_y = (int)((ray->gfx.height / 2) - (BITS * ((ray->gfx.dop / 2) / distance)) + ray->height + (ray->player.height - 32));
+	//y = (int)((ray->gfx.height / 2) - ((16 * (height - 4)) * ((ray->gfx.dop / 2) / distance)) + ray->height + (ray->player.height - 32));
+	//y_max = (int)((ray->gfx.height / 2) + (BITS * ((ray->gfx.dop / 2) / distance)) + ray->height + (ray->player.height - 32));
+	y_max = ray->height + (BITS / distance * (ray->gfx.dop) / 2);
+	scaled_y = y_max - (BITS / distance * ray->gfx.dop);
+	y = y_max - wall_height;
 	if (y < 0)
 		y = 0;
 	if (y_max > ray->gfx.height) 
