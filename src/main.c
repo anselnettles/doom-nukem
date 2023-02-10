@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 18:24:05 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/09 18:31:51 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/10 17:49:16 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static int	initialize_media(t_drown *d)
 		d->gfx.width = (WIDTH * d->gfx.scale);
 		d->gfx.height = (HEIGHT * d->gfx.scale);
 		d->hg = d->gfx.height / 2;
-		d->gfx.overlay_toggle = TRUE;
+		d->system.overlay_toggle = TRUE;
 		d->system.play_state = PLAY;
 		d->gfx.window = SDL_CreateWindow(TITLE, SDL_WINDOWPOS_UNDEFINED,
 				SDL_WINDOWPOS_UNDEFINED, d->gfx.width,
