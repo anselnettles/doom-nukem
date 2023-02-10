@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 13:35:22 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/10 10:55:20 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/10 14:47:19 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	pixel_put(t_gfx *gfx, int x, int y, uint32_t color)
 	uint32_t	*pix;
 	int			wth;
 
-	if (x > gfx->width - 1 || y > gfx->height - 1)
+	if (x > gfx->width - 1 || y > gfx->height - 1 || x < 0 || y < 0)
 		return (ERROR);
 	pix = gfx->screen->pixels;
 	wth = gfx->width;
@@ -76,7 +76,7 @@ int	draw_letter(t_gfx *gfx, int start_x, int goal_x)
 		{
 			if (gfx->sprite.letters[gfx->y][gfx->x])
 			{
-				if (pixel_put(gfx, x, y,
+				if (pixel_put(gfx, x, (y + (gfx->flow_y_adjust * gfx->scale)),
 							gfx->sprite.letters[gfx->y][gfx->x]) == ERROR)
 					return (ERROR);
 			}
