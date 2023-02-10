@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 13:35:22 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/09 20:27:06 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/10 09:13:56 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,24 +69,24 @@ int	draw_letter(t_gfx *gfx, int start_x, int goal_x)
 	return (0);
 }
 
-int	gfx_write(t_gfx *gfx, char *str)
+int	gfx_write(t_gfx *gfx, char *s)
 {
 	int	i;
 	int	x;
 
 	i = 0;
 	x = gfx->width / 4;
-	while(str[i] != '\0')
+	while(s[i] != '\0')
 	{
-		if ((str[i] >= ',' && str[i] <= '.') || (str[i] >= 'A' && str[i] <= 'Z')
-				|| str[i] == '\'' || str[i] == '!')
+		if ((s[i] >= ',' && s[i] <= '.') || (s[i] >= 'A' && s[i] <= 'Z')
+				|| s[i] == '\'' || s[i] == '!' || s[i] == '"' || s[i] == '?')
 		{
-			gfx->x = str[i] * LETTER_WIDTH;
+			gfx->x = s[i] * LETTER_WIDTH;
 			gfx->y = 0;
 			if (draw_letter(gfx, x, (gfx->x + LETTER_WIDTH)) == ERROR)
 				return (error(GFX_WRITE_ERROR));
 		}
-		else if (str[i] == ' ')
+		else if (s[i] == ' ')
 			x += LETTER_WIDTH;
 		else
 			return (error(GFX_WRITE_ERROR));
