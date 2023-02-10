@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/10 10:40:54 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/10 12:37:22 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -292,6 +292,7 @@ void		keyboard_input(t_drown *d);
 //void		move_forward_back(t_editor *editor, t_player *p, SDL_Keycode key);
 //void		move_turn(t_player *p, SDL_Keycode key);
 void		scale_window(t_gfx *gfx);
+int			string_timeline(t_drown *d);
 int			gfx_write(t_gfx *gfx, char *str);
 void		draw_scanlines(t_gfx *gfx);
 
