@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:21:31 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/02/09 12:32:47 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/10 17:50:32 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,21 @@ void	deal_key(int key, t_drown *data)
 		scale_window(&data->gfx);
 	if (data->system.keyboard_state[SDL_SCANCODE_F2])
 	{
-		if (data->gfx.scanline == TRUE)
-			data->gfx.scanline = FALSE;
+		if (data->system.scanline == TRUE)
+			data->system.scanline = FALSE;
 		else
-			data->gfx.scanline = TRUE;
+			data->system.scanline = TRUE;
 	}
 	if (data->system.keyboard_state[SDL_SCANCODE_F3])
-		data->gfx.overlay_toggle = -data->gfx.overlay_toggle;
+		data->system.overlay_toggle = -data->system.overlay_toggle;
+	if (data->system.keyboard_state[SDL_SCANCODE_F4])
+	{
+		if (data->system.color_filter == TRUE)
+			data->system.color_filter = FALSE;
+		else
+			data->system.color_filter = TRUE;
+	}
+
 }
 
 void	deal_mouse(t_drown *data)
