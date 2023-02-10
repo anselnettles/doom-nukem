@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 13:35:22 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/10 09:25:30 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/10 10:55:20 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,38 @@ int	pixel_put(t_gfx *gfx, int x, int y, uint32_t color)
 		return (ERROR);
 	pix = gfx->screen->pixels;
 	wth = gfx->width;
-	pix[(x) + (y * wth)] = color << ((gfx->scanline * 0xFFFFFFFF) * (y % 2));
+	pix[(x) + (y * wth)] = color;
 	if (gfx->scale >= 2 && !(x > gfx->width - 2 || y > gfx->height - 2))
 	{
-		pix[(x + 1) + ((y) * wth)] = color << ((gfx->scanline * 0xFFFFFFFF) * (y % 2));
+		pix[(x + 1) + (y * wth)] = color;
 		pix[(x) + ((y + 1) * wth)] = color;
 		pix[(x + 1) + ((y + 1) * wth)] = color;
 	}
 	return (0);
 }
 
+void	draw_scanlines(t_gfx *gfx)
+{
+	int	y;
+	int	x;
+	x = 0;
+	y = 0;
+	uint32_t	*pix;
+	uint32_t	color;
+
+	pix = gfx->screen->pixels;
+	while (y < gfx->height)
+	{
+		while (x < gfx->width)
+		{
+			color = pix[x + (y * gfx->width)];
+			pix[x + (y * gfx->width)] = 0;
+			x++;
+		}
+		x = 0;
+		y += (2 * gfx->scale);
+	}
+}
 
 int	draw_letter(t_gfx *gfx, int start_x, int goal_x)
 {
