@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/10 16:02:34 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/10 17:51:09 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,11 +85,14 @@
 typedef struct s_system {
 	int				play_state;
 	int				user_request;
-	const uint8_t			*keyboard_state;
+	const uint8_t	*keyboard_state;
 	uint32_t		time;
 	uint32_t		last_time;
 	uint32_t		delta_time;
 	uint32_t		second;
+	int				color_filter;
+	int				scanline;
+	int				overlay_toggle;
 }	t_system;
 
 //	Editor-wise variables used mainly for resolving the level editor program.
@@ -207,9 +210,7 @@ typedef struct s_graphics {
 	float				shake_y;
 	int				shake_xtoggle;
 	int				shake_ytoggle;
-	int				scanline;
 	int				flow_y_adjust;
-	int				overlay_toggle;
 	t_txt			txt;
 	t_sprite		sprite;
 	t_frame			frame;
@@ -294,6 +295,7 @@ void		keyboard_input(t_drown *d);
 void		scale_window(t_gfx *gfx);
 int			string_timeline(t_drown *d);
 int			gfx_write(t_gfx *gfx, char *str);
+void		draw_color_filter(t_gfx *gfx);
 void		draw_scanlines(t_gfx *gfx);
 
 //SDL_Surface	*img_load(char *path);
