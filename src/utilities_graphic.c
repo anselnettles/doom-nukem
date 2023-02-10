@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 13:35:22 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/10 14:47:19 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/10 17:13:54 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,38 @@ int	pixel_put(t_gfx *gfx, int x, int y, uint32_t color)
 	}
 	return (0);
 }
+/*
+void	draw_vignette(t_gfx *gfx)
+{
+	uint32_t	*pix;
+	uint32_t	color;
+	uint32_t	red;
+	uint32_t	green;
+	uint32_t	blue;
+
+	pix = gfx->screen->pixels;
+	while (y < gfx->height)
+	{
+		while (x < gfx->width)
+		{
+			color = pix[x + (y * gfx->width)];
+			red = color >> 16;
+			green = color >> 8;
+			green = green << 24;
+			green = green >> 24;
+			blue = color << 24;
+			blue = blue >> 24;
+			//red -= 2;
+			//blue -= 2;
+			//green -= 2;
+			pix[x + (y * gfx->width)];
+			x++;
+		}
+		x = 0;
+		y += (2 * gfx->scale);
+	}
+
+}*/
 
 void	draw_scanlines(t_gfx *gfx)
 {
@@ -46,6 +78,9 @@ void	draw_scanlines(t_gfx *gfx)
 	y = 0;
 	uint32_t	*pix;
 	uint32_t	color;
+	uint32_t	red;
+	uint32_t	green;
+	uint32_t	blue;
 
 	pix = gfx->screen->pixels;
 	while (y < gfx->height)
@@ -53,7 +88,17 @@ void	draw_scanlines(t_gfx *gfx)
 		while (x < gfx->width)
 		{
 			color = pix[x + (y * gfx->width)];
-			pix[x + (y * gfx->width)] = 0;
+			red = color >> 16;
+			green = color >> 8;
+			green = green << 24;
+			green = green >> 24;
+			blue = color << 24;
+			blue = blue >> 24;
+			red /= 1.5;
+			green /= 1.5;
+			blue /= 1.4;
+			color = ((red&0xFF) << 16) | ((green&0xff) << 8) | (blue&0xFF);
+			pix[x + (y * gfx->width)] = color;
 			x++;
 		}
 		x = 0;
@@ -61,15 +106,13 @@ void	draw_scanlines(t_gfx *gfx)
 	}
 }
 
-int	draw_letter(t_gfx *gfx, int start_x, int goal_x)
+int	draw_letter(t_gfx *gfx, int start_x, int start_gfx_x, int goal_x)
 {
 	int	y;
 	int	x;
-	int	start_gfx_x;
 
 	x = start_x;
 	y = ((gfx->height / 4) * 3);
-	start_gfx_x = gfx->x;
 	while (gfx->y < LETTER_HEIGHT)
 	{
 		while (gfx->x < (goal_x))
@@ -77,7 +120,7 @@ int	draw_letter(t_gfx *gfx, int start_x, int goal_x)
 			if (gfx->sprite.letters[gfx->y][gfx->x])
 			{
 				if (pixel_put(gfx, x, (y + (gfx->flow_y_adjust * gfx->scale)),
-							gfx->sprite.letters[gfx->y][gfx->x]) == ERROR)
+						gfx->sprite.letters[gfx->y][gfx->x]) == ERROR)
 					return (ERROR);
 			}
 			x += (gfx->scale);
@@ -98,14 +141,14 @@ int	gfx_write(t_gfx *gfx, char *s)
 
 	i = 0;
 	x = gfx->width / 6;
-	while(s[i] != '\0')
+	while (s[i] != '\0')
 	{
 		if ((s[i] >= ',' && s[i] <= '.') || (s[i] >= 'A' && s[i] <= 'Z')
-				|| s[i] == '\'' || s[i] == '!' || s[i] == '"' || s[i] == '?')
+			|| s[i] == '\'' || s[i] == '!' || s[i] == '"' || s[i] == '?')
 		{
 			gfx->x = s[i] * LETTER_WIDTH;
 			gfx->y = 0;
-			if (draw_letter(gfx, x, (gfx->x + LETTER_WIDTH)) == ERROR)
+			if (draw_letter(gfx, x, gfx->x, (gfx->x + LETTER_WIDTH)) == ERROR)
 				return (error(GFX_WRITE_ERROR));
 		}
 		else if (s[i] == ' ')
