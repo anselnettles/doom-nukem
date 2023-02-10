@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 13:35:22 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/10 17:13:54 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/10 17:45:49 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,74 +36,6 @@ int	pixel_put(t_gfx *gfx, int x, int y, uint32_t color)
 		pix[(x + 1) + ((y + 1) * wth)] = color;
 	}
 	return (0);
-}
-/*
-void	draw_vignette(t_gfx *gfx)
-{
-	uint32_t	*pix;
-	uint32_t	color;
-	uint32_t	red;
-	uint32_t	green;
-	uint32_t	blue;
-
-	pix = gfx->screen->pixels;
-	while (y < gfx->height)
-	{
-		while (x < gfx->width)
-		{
-			color = pix[x + (y * gfx->width)];
-			red = color >> 16;
-			green = color >> 8;
-			green = green << 24;
-			green = green >> 24;
-			blue = color << 24;
-			blue = blue >> 24;
-			//red -= 2;
-			//blue -= 2;
-			//green -= 2;
-			pix[x + (y * gfx->width)];
-			x++;
-		}
-		x = 0;
-		y += (2 * gfx->scale);
-	}
-
-}*/
-
-void	draw_scanlines(t_gfx *gfx)
-{
-	int	y;
-	int	x;
-	x = 0;
-	y = 0;
-	uint32_t	*pix;
-	uint32_t	color;
-	uint32_t	red;
-	uint32_t	green;
-	uint32_t	blue;
-
-	pix = gfx->screen->pixels;
-	while (y < gfx->height)
-	{
-		while (x < gfx->width)
-		{
-			color = pix[x + (y * gfx->width)];
-			red = color >> 16;
-			green = color >> 8;
-			green = green << 24;
-			green = green >> 24;
-			blue = color << 24;
-			blue = blue >> 24;
-			red /= 1.5;
-			green /= 1.5;
-			blue /= 1.4;
-			color = ((red&0xFF) << 16) | ((green&0xff) << 8) | (blue&0xFF);
-			pix[x + (y * gfx->width)] = color;
-			x++;
-		}
-		x = 0;
-		y += (2 * gfx->scale);
-	}
 }
 
 int	draw_letter(t_gfx *gfx, int start_x, int start_gfx_x, int goal_x)
