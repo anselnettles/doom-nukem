@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 10:03:55 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/02/09 15:42:43 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/10 15:27:59 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,19 +108,46 @@ void	draw_texture(t_ray *ray, int y, int y_max, t_wall wall, int limiter)			//FI
 	}
 }
 
-// void	draw_texture(t_ray *ray, int y, int y_max, t_wall wall, int limiter)
-// {
-// 	float		texture_y;
-// 	int			texture_x;
-// 	float		i;
+void	draw_texture_two(t_ray *ray, int y, int y_max, t_wall wall, float distance, int	scaled_y)			//FIX ME
+{
+	float		texture_at_distance;
+	float		texture_y;
+	int			texture_x;
+	char		c;
+	float		i;
+	int			j;
 
-// 	texture_x = (int)wall.x % 64;
-// 	texture_y = 0;
-// 	i = (float)(y_max - y) / 64;
-// 	if (wall.dir < PI && wall.dir > PI - 180 * DEGREES)
-
-	
-// }
+	texture_at_distance = BITS / distance * ray->gfx.dop;
+	i = 64 / texture_at_distance;
+	j = 0;
+	c = ray->map.map[(int)roundf(wall.y)][(int)roundf(wall.x)];
+	texture_y = 63;
+	texture_x = (int)wall.x % 64;
+	if (ray->map.map[(int)roundf(wall.y)][(int)roundf(wall.x + 1 )] != c
+		|| ray->map.map[(int)roundf(wall.y)][(int)roundf(wall.x - 1 )] != c)
+		texture_x = (int)wall.y % 64;
+	while (scaled_y >= y_max)
+	{
+		scaled_y--;
+		texture_y -= i;
+		if (texture_y < 0)
+			texture_y = 63;
+	}
+	while (y_max - j > y && y_max - j > 0)
+	{
+		if (j > texture_at_distance || texture_y < 0)
+		{
+			y_max -= j;
+			j = 0;
+			texture_y = 63;
+		}
+		if (y_max - j >= 0 && y_max - j < ray->gfx.height)
+			pixel_put(&ray->gfx, ray->x, y_max - j, ray->gfx.txt.texture_b[(int)texture_y][texture_x]);
+		j++;
+		texture_y -= i;
+		
+	}
+}
 
 void	draw_floor(t_ray *ray, t_wall wall, int win_y)
 {
@@ -154,13 +181,13 @@ void	draw_ceiling(t_ray *ray, t_wall wall, int win_y)
 	float	player_height;
 	float	dir;
 
-	player_height = 64 - ray->player.height;
+	player_height =  - ray->player.height;
 	if (player_height < 8)
 		player_height = 4;
 	while (win_y >= 0)
 	{
 		dir = atanf((float)(win_y - ray->height) / ray->gfx.dop);
-		wall.distance = 320 / dir;
+		wall.distance = 512 / dir;
 		wall.distance /= cosf(ray->player.dir - wall.dir);
 		wall.x = ray->player.x + wall.dx * wall.distance;
 		wall.y = ray->player.y + wall.dy * wall.distance;
@@ -184,6 +211,7 @@ void	draw_thread(t_ray *ray, float distance, t_wall *wall)
 	int 		height;
 	int			scaled_y;
 	int			wall_height;
+	int			scaled_y_max;
 
 	if (distance < 1)
 		distance = 1;
@@ -192,20 +220,22 @@ void	draw_thread(t_ray *ray, float distance, t_wall *wall)
 		height =  ray->map.map[(int)roundf(wall->y)][(int)roundf(wall->x)] - '0';
 	wall_height = ((BITS / 8) / distance * ray->gfx.dop) * height;
 	y_max = ray->height + ((BITS + ray->player.height - 32) / distance * (ray->gfx.dop) / 2);
+	scaled_y_max = y_max;
 	scaled_y = y_max - ((BITS + ray->player.height - 32) / distance * ray->gfx.dop);
 	y = y_max - wall_height;
 	if (ray->map.map[(int)roundf(wall->y)][(int)roundf(wall->x)] == '#')
 		scaled_y = y;
-	if (y < 0)
+	/*if (y < 0)
 		y = 0;
 	if (y_max > ray->gfx.height) 
-		y_max = ray->gfx.height;
+		y_max = ray->gfx.height;*/
 	if (y_max > wall->prev_y || y > wall->prev_y)
 		y_max = wall->prev_y;
 	if (y <= wall->prev_y || y > ray->gfx.height )
 		draw_ceiling(ray, *wall, wall->prev_y);
 	draw_floor(ray, *wall, y_max);
-	draw_texture(ray, scaled_y, y_max, *wall, y);
+	//draw_texture(ray, scaled_y, y_max, *wall, y);
+	draw_texture_two(ray, scaled_y, y_max, *wall, distance, scaled_y_max);
 	if (y < wall->prev_y)
 		wall->prev_y = y;
 }
