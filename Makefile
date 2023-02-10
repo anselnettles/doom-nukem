@@ -6,7 +6,7 @@
 #    By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/16 17:04:55 by aviholai          #+#    #+#              #
-#    Updated: 2023/02/10 12:37:47 by aviholai         ###   ########.fr        #
+#    Updated: 2023/02/10 17:45:26 by aviholai         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ FILES				=	\
 						event\
 						graphic_render\
 						graphic_render_animations\
+						graphic_render_filters\
 						graphic_render_minimap\
 						graphic_render_overlay\
 						graphic_render_raycast\
