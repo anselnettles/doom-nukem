@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 13:35:22 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/10 09:13:56 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/10 09:25:30 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	gfx_write(t_gfx *gfx, char *s)
 	int	x;
 
 	i = 0;
-	x = gfx->width / 4;
+	x = gfx->width / 6;
 	while(s[i] != '\0')
 	{
 		if ((s[i] >= ',' && s[i] <= '.') || (s[i] >= 'A' && s[i] <= 'Z')
@@ -92,6 +92,8 @@ int	gfx_write(t_gfx *gfx, char *s)
 			return (error(GFX_WRITE_ERROR));
 		i++;
 		x += (LETTER_WIDTH * gfx->scale);
+		if (s[i - 1] == 'I' || s[i - 1] == '!')
+			x -= 6;
 	}
 	return (0);
 }
