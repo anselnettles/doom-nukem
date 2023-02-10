@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/10 14:57:22 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/10 16:02:34 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -327,7 +327,7 @@ void	*ft_raycast_thread(void  *args);
 void	strife(t_drown *data);
 void	draw_thread(t_ray *ray, float distance, t_wall *wall);
 void	draw_collumn(t_ray *ray, int y, int y_max, Uint32 color);
-void	draw_texture(t_ray *ray, int y, int y_max, t_wall wall, int texture_y);
+void	draw_texture(t_ray *ray, int y, int y_max, t_wall wall, float distance, int	scaled_y);
 void	draw_floor(t_ray *ray, t_wall wall, int win_y);
 void	draw_ceiling(t_ray *ray, t_wall wall, int win_y);
 
