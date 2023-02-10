@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 11:08:33 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/10 09:13:41 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/10 10:41:13 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,7 @@ int	render_overlay(t_drown *d)
 		if (gfx_write(&d->gfx, "\"A QUICK BROWN FOX'S JUMP OVERS THE LAZY DOG!??\"") == ERROR)
 			return (ERROR);
 	}
+	if (d->gfx.scanline)
+		draw_scanlines(&d->gfx);
 	return (0);
 }
