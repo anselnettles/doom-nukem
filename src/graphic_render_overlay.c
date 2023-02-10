@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 11:08:33 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/10 12:34:50 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/10 17:53:09 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,11 @@ int	render_overlay(t_drown *d)
 {
 	if (draw_right_arm(&d->index, &d->gfx, d->gfx.scale) == ERROR)
 		return (ERROR);
+	if (d->system.color_filter == TRUE)
+		draw_color_filter(&d->gfx);
 	if (string_timeline(d) == ERROR)
 		return (ERROR);
-	if (d->gfx.scanline)
+	if (d->system.scanline == TRUE)
 		draw_scanlines(&d->gfx);
 	return (0);
 }
