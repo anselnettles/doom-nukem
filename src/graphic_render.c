@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 10:05:39 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/09 12:04:35 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/10 17:53:32 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ int	render(t_drown *data)
 {
 	render_thread(data);
 		//add error checks;
-	if (data->gfx.overlay_toggle == TRUE)
+	if (data->system.overlay_toggle == TRUE)
 		if (render_overlay(data) == ERROR)
 			return (error(OVERLAY_ERROR));
 	draw_map(data);
