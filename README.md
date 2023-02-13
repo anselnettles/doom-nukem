@@ -1,17 +1,11 @@
-![image](https://user-images.githubusercontent.com/58728833/218313389-d6dec31b-1946-4155-84f2-46324508beaf.png)
+https://user-images.githubusercontent.com/70949716/218528549-8c36df09-ce95-4925-8694-3ef48165a632.mov
 
+## [ＷＩＰ] - Doom-Nukem : 𝙋𝙧𝙤𝙟𝙚𝙘𝙩: 𝘿𝙧𝙤𝙬𝙣𝙞𝙣𝙜
 
-# WIP-Doom-Nukem
+This work-in-progress C project is about creating a 3D polygonal game with ray-casting technique, that utilizes no GPU. Just like the breakthrough shooter games in the 90s. 
 
-This C project is about creating a 3D polygonal game with ray-casting technique,
-that utilizes no GPU. Just like the breakthrough shooter games in the 90s.
-As of January 24th 2023, this is a collaboration project with @Dofidog and @UItsi.
+<b>It will be finished by April 2023.</b>
 
+This is a survival game about getting back to the surface in the bottom of a deep lake. A beast-like creature dwells beneath the waves, prowling for easy prey. Tlayer needs to have quick and cold wits to get back to safety.
 
-# Controls:
-
-W/S to move forward and backward
-
-A/D to strife
-
-Mouse to rotate camera
+As of January 24th 2023, the work became a  collaboration project with @Dofidog (Topi Paaso) and @UItsi (Timo Turto).
