@@ -55,7 +55,9 @@
 
 `drown->sprite.monster[8][3][128][128];`  : Possibly the most demanding graphic piece. The monster, viewed from eight direction with with three frames each. Could be a four-dimensional array? <br>
 
-`drown->sprite.harpoon[6][64][64];` : Collectible ammo piece. Animated to be quite clear and visible to player. <br>
+`drown->sprite.harpoon[6][64][64];` : Collectible ammo piece. Animated to be quite clear and visible to player. <br> 
+
+`drown->sprite.bottle[3][64][64];`  : Collectible air container. Animated. <br>
 
 `drown->sprite.ammo[3][12][12];`  : Overlay HUD. Remaining ammo in weapon. Probably animated. <br>
 
