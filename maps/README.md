@@ -53,6 +53,10 @@
 
 `drown->sprite.left_arm[?][?][?];`  : Overlay. Player's left arm. The weapon. More frames than left arm due to weapon animation. <br>
 
+`drown->sprite.monster[8][3][128][128];`  : Possibly the most demanding graphic piece. The monster, viewed from eight direction with with three frames each. Could be a four-dimensional array? <br>
+
+`drown->sprite.harpoon[6][64][64];` : Collectible ammo piece. Animated to be quite clear and visible to player. <br>
+
 `drown->sprite.ammo[3][12][12];`  : Overlay HUD. Remaining ammo in weapon. Probably animated. <br>
 
 `drown->sprite.timer[?][20][20];` : Overlay HUD. Remaining time. Most definitely animated. <br>
