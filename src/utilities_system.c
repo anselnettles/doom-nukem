@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 17:50:06 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/14 13:16:23 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/14 18:10:14 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,15 @@ static void	track_time(t_drown *d)
 		d->system.delta_time = (d->system.time - d->system.last_time);
 		if ((d->system.time / 1000) >= d->system.second)
 				d->system.second++;
+		d->system.frame_time = d->system.delta_time / 100.f;
+		//printf("frame_time = %f\n", d->system.frame_time);
 		animation_loop(d);
+}
+
+void	delta_time_move(t_drown *data)
+{
+		data->player.x -= 50.f * data->system.frame_time * data->player.dx;
+		data->player.y -= 50.f * data->system.frame_time * data->player.dy;
 }
 
 //	Sdl_loop() keeps Simple Direct MediaLayer's PollEvent constantly
@@ -54,12 +62,16 @@ void		sdl_loop(t_drown *d)
 			if (d->event.type == SDL_KEYDOWN || d->event.type == SDL_MOUSEMOTION)
 				x_right_arm_flail(&d->gfx);
 		}
+		/*if (d->system.keyboard_state[SDL_SCANCODE_W])
+			delta_time_move(d);*/
 		move_player(d);
 		strife(d);
-		if (d->system.delta_time)
+		if (d->system.frame_time < 16.6666f)			//OPTIMOI MINUT
 		{
+			SDL_Delay(16.6666f - d->system.frame_time);
+		}
 			render(d);
 			d->system.last_time = d->system.time;
-		}
+		
 	}
 }
