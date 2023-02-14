@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:21:31 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/02/10 17:50:32 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/14 13:16:10 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ void	deal_key(int key, t_drown *data)
 		data->system.play_state = EXIT;
 	if (key == SDLK_0)
 		draw_map(data);
-	if (data->system.keyboard_state[SDL_SCANCODE_A]
+	/*if (data->system.keyboard_state[SDL_SCANCODE_A]
 			|| data->system.keyboard_state[SDL_SCANCODE_D])
 		strife(data);
 	if (data->system.keyboard_state[SDL_SCANCODE_W]
 			|| data->system.keyboard_state[SDL_SCANCODE_S])
 		move_player(data);
-	if (data->system.keyboard_state[SDL_SCANCODE_F1])
+	*/if (data->system.keyboard_state[SDL_SCANCODE_F1])
 		scale_window(&data->gfx);
 	if (data->system.keyboard_state[SDL_SCANCODE_F2])
 	{
