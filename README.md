@@ -6,6 +6,6 @@ This work-in-progress C project is about creating a 3D polygonal game with ray-c
 
 <b>It will be finished by April 2023.</b>
 
-This is a survival game about getting back to the surface in the bottom of a deep lake. A beast-like creature dwells beneath the waves, prowling for easy prey. Tlayer needs to have quick and cold wits to get back to safety.
+This is a survival game about getting back to the surface in the bottom of a deep lake. A beast-like creature dwells beneath the waves, prowling for easy prey. The player needs to have quick wits and a cool head to get back to safety.
 
 As of January 24th 2023, the work became a  collaboration project with @Dofidog (Topi Paaso) and @UItsi (Timo Turto).
