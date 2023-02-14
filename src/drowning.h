@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/14 13:19:25 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/14 14:03:57 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,6 +181,7 @@ typedef struct s_animations {
 typedef struct	s_sprites {
 	uint32_t	right_arm[3][238][250];
 	uint32_t	letters[20][728];
+	uint32_t	harpoon[6][64][64];
 }	t_sprite;
 
 typedef struct s_textures {
