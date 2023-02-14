@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/14 14:03:57 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/14 18:10:46 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@
 //# define RAY_LENGTH 3				//Length of a cast ray.
 //# define TURN_SPEED 4				//Player's turning speed.
 # define PI 3.1415927				//Topi's build.
-# define SPEED 2					//Topi's build.
+# define SPEED 10					//Topi's build.
 # define BITS 64					//Topi's build.
 # define MMWIDTH 210				//Topi's build.
 # define MMHEIGHT 100				//Topi's build.
@@ -89,6 +89,7 @@ typedef struct s_system {
 	uint32_t		time;
 	uint32_t		last_time;
 	uint32_t		delta_time;
+	float			frame_time;
 	uint32_t		second;
 	int				color_filter;
 	int				scanline;
@@ -252,6 +253,7 @@ typedef struct s_project_drowning {
 	SDL_Event				event;
 	t_map					map;
 	int						hg;
+	float					delta_time;
 }	t_drown;
 
 //	Listed error types. See 'error_management.c' for their output.
