@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 10:03:55 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/02/10 16:08:55 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/14 13:07:57 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ int		get_texture_x(t_ray *ray, t_wall wall)
 		return((int)wall.y % BITS);
 	return((int)wall.x % BITS);
 }
+
 void	draw_texture(t_ray *ray, int y, int y_max, t_wall wall, float distance, int	scaled_y)			//FIX ME
 {
 	float		texture_at_distance;

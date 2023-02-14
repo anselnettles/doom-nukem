@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 17:50:06 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/09 18:48:46 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/14 13:16:23 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ void		sdl_loop(t_drown *d)
 			if (d->event.type == SDL_KEYDOWN || d->event.type == SDL_MOUSEMOTION)
 				x_right_arm_flail(&d->gfx);
 		}
+		move_player(d);
+		strife(d);
 		if (d->system.delta_time)
 		{
 			render(d);

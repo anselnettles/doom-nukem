@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/10 17:51:09 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/14 13:19:25 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@
 //# define RAY_LENGTH 3				//Length of a cast ray.
 //# define TURN_SPEED 4				//Player's turning speed.
 # define PI 3.1415927				//Topi's build.
-# define SPEED 10					//Topi's build.
+# define SPEED 2					//Topi's build.
 # define BITS 64					//Topi's build.
 # define MMWIDTH 210				//Topi's build.
 # define MMHEIGHT 100				//Topi's build.
