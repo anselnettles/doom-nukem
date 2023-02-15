@@ -1,4 +1,4 @@
-#include "../includes/map_editor.h"
+#include "../../src/drowning.h"
 
 /*
     Count column/row of grid in img3.
@@ -16,7 +16,7 @@ static void    get_row_and_column_count(int cathetus, t_editor_images *images, i
 /*
     Checks if mouse coordinates are inside the grid of img3.
 */
-static int is_mouse_in_grid(t_editor_images *images, t_mouse *mouse, unsigned short int img_switch, int cathetus, t_map *data)
+static int is_mouse_in_grid(t_editor_images *images, t_mouse *mouse, unsigned short int img_switch, int cathetus, t_map *map)
 {
     int x;
     int y;
@@ -28,8 +28,8 @@ static int is_mouse_in_grid(t_editor_images *images, t_mouse *mouse, unsigned sh
         x = mouse->x - images->img3_x_min;
         y = mouse->y - images->img_y_min;
     }
-    data->selection_x = (x - (x % (cathetus + 1))) / (cathetus + 1);
-    data->selection_y = (y - (y % (cathetus + 1))) / (cathetus + 1);
+    map->selection_x = (x - (x % (cathetus + 1))) / (cathetus + 1);
+    map->selection_y = (y - (y % (cathetus + 1))) / (cathetus + 1);
     get_row_and_column_count(cathetus, images, &col_count, &row_count);
     if (data->selection_x < col_count && data->selection_y < row_count)
         return (1);
@@ -52,7 +52,7 @@ static int    is_mouse_in_image(t_mouse *mouse, t_editor_images *images, unsigne
 
     Return: 1 on success, 0 on fail
 */
-int img3_is_mouse_in_grid(t_mouse *mouse, t_map *data, t_editor_images *images)
+int img3_is_mouse_in_grid(t_mouse *mouse, t_map *map, t_editor_images *images)
 {
     if ((is_mouse_in_image(mouse, images, images->img_switch) == 1) && images->img_switch == 3)
     {

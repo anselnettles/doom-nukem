@@ -19,11 +19,9 @@
 # define ASCII_MIN 32
 # define ASCII_MAX 127
 
-typedef struct s_editor
+typedef struct s_editor //
 {
     SDL_Window      *window;
-    SDL_Renderer    *renderer;
-    SDL_Surface     *ScreenSurface;
     SDL_Event       event;
     
     char            str_hex[11];            //not used, can replace str[11] with this
@@ -45,7 +43,7 @@ typedef struct s_editor
     uint32_t        letters[2][2];
     uint32_t        skybox[2][2];
 
-}   t_editor;
+}   t_editor; // editor -> gfx
 
 typedef struct s_map
 {

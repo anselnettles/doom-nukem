@@ -6,7 +6,7 @@
 /*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/15 13:39:23 by tturto           ###   ########.fr       */
+/*   Updated: 2023/02/15 18:59:40 by tturto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@
 # include <pthread.h>
 # include <SDL2/SDL.h>						//Simple DirectMedia Layer.
 # include "../libft/libft.h"
-# include <stdlib.h>						//Malloc()
-# include <stdint.h>						//uint_32
 
 # ifdef __APPLE__
 #  include "SDL_image.h"
@@ -34,8 +32,8 @@
 # define TITLE "Project Drowning | github.com/AnselNettles/doom-nukem"
 # define NAME "doom-nukem"
 
-# define WIDTH 642			//Window resolution width.
-# define HEIGHT 480			//Window resolution height.
+# define WIDTH 1280			//Window resolution width.
+# define HEIGHT 800			//Window resolution height.
 # define MARGIN 20			//Margin difference for the UI.
 
 //	SYSTEM MECHANICS GLOBAL DEFINITIONS
@@ -83,10 +81,10 @@
 # define T_RED "\033[0;31m"				//A red terminal type color.
 # define T_LGRAY "\033[0;37m"			//A light gray terminal type color.
 
-//map editor definitions
+//Map Editor definitions
 # define BUF_SIZE 1500000
-# define SCREEN_W 1280		// remove: is WIDTH
-# define SCREEN_H 800		// remove: is HEIGHT
+# define SCREEN_W 1280
+# define SCREEN_H 800
 # define IMG1_CATHETUS 12
 # define IMG2_CATHETUS 36
 # define IMG3_CATHETUS 48
@@ -112,37 +110,6 @@ typedef struct s_system {
 	int				overlay_toggle;
 }	t_system;
 
-typedef struct s_map
-{
-	char	**map;
-	int		y_max;
-	int		x_max;
-
-    char                ***map;
-    char                ***map_temp;        //remember to free
-    //map coordinates referring x and y
-    unsigned short int  map_x;
-    unsigned short int  map_y;
-    //img2: these convert into param_to_modify
-    unsigned short int  param_x_to_modify;
-    unsigned short int  param_y_to_modify;
-    //img2: selected parameter type
-    unsigned short int  param_to_modify;
-    //img3: these convert into selection_index
-    unsigned short int  selection_x;
-    unsigned short int  selection_y; 
-    //img3: selected index of a chosen parameter type
-    unsigned short int  selection_index;
-
-}	t_map;
-
-typedef struct s_map_grid	//remove if not needed in final GUI
-{
-    int x1;
-    int x2;
-    int y1;
-    int y2;
-}   t_map_grid;
 
 typedef struct s_editor_images
 {
@@ -211,7 +178,7 @@ typedef struct s_index {
 	int				i;
 	int				x;
 	int				y;
-	int				p;
+	int				p; //[y][x][p]
 	int				width;
 	//from map editor s_index
 	unsigned short int  i0;
@@ -257,6 +224,7 @@ typedef struct	s_sprites {
 	uint32_t	right_arm[3][238][250];
 	uint32_t	letters[20][728];
 	uint32_t	harpoon[6][64][64];
+	uint32_t	bottle[3][64][38];
 }	t_sprite;
 
 typedef struct s_textures {
@@ -267,21 +235,10 @@ typedef struct s_textures {
 	uint32_t	skybox[64][128];
 }	t_txt;
 
-typedef struct s_ray
-{
-	t_gfx		gfx;
-	t_player	player;
-	t_map		map;
-	float		distance;
-	float		dir;
-	int			x;
-	int			count;
-	int			height;
-}	t_ray;
-
 //	Graphical-wise variables used for SDL and graphical drawing.
 //	Mother to raycast struct.
 typedef struct s_graphics {
+	SDL_Renderer	*renderer;	//required in map_editor
 	SDL_Window		*window;
 	SDL_Surface		*screen;
 	SDL_Surface		*image;
@@ -302,22 +259,65 @@ typedef struct s_graphics {
 	t_txt			txt;
 	t_sprite		sprite;
 	t_frame			frame;
-    	
-}	t_gfx;
+	SDL_Event		event;		//All SDL calls should be here
+}	t_gfx; //gfx (former t_editor editor)
+
+typedef struct s_map
+{
+	char	**map2;
+	int		y_max;
+	int		x_max;
+
+    char                ***map;
+    char                ***map_temp;        //remember to free
+    //map coordinates referring x and y
+    unsigned short int  map_x;
+    unsigned short int  map_y;
+    //img2: these convert into param_to_modify
+    unsigned short int  param_x_to_modify;
+    unsigned short int  param_y_to_modify;
+    //img2: selected parameter type
+    unsigned short int  param_to_modify;
+    //img3: these convert into selection_index
+    unsigned short int  selection_x;
+    unsigned short int  selection_y; 
+    //img3: selected index of a chosen parameter type
+    unsigned short int  selection_index;
+}	t_map;
+
+typedef struct s_map_grid	//remove if not needed in final GUI
+{
+    int x1;
+    int x2;
+    int y1;
+    int y2;
+}   t_map_grid;
+
+
+typedef struct s_ray
+{
+	t_gfx		gfx;
+	t_player	player;
+	t_map		map;
+	float		distance;
+	float		dir;
+	int			x;
+	int			count;
+	int			height;
+}	t_ray;
 
 //	Mother structure.
 typedef struct s_project_drowning {
 	t_system				system;
-	t_editor				editor;
 	t_index					index;
 	t_player				player;
 	t_gfx					gfx;
-	SDL_Rect				rect;
-	SDL_Event				event;
+	SDL_Rect				rect;	// this should not be here! Why are part of SDL calls in gfx and part here???
+	SDL_Event				event;	// this should not be here! Why are part of SDL calls in gfx and part here???
 	t_map					map;
 	int						hg;
 	float					delta_time;
-}	t_drown;
+}	t_drown; //data
 
 //	Listed error types. See 'error_management.c' for their output.
 typedef enum e_error
@@ -341,8 +341,8 @@ typedef enum e_error
 	GFX_WRITE_ERROR,
 }	t_error;
 
+/*
 //	Non-static functions'.
-int			main(void);
 int			read_file(t_drown *drown);
 //int		buffer_to_map(char b[MAX + 1], t_editor *e, t_index *i, int width);
 int			render(t_drown *d);
@@ -374,7 +374,7 @@ int			pixel_put(t_gfx *gfx, int x_src, int y_src, uint32_t color);
 //int			clamp(int a, int lower, int upper);
 //double		deg_to_rad(double degrees);
 
-int			error(int code);
+
 
 void		sdl_loop(t_drown *drown);
 
@@ -382,7 +382,7 @@ void		sdl_loop(t_drown *drown);
 void	map_len(char *file, t_map *data);
 char	*copy_line(char *line, t_map *data);
 void	fill_gaps(char *line);
-void	read_map(char *file, t_map *data);
+//void	read_map(char *file, t_map *data);
 int		init_sdl(SDL_Window *window, SDL_Surface *screen);
 void	draw_map(t_drown *data);
 void	init_player(t_player *player);
@@ -406,35 +406,36 @@ void	temp_texture_b(t_drown *d);
 void	temp_texture_c(t_drown *d);
 void	temp_texture_skybox(t_drown *d);
 void	temp_sprite_letters(t_drown *d);
-
-//Map editor functions
-void        choose_to_reset_map_or_exit(t_editor *editor, t_editor_images *images, t_mouse *mouse, t_map *data);
-void        close_program(t_editor *editor);
-void        create_map_temp(t_map *data, t_editor_images *images);
-void        copy_map_to_map_temp(t_map *data, t_editor_images *images);
-int         img1_img2_is_mouse_in_grid(t_mouse *mouse, t_map *data, t_editor_images *images);
-void        img1_and_img2(t_editor *editor, t_map *data, t_mouse *mouse, t_editor_images *images); //rename
-int         img1_to_gui(t_editor *editor, t_mouse *mouse, t_editor_images *images);
-int         img2_to_gui(t_editor *editor, t_editor_images *images);
-int         img3_is_mouse_in_grid(t_mouse *mouse, t_map *data, t_editor_images *images);
-int         img3_to_gui(t_editor *editor, t_editor_images *images, t_map *data);
-int         init(t_editor *editor);
-void        initialization(t_editor_images *images, t_map *data, t_character *chars, char *map_file, t_editor *editor);
-int         map_editor(char *map_file, t_map *data);
+*/
+int			error(int code);
+////Map editor functions
+void        choose_to_reset_map_or_exit(t_gfx *gfx, t_editor_images *images, t_mouse *mouse, t_map *map);
+void        close_program(t_gfx *gfx);
+void        create_map_temp(t_map *map, t_editor_images *images);
+void        copy_map_to_map_temp(t_map *map, t_editor_images *images);
+int         img1_img2_is_mouse_in_grid(t_mouse *mouse, t_map *map, t_editor_images *images);
+void        img1_and_img2(t_gfx *gfx, t_map *map, t_mouse *mouse, t_editor_images *images); //rename
+int         img1_to_gui(t_gfx *gfx, t_mouse *mouse, t_editor_images *images);
+int         img2_to_gui(t_gfx *gfx, t_editor_images *images);
+int         img3_is_mouse_in_grid(t_mouse *mouse, t_map *map, t_editor_images *images);
+int         img3_to_gui(t_gfx *gfx, t_editor_images *images, t_map *map);
+int         init(t_gfx *gfx);
+void        initialization(t_editor_images *images, t_map *map, t_character *chars, char *map_file, t_gfx *gfx);
+int         map_editor(char *map_file, t_map *map);
 int         overwrite_map_file(t_map *data, t_editor_images *images);
-void        param_to_modify(t_map *data);
-void        parse_map_file_to_arrays(char *buf, t_editor *editor);
-void        read_map(char *map_file, t_map *data, t_editor_images *images, t_editor *editor);
-int         save_changes(t_editor *editor);
-void        select_new_param_value(t_editor *editor, t_map *data, t_character *chars);
+void        param_to_modify(t_map *map);
+//void        parse_map_file_to_arrays(char *buf, t_gfx *gfx);
+void        read_map(char *map_file, t_map *map, t_editor_images *images, t_gfx *gfx);
+int         save_changes(t_gfx *gfx);
+void        select_new_param_value(t_gfx *gfx, t_map *map, t_character *chars);
 void        set_image_limits(t_editor_images *images);
 void        set_values_for_parameters(t_character *chars);
 uint32_t    swap_red_with_blue(uint32_t hex_value);
 void        tt_errors(char *error_msg);
 int         validate_buffer_format(char *buf, t_editor_images *images);
-int         validate_map_temp(t_map *data, t_editor_images *images, t_character *chars);
-/* below functions will be excluded from the final map_editor */
-void    testing_print_map(t_map *data, t_editor_images *images);
-//EOF map editor functions
+int         validate_map_temp(t_map *map, t_editor_images *images, t_character *chars);
+//// below functions will be excluded from the final map_editor 
+//void    testing_print_map(t_map *data, t_editor_images *images);
+////EOF map editor functions
 
 #endif

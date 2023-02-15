@@ -1,13 +1,13 @@
-#include "../includes/map_editor.h"
+#include "../../src/drowning.h"
 
-void    close_program(t_editor *editor)
+void    close_program(t_gfx *gfx)
 {
     //free map or map_temp
-    SDL_DestroyRenderer(editor->renderer);
-    editor->renderer = NULL;
-    SDL_DestroyWindow(editor->window);
-    editor->window = NULL;
-    (void)editor;
+    SDL_DestroyRenderer(gfx->renderer);
+    gfx->renderer = NULL;
+    SDL_DestroyWindow(gfx->window);
+    gfx->window = NULL;
+    (void)gfx;
     SDL_Quit();
     exit(-1);
 }

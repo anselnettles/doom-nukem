@@ -1,4 +1,4 @@
-#include "../includes/map_editor.h"
+#include "../../src/drowning.h"
 
 /*
 	Modify read_map.c
@@ -19,7 +19,7 @@
 /*
     Inserts the values char *buf into char ***map.
 */
-static void buffer_to_3D_map_array(char *buf, t_map *data)
+static void buffer_to_3D_map_array(char *buf, t_map *map)
 {
     int i2;
     int i1;
@@ -32,7 +32,7 @@ static void buffer_to_3D_map_array(char *buf, t_map *data)
     {
         while (*buf != ' ' && *buf != '\n' && *buf != '!')
         {
-            data->map[i2][i1][i0] = *buf;
+            map->map[i2][i1][i0] = *buf;
             i0++;
             buf++;
         }
@@ -53,7 +53,7 @@ static void buffer_to_3D_map_array(char *buf, t_map *data)
 }
 
 //this can possibly be a single function for ***map and ***map_temp. ***map (read_map()), ***map_temp (here)
-static void malloc_3D_map_array(t_map *data, t_editor_images *images)
+static void malloc_3D_map_array(t_map *map, t_editor_images *images)
 {
     int     row;
     int     column;
@@ -62,16 +62,16 @@ static void malloc_3D_map_array(t_map *data, t_editor_images *images)
 
     row_temp = images->row1;
     row = 0;
-    data->map = (char ***)malloc(sizeof(char **) * images->row1);
-    if (!data->map)
+    map->map = (char ***)malloc(sizeof(char **) * images->row1);
+    if (!map->map)
     {
         tt_errors("malloc_3d_map_array: malloc() fail.\nmap[X][][]");
         exit (-1);
     }
     while (row_temp > 0)
     {
-        data->map[row] = (char **)malloc(sizeof(char *) * images->column1);
-        if (!data->map[row])
+        map->map[row] = (char **)malloc(sizeof(char *) * images->column1);
+        if (!map->map[row])
         {
             tt_errors("malloc_3d_map_array: malloc() fail.\nmap[][X][]");
             exit (-1);
@@ -80,13 +80,13 @@ static void malloc_3D_map_array(t_map *data, t_editor_images *images)
         column = 0;
         while (column_temp > 0)
         {
-            data->map[row][column] = (char *)malloc(sizeof(char) * (PARAM_COUNT + 1));
-            if (!data->map[row][column])
+            map->map[row][column] = (char *)malloc(sizeof(char) * (PARAM_COUNT + 1));
+            if (!map->map[row][column])
             {
                 tt_errors("malloc_3d_map_array: malloc() fail.\nmap[][][X]");
                 exit (-1);
             }
-            data->map[row][column][PARAM_COUNT] = '!';
+            map->map[row][column][PARAM_COUNT] = '!';
             column++;
             column_temp--;
         }
@@ -98,7 +98,7 @@ static void malloc_3D_map_array(t_map *data, t_editor_images *images)
 /*
     Counts rows and columns of the map file. Map file is standardized to be square-shaped.
 */
-static void count_map_data(char *buf, t_map *data, t_editor_images *images)
+static void count_map_data(char *buf, t_map *map, t_editor_images *images)
 {
     //row_bytes = number of bytes per row
     int row_bytes;
@@ -126,7 +126,7 @@ static void count_map_data(char *buf, t_map *data, t_editor_images *images)
 /*
     Reads a map file into a char *buf and converts the buf to char ***map.
 */
-void    read_map(char *map_file, t_map *data, t_editor_images *images, t_editor *editor)
+void    read_map(char *map_file, t_map *map, t_editor_images *images, t_gfx *gfx)
 {
     int     fd;
     int     ret;
@@ -151,8 +151,8 @@ void    read_map(char *map_file, t_map *data, t_editor_images *images, t_editor 
         exit(-1);
     }
         
-    parse_map_file_to_arrays(buf, editor); //datatype: int. insert into if (function() != 1)
-    count_map_data(buf, data, images);
-    malloc_3D_map_array(data, images);
-    buffer_to_3D_map_array(buf, data);
+    parse_map_file_to_arrays(buf, gfx); //maptype: int. insert into if (function() != 1)
+    count_map_data(buf, map, images);
+    malloc_3D_map_array(map, images);
+    buffer_to_3D_map_array(buf, map);
 }

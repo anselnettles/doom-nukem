@@ -6,7 +6,7 @@
 /*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 18:24:05 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/15 13:46:36 by tturto           ###   ########.fr       */
+/*   Updated: 2023/02/15 18:58:41 by tturto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,35 +78,34 @@ static int	initialize_media(t_drown *d)
 // Begin of program. Run the binary with no arguments to launch the software
 // and go into the process of initialization.
 
-int	main(void)
+int	main(int argc, char **argv)
 {
 	t_drown	data;
 
-	ft_bzero(&data, sizeof(t_drown));
+	/*ft_bzero(&data, sizeof(t_drown));
 	if (initialize_media(&data) == ERROR)
-		return (error(SDL_FAIL));
-/*		
-	read_map("maps/numbers.dn", &data.map); // korvataan : bluehole.dn
+		return (error(SDL_FAIL));*/
+
+//this will be removed when ***map has replaced **map	
+	/*read_map("maps/numbers.dn", &data.map); // korvataan : bluehole.dn
 	if (initialize_textures(&data) == ERROR) // korvataan
-		return (error(TEXTURE_FAIL));			//
-*/
-		
+		return (error(TEXTURE_FAIL));*/
+	
 //Start: Map Editor integration
-    data = (t_map){.param_x_to_modify = 0, .param_y_to_modify = 0, .param_to_modify = 0,
+	t_map map;
+    map = (t_map){.param_x_to_modify = 0, .param_y_to_modify = 0, .param_to_modify = 0,
 		.selection_index = 0, .map = NULL, .map_temp = NULL, .map_x = 0, .map_y = 0,
 		.selection_x = 0, .selection_y = 0};
 
-	map_editor(argv[1], &data);
+	map_editor(argv[1], &map);
 
 //End:Map Editor integration
 
-	if (initialize_player(&data) == ERROR)
+	/*if (initialize_player(&data) == ERROR)
 		return (error(PLAYER_FAIL));
-		
-
-	if (render(&data) == ERROR)
+	if (render(&data) == ERROR)					///STOP HERE before dofidog
 		return (error(RENDER_FAIL));
 	SDL_SetRelativeMouseMode(SDL_TRUE);
-	sdl_loop(&data);
+	sdl_loop(&data);*/
 	return (0);
 }

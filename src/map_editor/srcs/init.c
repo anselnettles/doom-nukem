@@ -1,6 +1,6 @@
-#include "../includes/map_editor.h"
+#include "../../src/drowning.h"
 
-int  init(t_editor *editor)
+int  init(t_gfx *gfx)
 {
     int success = 1;
 
@@ -9,15 +9,15 @@ int  init(t_editor *editor)
         tt_errors("init: SDL_Init() fail");
         success = 0;
     }
-    editor->window = SDL_CreateWindow("Map Editor", 0, 0,
-        SCREEN_W, SCREEN_H, SDL_WINDOW_SHOWN);
-    if (!editor->window)
+    gfx->window = SDL_CreateWindow("Map Editor", 0, 0,
+        WIDTH, HEIGHT, SDL_WINDOW_SHOWN);
+    if (!gfx->window)
     {
         tt_errors("init: SDL_CreateWindow() fail");
         success = 0;
     }
-    editor->renderer = SDL_CreateRenderer(editor->window, -1, SDL_RENDERER_ACCELERATED);
-    if (!editor->renderer)
+    gfx->renderer = SDL_CreateRenderer(gfx->window, -1, SDL_RENDERER_ACCELERATED);
+    if (!gfx->renderer)
     {
         tt_errors("init: SDL_CreateRenderer() fail");
         success = 0;

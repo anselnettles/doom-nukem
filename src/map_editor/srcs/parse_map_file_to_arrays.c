@@ -1,4 +1,4 @@
-#include "../includes/map_editor.h"
+#include "../../src/drowning.h"
 
 /* ---- = followed by undone part
 3D:
@@ -33,7 +33,7 @@ Z    drown->txt.skybox[64][128]
 
 // part of the textures not in struct yet (under work)
 
-static void array_selection(char *arr_selection, char *str, t_index *index, t_editor *editor)
+static void array_selection(char *arr_selection, char *str, t_index *index, t_gfx *gfx)
 {
     uint32_t            hex_value;
 //3D elements. Same logic as for other dimensions
@@ -142,7 +142,7 @@ static void array_selection(char *arr_selection, char *str, t_index *index, t_ed
     }
 }
 
-static void parse_textures_3D(char limiter, t_editor *editor, char *buf, char *arr_selection)
+static void parse_textures_3D(char limiter, t_gfx *gfx, char *buf, char *arr_selection)
 {
     char    str[11];
     int     a;
@@ -176,7 +176,7 @@ static void parse_textures_3D(char limiter, t_editor *editor, char *buf, char *a
                 k++;
             }
             str[a] = '\0';
-            array_selection(arr_selection, str, &index, editor);
+            array_selection(arr_selection, str, &index, gfx);
             if (buf[k] == '}')
             {
                 index.i2++;
@@ -200,7 +200,7 @@ static void parse_textures_3D(char limiter, t_editor *editor, char *buf, char *a
     }
 }
 
-static void parse_textures_2D(char limiter, t_editor *editor, char *buf, char *arr_selection)
+static void parse_textures_2D(char limiter, t_gfx *gfx, char *buf, char *arr_selection)
 {
     char    str[11];
     int     a;
@@ -234,7 +234,7 @@ static void parse_textures_2D(char limiter, t_editor *editor, char *buf, char *a
                 k++;
             }
             str[a] = '\0';
-            array_selection(arr_selection, str, &index, editor);
+            array_selection(arr_selection, str, &index, gfx);
             if (buf[k] == '}')
             {
                 k++;
@@ -257,28 +257,28 @@ static void parse_textures_2D(char limiter, t_editor *editor, char *buf, char *a
     }  
 }
 
-static void parse_images(char *buf, t_editor *editor)
+static void parse_images(char *buf, t_gfx *gfx)
 {
 //3 dimensional array parse
-    parse_textures_3D('!', editor, buf, "texture");    
-    parse_textures_3D('@', editor, buf, "weed");
-    parse_textures_3D('$', editor, buf, "beginning");
-    parse_textures_3D('%', editor, buf, "bad_end");
-    parse_textures_3D('^', editor, buf, "good_end");
-    parse_textures_3D('&', editor, buf, "bottle");
-    parse_textures_3D('~', editor, buf, "ammo");
-    parse_textures_3D('z', editor, buf, "right_arm");
-    parse_textures_3D('-', editor, buf, "harpoon");
-    parse_textures_3D('+', editor, buf, "goal");
-    parse_textures_3D(']', editor, buf, "timer");
-    parse_textures_3D('[', editor, buf, "left_arm");
+    parse_textures_3D('!', gfx, buf, "texture");    
+    parse_textures_3D('@', gfx, buf, "weed");
+    parse_textures_3D('$', gfx, buf, "beginning");
+    parse_textures_3D('%', gfx, buf, "bad_end");
+    parse_textures_3D('^', gfx, buf, "good_end");
+    parse_textures_3D('&', gfx, buf, "bottle");
+    parse_textures_3D('~', gfx, buf, "ammo");
+    parse_textures_3D('z', gfx, buf, "right_arm");
+    parse_textures_3D('-', gfx, buf, "harpoon");
+    parse_textures_3D('+', gfx, buf, "goal");
+    parse_textures_3D(']', gfx, buf, "timer");
+    parse_textures_3D('[', gfx, buf, "left_arm");
 
 //2 dimensional array parse
-    parse_textures_2D('`', editor, buf, "title_screen");
-    parse_textures_2D('X', editor, buf, "foliage");
-    parse_textures_2D(':', editor, buf, "moss");
-    parse_textures_2D('Y', editor, buf, "letters");
-    parse_textures_2D('Z', editor, buf, "skybox");
+    parse_textures_2D('`', gfx, buf, "title_screen");
+    parse_textures_2D('X', gfx, buf, "foliage");
+    parse_textures_2D(':', gfx, buf, "moss");
+    parse_textures_2D('Y', gfx, buf, "letters");
+    parse_textures_2D('Z', gfx, buf, "skybox");
 
 //4 dimensional array parse
 /*
@@ -288,11 +288,9 @@ static void parse_images(char *buf, t_editor *editor)
 }
 
 //limiters of image file: !, %, $, ... will not be made into global list. Parser will be left shit like this: limiters inside the function
-void    parse_map_file_to_arrays(char *buf, t_editor *editor)
+void    parse_map_file_to_arrays(char *buf, t_gfx *gfx)
 {
-    parse_images(buf, editor);
-
-    printf("texture 00: %x\n", editor->texture[0][0][0]);
+    parse_images(buf, gfx);
 
     // parse_sprites(buf, editor);
     // ...
