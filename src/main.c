@@ -6,7 +6,7 @@
 /*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 18:24:05 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/14 18:21:45 by tturto           ###   ########.fr       */
+/*   Updated: 2023/02/15 16:06:01 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ static int	initialize_textures(t_drown *d)
 	temp_texture_c(d);
 	temp_texture_skybox(d);
 	temp_sprite_letters(d);
+	sprite_bubble(d);
+	sprite_timer(d);
 	return (0);
 }
 
@@ -85,12 +87,12 @@ int	main(void)
 	ft_bzero(&data, sizeof(t_drown));
 	if (initialize_media(&data) == ERROR)
 		return (error(SDL_FAIL));
-/*		
+		
 	read_map("maps/numbers.dn", &data.map); // korvataan : bluehole.dn
 	if (initialize_textures(&data) == ERROR) // korvataan
 		return (error(TEXTURE_FAIL));			//
-*/		
-	map_editor(argv[1], &data);
+		
+//	map_editor(argv[1], &data);
 
 	if (initialize_player(&data) == ERROR)
 		return (error(PLAYER_FAIL));
