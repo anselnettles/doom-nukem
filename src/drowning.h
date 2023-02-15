@@ -6,7 +6,7 @@
 /*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/14 18:42:18 by tturto           ###   ########.fr       */
+/*   Updated: 2023/02/15 13:46:48 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,37 +96,6 @@ typedef struct s_system {
 	int				overlay_toggle;
 }	t_system;
 
-typedef struct s_map
-{
-	char	**map;
-	int		y_max;
-	int		x_max;
-
-    char                ***map;
-    char                ***map_temp;        //remember to free
-    //map coordinates referring x and y
-    unsigned short int  map_x;
-    unsigned short int  map_y;
-    //img2: these convert into param_to_modify
-    unsigned short int  param_x_to_modify;
-    unsigned short int  param_y_to_modify;
-    //img2: selected parameter type
-    unsigned short int  param_to_modify;
-    //img3: these convert into selection_index
-    unsigned short int  selection_x;
-    unsigned short int  selection_y; 
-    //img3: selected index of a chosen parameter type
-    unsigned short int  selection_index;
-
-}	t_map;
-
-typedef struct s_map_grid	//remove if not needed in final GUI
-{
-    int x1;
-    int x2;
-    int y1;
-    int y2;
-}   t_map_grid;
 
 typedef struct s_editor_images
 {
@@ -241,6 +210,7 @@ typedef struct	s_sprites {
 	uint32_t	right_arm[3][238][250];
 	uint32_t	letters[20][728];
 	uint32_t	harpoon[6][64][64];
+	uint32_t	bottle[3][64][38];
 }	t_sprite;
 
 typedef struct s_textures {
@@ -250,18 +220,6 @@ typedef struct s_textures {
 	uint32_t	texture_d[64][64];
 	uint32_t	skybox[64][128];
 }	t_txt;
-
-typedef struct s_ray
-{
-	t_gfx		gfx;
-	t_player	player;
-	t_map		map;
-	float		distance;
-	float		dir;
-	int			x;
-	int			count;
-	int			height;
-}	t_ray;
 
 //	Graphical-wise variables used for SDL and graphical drawing.
 //	Mother to raycast struct.
@@ -286,13 +244,57 @@ typedef struct s_graphics {
 	t_txt			txt;
 	t_sprite		sprite;
 	t_frame			frame;
-    	
 }	t_gfx;
+
+typedef struct s_map
+{
+	char	**map;
+	int		y_max;
+	int		x_max;
+/*
+    char                ***map;
+    char                ***map_temp;        //remember to free
+    //map coordinates referring x and y
+    unsigned short int  map_x;
+    unsigned short int  map_y;
+    //img2: these convert into param_to_modify
+    unsigned short int  param_x_to_modify;
+    unsigned short int  param_y_to_modify;
+    //img2: selected parameter type
+    unsigned short int  param_to_modify;
+    //img3: these convert into selection_index
+    unsigned short int  selection_x;
+    unsigned short int  selection_y; 
+    //img3: selected index of a chosen parameter type
+    unsigned short int  selection_index;
+*/
+}	t_map;
+
+typedef struct s_map_grid	//remove if not needed in final GUI
+{
+    int x1;
+    int x2;
+    int y1;
+    int y2;
+}   t_map_grid;
+
+
+typedef struct s_ray
+{
+	t_gfx		gfx;
+	t_player	player;
+	t_map		map;
+	float		distance;
+	float		dir;
+	int			x;
+	int			count;
+	int			height;
+}	t_ray;
 
 //	Mother structure.
 typedef struct s_project_drowning {
 	t_system				system;
-	t_editor				editor;
+//	t_editor				editor;
 	t_index					index;
 	t_player				player;
 	t_gfx					gfx;
@@ -391,8 +393,9 @@ void	temp_texture_c(t_drown *d);
 void	temp_texture_skybox(t_drown *d);
 void	temp_sprite_letters(t_drown *d);
 
+/*
 //Map editor functions
-void        choose_to_reset_map_or_exit(t_editor *editor, t_editor_images *images, t_mouse *mouse, t_map *data);
+void        choose_to_reset_map_or_exit(t_ *editor, t_editor_images *images, t_mouse *mouse, t_map *data);
 void        close_program(t_editor *editor);
 void        create_map_temp(t_map *data, t_editor_images *images);
 void        copy_map_to_map_temp(t_map *data, t_editor_images *images);
@@ -417,8 +420,8 @@ uint32_t    swap_red_with_blue(uint32_t hex_value);
 void        tt_errors(char *error_msg);
 int         validate_buffer_format(char *buf, t_editor_images *images);
 int         validate_map_temp(t_map *data, t_editor_images *images, t_character *chars);
-/* below functions will be excluded from the final map_editor */
+// below functions will be excluded from the final map_editor 
 void    testing_print_map(t_map *data, t_editor_images *images);
 //EOF map editor functions
-
+*/
 #endif
