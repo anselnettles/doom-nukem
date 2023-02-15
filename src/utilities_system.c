@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 17:50:06 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/14 18:10:14 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/15 20:04:11 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,9 @@ static void	track_time(t_drown *d)
 		d->system.delta_time = (d->system.time - d->system.last_time);
 		if ((d->system.time / 1000) >= d->system.second)
 				d->system.second++;
+		if ((d->system.second / 5 >= d->gfx.frame.bubble)
+				&& (d->gfx.frame.bubble <= 11))
+			d->gfx.frame.bubble++;
 		d->system.frame_time = d->system.delta_time / 100.f;
 		//printf("frame_time = %f\n", d->system.frame_time);
 		animation_loop(d);
