@@ -32,7 +32,7 @@ static void	track_time(t_drown *d)
 		if ((d->system.time / 1000) >= d->system.second)
 				d->system.second++;
 		if ((d->system.second / 5 >= d->gfx.frame.bubble)
-				&& (d->gfx.frame.bubble <= 11))
+				&& (d->gfx.frame.bubble < 13))
 			d->gfx.frame.bubble++;
 		d->system.frame_time = d->system.delta_time / 100.f;
 		//printf("frame_time = %f\n", d->system.frame_time);
