@@ -6,7 +6,7 @@
 /*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/15 13:46:48 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/15 19:53:43 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,7 +203,8 @@ typedef struct s_wall {
 
 typedef struct s_animations {
 	uint32_t	right_arm;
-	// ...
+	uint32_t	timer;
+	uint32_t	bubble;
 }	t_frame;
 
 typedef struct	s_sprites {
@@ -211,6 +212,8 @@ typedef struct	s_sprites {
 	uint32_t	letters[20][728];
 	uint32_t	harpoon[6][64][64];
 	uint32_t	bottle[3][64][38];
+	uint32_t	timer[8][90][60];
+	uint32_t	bubble[12][12];
 }	t_sprite;
 
 typedef struct s_textures {
@@ -392,6 +395,9 @@ void	temp_texture_b(t_drown *d);
 void	temp_texture_c(t_drown *d);
 void	temp_texture_skybox(t_drown *d);
 void	temp_sprite_letters(t_drown *d);
+void	sprite_timer(t_drown *d);
+void	sprite_bubble(t_drown *d);
+
 
 /*
 //Map editor functions
