@@ -6,7 +6,7 @@
 /*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/14 18:42:18 by tturto           ###   ########.fr       */
+/*   Updated: 2023/02/15 13:39:23 by tturto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # include <pthread.h>
 # include <SDL2/SDL.h>						//Simple DirectMedia Layer.
 # include "../libft/libft.h"
+# include <stdlib.h>						//Malloc()
+# include <stdint.h>						//uint_32
 
 # ifdef __APPLE__
 #  include "SDL_image.h"
@@ -80,6 +82,20 @@
 # define T_ORANGES "\033[0;33m"			//A slim orange terminal type color.
 # define T_RED "\033[0;31m"				//A red terminal type color.
 # define T_LGRAY "\033[0;37m"			//A light gray terminal type color.
+
+//map editor definitions
+# define BUF_SIZE 1500000
+# define SCREEN_W 1280		// remove: is WIDTH
+# define SCREEN_H 800		// remove: is HEIGHT
+# define IMG1_CATHETUS 12
+# define IMG2_CATHETUS 36
+# define IMG3_CATHETUS 48
+# define IMG2_PARAM_COL 2
+# define IMG2_PARAM_ROW 3
+# define IMG3_PARAM_COL 1
+# define PARAM_COUNT 5
+# define ASCII_MIN 32
+# define ASCII_MAX 127
 
 //	System-wise variables for run and check-up calls through the program.
 typedef struct s_system {

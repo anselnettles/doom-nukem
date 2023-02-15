@@ -1,9 +1,12 @@
-#include "../includes/map_editor.h"
+#include "../../src/drowning.h"
 
 int main(int argc, char **argv)
 {
     t_map   data;
 
+/*
+    ! These are needed in primary main.c
+*/
     data = (t_map){/*.x_to_modify = 0, .y_to_modify = 0, */.param_x_to_modify = 0,
         .param_y_to_modify = 0, .param_to_modify = 0, .selection_index = 0, .map = NULL, .map_temp = NULL,
         .map_x = 0, .map_y = 0, .selection_x = 0, .selection_y = 0};

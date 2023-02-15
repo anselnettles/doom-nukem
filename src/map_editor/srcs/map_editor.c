@@ -1,4 +1,4 @@
-#include "../includes/map_editor.h"
+#include "../../src/drowning.h"
 
 int map_editor(char *map_file, t_map *data)
 {

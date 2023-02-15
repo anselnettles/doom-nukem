@@ -6,7 +6,7 @@
 /*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 18:24:05 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/14 18:21:45 by tturto           ###   ########.fr       */
+/*   Updated: 2023/02/15 13:46:36 by tturto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,16 @@ int	main(void)
 	read_map("maps/numbers.dn", &data.map); // korvataan : bluehole.dn
 	if (initialize_textures(&data) == ERROR) // korvataan
 		return (error(TEXTURE_FAIL));			//
-*/		
+*/
+		
+//Start: Map Editor integration
+    data = (t_map){.param_x_to_modify = 0, .param_y_to_modify = 0, .param_to_modify = 0,
+		.selection_index = 0, .map = NULL, .map_temp = NULL, .map_x = 0, .map_y = 0,
+		.selection_x = 0, .selection_y = 0};
+
 	map_editor(argv[1], &data);
+
+//End:Map Editor integration
 
 	if (initialize_player(&data) == ERROR)
 		return (error(PLAYER_FAIL));
