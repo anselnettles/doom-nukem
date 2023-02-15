@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 12:34:59 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/10 19:06:26 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/15 20:08:58 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,10 @@ int	string_timeline(t_drown *d)
 	if (d->system.time > 23200 && d->system.time < 32800)
 		if (gfx_write(&d->gfx,
 					"IT'S DANGLING ABOVE! I NEED TO CATCH THE ROPE!") == ERROR)
+			return (ERROR);
+	if (d->system.time > 60000)
+		if (gfx_write(&d->gfx,
+					"GAME OVER.") == ERROR)
 			return (ERROR);
 	return (0);
 }
