@@ -14,22 +14,21 @@
 
 static void	draw_timer_bubbles(t_index *index, t_gfx *gfx, int s)
 {
-	int	start_y = index->y - (40 * s);
-	int	start_x = index->x + (30 * s);
+	int	start_y = index->y - (55 * s);
+	int	start_x = index->x + (10 * s);
 	int x;
 	int y;
 	int	gfx_y;
 	int	gfx_x;
-	//int	i = gfx->frame.bubble;
-	int	i = 1 + gfx->frame.bubble;
+	int	i = gfx->frame.bubble;
 
 	while (13 - i)
 	{
-		y = start_y + (i * 14 * s);
+		y = start_y + (i % 4 * 13 * s);
 		gfx_y = 0;
 		while (gfx_y < 12)
 		{
-			x = start_x;
+			x = start_x + (i % 3 * 13 * s);
 			gfx_x = 0;
 			while (gfx_x < 12)
 			{
@@ -111,6 +110,8 @@ int	render_overlay(t_drown *d)
 		return (ERROR);
 	if (d->system.color_filter == TRUE)
 		draw_color_filter(&d->gfx);
+	if (d->system.time >= 60000)
+		SDL_FillRect(d->gfx.screen, NULL, 0);
 	if (draw_timer_bottle(&d->index, &d->gfx, d->gfx.scale) == ERROR)
 		return (ERROR);
 	if (string_timeline(d) == ERROR)
