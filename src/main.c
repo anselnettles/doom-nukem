@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 18:24:05 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/10 17:49:16 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/14 18:21:45 by tturto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,11 +85,17 @@ int	main(void)
 	ft_bzero(&data, sizeof(t_drown));
 	if (initialize_media(&data) == ERROR)
 		return (error(SDL_FAIL));
-	read_map("maps/numbers.dn", &data.map);
+/*		
+	read_map("maps/numbers.dn", &data.map); // korvataan : bluehole.dn
+	if (initialize_textures(&data) == ERROR) // korvataan
+		return (error(TEXTURE_FAIL));			//
+*/		
+	map_editor(argv[1], &data);
+
 	if (initialize_player(&data) == ERROR)
 		return (error(PLAYER_FAIL));
-	if (initialize_textures(&data) == ERROR)
-		return (error(TEXTURE_FAIL));
+		
+
 	if (render(&data) == ERROR)
 		return (error(RENDER_FAIL));
 	SDL_SetRelativeMouseMode(SDL_TRUE);
