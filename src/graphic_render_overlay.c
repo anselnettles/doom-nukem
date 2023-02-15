@@ -6,13 +6,48 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 11:08:33 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/15 16:27:43 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/15 20:03:55 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "drowning.h"
 
-static int	draw_timer(t_index *index, t_gfx *gfx, int s)
+static void	draw_timer_bubbles(t_index *index, t_gfx *gfx, int s)
+{
+	int	start_y = index->y - (40 * s);
+	int	start_x = index->x + (30 * s);
+	int x;
+	int y;
+	int	gfx_y;
+	int	gfx_x;
+	//int	i = gfx->frame.bubble;
+	int	i = 1 + gfx->frame.bubble;
+
+	while (13 - i)
+	{
+		y = start_y + (i * 14 * s);
+		gfx_y = 0;
+		while (gfx_y < 12)
+		{
+			x = start_x;
+			gfx_x = 0;
+			while (gfx_x < 12)
+			{
+				if (gfx->sprite.bubble[gfx_y][gfx_x])
+					pixel_put(gfx, x, y + (gfx->frame.timer % 2),
+								gfx->sprite.bubble[gfx_y][gfx_x]);
+				x += s;
+				gfx_x++;
+			}
+			y += s;
+			gfx_y++;
+			gfx_x = 0;
+		}
+		i++;
+	}
+}
+
+static int	draw_timer_bottle(t_index *index, t_gfx *gfx, int s)
 {
 	gfx->f = gfx->frame.timer;
 	gfx->x = 0;
@@ -23,12 +58,13 @@ static int	draw_timer(t_index *index, t_gfx *gfx, int s)
 	{
 		while ((gfx->x) < (60))
 		{
-	//		printf("hex: %d | x: %d | y: %d |", gfx->sprite.timer[gfx->f][gfx->y][gfx->x], gfx->x, gfx->y);
 			if (gfx->sprite.timer[gfx->f][gfx->y][gfx->x])
+			{
 				if (pixel_put(gfx, index->x, index->y,
 						gfx->sprite.timer
 						[gfx->f][gfx->y][gfx->x]) == ERROR)
 					return (ERROR);
+			}
 			index->x += s;
 			gfx->x++;
 		}
@@ -37,6 +73,7 @@ static int	draw_timer(t_index *index, t_gfx *gfx, int s)
 		index->x = ((gfx->width - (60 * s) - MARGIN * s));
 		gfx->x = 0;
 	}
+	draw_timer_bubbles(index, gfx, s);
 	return (0);
 }
 
@@ -74,7 +111,7 @@ int	render_overlay(t_drown *d)
 		return (ERROR);
 	if (d->system.color_filter == TRUE)
 		draw_color_filter(&d->gfx);
-	if (draw_timer(&d->index, &d->gfx, d->gfx.scale) == ERROR)
+	if (draw_timer_bottle(&d->index, &d->gfx, d->gfx.scale) == ERROR)
 		return (ERROR);
 	if (string_timeline(d) == ERROR)
 		return (ERROR);
