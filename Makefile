@@ -16,7 +16,6 @@ NAME				=	doom-nukem
 
 CC					=	gcc
 FILES				=	\
-<<<<<<< HEAD
 						editor_choose_to_reset_map_or_exit\
 						editor_close_program \
 						editor_copy_map_to_map_temp \
