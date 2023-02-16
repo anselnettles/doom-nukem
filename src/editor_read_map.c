@@ -1,19 +1,4 @@
 #include "drowning.h"
-/*
-	Modify read_map.c
-	Should allow non-NL map files to be read.
-
-	...
-    while (*buf != '\0')
-    {
-        while (*buf != ' ' && *buf != '\n' && *buf != '\0')
-		{
-			...
-		}
-		...
-	}
-*/
-
 
 /*
     Inserts the values char *buf into char ***map.
@@ -27,9 +12,9 @@ static void buffer_to_3D_map_array(char *buf, t_map *map)
     i2 = 0;
     i1 = 0;
     i0 = 0;
-    while (*buf != '!')
+    while (*buf != 'A')
     {
-        while (*buf != ' ' && *buf != '\n' && *buf != '!')
+        while (*buf != ' ' && *buf != '\n' && *buf != 'A')
         {
             map->map[i2][i1][i0] = *buf;
             i0++;
@@ -114,7 +99,7 @@ static void count_map_data(char *buf, t_editor_images *images)
     //  since after the last map element there is '\n' instead of ' '.
     //  Addition "+ 1" to PARAM_COUNT negates ' ' between the elements.
     images->column1 = (row_bytes + 1) / (PARAM_COUNT + 1);
-    while(*buf != '!')
+    while(*buf != 'A')
     {
         if (*buf == '\n')
             images->row1++;
@@ -149,9 +134,7 @@ void    read_map(char *map_file, t_drown *data)
         tt_errors("read_map: validate_buffer_format() fail.");
         exit(-1);
     }
-    printf("before parse\n");
     parse_map_file_to_arrays(buf, &data->gfx); //maptype: int. insert into if (function() != 1)
-    printf("after parse\n");
     count_map_data(buf, &data->editor.images);
     malloc_3D_map_array(&data->map, &data->editor.images);
     buffer_to_3D_map_array(buf, &data->map);

@@ -69,7 +69,7 @@ SRC					=	$(addprefix src/, $(addsuffix .c, $(FILES)))
 OBJ					=	$(addprefix obj/, $(addsuffix .o, $(FILES)))
 OBJ_DIR				=	obj
 LISTSRC				=	$(foreach part,$(SRC), 	$(PL)		${G}| $(part)\n)
-FLAGS				=	-O3 -g	#-Wall -Wextra -Werror
+FLAGS				=	-g	#-Wall -Wextra -Werror -O3 
 HEADER				=	-I./src
 LIBFT				=	libft/
 

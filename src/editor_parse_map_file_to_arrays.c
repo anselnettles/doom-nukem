@@ -1,37 +1,9 @@
 #include "drowning.h"
 
-/* ---- = followed by undone part
-3D:
-!    texture[3][64][64]                         //change to 4 x 2D
-@    drown->sprite.weed[3][48][20]
-$    drown->storyboard.beginning[3][642][480]
-%    drown->storyboard.bad_end[3][642][480]
-^    drown->storyboard.good_end[3][642][480]
-&    drown->sprite.bottle[3][64][64]
-~    drown->sprite.ammo[3][12][12]
-z    drown->sprite.right_arm[3][238][250]
--    drown->sprite.harpoon[6][64][64]
-+    drown->sprite.goal[6][128][64]
-]    drown->sprite.timer[?][20][20]
-[    drown->sprite.left_arm[?][?][?]
+void breakpoint(void)
+{
 
-2D:
-`    drown->storyboard.title_screen[642][480]
-X    drown->sprite.foliage[128][128]
-:    drown->sprite.moss[60][60]
-Y    drown->sprite.letters[20][728]
-Z    drown->txt.skybox[64][128]
-
-4D:
-    drown->sprite.monster[8][3][128][128]
-
-    drown->txt.texture_d[64][64] : Crate.
-    drown->txt.texture_c[64][64] : Pillar.
-    drown->txt.texture_b[64][64] : Wall.
-    drown->txt.texture_a[64][64] : Floor.
-*/
-
-// part of the textures not in struct yet (under work)
+}
 
 static void array_selection(char *arr_selection, char *str, t_index *index, t_gfx *gfx)
 {
@@ -43,19 +15,19 @@ static void array_selection(char *arr_selection, char *str, t_index *index, t_gf
         hex_value = swap_red_with_blue(hex_value);
         gfx->txt.texture_a[index->i1][index->i0] = hex_value;
     }
-        if (strcmp(arr_selection, "texture_b") == 0)
+    else if (strcmp(arr_selection, "texture_b") == 0)
     {
         hex_value = (uint32_t)strtol(str, NULL, 16);
         hex_value = swap_red_with_blue(hex_value);
         gfx->txt.texture_b[index->i1][index->i0] = hex_value;
     }
-        if (strcmp(arr_selection, "texture_c") == 0)
+    else if (strcmp(arr_selection, "texture_c") == 0)
     {
         hex_value = (uint32_t)strtol(str, NULL, 16);
         hex_value = swap_red_with_blue(hex_value);
         gfx->txt.texture_c[index->i1][index->i0] = hex_value;
     }
-        if (strcmp(arr_selection, "texture_d") == 0)
+    else if (strcmp(arr_selection, "texture_d") == 0)
     {
         hex_value = (uint32_t)strtol(str, NULL, 16);
         hex_value = swap_red_with_blue(hex_value);
@@ -67,18 +39,24 @@ static void array_selection(char *arr_selection, char *str, t_index *index, t_gf
         hex_value = swap_red_with_blue(hex_value);
         gfx->txt.skybox[index->i1][index->i0] = hex_value;
     }
+    else if (strcmp(arr_selection, "letters") == 0)
+    {
+        hex_value = (uint32_t)strtol(str, NULL, 16);
+        hex_value = swap_red_with_blue(hex_value);
+        gfx->sprite.letters[index->i1][index->i0] = hex_value;
+    }
+    else if (strcmp(arr_selection, "bubble") == 0)
+    {
+        hex_value = (uint32_t)strtol(str, NULL, 16);
+        hex_value = swap_red_with_blue(hex_value);
+        gfx->sprite.bubble[index->i1][index->i0] = hex_value;
+    }
 //3D arrays
     else if (strcmp(arr_selection, "right_arm") == 0)
     {
         hex_value = (uint32_t)strtol(str, NULL, 16);
         hex_value = swap_red_with_blue(hex_value);
         gfx->sprite.right_arm[index->i2][index->i1][index->i0] = hex_value;
-    }
-    else if (strcmp(arr_selection, "letters") == 0)
-    {
-        hex_value = (uint32_t)strtol(str, NULL, 16);
-        hex_value = swap_red_with_blue(hex_value);
-        gfx->sprite.letters[index->i1][index->i0] = hex_value;
     }
     else if (strcmp(arr_selection, "harpoon") == 0)
     {
@@ -97,12 +75,6 @@ static void array_selection(char *arr_selection, char *str, t_index *index, t_gf
         hex_value = (uint32_t)strtol(str, NULL, 16);
         hex_value = swap_red_with_blue(hex_value);
         gfx->sprite.timer[index->i2][index->i1][index->i0] = hex_value;
-    }
-    else if (strcmp(arr_selection, "bubble") == 0)
-    {
-        hex_value = (uint32_t)strtol(str, NULL, 16);
-        hex_value = swap_red_with_blue(hex_value);
-        gfx->sprite.bottle[index->i2][index->i1][index->i0] = hex_value;
     }
     else if (strcmp(arr_selection, "ammo") == 0)
     {
@@ -203,6 +175,7 @@ static void parse_textures_3D(char limiter, t_gfx *gfx, char *buf, char *arr_sel
             {
                 index.i2++;
                 k++;
+                // printf("just before frame change\n");
                 break ;
             }
             if (buf[k] == ',')
@@ -291,13 +264,13 @@ static void parse_images(char *buf, t_gfx *gfx)
     parse_textures_3D('H', gfx, buf, "harpoon");
     parse_textures_3D('I', gfx, buf, "bottle");
     parse_textures_3D('J', gfx, buf, "timer");
-    parse_textures_3D('L', gfx, buf, "ammo");
-
+    // parse_textures_3D('L', gfx, buf, "ammo");    //FAIL - puuttuu mun dnsta
+    // printf("ammo OK\n");
+    printf("parse_images 3D OK (ammo(3D) is commented out, not in my .dn)\n");
 //4 dimensional array parse
 /*
 <symbol>    drown->sprite.monster[8][3][128][128]
 */    
-
 }
 
 //limiters of image file: !, %, $, ... will not be made into global list. Parser will be left shit like this: limiters inside the function

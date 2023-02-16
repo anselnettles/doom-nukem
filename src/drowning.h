@@ -6,7 +6,7 @@
 /*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/16 18:09:21 by tturto           ###   ########.fr       */
+/*   Updated: 2023/02/16 21:12:10 by tturto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@
 # define T_LGRAY "\033[0;37m"			//A light gray terminal type color.
 
 //Map Editor definitions
-# define BUF_SIZE 3000000	//optimize size
+# define BUF_SIZE 6000000	//optimize size
 # define SCREEN_W 1280
 # define SCREEN_H 800
 # define IMG1_CATHETUS 12

@@ -10,7 +10,7 @@ int map_editor(char *map_file, t_drown *data)
         tt_errors("main: init() fail");
         close_program(&data->gfx);
     }
-    printf("here\n");
+    printf("main: initialization OK\n");
     img1_to_gui(data);
     //consider inserting SetRenderDrawColor & RenderPresent to a single function
     SDL_SetRenderDrawColor(data->gfx.renderer, 0x00, 0x00, 0x00, 0x00);
