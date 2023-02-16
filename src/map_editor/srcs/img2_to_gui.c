@@ -1,9 +1,9 @@
-#include "../includes/map_editor.h"
+#include "../../src/drowning.h"
 
 /*
     insert comments
 */
-static void draw_grid(t_editor *editor, t_editor_images *images)
+static void draw_grid(t_gfx *gfx, t_editor_images *images)
 {
     t_map_grid  grid_img2;
     int         column_temp;
@@ -34,21 +34,21 @@ static void draw_grid(t_editor *editor, t_editor_images *images)
     }
 }
 
-static void draw_rect(t_editor *editor, t_editor_images *images)
+static void draw_rect(t_gfx *gfx, t_editor_images *images)
 {
     SDL_Rect    element_fill;
 
     element_fill = (SDL_Rect){.x = images->img2_x_min, .y = images->img_y_min,
         .w = IMG2_PARAM_COL * (IMG2_CATHETUS + 1), .h = (IMG2_PARAM_ROW * (IMG2_CATHETUS + 1))};
-    SDL_SetRenderDrawColor(editor->renderer, 0xFF, 0x99, 0x00, 0x00);
-    SDL_RenderFillRect(editor->renderer, &element_fill);
+    SDL_SetRenderDrawColor(gfx->renderer, 0xFF, 0x99, 0x00, 0x00);
+    SDL_RenderFillRect(gfx->renderer, &element_fill);
 }
 
-int img2_to_gui(t_editor *editor, t_editor_images *images)
+int img2_to_gui(t_gfx *gfx, t_editor_images *images)
 {
     // SDL_RenderClear(editor->renderer);
-    draw_rect(editor, images);
-    draw_grid(editor, images);
+    draw_rect(gfx, images);
+    draw_grid(gfx, images);
 
     return (0);
 }

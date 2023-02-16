@@ -12,6 +12,7 @@
 
 #include "drowning.h"
 
+/* Leave commented out until project compiles
 static int	initialize_textures(t_drown *d)
 {
 	sprite_right_arm(d);
@@ -24,7 +25,7 @@ static int	initialize_textures(t_drown *d)
 	sprite_timer(d);
 	sprite_ammo(d);
 	return (0);
-}
+}*/
 
 //	Initializes the necessary player variables before rendering.
 static int	initialize_player(t_drown *d)
@@ -53,7 +54,7 @@ static int	initialize_player(t_drown *d)
 //	all the necessary variables for graphical rendering.
 static int	initialize_media(t_drown *d)
 {
-	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS) > SDL_ERROR)
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS | SDL_INIT_EVERYTHING) > SDL_ERROR)
 	{
 		d->gfx.scale = 1;
 		d->gfx.width = (WIDTH * d->gfx.scale);
@@ -64,9 +65,9 @@ static int	initialize_media(t_drown *d)
 		d->gfx.window = SDL_CreateWindow(TITLE, SDL_WINDOWPOS_UNDEFINED,
 				SDL_WINDOWPOS_UNDEFINED, d->gfx.width,
 				d->gfx.height, SDL_WINDOW_SHOWN);
-		d->gfx.screen = SDL_GetWindowSurface(d->gfx.window);
 		d->gfx.dop = d->gfx.width / 2 / tan(30 * DEGREES);
-		if (d->gfx.window != NULL || d->gfx.screen != NULL)
+		d->gfx.renderer = SDL_CreateRenderer(d->gfx.window, -1, SDL_RENDERER_ACCELERATED);
+		if (d->gfx.window != NULL || d->gfx.renderer != NULL)
 			return (0);
 	}
 	else
@@ -81,27 +82,29 @@ static int	initialize_media(t_drown *d)
 // Begin of program. Run the binary with no arguments to launch the software
 // and go into the process of initialization.
 
-int	main(void)
+int	main(int argc, char **argv)
 {
 	t_drown	data;
 
 	ft_bzero(&data, sizeof(t_drown));
 	if (initialize_media(&data) == ERROR)
 		return (error(SDL_FAIL));
-		
-	read_map("maps/numbers.dn", &data.map); // korvataan : bluehole.dn
+
+//this will be removed. map reading: map_editor()/read_map()
+	/*read_map("maps/numbers.dn", &data.map); // korvataan : bluehole.dn
 	if (initialize_textures(&data) == ERROR) // korvataan
-		return (error(TEXTURE_FAIL));			//
-		
-//	map_editor(argv[1], &data);
+		return (error(TEXTURE_FAIL));*/
 
-	if (initialize_player(&data) == ERROR)
+	map_editor(argv[1], &data);
+	data.gfx.screen = SDL_GetWindowSurface(data.gfx.window);	//this is utilized after Map Editor. Formerly in initialize_media()
+	if (data.gfx.screen != NULL)
+			return (0);
+			
+	/*if (initialize_player(&data) == ERROR)
 		return (error(PLAYER_FAIL));
-		
-
-	if (render(&data) == ERROR)
+	if (render(&data) == ERROR)					///STOP HERE before dofidog
 		return (error(RENDER_FAIL));
 	SDL_SetRelativeMouseMode(SDL_TRUE);
-	sdl_loop(&data);
+	sdl_loop(&data);*/
 	return (0);
 }

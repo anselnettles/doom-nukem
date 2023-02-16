@@ -1,4 +1,4 @@
-#include "../includes/map_editor.h"
+#include "../../src/drowning.h"
 
 /*
 	Checks file access.
@@ -22,7 +22,7 @@ static void	access_error(char *path)
 /*
 	Overwrites the entire map file at char *path.
 */
-static void	overwrite_file_content(char *path, t_map *data, t_editor_images *images)
+static void	overwrite_file_content(char *path, t_map *map, t_editor_images *images)
 {
 	FILE	*fp;
 	int		i2;
@@ -41,7 +41,7 @@ static void	overwrite_file_content(char *path, t_map *data, t_editor_images *ima
 			i0 = 0;
 			while (i0 < PARAM_COUNT)
 			{
-				fputc(data->map_temp[i2][i1][i0], fp);
+				fputc(map->map_temp[i2][i1][i0], fp);
 				i0++;
 			}
 			i1++;
@@ -63,7 +63,7 @@ static void	overwrite_file_content(char *path, t_map *data, t_editor_images *ima
 	
 	Enhance: else -> chmod, create...
 */
-int	overwrite_map_file(t_map *data, t_editor_images *images)
+int	overwrite_map_file(t_map *map, t_editor_images *images)
 {
 	char *path;
 
@@ -80,7 +80,7 @@ int	overwrite_map_file(t_map *data, t_editor_images *images)
 	path = "./test_maps/default.txt";
 	if (access(path, (F_OK | R_OK | W_OK | X_OK)) == 0)
 	{
-		overwrite_file_content(path, data, images);
+		overwrite_file_content(path, map, images);
 		return (1);
 	}
 	else
