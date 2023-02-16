@@ -27,6 +27,7 @@
 `I`       : `drown->gfx.sprite.bottle[3][64][38]` starts and ends here. <br>
 `J`       : `drown->gfx.sprite.timer[8][90][60]` starts and ends here. <br>
 `K`       : `drown->gfx.sprite.bubble[12][12]`  starts and ends here. <br>
+`L`       : `drown->gfx.sprite.ammo[2][45][32]` starts and ends here. <br>
 
 ## In-recorded textures graphics:
 <br>
