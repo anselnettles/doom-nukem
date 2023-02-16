@@ -6,7 +6,7 @@
 /*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/16 16:07:05 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/16 16:51:08 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,6 +206,7 @@ typedef struct s_animations {
 	uint32_t	right_arm;
 	uint32_t	timer;
 	uint32_t	bubble;
+	uint32_t	ammo;
 }	t_frame;
 
 typedef struct	s_sprites {
