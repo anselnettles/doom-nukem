@@ -6,7 +6,7 @@
 /*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 18:24:05 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/15 16:06:01 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/16 15:55:23 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static int	initialize_textures(t_drown *d)
 	temp_sprite_letters(d);
 	sprite_bubble(d);
 	sprite_timer(d);
+	sprite_ammo(d);
 	return (0);
 }
 
