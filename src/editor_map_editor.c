@@ -5,14 +5,12 @@ int map_editor(char *map_file, t_drown *data)
     short int       quit;
 
     initialization(data, map_file);
-    if (init(&data->gfx) != 1)
+    /*if (init(&data->gfx) != 1)    //remove
     {
         tt_errors("main: init() fail");
         close_program(&data->gfx);
-    }
-    printf("main: initialization OK\n");
+    }*/
     img1_to_gui(data);
-    //consider inserting SetRenderDrawColor & RenderPresent to a single function
     SDL_SetRenderDrawColor(data->gfx.renderer, 0x00, 0x00, 0x00, 0x00);
     SDL_RenderPresent(data->gfx.renderer);  
     quit = 0;
@@ -36,9 +34,9 @@ int map_editor(char *map_file, t_drown *data)
             if (save_changes(&data->gfx) == 1)
             {
                 if (overwrite_map_file(&data->map, &data->editor.images) == 1)
-                    printf("default.txt was overwritten\n");
+                    write(1, "default.txt was overwritten\n", 28);
                 else
-                    printf("no overwrite\n");
+                    write(1, "no overwrite\n", 13);
             }
             choose_to_reset_map_or_exit(data);
         }

@@ -1,10 +1,5 @@
 #include "drowning.h"
 
-void breakpoint(void)
-{
-
-}
-
 static void array_selection(char *arr_selection, char *str, t_index *index, t_gfx *gfx)
 {
     uint32_t            hex_value;
@@ -175,7 +170,6 @@ static void parse_textures_3D(char limiter, t_gfx *gfx, char *buf, char *arr_sel
             {
                 index.i2++;
                 k++;
-                // printf("just before frame change\n");
                 break ;
             }
             if (buf[k] == ',')
@@ -258,15 +252,12 @@ static void parse_images(char *buf, t_gfx *gfx)
     parse_textures_2D('E', gfx, buf, "skybox");
     parse_textures_2D('G', gfx, buf, "letters");
     parse_textures_2D('K', gfx, buf, "bubble");
-    printf("parse_images: 2D OK\n");
 //3 dimensional array parse
     parse_textures_3D('F', gfx, buf, "right_arm");
     parse_textures_3D('H', gfx, buf, "harpoon");
     parse_textures_3D('I', gfx, buf, "bottle");
     parse_textures_3D('J', gfx, buf, "timer");
-    // parse_textures_3D('L', gfx, buf, "ammo");    //FAIL - puuttuu mun dnsta
-    // printf("ammo OK\n");
-    printf("parse_images 3D OK (ammo(3D) is commented out, not in my .dn)\n");
+    // parse_textures_3D('L', gfx, buf, "ammo");    //puuttuu mun dnsta
 //4 dimensional array parse
 /*
 <symbol>    drown->sprite.monster[8][3][128][128]

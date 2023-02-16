@@ -1,15 +1,8 @@
 ---------------------------------------------------------------------------------
 Continue: 
 ---------------------------------------------------------------------------------
-OK  - change file names to editor_<filename>
-    - change topis **map to **map2
-    - do until main: "if (render(&data) == ERROR)"
-    - remove init from editor (it is in main)    
-    - bzero sets 0 to all structs, all params. Consider removing Compound Literals
-    
-    - parser not aligned with structs
-    
-    
+    initialization integration
+
 ---------------------------------------------------------------------------------
 Fix notes:
 ---------------------------------------------------------------------------------

@@ -6,7 +6,7 @@
 /*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 18:24:05 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/16 17:59:53 by tturto           ###   ########.fr       */
+/*   Updated: 2023/02/16 22:27:10 by tturto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static int	initialize_player(t_drown *d)
 //	all the necessary variables for graphical rendering.
 static int	initialize_media(t_drown *d)
 {
-	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS) > SDL_ERROR)
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS | SDL_INIT_EVERYTHING) > SDL_ERROR)
 	{
 		d->gfx.scale = 1;
 		d->gfx.width = (WIDTH * d->gfx.scale);
@@ -62,9 +62,9 @@ static int	initialize_media(t_drown *d)
 		d->gfx.window = SDL_CreateWindow(TITLE, SDL_WINDOWPOS_UNDEFINED,
 				SDL_WINDOWPOS_UNDEFINED, d->gfx.width,
 				d->gfx.height, SDL_WINDOW_SHOWN);
-		d->gfx.screen = SDL_GetWindowSurface(d->gfx.window);
 		d->gfx.dop = d->gfx.width / 2 / tan(30 * DEGREES);
-		if (d->gfx.window != NULL || d->gfx.screen != NULL)
+		d->gfx.renderer = SDL_CreateRenderer(d->gfx.window, -1, SDL_RENDERER_ACCELERATED);
+		if (d->gfx.window != NULL || d->gfx.renderer != NULL)
 			return (0);
 	}
 	else
@@ -83,19 +83,20 @@ int	main(int argc, char **argv)
 {
 	t_drown	data;
 
-	/*ft_bzero(&data, sizeof(t_drown));
-	if (initialize_media(&data) == ERROR)
-		return (error(SDL_FAIL));*/
+	ft_bzero(&data, sizeof(t_drown));
+	 if (initialize_media(&data) == ERROR)
+	 	return (error(SDL_FAIL));
 
-//this will be removed when ***map has replaced **map	
+//this will be removed. map reading: map_editor()/read_map()
 	/*read_map("maps/numbers.dn", &data.map); // korvataan : bluehole.dn
 	if (initialize_textures(&data) == ERROR) // korvataan
 		return (error(TEXTURE_FAIL));*/
-	
-//Start: Map Editor integration
-	map_editor(argv[1], &data);
-//End:Map Editor integration
 
+	map_editor(argv[1], &data);
+	data.gfx.screen = SDL_GetWindowSurface(data.gfx.window);	//this is utilized after Map Editor. Formerly in initialize_media()
+	if (data.gfx.screen != NULL)
+			return (0);
+			
 	/*if (initialize_player(&data) == ERROR)
 		return (error(PLAYER_FAIL));
 	if (render(&data) == ERROR)					///STOP HERE before dofidog

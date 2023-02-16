@@ -6,7 +6,7 @@
 /*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/16 21:12:10 by tturto           ###   ########.fr       */
+/*   Updated: 2023/02/16 22:11:09 by tturto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@
 # define TITLE "Project Drowning | github.com/AnselNettles/doom-nukem"
 # define NAME "doom-nukem"
 
-# define WIDTH 1280			//Window resolution width.
-# define HEIGHT 800			//Window resolution height.
+# define WIDTH 642			//Window resolution width.
+# define HEIGHT 480			//Window resolution height.
 # define MARGIN 20			//Margin difference for the UI.
 
 //	SYSTEM MECHANICS GLOBAL DEFINITIONS
@@ -419,6 +419,7 @@ void	temp_texture_skybox(t_drown *d);
 void	temp_sprite_letters(t_drown *d);
 */
 int			error(int code);
+
 ////Map editor functions
 void        choose_to_reset_map_or_exit(t_drown *data);
 void        close_program(t_gfx *gfx);
@@ -447,6 +448,5 @@ int         validate_buffer_format(char *buf, t_editor_images *images);
 int         validate_map_temp(t_drown *data);
 //// below functions will be excluded from the final map_editor 
 //void    testing_print_map(t_map *data, t_editor_images *images);
-////EOF map editor functions
 
 #endif

@@ -43,9 +43,9 @@ FILES				=	\
 						editor_validate_buffer_format \
 						editor_validate_map_temp \
 						main\
+						error_management\
 						#controls_keyboard\
 						#draw\
-						#error_management\
 						#event\
 						#graphic_render\
 						#graphic_render_animations\
