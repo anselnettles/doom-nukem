@@ -36,87 +36,100 @@ Z    drown->txt.skybox[64][128]
 static void array_selection(char *arr_selection, char *str, t_index *index, t_gfx *gfx)
 {
     uint32_t            hex_value;
-//3D elements. Same logic as for other dimensions
-    if (strcmp(arr_selection, "texture") == 0)
+//2D arrays
+    if (strcmp(arr_selection, "texture_a") == 0)
     {
         hex_value = (uint32_t)strtol(str, NULL, 16);
         hex_value = swap_red_with_blue(hex_value);
-        editor->texture[index->i2][index->i1][index->i0] = hex_value;
+        gfx->txt.texture_a[index->i1][index->i0] = hex_value;
     }
-    else if (strcmp(arr_selection, "weed") == 0)
+        if (strcmp(arr_selection, "texture_b") == 0)
     {
         hex_value = (uint32_t)strtol(str, NULL, 16);
         hex_value = swap_red_with_blue(hex_value);
-        editor->weed[index->i2][index->i1][index->i0] = hex_value;
+        gfx->txt.texture_b[index->i1][index->i0] = hex_value;
     }
-    else if (strcmp(arr_selection, "beginning") == 0)
+        if (strcmp(arr_selection, "texture_c") == 0)
     {
         hex_value = (uint32_t)strtol(str, NULL, 16);
         hex_value = swap_red_with_blue(hex_value);
-        editor->beginning[index->i2][index->i1][index->i0] = hex_value;
+        gfx->txt.texture_c[index->i1][index->i0] = hex_value;
     }
-    else if (strcmp(arr_selection, "bad_end") == 0)
+        if (strcmp(arr_selection, "texture_d") == 0)
     {
         hex_value = (uint32_t)strtol(str, NULL, 16);
         hex_value = swap_red_with_blue(hex_value);
-        editor->bad_end[index->i2][index->i1][index->i0] = hex_value;
+        gfx->txt.texture_d[index->i1][index->i0] = hex_value;
     }
-    else if (strcmp(arr_selection, "good_end") == 0)
+    else if (strcmp(arr_selection, "skybox") == 0)
     {
         hex_value = (uint32_t)strtol(str, NULL, 16);
         hex_value = swap_red_with_blue(hex_value);
-        editor->good_end[index->i2][index->i1][index->i0] = hex_value;
+        gfx->txt.skybox[index->i1][index->i0] = hex_value;
     }
-    else if (strcmp(arr_selection, "bottle") == 0)
-    {
-        hex_value = (uint32_t)strtol(str, NULL, 16);
-        hex_value = swap_red_with_blue(hex_value);
-        editor->bottle[index->i2][index->i1][index->i0] = hex_value;
-    }
-    else if (strcmp(arr_selection, "ammo") == 0)
-    {
-        hex_value = (uint32_t)strtol(str, NULL, 16);
-        hex_value = swap_red_with_blue(hex_value);
-        editor->ammo[index->i2][index->i1][index->i0] = hex_value;
-    }
+//3D arrays
     else if (strcmp(arr_selection, "right_arm") == 0)
     {
         hex_value = (uint32_t)strtol(str, NULL, 16);
         hex_value = swap_red_with_blue(hex_value);
-        editor->right_arm[index->i2][index->i1][index->i0] = hex_value;
+        gfx->sprite.right_arm[index->i2][index->i1][index->i0] = hex_value;
+    }
+    else if (strcmp(arr_selection, "letters") == 0)
+    {
+        hex_value = (uint32_t)strtol(str, NULL, 16);
+        hex_value = swap_red_with_blue(hex_value);
+        gfx->sprite.letters[index->i1][index->i0] = hex_value;
     }
     else if (strcmp(arr_selection, "harpoon") == 0)
     {
         hex_value = (uint32_t)strtol(str, NULL, 16);
         hex_value = swap_red_with_blue(hex_value);
-        editor->harpoon[index->i2][index->i1][index->i0] = hex_value;
+        gfx->sprite.harpoon[index->i2][index->i1][index->i0] = hex_value;
     }
-    else if (strcmp(arr_selection, "goal") == 0)
+    else if (strcmp(arr_selection, "bottle") == 0)
     {
         hex_value = (uint32_t)strtol(str, NULL, 16);
         hex_value = swap_red_with_blue(hex_value);
-        editor->goal[index->i2][index->i1][index->i0] = hex_value;
+        gfx->sprite.bottle[index->i2][index->i1][index->i0] = hex_value;
     }
     else if (strcmp(arr_selection, "timer") == 0)
     {
         hex_value = (uint32_t)strtol(str, NULL, 16);
         hex_value = swap_red_with_blue(hex_value);
-        editor->timer[index->i2][index->i1][index->i0] = hex_value;
+        gfx->sprite.timer[index->i2][index->i1][index->i0] = hex_value;
     }
-    else if (strcmp(arr_selection, "left_arm") == 0)
+    else if (strcmp(arr_selection, "bubble") == 0)
+    {
+        hex_value = (uint32_t)strtol(str, NULL, 16);
+        hex_value = swap_red_with_blue(hex_value);
+        gfx->sprite.bottle[index->i2][index->i1][index->i0] = hex_value;
+    }
+    else if (strcmp(arr_selection, "ammo") == 0)
+    {
+        hex_value = (uint32_t)strtol(str, NULL, 16);
+        hex_value = swap_red_with_blue(hex_value);
+        gfx->sprite.ammo[index->i2][index->i1][index->i0] = hex_value;
+    }
+    /*else if (strcmp(arr_selection, "goal") == 0)
+    {
+        hex_value = (uint32_t)strtol(str, NULL, 16);
+        hex_value = swap_red_with_blue(hex_value);
+        editor->goal[index->i2][index->i1][index->i0] = hex_value;
+    }*/
+    /*else if (strcmp(arr_selection, "left_arm") == 0)
     {
         hex_value = (uint32_t)strtol(str, NULL, 16);
         hex_value = swap_red_with_blue(hex_value);
         editor->left_arm[index->i2][index->i1][index->i0] = hex_value;
-    }
+    }*/
 //2D section
-    else if (strcmp(arr_selection, "title_screen") == 0)
+    /*else if (strcmp(arr_selection, "title_screen") == 0)
     {
         hex_value = (uint32_t)strtol(str, NULL, 16);
         hex_value = swap_red_with_blue(hex_value);
         editor->title_screen[index->i1][index->i0] = hex_value;
-    }
-        else if (strcmp(arr_selection, "foliage") == 0)
+    }*/
+    /*else if (strcmp(arr_selection, "foliage") == 0)
     {
         hex_value = (uint32_t)strtol(str, NULL, 16);
         hex_value = swap_red_with_blue(hex_value);
@@ -127,19 +140,31 @@ static void array_selection(char *arr_selection, char *str, t_index *index, t_gf
         hex_value = (uint32_t)strtol(str, NULL, 16);
         hex_value = swap_red_with_blue(hex_value);
         editor->moss[index->i1][index->i0] = hex_value;
-    }
-        else if (strcmp(arr_selection, "letters") == 0)
+    }*/
+    /*else if (strcmp(arr_selection, "weed") == 0)
     {
         hex_value = (uint32_t)strtol(str, NULL, 16);
         hex_value = swap_red_with_blue(hex_value);
-        editor->letters[index->i1][index->i0] = hex_value;
-    }
-        else if (strcmp(arr_selection, "skybox") == 0)
+        editor->weed[index->i2][index->i1][index->i0] = hex_value;
+    }*/
+    /*else if (strcmp(arr_selection, "beginning") == 0)
     {
         hex_value = (uint32_t)strtol(str, NULL, 16);
         hex_value = swap_red_with_blue(hex_value);
-        drown->gfx.texture.skybox[index->i1][index->i0] = hex_value;
-    }
+        editor->beginning[index->i2][index->i1][index->i0] = hex_value;
+    }*/
+    /*else if (strcmp(arr_selection, "bad_end") == 0)
+    {
+        hex_value = (uint32_t)strtol(str, NULL, 16);
+        hex_value = swap_red_with_blue(hex_value);
+        editor->bad_end[index->i2][index->i1][index->i0] = hex_value;
+    }*/
+    /*else if (strcmp(arr_selection, "good_end") == 0)
+    {
+        hex_value = (uint32_t)strtol(str, NULL, 16);
+        hex_value = swap_red_with_blue(hex_value);
+        editor->good_end[index->i2][index->i1][index->i0] = hex_value;
+    }*/
 }
 
 static void parse_textures_3D(char limiter, t_gfx *gfx, char *buf, char *arr_selection)
@@ -150,12 +175,9 @@ static void parse_textures_3D(char limiter, t_gfx *gfx, char *buf, char *arr_sel
     t_index index;
 
     k = 0;
-    //Start: roll over map data, until first limiter = '!' 
     while (buf[k] != limiter)
         k++;
     k++;
-    //End: roll over map data, until first limiter = '!' 
-    
     index.i2 = 0;
     a = 0;
     while (buf[k] != limiter)
@@ -208,13 +230,9 @@ static void parse_textures_2D(char limiter, t_gfx *gfx, char *buf, char *arr_sel
     t_index index;
 
     k = 0;
-    //Start: roll over map data, until first limiter = '!' 
     while (buf[k] != limiter)
         k++;
     k++;
-    //End: roll over map data, until first limiter = '!' 
-    
-    index.i2 = 0;   //this is not used in 2D module, here only due to using same index struct as in 3D module
     a = 0;
     while (buf[k] != limiter)
     {
@@ -259,26 +277,21 @@ static void parse_textures_2D(char limiter, t_gfx *gfx, char *buf, char *arr_sel
 
 static void parse_images(char *buf, t_gfx *gfx)
 {
-//3 dimensional array parse
-    parse_textures_3D('!', gfx, buf, "texture");    
-    parse_textures_3D('@', gfx, buf, "weed");
-    parse_textures_3D('$', gfx, buf, "beginning");
-    parse_textures_3D('%', gfx, buf, "bad_end");
-    parse_textures_3D('^', gfx, buf, "good_end");
-    parse_textures_3D('&', gfx, buf, "bottle");
-    parse_textures_3D('~', gfx, buf, "ammo");
-    parse_textures_3D('z', gfx, buf, "right_arm");
-    parse_textures_3D('-', gfx, buf, "harpoon");
-    parse_textures_3D('+', gfx, buf, "goal");
-    parse_textures_3D(']', gfx, buf, "timer");
-    parse_textures_3D('[', gfx, buf, "left_arm");
-
 //2 dimensional array parse
-    parse_textures_2D('`', gfx, buf, "title_screen");
-    parse_textures_2D('X', gfx, buf, "foliage");
-    parse_textures_2D(':', gfx, buf, "moss");
-    parse_textures_2D('Y', gfx, buf, "letters");
-    parse_textures_2D('Z', gfx, buf, "skybox");
+    parse_textures_2D('A', gfx, buf, "texture_a");   
+    parse_textures_2D('B', gfx, buf, "texture_b");   
+    parse_textures_2D('C', gfx, buf, "texture_c");   
+    parse_textures_2D('D', gfx, buf, "texture_d");
+    parse_textures_2D('E', gfx, buf, "skybox");
+    parse_textures_2D('G', gfx, buf, "letters");
+    parse_textures_2D('K', gfx, buf, "bubble");
+    printf("parse_images: 2D OK\n");
+//3 dimensional array parse
+    parse_textures_3D('F', gfx, buf, "right_arm");
+    parse_textures_3D('H', gfx, buf, "harpoon");
+    parse_textures_3D('I', gfx, buf, "bottle");
+    parse_textures_3D('J', gfx, buf, "timer");
+    parse_textures_3D('L', gfx, buf, "ammo");
 
 //4 dimensional array parse
 /*

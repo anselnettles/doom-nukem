@@ -176,21 +176,21 @@ static void    value_of_parameter_0(t_map *map, t_character *chars)
 }
 
 //  Function saves the pre-defined char (e.g. param0_choice0 == 'A') to map_temp[map_y][map_x][param_to_modify]
-void    select_new_param_value(t_gfx *gfx, t_map *map, t_character *chars)
+void    select_new_param_value(t_drown *data)
 {
-    if (gfx->event.type == SDL_MOUSEBUTTONDOWN)
+    if (data->gfx.event.type == SDL_MOUSEBUTTONDOWN)
     {
-        printf("img3: map_x & map_y (are still): %d & %d\n", map->map_x, map->map_y);
-        printf("img3: param_to_modify (is still): %d\n", map->param_to_modify);
-        if (gfx->event.button.button == SDL_BUTTON_LEFT && map->param_to_modify == 0) 
-            value_of_parameter_0(map, chars);
-        if (gfx->event.button.button == SDL_BUTTON_LEFT && map->param_to_modify == 1) 
-            value_of_parameter_1(map, chars);
-        if (gfx->event.button.button == SDL_BUTTON_LEFT && map->param_to_modify == 2) 
-            value_of_parameter_2(map, chars);
-        if (gfx->event.button.button == SDL_BUTTON_LEFT && map->param_to_modify == 3) 
-            value_of_parameter_3(map, chars);
-        if (gfx->event.button.button == SDL_BUTTON_LEFT && map->param_to_modify == 4) 
-            value_of_parameter_4(map, chars);
+        printf("img3: map_x & map_y (are still): %d & %d\n", data->map.map_x, data->map.map_y);
+        printf("img3: param_to_modify (is still): %d\n", data->map.param_to_modify);
+        if (data->gfx.event.button.button == SDL_BUTTON_LEFT && data->map.param_to_modify == 0) 
+            value_of_parameter_0(&data->map, &data->editor.chars);
+        if (data->gfx.event.button.button == SDL_BUTTON_LEFT && data->map.param_to_modify == 1) 
+            value_of_parameter_1(&data->map, &data->editor.chars);
+        if (data->gfx.event.button.button == SDL_BUTTON_LEFT && data->map.param_to_modify == 2) 
+            value_of_parameter_2(&data->map, &data->editor.chars);
+        if (data->gfx.event.button.button == SDL_BUTTON_LEFT && data->map.param_to_modify == 3) 
+            value_of_parameter_3(&data->map, &data->editor.chars);
+        if (data->gfx.event.button.button == SDL_BUTTON_LEFT && data->map.param_to_modify == 4) 
+            value_of_parameter_4(&data->map, &data->editor.chars);
     }
 }

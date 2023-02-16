@@ -37,7 +37,7 @@ int	validate(char *buf, t_editor_images *images)
 			while (set_count < PARAM_COUNT)
 			{
 				if (*buf >= ASCII_MIN && *buf <= ASCII_MAX && *buf != ' '
-					&& *buf != '\n' && *buf != '!')
+					&& *buf != '\n' && *buf != 'A')
 					set_count++;
 				else
 				{
@@ -50,7 +50,7 @@ int	validate(char *buf, t_editor_images *images)
 				index_buffer_column++;
 			else if (*buf == '\n')
 				index_buf_row++;
-			else if (*buf == '!')
+			else if (*buf == 'A')
 				break ;
 			else if (*buf < ASCII_MIN && *buf > ASCII_MAX)
 			{
@@ -59,7 +59,7 @@ int	validate(char *buf, t_editor_images *images)
 			}
 			buf++;
 		}
-		if (*buf == '!')
+		if (*buf == 'A')
 			break ;
 	}
 	return (1);

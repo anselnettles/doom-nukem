@@ -76,7 +76,7 @@ int	overwrite_map_file(t_map *map, t_editor_images *images)
 	// if cwd != hardcoded char *path_exe
 	// 	error, exit
 */	
-	path = "./test_maps/default.txt";
+	path = "./map/new_map.txt";
 	if (access(path, (F_OK | R_OK | W_OK | X_OK)) == 0)
 	{
 		overwrite_file_content(path, map, images);

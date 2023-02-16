@@ -6,7 +6,7 @@
 /*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/15 18:59:40 by tturto           ###   ########.fr       */
+/*   Updated: 2023/02/16 18:09:21 by tturto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@
 # define T_LGRAY "\033[0;37m"			//A light gray terminal type color.
 
 //Map Editor definitions
-# define BUF_SIZE 1500000
+# define BUF_SIZE 3000000	//optimize size
 # define SCREEN_W 1280
 # define SCREEN_H 800
 # define IMG1_CATHETUS 12
@@ -170,6 +170,19 @@ typedef struct  s_character
     char    param4_choice2;
 }   t_character;
 
+typedef struct s_mouse
+{
+    int x;
+    int y;
+}   t_mouse;
+
+typedef struct s_editor
+{
+	t_editor_images images;
+    t_character     chars;
+	t_mouse			mouse;
+}	t_editor;
+
 //	Index-wise variables used for counts. Index 'i' is used for the level
 //	file's buffer string, while variables 'x' and 'y' are for the array of
 //	the extracted level. Variable 'p' stands for the map's third dimension:
@@ -185,12 +198,6 @@ typedef struct s_index {
     unsigned short int  i1;
     unsigned short int  i2;
 }	t_index;
-
-typedef struct s_mouse
-{
-    int x;
-    int y;
-}   t_mouse;
 
 //	Player location and movement structure. Mother to collision struct.
 typedef struct s_player {
@@ -225,6 +232,9 @@ typedef struct	s_sprites {
 	uint32_t	letters[20][728];
 	uint32_t	harpoon[6][64][64];
 	uint32_t	bottle[3][64][38];
+	uint32_t	timer[8][90][60];
+	uint32_t	bubble[12][12];
+	uint32_t	ammo[2][45][32];
 }	t_sprite;
 
 typedef struct s_textures {
@@ -260,7 +270,7 @@ typedef struct s_graphics {
 	t_sprite		sprite;
 	t_frame			frame;
 	SDL_Event		event;		//All SDL calls should be here
-}	t_gfx; //gfx (former t_editor editor)
+}	t_gfx;
 
 typedef struct s_map
 {
@@ -310,6 +320,7 @@ typedef struct s_ray
 typedef struct s_project_drowning {
 	t_system				system;
 	t_index					index;
+	t_editor				editor;
 	t_player				player;
 	t_gfx					gfx;
 	SDL_Rect				rect;	// this should not be here! Why are part of SDL calls in gfx and part here???
@@ -409,31 +420,31 @@ void	temp_sprite_letters(t_drown *d);
 */
 int			error(int code);
 ////Map editor functions
-void        choose_to_reset_map_or_exit(t_gfx *gfx, t_editor_images *images, t_mouse *mouse, t_map *map);
+void        choose_to_reset_map_or_exit(t_drown *data);
 void        close_program(t_gfx *gfx);
-void        create_map_temp(t_map *map, t_editor_images *images);
-void        copy_map_to_map_temp(t_map *map, t_editor_images *images);
-int         img1_img2_is_mouse_in_grid(t_mouse *mouse, t_map *map, t_editor_images *images);
-void        img1_and_img2(t_gfx *gfx, t_map *map, t_mouse *mouse, t_editor_images *images); //rename
-int         img1_to_gui(t_gfx *gfx, t_mouse *mouse, t_editor_images *images);
-int         img2_to_gui(t_gfx *gfx, t_editor_images *images);
-int         img3_is_mouse_in_grid(t_mouse *mouse, t_map *map, t_editor_images *images);
-int         img3_to_gui(t_gfx *gfx, t_editor_images *images, t_map *map);
+void        create_map_temp(t_drown *data);
+void        copy_map_to_map_temp(t_drown *data);
+int         img1_img2_is_mouse_in_grid(t_drown *data);
+void        img1_and_img2(t_drown *data); //rename
+int         img1_to_gui(t_drown *data);
+int         img2_to_gui(t_drown *data);
+int         img3_is_mouse_in_grid(t_drown *data);
+int         img3_to_gui(t_drown *data);
 int         init(t_gfx *gfx);
-void        initialization(t_editor_images *images, t_map *map, t_character *chars, char *map_file, t_gfx *gfx);
-int         map_editor(char *map_file, t_map *map);
-int         overwrite_map_file(t_map *data, t_editor_images *images);
+void        initialization(t_drown *data, char *map_file);
+int         map_editor(char *map_file, t_drown *data);
+int         overwrite_map_file(t_map *map, t_editor_images *images);
 void        param_to_modify(t_map *map);
-//void        parse_map_file_to_arrays(char *buf, t_gfx *gfx);
-void        read_map(char *map_file, t_map *map, t_editor_images *images, t_gfx *gfx);
+void        parse_map_file_to_arrays(char *buf, t_gfx *gfx);
+void        read_map(char *map_file, t_drown *data);
 int         save_changes(t_gfx *gfx);
-void        select_new_param_value(t_gfx *gfx, t_map *map, t_character *chars);
+void        select_new_param_value(t_drown *data);
 void        set_image_limits(t_editor_images *images);
 void        set_values_for_parameters(t_character *chars);
 uint32_t    swap_red_with_blue(uint32_t hex_value);
 void        tt_errors(char *error_msg);
 int         validate_buffer_format(char *buf, t_editor_images *images);
-int         validate_map_temp(t_map *map, t_editor_images *images, t_character *chars);
+int         validate_map_temp(t_drown *data);
 //// below functions will be excluded from the final map_editor 
 //void    testing_print_map(t_map *data, t_editor_images *images);
 ////EOF map editor functions

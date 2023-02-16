@@ -49,9 +49,9 @@ static void draw_rect(t_gfx *gfx, t_editor_images *images, t_map *map)
     SDL_RenderFillRect(gfx->renderer, &element_fill);
 }
 
-int img3_to_gui(t_gfx *gfx, t_editor_images *images, t_map *map)
+int img3_to_gui(t_drown *data)
 {
-    draw_rect(gfx, images, map);
-    draw_grid(gfx, images);
+    draw_rect(&data->gfx, &data->editor.images, &data->map);
+    draw_grid(&data->gfx, &data->editor.images);
     return (0);
 }

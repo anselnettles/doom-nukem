@@ -6,12 +6,13 @@
 /*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 18:24:05 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/15 18:58:41 by tturto           ###   ########.fr       */
+/*   Updated: 2023/02/16 17:59:53 by tturto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "drowning.h"
 
+/* Leave commented out until project compiles
 static int	initialize_textures(t_drown *d)
 {
 	sprite_right_arm(d);
@@ -21,7 +22,7 @@ static int	initialize_textures(t_drown *d)
 	temp_texture_skybox(d);
 	temp_sprite_letters(d);
 	return (0);
-}
+}*/
 
 //	Initializes the necessary player variables before rendering.
 static int	initialize_player(t_drown *d)
@@ -92,13 +93,7 @@ int	main(int argc, char **argv)
 		return (error(TEXTURE_FAIL));*/
 	
 //Start: Map Editor integration
-	t_map map;
-    map = (t_map){.param_x_to_modify = 0, .param_y_to_modify = 0, .param_to_modify = 0,
-		.selection_index = 0, .map = NULL, .map_temp = NULL, .map_x = 0, .map_y = 0,
-		.selection_x = 0, .selection_y = 0};
-
-	map_editor(argv[1], &map);
-
+	map_editor(argv[1], &data);
 //End:Map Editor integration
 
 	/*if (initialize_player(&data) == ERROR)

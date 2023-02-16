@@ -31,6 +31,7 @@ FILES				=	\
 						editor_map_editor \
 						editor_overwrite_map_file \
 						editor_param_to_modify \
+						editor_parse_map_file_to_arrays \
 						editor_read_map \
 						editor_save_changes \
 						editor_select_new_param_value \
@@ -63,8 +64,6 @@ FILES				=	\
 						#utility\
 						#install_graphics\
 						#read\
-						#map_editor/srcs/parse_map_file_to_arrays \
-	    				#map_editor/srcs/overwrite_map_file.c \
 
 SRC					=	$(addprefix src/, $(addsuffix .c, $(FILES)))
 OBJ					=	$(addprefix obj/, $(addsuffix .o, $(FILES)))

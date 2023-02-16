@@ -97,7 +97,7 @@ static void malloc_3D_map_array(t_map *map, t_editor_images *images)
 /*
     Counts rows and columns of the map file. Map file is standardized to be square-shaped.
 */
-static void count_map_data(char *buf, t_map *map, t_editor_images *images)
+static void count_map_data(char *buf, t_editor_images *images)
 {
     //row_bytes = number of bytes per row
     int row_bytes;
@@ -125,7 +125,7 @@ static void count_map_data(char *buf, t_map *map, t_editor_images *images)
 /*
     Reads a map file into a char *buf and converts the buf to char ***map.
 */
-void    read_map(char *map_file, t_map *map, t_editor_images *images, t_gfx *gfx)
+void    read_map(char *map_file, t_drown *data)
 {
     int     fd;
     int     ret;
@@ -144,14 +144,15 @@ void    read_map(char *map_file, t_map *map, t_editor_images *images, t_gfx *gfx
         exit(-1);
     }
     buf[ret] = '\0';
-    if (validate_buffer_format(buf, images) != 1)
+    if (validate_buffer_format(buf, &data->editor.images) != 1)
     {
         tt_errors("read_map: validate_buffer_format() fail.");
         exit(-1);
     }
-        
-    //parse_map_file_to_arrays(buf, gfx); //maptype: int. insert into if (function() != 1)
-    count_map_data(buf, map, images);
-    malloc_3D_map_array(map, images);
-    buffer_to_3D_map_array(buf, map);
+    printf("before parse\n");
+    parse_map_file_to_arrays(buf, &data->gfx); //maptype: int. insert into if (function() != 1)
+    printf("after parse\n");
+    count_map_data(buf, &data->editor.images);
+    malloc_3D_map_array(&data->map, &data->editor.images);
+    buffer_to_3D_map_array(buf, &data->map);
 }

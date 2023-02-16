@@ -30,11 +30,11 @@ void    set_values_for_parameters(t_character *chars)
     //param3: entity
     chars->param3_choice0 = 'S';    //player_start
     chars->param3_choice1 = 'G';    //goal
-    chars->param3_choice2 = 'M';    //monster1
-    chars->param3_choice3 = 'N';    //monster2
-    chars->param3_choice4 = 'I';    //item1
-    chars->param3_choice5 = 'J';    //item2
-    chars->param3_choice6 = 'K';    //item3
+    chars->param3_choice2 = '$';    //monster1
+    chars->param3_choice3 = '%';    //monster2
+    chars->param3_choice4 = '&';    //item1
+    chars->param3_choice5 = '@';    //item2
+    chars->param3_choice6 = '~';    //item3
     chars->param3_choice7 = '.';
     //param4: secret
     chars->param4_choice0 = 'R';
