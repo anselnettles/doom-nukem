@@ -6,7 +6,7 @@
 /*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 18:24:05 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/16 22:27:10 by tturto           ###   ########.fr       */
+/*   Updated: 2023/02/16 15:55:23 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@ static int	initialize_textures(t_drown *d)
 	temp_texture_c(d);
 	temp_texture_skybox(d);
 	temp_sprite_letters(d);
+	sprite_bubble(d);
+	sprite_timer(d);
+	sprite_ammo(d);
 	return (0);
 }*/
 
@@ -84,8 +87,8 @@ int	main(int argc, char **argv)
 	t_drown	data;
 
 	ft_bzero(&data, sizeof(t_drown));
-	 if (initialize_media(&data) == ERROR)
-	 	return (error(SDL_FAIL));
+	if (initialize_media(&data) == ERROR)
+		return (error(SDL_FAIL));
 
 //this will be removed. map reading: map_editor()/read_map()
 	/*read_map("maps/numbers.dn", &data.map); // korvataan : bluehole.dn

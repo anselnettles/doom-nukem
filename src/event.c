@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:21:31 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/02/14 17:45:10 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/16 14:58:16 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,10 @@ void	deal_key(int key, t_drown *data)
 		else
 			data->system.color_filter = TRUE;
 	}
+	if (data->system.keyboard_state[SDL_SCANCODE_F5]
+			&& data->gfx.frame.bubble > 1)
+		data->gfx.frame.bubble--;
+
 
 }
 

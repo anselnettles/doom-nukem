@@ -1,4 +1,4 @@
-## ASCII legends:
+# ASCII legends:
 <br>
 
 `#`       : Full wall height<br>
@@ -9,9 +9,25 @@
 `>`       : 45° wall southeast (Referred floor height on southeast side, neighboring floor height (north) on northwest)<br>
 `*`       : Full height pillar<br>
 `a` - `c` : Texture reference<br>
-`S`       : Player start position<br>
-`G`       : Player goal location<br>
+`X`       : Player start position<br>
+`Z`       : Player goal location<br>
 `R`       : A map square with a ceiling texture over it. A roof of cubes should be applied over this square up to full height (`#`)<br>
+
+## Entity marks for begin and end of texture information:
+<br>
+
+`A`       : `drown->gfx.txt.texture_a[64][64]` starts and ends. <br>
+`B`       : `drown->gfx.txt.texture_b[64][64]` starts and ends. <br>
+`C`       : `drown->gfx.txt.texture_c[64][64]` starts and ends. <br>
+`D`       : `drown->gfx.txt.texture_d[64][64]` starts and ends. <br>
+`E`       : `drown->gfx.txt.skybox[64][128]` starts and ends. <br>
+`F`       : `drown->gfx.sprite.right_arm[3][238][250]` starts and ends. <br>
+`G`       : `drown->gfx.sprite.letters[20][728]` starts and ends. <br>
+`H`       : `drown->gfx.sprite.harpoon[6][64][64]` stars and ends here. <br> 
+`I`       : `drown->gfx.sprite.bottle[3][64][38]` starts and ends here. <br>
+`J`       : `drown->gfx.sprite.timer[8][90][60]` starts and ends here. <br>
+`K`       : `drown->gfx.sprite.bubble[12][12]`  starts and ends here. <br>
+`L`       : `drown->gfx.sprite.ammo[2][45][32]` starts and ends here. <br>
 
 ## In-recorded textures graphics:
 <br>
@@ -36,10 +52,6 @@
 
 ![image](https://user-images.githubusercontent.com/70949716/216763126-8dc46de6-ee83-449e-aff6-b13f54279044.png) <br>
 
-`drown->gfx.sprite.right_arm[3][238][250];` : Overlay. Player's right arm.<br>
-
-`drown->gfx.sprite.letters[20][728];` : Font set sprite. Includes the necessary characters for 'gfx_write()'. <br>
-
 ## To be included: 
 <br>
 
@@ -55,13 +67,7 @@
 
 `drown->gfx.sprite.monster[8][3][128][128];`  : Possibly the most demanding graphic piece. The monster, viewed from eight direction with with three frames each. Could be a four-dimensional array? <br>
 
-`drown->gfx.sprite.harpoon[6][64][64];` : Collectible ammo piece. Animated to be quite clear and visible to player. <br> 
-
-`drown->gfx.sprite.bottle[3][64][64];`  : Collectible air container. Animated. <br>
-
 `drown->gfx.sprite.ammo[3][12][12];`  : Overlay HUD. Remaining ammo in weapon. Probably animated. <br>
-
-`drown->gfx.sprite.timer[?][20][20];` : Overlay HUD. Remaining time. Most definitely animated. <br>
 
 `drown->gfx.storyboard.title_screen[642][480];` : Title splash screen. One or a few frames. <br>
 

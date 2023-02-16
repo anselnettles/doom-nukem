@@ -6,7 +6,7 @@
 /*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/16 22:11:09 by tturto           ###   ########.fr       */
+/*   Updated: 2023/02/16 16:51:08 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ typedef struct s_system {
 	uint32_t		delta_time;
 	float			frame_time;
 	uint32_t		second;
+	uint32_t		five_second;
 	int				color_filter;
 	int				scanline;
 	int				overlay_toggle;
@@ -224,7 +225,9 @@ typedef struct s_wall {
 
 typedef struct s_animations {
 	uint32_t	right_arm;
-	// ...
+	uint32_t	timer;
+	uint32_t	bubble;
+	uint32_t	ammo;
 }	t_frame;
 
 typedef struct	s_sprites {
@@ -323,8 +326,8 @@ typedef struct s_project_drowning {
 	t_editor				editor;
 	t_player				player;
 	t_gfx					gfx;
-	SDL_Rect				rect;	// this should not be here! Why are part of SDL calls in gfx and part here???
-	SDL_Event				event;	// this should not be here! Why are part of SDL calls in gfx and part here???
+	SDL_Rect				rect;
+	SDL_Event				event;
 	t_map					map;
 	int						hg;
 	float					delta_time;
@@ -361,6 +364,7 @@ int			render(t_drown *d);
 //void		raycast_angle_check(t_gfx *g);
 void		draw_minimap_slot(t_drown *d);
 int			render_overlay(t_drown *d);
+int			render_hud(t_index *index, t_gfx *gfx, int scale);
 int			animation_loop(t_drown *d);
 void		x_right_arm_flail(t_gfx *gfx);
 void		y_right_arm_flail(t_gfx *gfx);
@@ -410,13 +414,6 @@ void	draw_texture(t_ray *ray, int y, int y_max, t_wall wall, float distance, int
 void	draw_floor(t_ray *ray, t_wall wall, int win_y);
 void	draw_ceiling(t_ray *ray, t_wall wall, int win_y);
 
-//To be removed
-void	sprite_right_arm(t_drown *d);
-void	temp_texture_a(t_drown *d);
-void	temp_texture_b(t_drown *d);
-void	temp_texture_c(t_drown *d);
-void	temp_texture_skybox(t_drown *d);
-void	temp_sprite_letters(t_drown *d);
 */
 int			error(int code);
 
@@ -440,6 +437,27 @@ void        parse_map_file_to_arrays(char *buf, t_gfx *gfx);
 void        read_map(char *map_file, t_drown *data);
 int         save_changes(t_gfx *gfx);
 void        select_new_param_value(t_drown *data);
+
+//Map editor functions
+void        choose_to_reset_map_or_exit(t_ *editor, t_editor_images *images, t_mouse *mouse, t_map *data);
+void        close_program(t_editor *editor);
+void        create_map_temp(t_map *data, t_editor_images *images);
+void        copy_map_to_map_temp(t_map *data, t_editor_images *images);
+int         img1_img2_is_mouse_in_grid(t_mouse *mouse, t_map *data, t_editor_images *images);
+void        img1_and_img2(t_editor *editor, t_map *data, t_mouse *mouse, t_editor_images *images); //rename
+int         img1_to_gui(t_editor *editor, t_mouse *mouse, t_editor_images *images);
+int         img2_to_gui(t_editor *editor, t_editor_images *images);
+int         img3_is_mouse_in_grid(t_mouse *mouse, t_map *data, t_editor_images *images);
+int         img3_to_gui(t_editor *editor, t_editor_images *images, t_map *data);
+int         init(t_editor *editor);
+void        initialization(t_editor_images *images, t_map *data, t_character *chars, char *map_file, t_editor *editor);
+int         map_editor(char *map_file, t_map *data);
+int         overwrite_map_file(t_map *data, t_editor_images *images);
+void        param_to_modify(t_map *data);
+void        parse_map_file_to_arrays(char *buf, t_editor *editor);
+void        read_map(char *map_file, t_map *data, t_editor_images *images, t_editor *editor);
+int         save_changes(t_editor *editor);
+void        select_new_param_value(t_editor *editor, t_map *data, t_character *chars);
 void        set_image_limits(t_editor_images *images);
 void        set_values_for_parameters(t_character *chars);
 uint32_t    swap_red_with_blue(uint32_t hex_value);
@@ -448,5 +466,4 @@ int         validate_buffer_format(char *buf, t_editor_images *images);
 int         validate_map_temp(t_drown *data);
 //// below functions will be excluded from the final map_editor 
 //void    testing_print_map(t_map *data, t_editor_images *images);
-
 #endif

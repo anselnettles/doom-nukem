@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 10:28:04 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/10 14:56:04 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/16 16:50:34 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,42 @@ void	y_right_arm_flail(t_gfx *gfx)
 	}
 }
 
+static void	timer_loop(t_drown *d)
+{
+	if (d->system.time % 1000 < 500)
+		d->gfx.frame.ammo = 0;
+	else
+		d->gfx.frame.ammo = 1;
+	if (d->system.time >= 0 && d->system.time < 20000)
+	{
+		if (d->system.time % 1000 < 500)
+			d->gfx.frame.timer = 0;
+		else
+			d->gfx.frame.timer = 1;
+	}
+	if (d->system.time >= 20000 && d->system.time < 40000)
+	{
+		if (d->system.time % 1000 < 500)
+			d->gfx.frame.timer = 2;
+		else
+			d->gfx.frame.timer = 3;
+	}
+	if (d->system.time >= 40000 && d->system.time < 60000)
+	{
+		if (d->system.time % 1000 < 500)
+			d->gfx.frame.timer = 4;
+		else
+			d->gfx.frame.timer = 5;
+	}
+	if (d->system.time >= 60000)
+	{
+		if (d->system.time % 1000 < 500)
+			d->gfx.frame.timer = 6;
+		else
+			d->gfx.frame.timer = 7;
+	}
+}
+
 static void	right_arm_loop(t_drown *d)
 {
 	if (d->system.time % 600 > 0 && d->system.time % 600 < 600)
@@ -74,6 +110,7 @@ static void	flow_adjustment(t_drown *d)
 int			animation_loop(t_drown *d)
 {
 	right_arm_loop(d);
+	timer_loop(d);
 	flow_adjustment(d);
 	return (0);
 }
