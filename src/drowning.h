@@ -6,7 +6,7 @@
 /*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/16 14:57:39 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/16 16:07:05 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,6 +215,7 @@ typedef struct	s_sprites {
 	uint32_t	bottle[3][64][38];
 	uint32_t	timer[8][90][60];
 	uint32_t	bubble[12][12];
+	uint32_t	ammo[2][45][32];
 }	t_sprite;
 
 typedef struct s_textures {
@@ -340,6 +341,7 @@ int			render(t_drown *d);
 //void		raycast_angle_check(t_gfx *g);
 void		draw_minimap_slot(t_drown *d);
 int			render_overlay(t_drown *d);
+int			render_hud(t_index *index, t_gfx *gfx, int scale);
 int			animation_loop(t_drown *d);
 void		x_right_arm_flail(t_gfx *gfx);
 void		y_right_arm_flail(t_gfx *gfx);
@@ -398,6 +400,8 @@ void	temp_texture_skybox(t_drown *d);
 void	temp_sprite_letters(t_drown *d);
 void	sprite_timer(t_drown *d);
 void	sprite_bubble(t_drown *d);
+void 	sprite_ammo(t_drown *d);
+
 
 
 /*
