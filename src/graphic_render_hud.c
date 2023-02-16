@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 16:02:50 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/16 16:08:58 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/16 16:58:40 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,33 @@ static int	draw_timer_bottle(t_index *index, t_gfx *gfx, int s)
 
 static int	draw_ammo(t_index *index, t_gfx *gfx, int s)
 {
-	(void) s;
-	(void) index;
-	(void) gfx;
+
+	gfx->f = gfx->frame.ammo;
+	gfx->x = 0;
+	gfx->y = 0;
+	index->y = ((MARGIN * 2) * s);
+	index->x = (gfx->width - (120 * s) - (MARGIN * s));
+
+	while ((gfx->y) < (45))
+	{
+		while ((gfx->x) < (32))
+		{
+			if (gfx->sprite.ammo[gfx->f][gfx->y][gfx->x])
+			{
+				if (pixel_put(gfx, index->x, index->y,
+						gfx->sprite.ammo
+						[gfx->f][gfx->y][gfx->x]) == ERROR)
+					return (ERROR);
+			}
+			index->x += s;
+			gfx->x++;
+		}
+		index->y += s;
+		gfx->y++;
+		index->x = ((gfx->width - (120 * s) - MARGIN * s));
+		gfx->x = 0;
+	}
+
 	return (0);
 }
 
