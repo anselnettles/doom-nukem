@@ -6,7 +6,7 @@
 /*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/15 19:53:43 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/16 14:57:39 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ typedef struct s_system {
 	uint32_t		delta_time;
 	float			frame_time;
 	uint32_t		second;
+	uint32_t		five_second;
 	int				color_filter;
 	int				scanline;
 	int				overlay_toggle;
