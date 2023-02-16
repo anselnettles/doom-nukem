@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 10:28:04 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/15 17:54:02 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/16 16:50:34 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,10 @@ void	y_right_arm_flail(t_gfx *gfx)
 
 static void	timer_loop(t_drown *d)
 {
+	if (d->system.time % 1000 < 500)
+		d->gfx.frame.ammo = 0;
+	else
+		d->gfx.frame.ammo = 1;
 	if (d->system.time >= 0 && d->system.time < 20000)
 	{
 		if (d->system.time % 1000 < 500)
