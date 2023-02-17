@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:21:31 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/02/17 14:52:10 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/17 15:40:56 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,11 @@ void	deal_key(int key, t_drown *data)
 		move_player(data);
 	*/if (data->system.keyboard_state[SDL_SCANCODE_F1])
 		scale_window(&data->gfx);
+	if (key == SDLK_SPACE && data->player.in_air == 0)
+	{
+		data->player.velocity.y = 70.f;
+		data->player.in_air = 1;
+	}
 	if (data->system.keyboard_state[SDL_SCANCODE_F2])
 	{
 		if (data->system.scanline == TRUE)
