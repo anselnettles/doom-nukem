@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 18:24:05 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/17 18:53:31 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/17 18:59:23 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	initialize_player(t_drown *d)
 //	all the necessary variables for graphical rendering.
 static int	initialize_media(t_drown *d)
 {
-	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS | SDL_INIT_EVERYTHING) > SDL_ERROR)
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS | SDL_INIT_EVERYTHING) > SDL_ERROR) //Remove 'everything' when unnecessary.
 	{
 		d->gfx.scale = 1;
 		d->gfx.width = (WIDTH * d->gfx.scale);
