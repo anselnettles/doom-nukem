@@ -6,7 +6,7 @@
 /*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 18:24:05 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/17 10:40:56 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/17 12:22:05 by tturto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,8 @@ int	main(int argc, char **argv)
 	if (data.gfx.screen != NULL)
 			return (0);
 	write(1, "Return back to 'main()'.\n", 25);	
-	if (initialize_player(&data) == ERROR)
-		return (error(PLAYER_FAIL));
+	/*if (initialize_player(&data) == ERROR)
+		return (error(PLAYER_FAIL));*/
 	//if (render(&data) == ERROR)					///STOP HERE before dofidog
 	//	return (error(RENDER_FAIL));
 	//SDL_SetRelativeMouseMode(SDL_TRUE);
