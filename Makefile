@@ -6,7 +6,7 @@
 #    By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/16 17:04:55 by aviholai          #+#    #+#              #
-#    Updated: 2023/02/17 18:36:15 by aviholai         ###   ########.fr        #
+#    Updated: 2023/02/17 18:41:44 by aviholai         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,25 +46,20 @@ FILES				=	\
 						editor_validate_buffer_format \
 						editor_validate_map_temp \
 						error_management\
-						event\
 						graphic_render\
 						graphic_render_animations\
 						graphic_render_filters\
 						graphic_render_hud\
-						graphic_render_minimap\
 						graphic_render_overlay\
 						graphic_render_raycast\
 						graphic_render_timeline\
 						main\
-						parse_file\
-						parse_file_buffer_to_map\
 						pthread_ray\
 						utilities_graphic\
 						utilities_math\
 						utilities_movement\
 						utilities_system\
 						utility\
-						read\
 
 SRC					=	$(addprefix src/, $(addsuffix .c, $(FILES)))
 OBJ					=	$(addprefix obj/, $(addsuffix .o, $(FILES)))
