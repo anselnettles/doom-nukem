@@ -6,10 +6,10 @@
 static void draw_grid(t_gfx *gfx, t_editor_images *images)
 {
     t_map_grid  grid_img3;
-    int         column_temp;
+ //   int         column_temp;
     int         row_temp;
 
-    column_temp = 0;
+   // column_temp = 0;
     //draw horizontal gridline
     SDL_SetRenderDrawColor(gfx->renderer, 0x00, 0x11, 0xFF, 0x00);
     row_temp = images->row3;   //might need to be reset to 0 after img3 open/save

@@ -5,11 +5,6 @@ int map_editor(char *map_file, t_drown *data)
     short int       quit;
 
     initialization(data, map_file);
-    /*if (init(&data->gfx) != 1)    //remove
-    {
-        tt_errors("main: init() fail");
-        close_program(&data->gfx);
-    }*/
     img1_to_gui(data);
     SDL_SetRenderDrawColor(data->gfx.renderer, 0x00, 0x00, 0x00, 0x00);
     SDL_RenderPresent(data->gfx.renderer);  
