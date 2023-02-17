@@ -101,14 +101,14 @@ void	draw_texture(t_ray *ray, int y, int y_max, t_wall wall, float distance, int
 	float		texture_at_distance;
 	float		texture_y;
 	int			texture_x;
-	char		c;
+	//char		c;
 	float		i;
 	int			j;
 
 	texture_at_distance = BITS / distance * ray->gfx.dop;
 	i = 64 / texture_at_distance;
 	j = 0;
-	c = ray->map.map[(int)roundf(wall.y / BITS)][(int)roundf(wall.x / BITS)][0];
+	//c = ray->map.map[(int)roundf(wall.y / BITS)][(int)roundf(wall.x / BITS)][0];
 	texture_y = 63;
 	texture_x = get_texture_x(ray, wall);
 	while (scaled_y >= y_max)
@@ -197,7 +197,7 @@ void	draw_thread(t_ray *ray, float distance, t_wall *wall)
 	int			y;
 	int			y_max;
 	int 		height;
-	int			scaled_y;
+//	int			scaled_y;
 	int			wall_height;
 	int			scaled_y_max;
 
@@ -209,10 +209,10 @@ void	draw_thread(t_ray *ray, float distance, t_wall *wall)
 	wall_height = ((BITS / 8) / distance * ray->gfx.dop) * height;
 	y_max = ray->height + ((BITS + ray->player.height - 32) / distance * (ray->gfx.dop) / 2);
 	scaled_y_max = y_max;
-	scaled_y = y_max - ((BITS + ray->player.height - 32) / distance * ray->gfx.dop);
+	//scaled_y = y_max - ((BITS + ray->player.height - 32) / distance * ray->gfx.dop);
 	y = y_max - wall_height;
 	if (ray->map.map[(int)roundf(wall->y / BITS)][(int)roundf(wall->x / BITS)][0] == '#')
-		scaled_y = y;
+	//	scaled_y = y;
 	/*if (y < 0)
 		y = 0;
 	if (y_max > ray->gfx.height) 

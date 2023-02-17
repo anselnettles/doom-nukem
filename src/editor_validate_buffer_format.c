@@ -72,12 +72,12 @@ int	validate(char *buf, t_editor_images *images)
 */
 static int	buffer_row_len_validation(char *buf)
 {
-	unsigned short int	row_len_prev;
+//	unsigned short int	row_len_prev;
 	unsigned short int	row_len_current;
 	unsigned short int	row_len_temp;
 	unsigned short int	rswitch;
 
-	row_len_prev = 0;
+//	row_len_prev = 0;
 	row_len_current = 0;
 	rswitch = 0;
 	while (*buf != '\0')
@@ -90,7 +90,7 @@ static int	buffer_row_len_validation(char *buf)
 		}
 		if (rswitch == 1)
 		{
-			row_len_prev = row_len_current;
+//			row_len_prev = row_len_current;
 			row_len_current = row_len_temp;
 			if (row_len_current != row_len_temp)
 			{
