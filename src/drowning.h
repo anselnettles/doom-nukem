@@ -347,82 +347,65 @@ typedef enum e_error
 
 
 //	Non-static functions'.
-int			read_file(t_drown *drown);
-//int		buffer_to_map(char b[MAX + 1], t_editor *e, t_index *i, int width);
-int			render(t_drown *d);
-//int		raycast(t_drown *d, float hor_coll_dist, float ver_coll_dist);
-//void		raycast_angle_check(t_gfx *g);
-void		draw_minimap_slot(t_drown *d);
-int			render_overlay(t_drown *d);
-int			render_hud(t_index *index, t_gfx *gfx, int scale);
-int			animation_loop(t_drown *d);
-void		x_right_arm_flail(t_gfx *gfx);
-void		y_right_arm_flail(t_gfx *gfx);
-//void		print_array(t_editor *editor, t_index *index);
 
-void		keyboard_input(t_drown *d);
-//void		move_forward_back(t_editor *editor, t_player *p, SDL_Keycode key);
-//void		move_turn(t_player *p, SDL_Keycode key);
-void		scale_window(t_gfx *gfx);
-int			string_timeline(t_drown *d);
-int			gfx_write(t_gfx *gfx, char *str);
-void		draw_color_filter(t_gfx *gfx);
-void		draw_scanlines(t_gfx *gfx);
-
-int			pixel_put(t_gfx *gfx, int x_src, int y_src, uint32_t color);
-
-void		sdl_loop(t_drown *drown);
-
-//Topi's build.
-void	map_len(char *file, t_map *data);
+int	animation_loop(t_drown *d);
+void	choose_to_reset_map_or_exit(t_drown *data);
+void	close_program(t_gfx *gfx);
 char	*copy_line(char *line, t_map *data);
-void	fill_gaps(char *line);
-int		init_sdl(SDL_Window *window, SDL_Surface *screen);
-void	draw_map(t_drown *data);
-void	init_player(t_player *player);
-void	move_player(t_drown *data);
-void	rotate_player(int key, t_player *player);
+void	copy_map_to_map_temp(t_drown *data);
+void	create_map_temp(t_drown *data);
 void	deal_key(int key, t_drown *data);
 void	deal_mouse(t_drown *data);
-void    render_thread(t_drown *data);
-void	*ft_raycast_thread(void  *args);
-void	strife(t_drown *data);
-void	draw_thread(t_ray *ray, float distance, t_wall *wall);
-void	draw_collumn(t_ray *ray, int y, int y_max, Uint32 color);
-void	draw_texture(t_ray *ray, int y, int y_max, t_wall wall, float distance, int	scaled_y);
-void	draw_floor(t_ray *ray, t_wall wall, int win_y);
-void	draw_ceiling(t_ray *ray, t_wall wall, int win_y);
 void	delta_move_player(t_drown *data);
 void	delta_time_move(t_drown *data);
-
-
-int			error(int code);
-
-////Map editor functions
-void        choose_to_reset_map_or_exit(t_drown *data);
-void        close_program(t_gfx *gfx);
-void        create_map_temp(t_drown *data);
-void        copy_map_to_map_temp(t_drown *data);
-int         img1_img2_is_mouse_in_grid(t_drown *data);
-void        img1_and_img2(t_drown *data); //rename
-int         img1_to_gui(t_drown *data);
-int         img2_to_gui(t_drown *data);
-int         img3_is_mouse_in_grid(t_drown *data);
-int         img3_to_gui(t_drown *data);
-int         init(t_gfx *gfx);
-void        initialization(t_drown *data, char *map_file);
-int         map_editor(char *map_file, t_drown *data);
-int         overwrite_map_file(t_map *map, t_editor_images *images);
-void        param_to_modify(t_map *map);
-void        parse_map_file_to_arrays(char *buf, t_gfx *gfx);
-void        read_map(char *map_file, t_drown *data);
-int         save_changes(t_gfx *gfx);
-uint32_t    swap_red_with_blue(uint32_t hex_value);
-void        select_new_param_value(t_drown *data);
-void        set_image_limits(t_editor_images *images);
-void        set_values_for_parameters(t_character *chars);
-void        tt_errors(char *error_msg);
-int         validate_buffer_format(char *buf, t_editor_images *images);
-int         validate_map_temp(t_drown *data);
+void	draw_ceiling(t_ray *ray, t_wall wall, int win_y);
+void	draw_collumn(t_ray *ray, int y, int y_max, Uint32 color);
+void	draw_color_filter(t_gfx *gfx);
+void	draw_floor(t_ray *ray, t_wall wall, int win_y);
+void	draw_map(t_drown *data);
+void	draw_scanlines(t_gfx *gfx);
+void	draw_texture(t_ray *ray, int y, int y_max, t_wall wall, float distance, int	scaled_y);
+void	draw_thread(t_ray *ray, float distance, t_wall *wall);
+int	error(int code);
+void	fill_gaps(char *line);
+void	*ft_raycast_thread(void  *args);
+int	gfx_write(t_gfx *gfx, char *str);
+void	img1_and_img2(t_drown *data); //rename
+int	img1_img2_is_mouse_in_grid(t_drown *data);
+int	img1_to_gui(t_drown *data);
+int	img2_to_gui(t_drown *data);
+int	img3_is_mouse_in_grid(t_drown *data);
+int	img3_to_gui(t_drown *data);
+void	init_player(t_player *player);
+int	init_sdl(SDL_Window *window, SDL_Surface *screen);
+int	init(t_gfx *gfx);
+void	initialization(t_drown *data, char *map_file);
+int	map_editor(char *map_file, t_drown *data);
+void	map_len(char *file, t_map *data);
+void	move_player(t_drown *data);
+int	overwrite_map_file(t_map *map, t_editor_images *images);
+void	param_to_modify(t_map *map);
+void	parse_map_file_to_arrays(char *buf, t_gfx *gfx);
+int	pixel_put(t_gfx *gfx, int x_src, int y_src, uint32_t color);
+void	read_map(char *map_file, t_drown *data);
+int	render_hud(t_index *index, t_gfx *gfx, int scale);
+int	render_overlay(t_drown *d);
+int	render(t_drown *d);
+void	render_thread(t_drown *data);
+void	rotate_player(int key, t_player *player);
+int	save_changes(t_gfx *gfx);
+void	scale_window(t_gfx *gfx);
+void	sdl_loop(t_drown *drown);
+void	select_new_param_value(t_drown *data);
+void	set_image_limits(t_editor_images *images);
+void	set_values_for_parameters(t_character *chars);
+void	strife(t_drown *data);
+int	string_timeline(t_drown *d);
+uint32_t	swap_red_with_blue(uint32_t hex_value);
+void	tt_errors(char *error_msg);
+int	validate_buffer_format(char *buf, t_editor_images *images);
+int	validate_map_temp(t_drown *data);
+void	x_right_arm_flail(t_gfx *gfx);
+void	y_right_arm_flail(t_gfx *gfx);
 
 #endif
