@@ -76,7 +76,9 @@ static void malloc_3D_map_array(t_map *map, t_editor_images *images)
         }
         row++;
         row_temp--;
-    } 
+    }
+    map->x_max = images->row1;
+    map->y_max = images->column1;
 }
 
 /*

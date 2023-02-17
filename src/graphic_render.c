@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 10:05:39 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/10 17:53:32 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/17 12:07:50 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ int	render(t_drown *data)
 	if (data->system.overlay_toggle == TRUE)
 		if (render_overlay(data) == ERROR)
 			return (error(OVERLAY_ERROR));
-	draw_map(data);
+	//draw_map(data);
 		//add error checks;
 	if (SDL_UpdateWindowSurface(data->gfx.window) == ERROR)
 		return (ERROR);
