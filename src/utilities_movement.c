@@ -11,65 +11,50 @@
 /* ************************************************************************** */
 
 #include "drowning.h"
-/*
-void	raycast_angle_check(t_gfx *gfx)
-{
-	if (gfx->cast.ray_angle >= 360)
-		gfx->cast.ray_angle -= 360;
-	else if (gfx->cast.ray_angle < 0)
-		gfx->cast.ray_angle += 360;
-}
 
-static void	collision_check(t_player *p)
+void	delta_move_player(t_drown *data)
 {
-	int	x_offset;
-	int	y_offset;
-
-	if (p->dir_x < 0)
-		x_offset = -15;
-	else
-		x_offset = 15;
-	if (p->dir_y < 0)
-		y_offset = -15;
-	else
-		y_offset = 15;
-	p->collide.x = (int)(p->pos_x / 64);
-	p->collide.x_pos_offset = (int)((p->pos_x + x_offset) / 64);
-	p->collide.x_neg_offset = (int)((p->pos_x - x_offset) / 64);
-	p->collide.y = (int)(p->pos_y / 64);
-	p->collide.y_pos_offset = (int)((p->pos_y + y_offset) / 64);
-	p->collide.y_neg_offset = (int)((p->pos_y - y_offset) / 64);
-}
-
-void	move_forward_back(t_editor *editor, t_player *p, SDL_Keycode key)
-{
-	collision_check(p);
-	if (key == SDLK_w || key == SDLK_UP)
+	float	dir;
+	data->player.velocity.x = 0.f;
+	dir = 0.f;
+	if (data->system.keyboard_state[SDL_SCANCODE_A] || data->system.keyboard_state[SDL_SCANCODE_W]
+		|| data->system.keyboard_state[SDL_SCANCODE_D] ||data->system.keyboard_state[SDL_SCANCODE_S])
+		data->player.velocity.x = 30.f;
+	if (data->system.keyboard_state[SDL_SCANCODE_S]  && !data->system.keyboard_state[SDL_SCANCODE_W])
+		dir -= 180.F * DEGREES;
+	if (data->system.keyboard_state[SDL_SCANCODE_A]  && !data->system.keyboard_state[SDL_SCANCODE_D])
 	{
-		if (editor->map[p->collide.y][p->collide.x_pos_offset][0] != '#')
-			p->pos_x += p->dir_x * (float)p->move_speed;
-		if (editor->map[p->collide.y_pos_offset][p->collide.x][0] != '#')
-			p->pos_y += p->dir_y * (float)p->move_speed;
+		dir = 0.f;
+		dir -= 90.f * DEGREES;
+		if (data->system.keyboard_state[SDL_SCANCODE_W])
+			dir += 45 * DEGREES;
+		if (data->system.keyboard_state[SDL_SCANCODE_S])
+			dir -= 45 * DEGREES;
 	}
-	if (key == SDLK_s || key == SDLK_DOWN)
+	if (data->system.keyboard_state[SDL_SCANCODE_D]  && !data->system.keyboard_state[SDL_SCANCODE_A])
 	{
-		if (editor->map[p->collide.y][p->collide.x_neg_offset][0] != '#')
-			p->pos_x -= p->dir_x * (float)p->move_speed;
-		if (editor->map[p->collide.y_neg_offset][p->collide.x][0] != '#')
-			p->pos_y -= p->dir_y * (float)p->move_speed;
+		dir = 0.f;
+		dir += 90.f * DEGREES;
+		if (data->system.keyboard_state[SDL_SCANCODE_W])
+			dir -= 45 * DEGREES;
+		if (data->system.keyboard_state[SDL_SCANCODE_S])
+			dir += 45 * DEGREES;
 	}
+	if (data->system.keyboard_state[SDL_SCANCODE_LSHIFT])
+		data->player.velocity.x *= 2;
+	data->player.dx = cosf(data->player.dir + dir);
+	data->player.dy = sinf(data->player.dir + dir);
 }
 
-void	move_turn(t_player *p, SDL_Keycode key)
+void	delta_time_move(t_drown *data)
 {
-	if (key == SDLK_a || key == SDLK_LEFT)
-		p->pos_angle += TURN_SPEED;
-	if (key == SDLK_d || key == SDLK_RIGHT)
-		p->pos_angle -= TURN_SPEED;
-	if (p->pos_angle >= 360)
-		p->pos_angle -= 360;
-	if (p->pos_angle < 0)
-		p->pos_angle += 360;
-	p->dir_x = (float)cos(deg_to_rad(p->pos_angle));
-	p->dir_y = (float)-sin(deg_to_rad(p->pos_angle));
-}*/
+		data->player.x -= data->player.velocity.x * data->system.frame_time * data->player.dx;
+		data->player.y -= data->player.velocity.x * data->system.frame_time * data->player.dy;
+		while (data->player.height < (data->map.map[(int)roundf(data->player.y / 64)][(int)roundf(data->player.x / 64)][0] - '0') * 8
+			|| data->map.map[(int)roundf(data->player.y / 64)][(int)roundf(data->player.x / 64)][0] == '#')
+		{
+			data->player.x += data->player.velocity.x * data->system.frame_time * data->player.dx;
+			data->player.y += data->player.velocity.x * data->system.frame_time * data->player.dy;
+		}
+		data->player.base_height = 32 + (data->map.map[(int)roundf(data->player.y / 64)][(int)roundf(data->player.x / 64)][0] - '0') * 8;
+}
