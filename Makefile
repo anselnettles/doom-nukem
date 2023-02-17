@@ -6,7 +6,7 @@
 #    By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/16 17:04:55 by aviholai          #+#    #+#              #
-#    Updated: 2023/02/16 16:07:25 by aviholai         ###   ########.fr        #
+#    Updated: 2023/02/17 10:42:12 by aviholai         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,26 +44,25 @@ FILES				=	\
 						editor_validate_map_temp \
 						main\
 						error_management\
-						#controls_keyboard\
-						#draw\
-						#event\
-						#graphic_render\
-						#graphic_render_animations\
-						#graphic_render_filters\
-						#graphic_render_minimap\
-						#graphic_render_overlay\
-						#graphic_render_raycast\
-						#graphic_render_timeline\
-						#parse_file\
-						#parse_file_buffer_to_map\
-						#pthread_ray\
-						#utilities_graphic\
-						#utilities_math\
-						#utilities_movement\
-						#utilities_system\
-						#utility\
-						#install_graphics\
-						#read\
+						controls_keyboard\
+						draw\
+						event\
+						graphic_render\
+						graphic_render_animations\
+						graphic_render_filters\
+						graphic_render_minimap\
+						graphic_render_overlay\
+						graphic_render_raycast\
+						graphic_render_timeline\
+						parse_file\
+						parse_file_buffer_to_map\
+						pthread_ray\
+						utilities_graphic\
+						utilities_math\
+						utilities_movement\
+						utilities_system\
+						utility\
+						read\
 
 SRC					=	$(addprefix src/, $(addsuffix .c, $(FILES)))
 OBJ					=	$(addprefix obj/, $(addsuffix .o, $(FILES)))
