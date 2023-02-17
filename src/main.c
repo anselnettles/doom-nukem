@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 18:24:05 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/17 15:12:39 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/17 18:11:55 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,24 +88,19 @@ int	main(int argc, char **argv)
 	t_drown	data;
 
 	ft_bzero(&data, sizeof(t_drown));
+	if (argc != 2)
+		return (error(BAD_ARGS));
 	if (initialize_media(&data) == ERROR)
 		return (error(SDL_FAIL));
-
-//this will be removed. map reading: map_editor()/read_map()
-	/*read_map("maps/numbers.dn", &data.map); // korvataan : bluehole.dn
-	if (initialize_textures(&data) == ERROR) // korvataan
-		return (error(TEXTURE_FAIL));*/
-
 	map_editor(argv[1], &data);
 	SDL_DestroyRenderer(data.gfx.renderer);
 	data.gfx.renderer = NULL;
-	data.gfx.screen = SDL_GetWindowSurface(data.gfx.window);	//this is utilized after Map Editor. Formerly in initialize_media()
+	data.gfx.screen = SDL_GetWindowSurface(data.gfx.window);
 	if (data.gfx.screen == NULL)
 			return (0);
-	write(1, "Return back to 'main()'.\n", 25);	
 	if (initialize_player(&data) == ERROR)
 		return (error(PLAYER_FAIL));
-	if (render(&data) == ERROR)					///STOP HERE before dofidog
+	if (render(&data) == ERROR)
 		return (error(RENDER_FAIL));
 	SDL_SetRelativeMouseMode(SDL_TRUE);
 	sdl_loop(&data);
