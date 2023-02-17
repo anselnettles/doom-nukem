@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 17:50:06 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/17 15:44:26 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/17 18:11:14 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	delta_time_move(t_drown *data)
 		data->player.x -= data->player.velocity.x * data->system.frame_time * data->player.dx;
 		data->player.y -= data->player.velocity.x * data->system.frame_time * data->player.dy;
 		while (data->player.height < (data->map.map[(int)roundf(data->player.y / 64)][(int)roundf(data->player.x / 64)][0] - '0') * 8
-			|| data->map.map[(int)roundf(data->player.y / 64)][(int)roundf(data->player.x / 64)] == '#')
+			|| data->map.map[(int)roundf(data->player.y / 64)][(int)roundf(data->player.x / 64)][0] == '#')
 		{
 			data->player.x += data->player.velocity.x * data->system.frame_time * data->player.dx;
 			data->player.y += data->player.velocity.x * data->system.frame_time * data->player.dy;
