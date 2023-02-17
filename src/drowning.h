@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   drowning.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/17 11:45:50 by tturto           ###   ########.fr       */
+/*   Updated: 2023/02/17 15:40:22 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@
 # define THREADRAY 142				//Topi's build.
 # define EXIT 0						//Topi's build.
 # define PLAY 1						//Topi's build.
+# define GRAVITY 10.f
 //# define DEGREE 0.0174532
 # define DEGREES 0.0174532
 # define LETTER_WIDTH 8				//Width of a letter in sprite.
@@ -111,6 +112,10 @@ typedef struct s_system {
 	int				overlay_toggle;
 }	t_system;
 
+typedef struct s_vectorf {
+	float	x;
+	float	y;
+}	t_vectorf;
 
 typedef struct s_editor_images
 {
@@ -202,11 +207,14 @@ typedef struct s_index {
 
 //	Player location and movement structure. Mother to collision struct.
 typedef struct s_player {
+	t_vectorf		velocity;
+	float			base_height;
 	float			x;
 	float			y;
 	float			dir;
 	float			dx;
 	float			dy;
+	int				in_air;
 	int				altitude;
 	float			height;
 	int				flag;

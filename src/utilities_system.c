@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 17:50:06 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/17 14:51:14 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/17 15:44:26 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,53 @@ static void	track_time(t_drown *d)
 		animation_loop(d);
 }
 
+void	delta_move_player(t_drown *data)
+{
+	float	dir;
+	data->player.velocity.x = 0.f;
+	dir = 0.f;
+	if (data->system.keyboard_state[SDL_SCANCODE_A] || data->system.keyboard_state[SDL_SCANCODE_W]
+		|| data->system.keyboard_state[SDL_SCANCODE_D] ||data->system.keyboard_state[SDL_SCANCODE_S])
+		data->player.velocity.x = 30.f;
+	if (data->system.keyboard_state[SDL_SCANCODE_S]  && !data->system.keyboard_state[SDL_SCANCODE_W])
+		dir -= 180.F * DEGREES;
+	if (data->system.keyboard_state[SDL_SCANCODE_A]  && !data->system.keyboard_state[SDL_SCANCODE_D])
+	{
+		dir = 0.f;
+		dir -= 90.f * DEGREES;
+		if (data->system.keyboard_state[SDL_SCANCODE_W])
+			dir += 45 * DEGREES;
+		if (data->system.keyboard_state[SDL_SCANCODE_S])
+			dir -= 45 * DEGREES;
+	}
+	if (data->system.keyboard_state[SDL_SCANCODE_D]  && !data->system.keyboard_state[SDL_SCANCODE_A])
+	{
+		dir = 0.f;
+		dir += 90.f * DEGREES;
+		if (data->system.keyboard_state[SDL_SCANCODE_W])
+			dir -= 45 * DEGREES;
+		if (data->system.keyboard_state[SDL_SCANCODE_S])
+			dir += 45 * DEGREES;
+	}
+	if (data->system.keyboard_state[SDL_SCANCODE_LSHIFT])
+		data->player.velocity.x *= 2;
+	data->player.dx = cosf(data->player.dir + dir);
+	data->player.dy = sinf(data->player.dir + dir);
+}
+
 void	delta_time_move(t_drown *data)
 {
-		data->player.x -= 50.f * data->system.frame_time * data->player.dx;
-		data->player.y -= 50.f * data->system.frame_time * data->player.dy;
+		data->player.x -= data->player.velocity.x * data->system.frame_time * data->player.dx;
+		data->player.y -= data->player.velocity.x * data->system.frame_time * data->player.dy;
+		while (data->player.height < (data->map.map[(int)roundf(data->player.y / 64)][(int)roundf(data->player.x / 64)][0] - '0') * 8
+			|| data->map.map[(int)roundf(data->player.y / 64)][(int)roundf(data->player.x / 64)] == '#')
+		{
+			data->player.x += data->player.velocity.x * data->system.frame_time * data->player.dx;
+			data->player.y += data->player.velocity.x * data->system.frame_time * data->player.dy;
+		}
+		data->player.base_height = 32 + (data->map.map[(int)roundf(data->player.y / 64)][(int)roundf(data->player.x / 64)][0] - '0') * 8;
 }
+
 
 //	Sdl_loop() keeps Simple Direct MediaLayer's PollEvent constantly
 //	running and checks for control calls while rerendering the graphical
@@ -56,6 +98,14 @@ void		sdl_loop(t_drown *d)
 	d->system.keyboard_state = SDL_GetKeyboardState(NULL);
 	while (d->system.play_state == PLAY)
 	{
+		d->player.velocity.y -= GRAVITY;
+		d->player.height += d->player.velocity.y * d->system.frame_time;
+		if (d->player.height <= d->player.base_height)
+		{
+			d->player.height = d->player.base_height;
+			d->player.velocity.y = 0;
+			d->player.in_air = 0;
+		}
 		track_time(d);
 		while (SDL_PollEvent(&d->event) != 0)
 		{
@@ -70,8 +120,9 @@ void		sdl_loop(t_drown *d)
 		}
 		/*if (d->system.keyboard_state[SDL_SCANCODE_W])
 			delta_time_move(d);*/
-		move_player(d);
-		strife(d);
+		delta_move_player(d);
+		delta_time_move(d);
+		//strife(d);
 		if (d->system.frame_time < 16.6666f)			//OPTIMOI MINUT
 		{
 			SDL_Delay(16.6666f - d->system.frame_time);
