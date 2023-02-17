@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/17 15:40:22 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/17 18:57:17 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,19 +42,6 @@
 # define ERROR 1					//Reference to return value.
 # define NEW_LINE 2					//Reference to file parser return value.
 # define SDL_ERROR -1				//Reference to SDL function's return.
-//# define BUFFER_MAX 2550			//Level file maximum size.
-//# define MAX 50						//Map array dimension maximum.
-//# define PARAMS 10					//Map array parameter dimension maximum.
-//# define MAP_WIDTH 50				//Level map line width.
-//# define HORIZONTAL 1				// A toggle variable for raycast calculation
-//# define VERTICAL 0					// A toggle variable for raycast calculation
-//# define PLAYER_MAP 1				//Block map definition when rendering map.
-//# define DEV_MAP 2					//Array map definition when rendering map.
-//# define FOV 40						//Field of vision.
-//# define SQUARE_SIZE 64				//Size of a side of a terrain block.
-//# define MOVE_SPEED 8				//Player's movement speed.
-//# define RAY_LENGTH 3				//Length of a cast ray.
-//# define TURN_SPEED 4				//Player's turning speed.
 # define PI 3.1415927				//Topi's build.
 # define SPEED 10					//Topi's build.
 # define BITS 64					//Topi's build.
@@ -66,14 +53,9 @@
 # define EXIT 0						//Topi's build.
 # define PLAY 1						//Topi's build.
 # define GRAVITY 10.f
-//# define DEGREE 0.0174532
 # define DEGREES 0.0174532
 # define LETTER_WIDTH 8				//Width of a letter in sprite.
 # define LETTER_HEIGHT 20			//Height of a letter in sprite.
-//# define NORTH 1					//Reference to wall texture direction.
-//# define EAST 2
-//# define SOUTH 3
-//# define WEST 4
 
 //	TERMINAL OUTPUT COLOR DEFINITIONS
 # define T_NUL "\033[0m"				//Default terminal type color.
@@ -387,16 +369,7 @@ int			gfx_write(t_gfx *gfx, char *str);
 void		draw_color_filter(t_gfx *gfx);
 void		draw_scanlines(t_gfx *gfx);
 
-//SDL_Surface	*img_load(char *path);
 int			pixel_put(t_gfx *gfx, int x_src, int y_src, uint32_t color);
-//void		vline(t_drown *d, t_location lo, float y, uint32_t color);
-
-//float		square_root(float nb);
-//int			max(int a, int b);
-//int			min(int a, int b);
-//int			clamp(int a, int lower, int upper);
-//double		deg_to_rad(double degrees);
-
 
 void		sdl_loop(t_drown *drown);
 
@@ -404,7 +377,6 @@ void		sdl_loop(t_drown *drown);
 void	map_len(char *file, t_map *data);
 char	*copy_line(char *line, t_map *data);
 void	fill_gaps(char *line);
-//void	read_map(char *file, t_map *data);
 int		init_sdl(SDL_Window *window, SDL_Surface *screen);
 void	draw_map(t_drown *data);
 void	init_player(t_player *player);
@@ -449,7 +421,5 @@ void        set_values_for_parameters(t_character *chars);
 void        tt_errors(char *error_msg);
 int         validate_buffer_format(char *buf, t_editor_images *images);
 int         validate_map_temp(t_drown *data);
-//// below functions will be excluded from the final map_editor 
-//void    testing_print_map(t_map *data, t_editor_images *images);
 
 #endif
