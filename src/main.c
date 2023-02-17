@@ -6,7 +6,7 @@
 /*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 18:24:05 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/16 15:55:23 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/17 10:40:56 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ static int	initialize_player(t_drown *d)
 	d->player.dy = sinf(PI);
 	d->player.height = 32;
 	d->player.altitude = 0;
+	write(1, "Player initialized.\n", 20);
 	return (0);
 }
 
@@ -97,14 +98,14 @@ int	main(int argc, char **argv)
 
 	map_editor(argv[1], &data);
 	data.gfx.screen = SDL_GetWindowSurface(data.gfx.window);	//this is utilized after Map Editor. Formerly in initialize_media()
-	//if (data.gfx.screen != NULL)
-	//		return (0);
-	write(1, "test.", 5);	
-	/*if (initialize_player(&data) == ERROR)
+	if (data.gfx.screen != NULL)
+			return (0);
+	write(1, "Return back to 'main()'.\n", 25);	
+	if (initialize_player(&data) == ERROR)
 		return (error(PLAYER_FAIL));
-	if (render(&data) == ERROR)					///STOP HERE before dofidog
-		return (error(RENDER_FAIL));
-	SDL_SetRelativeMouseMode(SDL_TRUE);
-	sdl_loop(&data);*/
+	//if (render(&data) == ERROR)					///STOP HERE before dofidog
+	//	return (error(RENDER_FAIL));
+	//SDL_SetRelativeMouseMode(SDL_TRUE);
+	//sdl_loop(&data);
 	return (0);
 }
