@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   drowning.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/17 14:06:56 by tturto           ###   ########.fr       */
+/*   Updated: 2023/02/17 15:40:22 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@
 # define THREADRAY 142				//Topi's build.
 # define EXIT 0						//Topi's build.
 # define PLAY 1						//Topi's build.
+# define GRAVITY 10.f
 //# define DEGREE 0.0174532
 # define DEGREES 0.0174532
 # define LETTER_WIDTH 8				//Width of a letter in sprite.
@@ -86,8 +87,8 @@
 # define SCREEN_W 1280
 # define SCREEN_H 800
 # define IMG1_CATHETUS 12
-# define IMG2_CATHETUS 30
-# define IMG3_CATHETUS 40
+# define IMG2_CATHETUS 36
+# define IMG3_CATHETUS 48
 # define IMG2_PARAM_COL 2
 # define IMG2_PARAM_ROW 3
 # define IMG3_PARAM_COL 1
@@ -111,6 +112,10 @@ typedef struct s_system {
 	int				overlay_toggle;
 }	t_system;
 
+typedef struct s_vectorf {
+	float	x;
+	float	y;
+}	t_vectorf;
 
 typedef struct s_editor_images
 {
@@ -202,11 +207,14 @@ typedef struct s_index {
 
 //	Player location and movement structure. Mother to collision struct.
 typedef struct s_player {
+	t_vectorf		velocity;
+	float			base_height;
 	float			x;
 	float			y;
 	float			dir;
 	float			dx;
 	float			dy;
+	int				in_air;
 	int				altitude;
 	float			height;
 	int				flag;
@@ -355,7 +363,7 @@ typedef enum e_error
 	GFX_WRITE_ERROR,
 }	t_error;
 
-/*
+
 //	Non-static functions'.
 int			read_file(t_drown *drown);
 //int		buffer_to_map(char b[MAX + 1], t_editor *e, t_index *i, int width);
@@ -388,8 +396,8 @@ int			pixel_put(t_gfx *gfx, int x_src, int y_src, uint32_t color);
 //int			min(int a, int b);
 //int			clamp(int a, int lower, int upper);
 //double		deg_to_rad(double degrees);
-*/
-/*
+
+
 void		sdl_loop(t_drown *drown);
 
 //Topi's build.
@@ -412,7 +420,7 @@ void	draw_collumn(t_ray *ray, int y, int y_max, Uint32 color);
 void	draw_texture(t_ray *ray, int y, int y_max, t_wall wall, float distance, int	scaled_y);
 void	draw_floor(t_ray *ray, t_wall wall, int win_y);
 void	draw_ceiling(t_ray *ray, t_wall wall, int win_y);
-*/
+
 int			error(int code);
 
 ////Map editor functions
@@ -426,6 +434,7 @@ int         img1_to_gui(t_drown *data);
 int         img2_to_gui(t_drown *data);
 int         img3_is_mouse_in_grid(t_drown *data);
 int         img3_to_gui(t_drown *data);
+int         init(t_gfx *gfx);
 void        initialization(t_drown *data, char *map_file);
 int         map_editor(char *map_file, t_drown *data);
 int         overwrite_map_file(t_map *map, t_editor_images *images);
@@ -441,6 +450,6 @@ void        tt_errors(char *error_msg);
 int         validate_buffer_format(char *buf, t_editor_images *images);
 int         validate_map_temp(t_drown *data);
 //// below functions will be excluded from the final map_editor 
-void    testing_print_map(t_map *data, t_editor_images *images);
+//void    testing_print_map(t_map *data, t_editor_images *images);
 
 #endif

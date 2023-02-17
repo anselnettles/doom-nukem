@@ -6,11 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 18:24:05 by aviholai          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/02/17 12:22:05 by tturto           ###   ########.fr       */
-=======
 /*   Updated: 2023/02/17 15:12:39 by tpaaso           ###   ########.fr       */
->>>>>>> main
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,20 +103,11 @@ int	main(int argc, char **argv)
 	if (data.gfx.screen == NULL)
 			return (0);
 	write(1, "Return back to 'main()'.\n", 25);	
-<<<<<<< HEAD
-	/*if (initialize_player(&data) == ERROR)
-		return (error(PLAYER_FAIL));*/
-	//if (render(&data) == ERROR)					///STOP HERE before dofidog
-	//	return (error(RENDER_FAIL));
-	//SDL_SetRelativeMouseMode(SDL_TRUE);
-	//sdl_loop(&data);
-=======
 	if (initialize_player(&data) == ERROR)
 		return (error(PLAYER_FAIL));
 	if (render(&data) == ERROR)					///STOP HERE before dofidog
 		return (error(RENDER_FAIL));
 	SDL_SetRelativeMouseMode(SDL_TRUE);
 	sdl_loop(&data);
->>>>>>> main
 	return (0);
 }
