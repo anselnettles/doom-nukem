@@ -6,50 +6,136 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 14:16:37 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/08 16:08:49 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/17 18:35:10 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "drowning.h"
 
-/*
-static void	keyboard_second_batch(t_drown *d, SDL_Keycode key)
+void	deal_key(int key, t_drown *data)
 {
-	if (key == SDLK_ESCAPE)
-		quit_program(d);
-	if (key == SDLK_KP_PLUS)
-		toggle_scale(d);
-	if (key == SDLK_o)
+	if (data->system.keyboard_state[SDL_SCANCODE_ESCAPE])
+		data->system.play_state = EXIT;
+	/*if (data->system.keyboard_state[SDL_SCANCODE_A]
+			|| data->system.keyboard_state[SDL_SCANCODE_D])
+		strife(data);
+	if (data->system.keyboard_state[SDL_SCANCODE_W]
+			|| data->system.keyboard_state[SDL_SCANCODE_S])
+		move_player(data);
+	*/if (data->system.keyboard_state[SDL_SCANCODE_F1])
+		scale_window(&data->gfx);
+	if (key == SDLK_SPACE && data->player.in_air == 0)
 	{
-		if (d->gfx.scanline == TRUE)
-			d->gfx.scanline = FALSE;
+		data->player.velocity.y = 70.f;
+		data->player.in_air = 1;
+	}
+	if (data->system.keyboard_state[SDL_SCANCODE_F2])
+	{
+		if (data->system.scanline == TRUE)
+			data->system.scanline = FALSE;
 		else
-			d->gfx.scanline = TRUE;
+			data->system.scanline = TRUE;
 	}
-	if (key == SDLK_m)
+	if (data->system.keyboard_state[SDL_SCANCODE_F3])
+		data->system.overlay_toggle = -data->system.overlay_toggle;
+	if (data->system.keyboard_state[SDL_SCANCODE_F4])
 	{
-		//if (d->gfx.map == PLAYER_MAP)
-		//	d->gfx.map = DEV_MAP;
-		//else
-		//	d->gfx.map = PLAYER_MAP;
+		if (data->system.color_filter == TRUE)
+			data->system.color_filter = FALSE;
+		else
+			data->system.color_filter = TRUE;
 	}
+	if (data->system.keyboard_state[SDL_SCANCODE_F5]
+			&& data->gfx.frame.bubble > 1)
+		data->gfx.frame.bubble--;
 }
 
-void	keyboard_input(t_drown *d)
+void	move_player(t_drown *data)
 {
-	SDL_Keycode	key;
+	int		i;
+	int		sprint;
+	//int		height;
 
-	key = d->event.key.keysym.sym;
-	if (d->event.type == SDL_KEYDOWN)
+	i = 0;
+	sprint = 1;
+	if (data->system.keyboard_state[SDL_SCANCODE_LSHIFT])
+		sprint = 2;
+	while (i < SPEED * sprint)
 	{
-		if (key == SDLK_w || key == SDLK_UP
-			|| key == SDLK_s || key == SDLK_DOWN)
-			move_forward_back(&d->editor, &d->player, key);
-		if (key == SDLK_a || key == SDLK_LEFT
-			|| key == SDLK_d || key == SDLK_RIGHT)
-			move_turn(&d->player, key);
-		keyboard_second_batch(d, key);
+		if (data->system.keyboard_state[SDL_SCANCODE_W])
+		{
+			data->player.x -= data->player.dx;
+			data->player.y -= data->player.dy;
+		}
+		if (data->system.keyboard_state[SDL_SCANCODE_S])
+		{
+			data->player.x += data->player.dx;
+			data->player.y += data->player.dy;
+		}
+		if ((data->map.map[(int)roundf(data->player.y / BITS)][(int)roundf(data->player.x / BITS)][0] - '0') * 8 > data->player.height - 24 ||
+		 data->map.map[(int)roundf(data->player.y / BITS)][(int)roundf(data->player.x / BITS)][0] == '#')
+		{
+			if (data->system.keyboard_state[SDL_SCANCODE_S])
+			{
+				data->player.x -= data->player.dx;
+			data->player.y -= data->player.dy;
+			}
+			else
+			{
+				data->player.x += data->player.dx;
+				data->player.y += data->player.dy;
+			}
+			i = SPEED * sprint;
+		}
+		i++;
 	}
-	if (d->event.window.event == SDL_WINDOWEVENT_CLOSE)
-		quit_program(d);
-}*/
+	data->player.height = 32 + (data->map.map[(int)roundf(data->player.y / BITS)][(int)roundf(data->player.x / BITS)][0] - '0') * 8;
+	data->player.x = roundf(data->player.x);
+	data->player.y = roundf(data->player.y);
+	y_right_arm_flail(&data->gfx);
+}
+
+void	strife(t_drown *data)
+{
+	float	dx;
+	float	dy;
+	int		i;
+	//int		height;
+
+
+	i = 0;
+	dx = cosf(data->player.dir + 90 * DEGREES);
+	dy = sinf(data->player.dir + 90 * DEGREES);
+	while (i < SPEED)
+	{
+		if (data->system.keyboard_state[SDL_SCANCODE_A])
+		{
+			data->player.x += dx;
+			data->player.y += dy;
+		}
+		if (data->system.keyboard_state[SDL_SCANCODE_D])
+		{
+			data->player.x -= dx;
+			data->player.y -= dy;
+		}
+		if ((data->map.map[(int)roundf(data->player.y / BITS)][(int)roundf(data->player.x / BITS)][0] - '0') * 8 > data->player.height -24 ||
+		 data->map.map[(int)roundf(data->player.y / BITS)][(int)roundf(data->player.x / BITS)][0] == '#')
+		{
+			if (data->system.keyboard_state[SDL_SCANCODE_A])
+			{
+				data->player.x -= dx;
+				data->player.y -= dy;
+			}
+			else
+			{
+				data->player.x += dx;
+				data->player.y += dy;
+			}
+			i = SPEED;
+		}
+		i++;
+	}
+	data->player.height = 32 + (data->map.map[(int)roundf(data->player.y / BITS)][(int)roundf(data->player.x / BITS)][0] - '0') * 8;
+	data->player.x = roundf(data->player.x);
+	data->player.y = roundf(data->player.y);
+}
