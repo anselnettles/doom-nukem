@@ -6,7 +6,7 @@
 /*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/16 16:51:08 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/17 10:44:31 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -355,7 +355,7 @@ typedef enum e_error
 	GFX_WRITE_ERROR,
 }	t_error;
 
-/*
+
 //	Non-static functions'.
 int			read_file(t_drown *drown);
 //int		buffer_to_map(char b[MAX + 1], t_editor *e, t_index *i, int width);
@@ -414,7 +414,7 @@ void	draw_texture(t_ray *ray, int y, int y_max, t_wall wall, float distance, int
 void	draw_floor(t_ray *ray, t_wall wall, int win_y);
 void	draw_ceiling(t_ray *ray, t_wall wall, int win_y);
 
-*/
+
 int			error(int code);
 
 ////Map editor functions
