@@ -50,6 +50,7 @@ FILES				=	\
 						graphic_render\
 						graphic_render_animations\
 						graphic_render_filters\
+						graphic_render_hud\
 						graphic_render_minimap\
 						graphic_render_overlay\
 						graphic_render_raycast\
