@@ -6,7 +6,7 @@
 #    By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/16 17:04:55 by aviholai          #+#    #+#              #
-#    Updated: 2023/02/17 10:42:12 by aviholai         ###   ########.fr        #
+#    Updated: 2023/02/17 17:43:38 by aviholai         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,8 @@ NAME				=	doom-nukem
 
 CC					=	gcc
 FILES				=	\
+						controls_keyboard\
+						draw\
 						editor_choose_to_reset_map_or_exit\
 						editor_close_program \
 						editor_copy_map_to_map_temp \
@@ -42,10 +44,7 @@ FILES				=	\
 						editor_testing_print_map \
 						editor_validate_buffer_format \
 						editor_validate_map_temp \
-						main\
 						error_management\
-						controls_keyboard\
-						draw\
 						event\
 						graphic_render\
 						graphic_render_animations\
@@ -55,6 +54,7 @@ FILES				=	\
 						graphic_render_overlay\
 						graphic_render_raycast\
 						graphic_render_timeline\
+						main\
 						parse_file\
 						parse_file_buffer_to_map\
 						pthread_ray\
@@ -69,7 +69,7 @@ SRC					=	$(addprefix src/, $(addsuffix .c, $(FILES)))
 OBJ					=	$(addprefix obj/, $(addsuffix .o, $(FILES)))
 OBJ_DIR				=	obj
 LISTSRC				=	$(foreach part,$(SRC), 	$(PL)		${G}| $(part)\n)
-FLAGS				=	-g	#-Wall -Wextra -Werror -O3 
+FLAGS				=	-g -O3	-Wall -Wextra -Werror
 HEADER				=	-I./src
 LIBFT				=	libft/
 
