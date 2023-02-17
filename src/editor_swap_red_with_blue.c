@@ -16,6 +16,10 @@ uint32_t swap_red_with_blue(uint32_t hex_value)
     uint32_t    only_g;
     uint32_t    only_b;
 
+    only_a = 0;
+    only_r = 0;
+    only_g = 0;
+    only_b = 0;
     if (hex_value == 0x00000000)
         return (hex_value);
     else
