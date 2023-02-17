@@ -97,9 +97,9 @@ int	main(int argc, char **argv)
 
 	map_editor(argv[1], &data);
 	data.gfx.screen = SDL_GetWindowSurface(data.gfx.window);	//this is utilized after Map Editor. Formerly in initialize_media()
-	if (data.gfx.screen != NULL)
-			return (0);
-			
+	//if (data.gfx.screen != NULL)
+	//		return (0);
+	write(1, "test.", 5);	
 	/*if (initialize_player(&data) == ERROR)
 		return (error(PLAYER_FAIL));
 	if (render(&data) == ERROR)					///STOP HERE before dofidog
