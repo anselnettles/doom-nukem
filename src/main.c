@@ -6,40 +6,15 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 18:24:05 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/17 18:11:55 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/17 18:53:31 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "drowning.h"
 
-/* Leave commented out until project compiles
-static int	initialize_textures(t_drown *d)
-{
-	sprite_right_arm(d);
-	temp_texture_a(d);
-	temp_texture_b(d);
-	temp_texture_c(d);
-	temp_texture_skybox(d);
-	temp_sprite_letters(d);
-	sprite_bubble(d);
-	sprite_timer(d);
-	sprite_ammo(d);
-	return (0);
-}*/
-
 //	Initializes the necessary player variables before rendering.
 static int	initialize_player(t_drown *d)
 {
-	//if (!(d->editor.start_x) || !(d->editor.start_y))
-	//	return (ERROR);
-	//d->player.move_speed = MOVE_SPEED;
-	//d->player.pos_x = (float)(SQUARE_SIZE * (d->editor.start_x + 1)
-	//		- (SQUARE_SIZE / 2.0));
-	//d->player.pos_y = (float)(SQUARE_SIZE * (d->editor.start_y + 1)
-	//		- (SQUARE_SIZE / 2.0));
-	//d->player.pos_angle = 90;
-	//d->player.dir_x = (float)cos(deg_to_rad(d->player.pos_angle));
-	//d->player.dir_y = (float)-sin(deg_to_rad(d->player.pos_angle));
 	d->player.dir = PI;
 	d->player.x = BITS * 2;
 	d->player.y = BITS * 2;
@@ -47,7 +22,6 @@ static int	initialize_player(t_drown *d)
 	d->player.dy = sinf(PI);
 	d->player.height = 32;
 	d->player.altitude = 0;
-	write(1, "Player initialized.\n", 20);
 	return (0);
 }
 
@@ -67,7 +41,7 @@ static int	initialize_media(t_drown *d)
 				SDL_WINDOWPOS_UNDEFINED, d->gfx.width,
 				d->gfx.height, SDL_WINDOW_SHOWN);
 		d->gfx.dop = d->gfx.width / 2 / tan(30 * DEGREES);
-		d->gfx.renderer = SDL_CreateRenderer(d->gfx.window, -1, SDL_RENDERER_ACCELERATED);
+		d->gfx.renderer = SDL_CreateRenderer(d->gfx.window, -1, SDL_RENDERER_ACCELERATED); //To be removed. Bring gfx.screen back.
 		if (d->gfx.window != NULL || d->gfx.renderer != NULL)
 			return (0);
 	}
@@ -89,15 +63,15 @@ int	main(int argc, char **argv)
 
 	ft_bzero(&data, sizeof(t_drown));
 	if (argc != 2)
-		return (error(BAD_ARGS));
+		return (error(NO_FILE));
 	if (initialize_media(&data) == ERROR)
 		return (error(SDL_FAIL));
 	map_editor(argv[1], &data);
-	SDL_DestroyRenderer(data.gfx.renderer);
-	data.gfx.renderer = NULL;
-	data.gfx.screen = SDL_GetWindowSurface(data.gfx.window);
-	if (data.gfx.screen == NULL)
-			return (0);
+									SDL_DestroyRenderer(data.gfx.renderer);		//To be removed in favor of 'pixel_put()'.
+									data.gfx.renderer = NULL;
+									data.gfx.screen = SDL_GetWindowSurface(data.gfx.window);
+										if (data.gfx.screen == NULL)
+											return (0);
 	if (initialize_player(&data) == ERROR)
 		return (error(PLAYER_FAIL));
 	if (render(&data) == ERROR)
