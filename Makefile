@@ -43,6 +43,7 @@ FILES				=	\
 						editor_validate_map_temp \
 						main\
 						error_management\
+<<<<<<< HEAD
 						#controls_keyboard\
 						#draw\
 						#graphic_render\
@@ -62,6 +63,28 @@ FILES				=	\
 						#utility\
 						#read\
 						#event\
+=======
+						controls_keyboard\
+						draw\
+						event\
+						graphic_render\
+						graphic_render_animations\
+						graphic_render_filters\
+						graphic_render_hud\
+						graphic_render_minimap\
+						graphic_render_overlay\
+						graphic_render_raycast\
+						graphic_render_timeline\
+						parse_file\
+						parse_file_buffer_to_map\
+						pthread_ray\
+						utilities_graphic\
+						utilities_math\
+						utilities_movement\
+						utilities_system\
+						utility\
+						read\
+>>>>>>> main
 
 SRC					=	$(addprefix src/, $(addsuffix .c, $(FILES)))
 OBJ					=	$(addprefix obj/, $(addsuffix .o, $(FILES)))
