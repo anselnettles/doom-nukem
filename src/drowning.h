@@ -392,6 +392,9 @@ void	draw_collumn(t_ray *ray, int y, int y_max, Uint32 color);
 void	draw_texture(t_ray *ray, int y, int y_max, t_wall wall, float distance, int	scaled_y);
 void	draw_floor(t_ray *ray, t_wall wall, int win_y);
 void	draw_ceiling(t_ray *ray, t_wall wall, int win_y);
+void	delta_move_player(t_drown *data);
+void	delta_time_move(t_drown *data);
+
 
 int			error(int code);
 
