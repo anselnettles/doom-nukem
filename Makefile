@@ -56,7 +56,6 @@ FILES				=	\
 						main\
 						pthread_ray\
 						utilities_graphic\
-						utilities_math\
 						utilities_movement\
 						utilities_system\
 						utility\
