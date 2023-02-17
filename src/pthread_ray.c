@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:45:29 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/02/08 16:47:40 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/17 11:53:06 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,11 @@ void	*ft_raycast_thread(void  *args)
 		wall.x = ray->player.x;
 		wall.y = ray->player.y;
 		wall.prev_y = ray->gfx.height;
-		remember = ray->map.map[(int)roundf(wall.y)][(int)roundf(wall.x)] - '0';
-		while (ray->map.map[(int)roundf(wall.y)][(int)roundf(wall.x)] != '#')
+		remember = ray->map.map[(int)roundf(wall.y)][(int)roundf(wall.x)][0] - '0';
+		while (ray->map.map[(int)roundf(wall.y)][(int)roundf(wall.x)][0] != '#')
 		{
-			remember = ray->map.map[(int)roundf(wall.y)][(int)roundf(wall.x)] - '0';
-			while (ray->map.map[(int)roundf(wall.y)][(int)roundf(wall.x)] - '0' == remember)
+			remember = ray->map.map[(int)roundf(wall.y)][(int)roundf(wall.x)][0] - '0';
+			while (ray->map.map[(int)roundf(wall.y)][(int)roundf(wall.x)][0] - '0' == remember)
 			{
 				modul = get_modulo(wall);
 				wall.x -= wall.dx * modul;

@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:21:31 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/02/16 14:58:16 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/17 11:54:44 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,8 @@ void	move_player(t_drown *data)
 			data->player.x += data->player.dx;
 			data->player.y += data->player.dy;
 		}
-		if ((data->map.map[(int)roundf(data->player.y)][(int)roundf(data->player.x)] - '0') * 8 > data->player.height - 24 ||
-		 data->map.map[(int)roundf(data->player.y)][(int)roundf(data->player.x)] == '#')
+		if ((data->map.map[(int)roundf(data->player.y)][(int)roundf(data->player.x)][0] - '0') * 8 > data->player.height - 24 ||
+		 data->map.map[(int)roundf(data->player.y)][(int)roundf(data->player.x)][0] == '#')
 		{
 			if (data->system.keyboard_state[SDL_SCANCODE_S])
 			{
@@ -105,7 +105,7 @@ void	move_player(t_drown *data)
 		}
 		i++;
 	}
-	data->player.height = 32 + (data->map.map[(int)roundf(data->player.y)][(int)roundf(data->player.x)] - '0') * 8;
+	data->player.height = 32 + (data->map.map[(int)roundf(data->player.y)][(int)roundf(data->player.x)][0] - '0') * 8;
 	data->player.x = roundf(data->player.x);
 	data->player.y = roundf(data->player.y);
 	y_right_arm_flail(&data->gfx);
@@ -134,8 +134,8 @@ void	strife(t_drown *data)
 			data->player.x -= dx;
 			data->player.y -= dy;
 		}
-		if ((data->map.map[(int)roundf(data->player.y)][(int)roundf(data->player.x)] - '0') * 8 > data->player.height -24 ||
-		 data->map.map[(int)roundf(data->player.y)][(int)roundf(data->player.x)] == '#')
+		if ((data->map.map[(int)roundf(data->player.y)][(int)roundf(data->player.x)][0] - '0') * 8 > data->player.height -24 ||
+		 data->map.map[(int)roundf(data->player.y)][(int)roundf(data->player.x)][0] == '#')
 		{
 			if (data->system.keyboard_state[SDL_SCANCODE_A])
 			{
@@ -151,7 +151,7 @@ void	strife(t_drown *data)
 		}
 		i++;
 	}
-	data->player.height = 32 + (data->map.map[(int)roundf(data->player.y)][(int)roundf(data->player.x)] - '0') * 8;
+	data->player.height = 32 + (data->map.map[(int)roundf(data->player.y)][(int)roundf(data->player.x)][0] - '0') * 8;
 	data->player.x = roundf(data->player.x);
 	data->player.y = roundf(data->player.y);
 }
