@@ -6,7 +6,7 @@
 #    By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/16 17:04:55 by aviholai          #+#    #+#              #
-#    Updated: 2023/02/17 17:43:38 by aviholai         ###   ########.fr        #
+#    Updated: 2023/02/17 18:36:15 by aviholai         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ NAME				=	doom-nukem
 CC					=	gcc
 FILES				=	\
 						controls_keyboard\
+						controls_mouse\
 						draw\
 						editor_choose_to_reset_map_or_exit\
 						editor_close_program \
