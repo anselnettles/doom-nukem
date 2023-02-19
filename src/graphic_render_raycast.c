@@ -6,137 +6,112 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 15:49:19 by aviholai          #+#    #+#             */
-/*   Updated: 2023/01/30 12:59:20 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/19 14:54:50 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "drowning.h"
-/*
-float	ray_collision_distance(t_player *player, t_corf collision)
-{
-	float	distance;
-	float	temp;
 
-	temp = (float)((player->pos_x * player->pos_x) - \
-			(2.0f * player->pos_x * collision.x) + \
-			(collision.x * collision.x)) + \
-			(float)((player->pos_y * player->pos_y) - \
-			(2.0f * player->pos_y * collision.y) + \
-			(collision.y * collision.y));
-	distance = square_root(temp);
-	return (distance);
+int		get_modulo(t_wall wall)
+{
+	int		modul_x;
+	int		modul_y;
+
+	modul_x = (int)roundf(wall.x) % 64;
+	modul_y = (int)roundf(wall.y) % 64;
+	if (wall.dx < 0)
+		modul_x = 64 - modul_x;
+	if (modul_x == 0)
+	{
+		return(1);
+	}
+	if (wall.dy < 0)
+		modul_y = 64 - modul_y;
+	if (modul_y == 0)
+	{
+		return(1);
+	}
+	if (modul_y < modul_x)
+		return (modul_y);
+	return (modul_x);
 }
 
-static int	scan_horizontal_collision_point(t_drown *d)
+void	*ft_raycast_thread(void  *args)
 {
-	if (d->graph.cast.ray_angle > 0 && d->graph.cast.ray_angle < 180)
-	{
-		d->graph.cast.ray_y = (((int)d->player.pos_y >> 6) << 6) - 0.001f;
-		d->graph.cast.ray_x
-			= d->player.pos_x + (d->player.pos_y - d->graph.cast.ray_y)
-			/ tan(deg_to_rad(d->graph.cast.ray_angle));
-		d->graph.cast.offset_y = -SQUARE_SIZE;
-		d->graph.cast.offset_x = -d->graph.cast.offset_y
-			/ tan(deg_to_rad(d->graph.cast.ray_angle));
-	}
-	else if (d->graph.cast.ray_angle > 180 && d->graph.cast.ray_angle < 360)
-	{
-		d->graph.cast.ray_y = (((int)d->player.pos_y >> 6) << 6) + SQUARE_SIZE;
-		d->graph.cast.ray_x
-			= d->player.pos_x + (d->player.pos_y - d->graph.cast.ray_y)
-			/ tan(deg_to_rad(d->graph.cast.ray_angle));
-		d->graph.cast.offset_y = SQUARE_SIZE;
-		d->graph.cast.offset_x = -d->graph.cast.offset_y
-			/ tan(deg_to_rad(d->graph.cast.ray_angle));
-	}
-	else
-		return (0);
-	return (1);
-}
+    t_ray		*ray;
+	t_wall		wall;
+	float	    distance;
+	int			modul;
+	int			remember;
 
-static int	scan_vertical_collision_point(t_drown *d)
-{
-	if (d->graph.cast.ray_angle > 90 && d->graph.cast.ray_angle < 270)
+    ray = args;
+	ray->count = 0;
+	wall.dir = ray->dir;
+	wall.prev_y = ray->gfx.height;
+	while (ray->count < (ray->gfx.width / 6))
 	{
-		d->graph.cast.ray_x = (((int)d->player.pos_x >> 6) << 6) - 0.001f;
-		d->graph.cast.ray_y
-			= d->player.pos_y + (d->player.pos_x - d->graph.cast.ray_x)
-			* tan(deg_to_rad(d->graph.cast.ray_angle));
-		d->graph.cast.offset_x = -SQUARE_SIZE;
-		d->graph.cast.offset_y = -d->graph.cast.offset_x
-			* tan(deg_to_rad(d->graph.cast.ray_angle));
-	}
-	else if ((d->graph.cast.ray_angle > 270
-			&& d->graph.cast.ray_angle <= 360)
-		|| (d->graph.cast.ray_angle >= 0 && d->graph.cast.ray_angle < 90))
-	{
-		d->graph.cast.ray_x = (((int)d->player.pos_x >> 6) << 6) + SQUARE_SIZE;
-		d->graph.cast.ray_y = d->player.pos_y
-			+ (d->player.pos_x - d->graph.cast.ray_x)
-			* tan(deg_to_rad(d->graph.cast.ray_angle));
-		d->graph.cast.offset_x = SQUARE_SIZE;
-		d->graph.cast.offset_y = -d->graph.cast.offset_x
-			* tan(deg_to_rad(d->graph.cast.ray_angle));
-	}
-	else
-		return (0);
-	return (1);
-}
-
-float	calculate_collision_distance(t_drown *d, int i, int toggle, float dist)
-{
-	while (i < (MAP_WIDTH / 2))
-	{
-		d->graph.cast.mapx = ((int)d->graph.cast.ray_x) >> 6;
-		d->graph.cast.mapy = ((int)d->graph.cast.ray_y) >> 6;
-		if (d->graph.cast.mapx >= 0 && d->graph.cast.mapx < (MAP_WIDTH) / 2
-			&& d->graph.cast.mapy >= 0 && d->graph.cast.mapy < (MAP_WIDTH) / 2
-			&& d->editor.map[d->graph.cast.mapy][d->graph.cast.mapx][0] == '#')
+		if (wall.dir > 2 * PI)
+			wall.dir -= 2 * PI;
+		if (wall.dir < 0)
+			wall.dir += 2 * PI;
+		wall.dx = cosf(wall.dir);
+		wall.dy = sinf(wall.dir);
+		wall.x = ray->player.x;
+		wall.y = ray->player.y;
+		wall.prev_y = ray->gfx.height;
+		remember = ray->map.map[(int)roundf(wall.y / BITS)][(int)roundf(wall.x / BITS)][0] - '0';
+		while (ray->map.map[(int)roundf(wall.y / BITS)][(int)roundf(wall.x / BITS)][0] != '#')
 		{
-			if (toggle)
-				d->graph.cast.hor_coll_point_x = d->graph.cast.ray_x;
-			else
-				d->graph.cast.ver_coll_point_y = d->graph.cast.ray_y;
-			d->corf.x = d->graph.cast.ray_x;
-			d->corf.y = d->graph.cast.ray_y;
-			dist = ray_collision_distance(&d->player, d->corf);
-			return (dist);
+			remember = ray->map.map[(int)roundf(wall.y / BITS)][(int)roundf(wall.x / BITS)][0] - '0';
+			while (ray->map.map[(int)roundf(wall.y / BITS)][(int)roundf(wall.x / BITS)][0] - '0' == remember)
+			{
+				modul = get_modulo(wall);
+				modul = 1;
+				wall.x -= wall.dx * modul;
+				wall.y -= wall.dy * modul;
+			}
+			distance = sqrtf(((wall.x - ray->player.x) * (wall.x - ray->player.x))
+				+ ((wall.y - ray->player.y) * (wall.y - ray->player.y)));
+			distance *= cosf(ray->player.dir - wall.dir);
+			draw_thread(ray, distance, &wall);
 		}
-		else
-		{
-			d->graph.cast.ray_x += d->graph.cast.offset_x;
-			d->graph.cast.ray_y += d->graph.cast.offset_y;
-			i++;
-		}
+		wall.dir += (60 * DEGREES) / ray->gfx.width;
+		ray->x++;
+		ray->count++;
 	}
-	return (100000);
+	return (NULL);
 }
 
-int	raycast(t_drown *d, float hor_coll_dist, float ver_coll_dist)
+
+void    render_thread(t_drown *data)
 {
-	if (scan_horizontal_collision_point(d))
-		hor_coll_dist = calculate_collision_distance(d, 0, HORIZONTAL, 0);
-	if (scan_vertical_collision_point(d))
-		ver_coll_dist = calculate_collision_distance(d, 0, VERTICAL, 0);
-	if (ver_coll_dist < hor_coll_dist)
+    pthread_t threads[THREAD];
+	t_ray	ray[THREAD];
+    int     i;
+    int     rc;
+
+	i = 0;
+	ray[0].x = 0;
+	ray[i].dir = (data->player.dir - 30 * DEGREES);
+    while (i < THREAD)
+    {
+		ray[i].count = 0;
+		if( i != 0)
+		{
+			ray[i].x = i * (data->gfx.width / 6);
+			ray[i].dir = (data->player.dir - 30 * DEGREES) + (i * (data->gfx.width / 6) * (60 * DEGREES / data->gfx.width));
+		}
+		ray[i].height = data->hg;
+		ray[i].gfx = data->gfx;
+		ray[i].player = data->player;
+		ray[i].map = data->map;
+        rc = pthread_create(&threads[i], NULL, ft_raycast_thread, &ray[i]);
+		i++;
+    }
+	i = 0;
+	while (i < THREAD)
 	{
-		d->graph.cast.closest_coll = ver_coll_dist;
-		d->graph.cast.texture_xoffset
-			= (int)d->graph.cast.ver_coll_point_y % SQUARE_SIZE;
-		if (d->graph.cast.ray_angle > 90 && d->graph.cast.ray_angle < 270)
-			d->player.compass = WEST;
-		else
-			d->player.compass = EAST;
+		rc = pthread_join(threads[i], NULL);
+		i++;
 	}
-	else
-	{
-		d->graph.cast.closest_coll = hor_coll_dist;
-		d->graph.cast.texture_xoffset
-			= (int)d->graph.cast.hor_coll_point_x % SQUARE_SIZE;
-		if (d->graph.cast.ray_angle > 0 && d->graph.cast.ray_angle < 180)
-			d->player.compass = NORTH;
-		else
-			d->player.compass = SOUTH;
-	}
-	return (0);
-}*/
+}
