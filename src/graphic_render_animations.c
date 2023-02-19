@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 10:28:04 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/16 16:50:34 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/19 14:50:41 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,15 +99,10 @@ static void	right_arm_loop(t_drown *d)
 static void	flow_adjustment(t_drown *d)
 {
 	if (d->system.time % 2400 > 0 && d->system.time % 2400 < 600)
-	{
-	//	if (d->system.time % 1200 >= 0 && d->system.time % 1200 <= 25)
 			d->gfx.flow_y_adjust = (d->system.time % 200 / 60);
-	//	else if (d->system.time % 1200 >= 75 && d->system.time % 1200 <= 100)
-	//		d->gfx.flow_y_adjust = 0;
-	}
 }
 
-int			animation_loop(t_drown *d)
+int	animation_loop(t_drown *d)
 {
 	right_arm_loop(d);
 	timer_loop(d);
