@@ -25,6 +25,9 @@ static int	initialize_player(t_drown *d)
 	return (0);
 }
 
+//	Runs the "main menu" user interface.
+//	Awaits the player's input and returns back to 'main()', branching
+//	to "normal mode", "hard mode" and level editor.
 static int	initialize_menu(t_gfx *gfx, t_system *system, SDL_Event *event)
 {
 	while (system->play_state == PLAY)
@@ -72,7 +75,7 @@ static int	initialize_media(t_drown *d)
 		d->gfx.window = SDL_CreateWindow(TITLE, SDL_WINDOWPOS_UNDEFINED,
 				SDL_WINDOWPOS_UNDEFINED, d->gfx.width, d->gfx.height, SDL_WINDOW_SHOWN);
 		d->gfx.screen = SDL_GetWindowSurface(d->gfx.window);
-		if (d->gfx.window || d->gfx.screen != NULL)
+		if (d->gfx.window && d->gfx.screen != NULL)
 			return (0);
 	}
 	else
@@ -97,8 +100,6 @@ int	main(void)
 	if (initialize_menu(&data.gfx, &data.system, &data.event) == RUN_EDITOR)
 	{
 		data.gfx.screen = NULL;																	//Maybe unnececssary.
-		data.gfx.window = SDL_CreateWindow(TITLE, SDL_WINDOWPOS_UNDEFINED,						//Trial and error for renderer.
-				SDL_WINDOWPOS_UNDEFINED, data.gfx.width, data.gfx.height, SDL_WINDOW_SHOWN);
 		data.gfx.renderer = SDL_CreateRenderer(data.gfx.window, -1, SDL_RENDERER_ACCELERATED);	//To-be-removed.
 		map_editor("maps/bluehole.dn", &data);
 		data.gfx.screen = SDL_GetWindowSurface(data.gfx.window);								//To-be-removed.
