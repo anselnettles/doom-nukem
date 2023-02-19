@@ -36,7 +36,8 @@ int map_editor(char *map_file, t_drown *data)
             choose_to_reset_map_or_exit(data);
 	    if (data->gfx.event.type == SDL_KEYDOWN)
 	    {
-		    if (data->gfx.event.key.keysym.sym == SDLK_a)
+		    if (data->gfx.event.key.keysym.sym == SDLK_z
+				    || data->gfx.event.key.keysym.sym == SDLK_x)
 			    quit = 1;
 	    }
 	}
