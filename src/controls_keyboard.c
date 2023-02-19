@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 14:16:37 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/17 18:35:10 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/19 13:18:43 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,7 @@ void	deal_key(int key, t_drown *data)
 {
 	if (data->system.keyboard_state[SDL_SCANCODE_ESCAPE])
 		data->system.play_state = EXIT;
-	/*if (data->system.keyboard_state[SDL_SCANCODE_A]
-			|| data->system.keyboard_state[SDL_SCANCODE_D])
-		strife(data);
-	if (data->system.keyboard_state[SDL_SCANCODE_W]
-			|| data->system.keyboard_state[SDL_SCANCODE_S])
-		move_player(data);
-	*/if (data->system.keyboard_state[SDL_SCANCODE_F1])
+	if (data->system.keyboard_state[SDL_SCANCODE_F1])
 		scale_window(&data->gfx);
 	if (key == SDLK_SPACE && data->player.in_air == 0)
 	{
@@ -46,15 +40,14 @@ void	deal_key(int key, t_drown *data)
 			data->system.color_filter = TRUE;
 	}
 	if (data->system.keyboard_state[SDL_SCANCODE_F5]
-			&& data->gfx.frame.bubble > 1)
+		&& data->gfx.frame.bubble > 1)
 		data->gfx.frame.bubble--;
 }
 
-void	move_player(t_drown *data)
+void	move_forward_back(t_drown *data)
 {
 	int		i;
 	int		sprint;
-	//int		height;
 
 	i = 0;
 	sprint = 1;
@@ -72,8 +65,11 @@ void	move_player(t_drown *data)
 			data->player.x += data->player.dx;
 			data->player.y += data->player.dy;
 		}
-		if ((data->map.map[(int)roundf(data->player.y / BITS)][(int)roundf(data->player.x / BITS)][0] - '0') * 8 > data->player.height - 24 ||
-		 data->map.map[(int)roundf(data->player.y / BITS)][(int)roundf(data->player.x / BITS)][0] == '#')
+		if ((data->map.map[(int)roundf(data->player.y
+						/ BITS)][(int)roundf(data->player.x / BITS)][0] - '0')
+				* 8 > data->player.height - 24
+				|| data->map.map[(int)roundf(data->player.y / BITS)]
+			[(int)roundf(data->player.x / BITS)][0] == '#')
 		{
 			if (data->system.keyboard_state[SDL_SCANCODE_S])
 			{
@@ -89,19 +85,19 @@ void	move_player(t_drown *data)
 		}
 		i++;
 	}
-	data->player.height = 32 + (data->map.map[(int)roundf(data->player.y / BITS)][(int)roundf(data->player.x / BITS)][0] - '0') * 8;
+	data->player.height
+		= 32 + (data->map.map[(int)roundf(data->player.y / BITS)]
+		[(int)roundf(data->player.x / BITS)][0] - '0') * 8;
 	data->player.x = roundf(data->player.x);
 	data->player.y = roundf(data->player.y);
 	y_right_arm_flail(&data->gfx);
 }
 
-void	strife(t_drown *data)
+void	move_strafe(t_drown *data)
 {
 	float	dx;
 	float	dy;
 	int		i;
-	//int		height;
-
 
 	i = 0;
 	dx = cosf(data->player.dir + 90 * DEGREES);
@@ -118,8 +114,11 @@ void	strife(t_drown *data)
 			data->player.x -= dx;
 			data->player.y -= dy;
 		}
-		if ((data->map.map[(int)roundf(data->player.y / BITS)][(int)roundf(data->player.x / BITS)][0] - '0') * 8 > data->player.height -24 ||
-		 data->map.map[(int)roundf(data->player.y / BITS)][(int)roundf(data->player.x / BITS)][0] == '#')
+		if ((data->map.map[(int)roundf(data->player.y / BITS)]
+				[(int)roundf(data->player.x / BITS)]
+				[0] - '0') * 8 > data->player.height -24
+				|| data->map.map[(int)roundf(data->player.y / BITS)]
+				[(int)roundf(data->player.x / BITS)][0] == '#')
 		{
 			if (data->system.keyboard_state[SDL_SCANCODE_A])
 			{
@@ -135,7 +134,9 @@ void	strife(t_drown *data)
 		}
 		i++;
 	}
-	data->player.height = 32 + (data->map.map[(int)roundf(data->player.y / BITS)][(int)roundf(data->player.x / BITS)][0] - '0') * 8;
+	data->player.height
+		= 32 + (data->map.map[(int)roundf(data->player.y / BITS)]
+			[(int)roundf(data->player.x / BITS)][0] - '0') * 8;
 	data->player.x = roundf(data->player.x);
 	data->player.y = roundf(data->player.y);
 }
