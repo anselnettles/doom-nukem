@@ -21,9 +21,9 @@ void	deal_mouse(t_drown *data)
 		data->player.dir += 2 * PI;
 	data->player.dx = cosf(data->player.dir);
 	data->player.dy = sinf(data->player.dir);
-	data->hg -= data->event.motion.yrel * 8;
-	if (data->hg > data->gfx.height)
-		data->hg = data->gfx.height;
-	if (data->hg < 0)
-		data->hg = 0;
+	data->gfx.centre -= data->event.motion.yrel * 8;
+	if (data->gfx.centre > data->gfx.height)
+		data->gfx.centre = data->gfx.height;
+	if (data->gfx.centre < 0)
+		data->gfx.centre = 0;
 }
