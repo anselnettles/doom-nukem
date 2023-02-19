@@ -257,7 +257,7 @@ static void parse_images(char *buf, t_gfx *gfx)
     parse_textures_3D('H', gfx, buf, "harpoon");
     parse_textures_3D('I', gfx, buf, "bottle");
     parse_textures_3D('J', gfx, buf, "timer");
-    // parse_textures_3D('L', gfx, buf, "ammo");    //puuttuu mun dnsta
+    parse_textures_3D('L', gfx, buf, "ammo");
 //4 dimensional array parse
 /*
 <symbol>    drown->sprite.monster[8][3][128][128]
