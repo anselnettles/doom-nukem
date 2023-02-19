@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/19 13:15:33 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/19 19:41:10 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@
 # define THREADRAY 142				//Topi's build.
 # define EXIT 0						//Topi's build.
 # define PLAY 1						//Topi's build.
+# define RUN_EDITOR 2
 # define GRAVITY 10.f
 # define DEGREES 0.0174532
 # define LETTER_WIDTH 8				//Width of a letter in sprite.
