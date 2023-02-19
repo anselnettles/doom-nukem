@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 18:24:05 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/17 18:59:23 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/19 21:19:42 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,24 +25,50 @@ static int	initialize_player(t_drown *d)
 	return (0);
 }
 
+static int	initialize_menu(t_gfx *gfx, t_system *system, SDL_Event *event)
+{
+	system->keyboard_state = SDL_GetKeyboardState(NULL);
+
+	while (system->play_state == PLAY)
+	{
+		gfx_write(gfx, "PRESS 'A' TO DROWN, 'B' TO DROWN HARD, 'C' TO EDITOR");
+		while (SDL_PollEvent(event))
+		{
+			if (event->type == SDL_QUIT)
+				system->play_state = EXIT;
+			if (event->type == SDL_KEYDOWN)
+			{
+				if (system->keyboard_state[SDL_SCANCODE_A] || system->keyboard_state[SDL_SCANCODE_B])
+					return (0);
+				else if (system->keyboard_state[SDL_SCANCODE_C])
+					return (RUN_EDITOR);
+				else if (system->keyboard_state[SDL_SCANCODE_ESCAPE])
+					system->play_state = EXIT;
+			}
+		}
+		SDL_UpdateWindowSurface(gfx->window);
+	}
+	return (0);
+}
+
 //	Initializes the SDL (Simple DirectMedia Layer) library functions and sets
 //	all the necessary variables for graphical rendering.
 static int	initialize_media(t_drown *d)
 {
-	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS | SDL_INIT_EVERYTHING) > SDL_ERROR) //Remove 'everything' when unnecessary.
+	read_map("maps/bluehole.dn", d);														//WIP.
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS | SDL_INIT_EVERYTHING) > SDL_ERROR)		//Remove 'everything' when unnecessary.
 	{
+		d->system.play_state = PLAY;
 		d->gfx.scale = 1;
 		d->gfx.width = (WIDTH * d->gfx.scale);
 		d->gfx.height = (HEIGHT * d->gfx.scale);
 		d->hg = d->gfx.height / 2;
 		d->system.overlay_toggle = TRUE;
-		d->system.play_state = PLAY;
 		d->gfx.window = SDL_CreateWindow(TITLE, SDL_WINDOWPOS_UNDEFINED,
-				SDL_WINDOWPOS_UNDEFINED, d->gfx.width,
-				d->gfx.height, SDL_WINDOW_SHOWN);
+				SDL_WINDOWPOS_UNDEFINED, d->gfx.width, d->gfx.height, SDL_WINDOW_SHOWN);
 		d->gfx.dop = d->gfx.width / 2 / tan(30 * DEGREES);
-		d->gfx.renderer = SDL_CreateRenderer(d->gfx.window, -1, SDL_RENDERER_ACCELERATED); //To be removed. Bring gfx.screen back.
-		if (d->gfx.window != NULL || d->gfx.renderer != NULL)
+		d->gfx.screen = SDL_GetWindowSurface(d->gfx.window);
+		if (d->gfx.window) //|| d->gfx.screen != NULL)
 			return (0);
 	}
 	else
@@ -57,25 +83,27 @@ static int	initialize_media(t_drown *d)
 // Begin of program. Run the binary with no arguments to launch the software
 // and go into the process of initialization.
 
-int	main(int argc, char **argv)
+int	main(void)
 {
 	t_drown	data;
 
 	ft_bzero(&data, sizeof(t_drown));
-	if (argc != 2)
-		return (error(NO_FILE));
 	if (initialize_media(&data) == ERROR)
 		return (error(SDL_FAIL));
-	map_editor(argv[1], &data);
-									SDL_DestroyRenderer(data.gfx.renderer);		//To be removed in favor of 'pixel_put()'.
-									data.gfx.renderer = NULL;
-									data.gfx.screen = SDL_GetWindowSurface(data.gfx.window);
-										if (data.gfx.screen == NULL)
-											return (0);
+	if (initialize_menu(&data.gfx, &data.system, &data.event) == RUN_EDITOR)
+	{
+		data.gfx.screen = NULL;																	//Maybe unnececssary.
+		data.gfx.window = SDL_CreateWindow(TITLE, SDL_WINDOWPOS_UNDEFINED,						//Trial and error for renderer.
+				SDL_WINDOWPOS_UNDEFINED, data.gfx.width, data.gfx.height, SDL_WINDOW_SHOWN);
+		data.gfx.renderer = SDL_CreateRenderer(data.gfx.window, -1, SDL_RENDERER_ACCELERATED);	//To-be-removed.
+		map_editor("maps/bluehole.dn", &data);
+		data.gfx.screen = SDL_GetWindowSurface(data.gfx.window);								//To-be-removed.
+	}
 	if (initialize_player(&data) == ERROR)
 		return (error(PLAYER_FAIL));
-	if (render(&data) == ERROR)
-		return (error(RENDER_FAIL));
+	if (data.system.play_state == PLAY)
+		if (render(&data) == ERROR)
+			return (error(RENDER_FAIL));
 	SDL_SetRelativeMouseMode(SDL_TRUE);
 	sdl_loop(&data);
 	return (0);
