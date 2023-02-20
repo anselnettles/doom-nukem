@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/20 09:28:16 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/20 13:35:45 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -405,5 +405,9 @@ int			validate_buffer_format(char *buf, t_editor_images *images);
 int			validate_map_temp(t_drown *data);
 void		x_right_arm_flail(t_gfx *gfx);
 void		y_right_arm_flail(t_gfx *gfx);
-
+int			ft_calc_diagonal(t_wall *wall, t_ray *ray);
+int			ft_diagonal_1(t_wall *wall, t_ray *ray);
+int			ft_diagonal_2(t_wall *wall, t_ray *ray);
+int			ft_diagonal_3(t_wall *wall, t_ray *ray);
+int			ft_diagonal_4(t_wall *wall, t_ray *ray);
 #endif
