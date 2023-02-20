@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   controls_keyboard.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 14:16:37 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/20 09:29:55 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/20 16:54:32 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void	deal_key(int key, t_drown *data)
 	if (key == SDLK_SPACE && data->player.in_air == 0)
 	{
 		data->player.velocity.y = 70.f;
-		data->player.in_air = 1;
+		if(data->system.overlay_toggle == TRUE)
+			data->player.in_air = 1;
 	}
 	if (data->system.keyboard_state[SDL_SCANCODE_F2])
 	{
@@ -78,6 +79,7 @@ void	move_forward_back(t_drown *data)
 		}
 		i++;
 	}
+	if (data->system.overlay_toggle == TRUE)
 	data->player.height
 		= 32 + (data->map.map[(int)roundf(data->player.y / BITS)]
 		[(int)roundf(data->player.x / BITS)][0] - '0') * 8;
@@ -127,6 +129,7 @@ void	move_strafe(t_drown *data)
 		}
 		i++;
 	}
+	if (data->system.overlay_toggle == TRUE)
 	data->player.height
 		= 32 + (data->map.map[(int)roundf(data->player.y / BITS)]
 			[(int)roundf(data->player.x / BITS)][0] - '0') * 8;
