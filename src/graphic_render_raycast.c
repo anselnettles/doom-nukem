@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   graphic_render_raycast.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 15:49:19 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/19 14:54:50 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/20 13:03:01 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "drowning.h"
-
+/*
 int		get_modulo(t_wall wall)
 {
 	int		modul_x;
@@ -35,13 +35,63 @@ int		get_modulo(t_wall wall)
 		return (modul_y);
 	return (modul_x);
 }
+*/
+
+int		ft_calc_diagonal(t_wall *wall, t_ray *ray)
+{
+	if (ray->map.map[(int)roundf(wall->y / BITS)][(int)roundf(wall->x / BITS)][2] == '\\')
+	{
+		while (ray->map.map[(int)roundf(wall->y / BITS)][(int)roundf(wall->x / BITS)][2] == '\\')
+		{
+			wall->x -= wall->dx;
+			wall->y -= wall->dy;
+			if ((int)roundf(wall->y) % 64 - (int)roundf(wall->x) % 64 == 0 || (int)roundf(wall->y) % 64 - (int)roundf(wall->x) % 64 == -1
+				|| (int)roundf(wall->y) % 64 - (int)roundf(wall->x) % 64 == 1)
+				return(1);
+		}
+	}
+	if (ray->map.map[(int)roundf(wall->y / BITS)][(int)roundf(wall->x / BITS)][2] == '<')
+	{
+		while (ray->map.map[(int)roundf(wall->y / BITS)][(int)roundf(wall->x / BITS)][2] == '<')
+		{
+			wall->x -= wall->dx;
+			wall->y -= wall->dy;
+			if ((int)roundf(wall->y) % 64 - (int)roundf(wall->x) % 64 == 0 || (int)roundf(wall->y) % 64 - (int)roundf(wall->x) % 64 == -1
+				|| (int)roundf(wall->y) % 64 - (int)roundf(wall->x) % 64 == 1)
+				return(1);
+		}
+	}
+	if (ray->map.map[(int)roundf(wall->y / BITS)][(int)roundf(wall->x / BITS)][2] == '/')
+	{
+		while (ray->map.map[(int)roundf(wall->y / BITS)][(int)roundf(wall->x / BITS)][2] == '/')
+		{
+			wall->x -= wall->dx;
+			wall->y -= wall->dy;
+			if ((int)roundf(wall->y) % 64 + (int)roundf(wall->x) % 64 == 64 || (int)roundf(wall->y) % 64 + (int)roundf(wall->x) % 64 == 65
+				|| (int)roundf(wall->y) % 64 + (int)roundf(wall->x) % 64 == 63)
+				return(1);
+		}
+	}
+	if (ray->map.map[(int)roundf(wall->y / BITS)][(int)roundf(wall->x / BITS)][2] == '>')
+	{
+		while (ray->map.map[(int)roundf(wall->y / BITS)][(int)roundf(wall->x / BITS)][2] == '>')
+		{
+			wall->x -= wall->dx;
+			wall->y -= wall->dy;
+			if ((int)roundf(wall->y) % 64 + (int)roundf(wall->x) % 64 == 64 || (int)roundf(wall->y) % 64 + (int)roundf(wall->x) % 64 == 65
+				|| (int)roundf(wall->y) % 64 + (int)roundf(wall->x) % 64 == 63)
+				return(1);
+		}
+	}
+	return(0);
+}
 
 void	*ft_raycast_thread(void  *args)
 {
     t_ray		*ray;
 	t_wall		wall;
 	float	    distance;
-	int			modul;
+//	int			modul;
 	int			remember;
 
     ray = args;
@@ -65,10 +115,13 @@ void	*ft_raycast_thread(void  *args)
 			remember = ray->map.map[(int)roundf(wall.y / BITS)][(int)roundf(wall.x / BITS)][0] - '0';
 			while (ray->map.map[(int)roundf(wall.y / BITS)][(int)roundf(wall.x / BITS)][0] - '0' == remember)
 			{
-				modul = get_modulo(wall);
-				modul = 1;
-				wall.x -= wall.dx * modul;
-				wall.y -= wall.dy * modul;
+//				modul = get_modulo(wall);
+//				modul = 1;
+				wall.x -= wall.dx;// * modul;
+				wall.y -= wall.dy;// * modul;
+				if (ray->map.map[(int)roundf(wall.y / BITS)][(int)roundf(wall.x / BITS)][2] != '.')
+					if (ft_calc_diagonal(&wall, ray))
+						break ;
 			}
 			distance = sqrtf(((wall.x - ray->player.x) * (wall.x - ray->player.x))
 				+ ((wall.y - ray->player.y) * (wall.y - ray->player.y)));
