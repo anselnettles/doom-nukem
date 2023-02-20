@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 14:16:37 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/19 13:18:43 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/20 09:29:55 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,20 +25,13 @@ void	deal_key(int key, t_drown *data)
 	}
 	if (data->system.keyboard_state[SDL_SCANCODE_F2])
 	{
-		if (data->system.scanline == TRUE)
-			data->system.scanline = FALSE;
+		if (data->system.filters == TRUE)
+			data->system.filters = FALSE;
 		else
-			data->system.scanline = TRUE;
+			data->system.filters = TRUE;
 	}
 	if (data->system.keyboard_state[SDL_SCANCODE_F3])
 		data->system.overlay_toggle = -data->system.overlay_toggle;
-	if (data->system.keyboard_state[SDL_SCANCODE_F4])
-	{
-		if (data->system.color_filter == TRUE)
-			data->system.color_filter = FALSE;
-		else
-			data->system.color_filter = TRUE;
-	}
 	if (data->system.keyboard_state[SDL_SCANCODE_F5]
 		&& data->gfx.frame.bubble > 1)
 		data->gfx.frame.bubble--;
