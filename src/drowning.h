@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/20 13:35:45 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/20 16:12:06 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@
 # define WIDTH 642			//Window resolution width.
 # define HEIGHT 480			//Window resolution height.
 # define MARGIN 20			//Margin difference for the UI.
+# define MAP_WIDTH 28		//Map grid width length.
+# define MAP_HEIGHT 20		//Map grid height length.
 
 //	SYSTEM MECHANICS GLOBAL DEFINITIONS
 # define TRUE 1						//Set to true.
