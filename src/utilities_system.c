@@ -22,7 +22,7 @@ void		scale_window(t_gfx *gfx)
 	gfx->height = (HEIGHT * gfx->scale);
 	SDL_SetWindowSize(gfx->window, gfx->width, gfx->height);
 	gfx->screen = SDL_GetWindowSurface(gfx->window);
-	gfx->dop = gfx->width / 2 / tan(30 * DEGREES);
+	gfx->centre = ((gfx->width / 2) / tan(30 * DEGREES));
 }
 
 static void	track_time(t_drown *d)

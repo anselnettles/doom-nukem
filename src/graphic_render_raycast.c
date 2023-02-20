@@ -101,7 +101,7 @@ void    render_thread(t_drown *data)
 			ray[i].x = i * (data->gfx.width / 6);
 			ray[i].dir = (data->player.dir - 30 * DEGREES) + (i * (data->gfx.width / 6) * (60 * DEGREES / data->gfx.width));
 		}
-		ray[i].height = data->hg;
+		ray[i].height = data->gfx.centre;
 		ray[i].gfx = data->gfx;
 		ray[i].player = data->player;
 		ray[i].map = data->map;

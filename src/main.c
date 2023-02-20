@@ -25,21 +25,27 @@ static int	initialize_player(t_drown *d)
 	return (0);
 }
 
+//	Runs the "main menu" user interface.
+//	Awaits the player's input and returns back to 'main()', branching
+//	to "normal mode", "hard mode" and level editor.
 static int	initialize_menu(t_gfx *gfx, t_system *system, SDL_Event *event)
 {
-	system->keyboard_state = SDL_GetKeyboardState(NULL);
-
 	while (system->play_state == PLAY)
 	{
-		gfx_write(gfx, "PRESS 'A' TO DROWN, 'B' TO DROWN HARD, 'C' TO EDITOR");
+		gfx_write(gfx, "PRESS 'Z' TO PLAY .. 'X' HARD MODE .. 'C' EDITOR");
 		while (SDL_PollEvent(event))
 		{
 			if (event->type == SDL_QUIT)
 				system->play_state = EXIT;
 			if (event->type == SDL_KEYDOWN)
 			{
-				if (system->keyboard_state[SDL_SCANCODE_A] || system->keyboard_state[SDL_SCANCODE_B])
+				if (system->keyboard_state[SDL_SCANCODE_Z])
 					return (0);
+				else if (system->keyboard_state[SDL_SCANCODE_X])
+				{
+					//TURN ON HARD MODE.
+					return (0);
+				}
 				else if (system->keyboard_state[SDL_SCANCODE_C])
 					return (RUN_EDITOR);
 				else if (system->keyboard_state[SDL_SCANCODE_ESCAPE])
@@ -62,13 +68,14 @@ static int	initialize_media(t_drown *d)
 		d->gfx.scale = 1;
 		d->gfx.width = (WIDTH * d->gfx.scale);
 		d->gfx.height = (HEIGHT * d->gfx.scale);
-		d->hg = d->gfx.height / 2;
+		d->gfx.proj_dist = (d->gfx.width / 2) / tan(30 * DEGREES);
+		d->gfx.centre = (d->gfx.height / 2);
 		d->system.overlay_toggle = TRUE;
+		d->system.keyboard_state = SDL_GetKeyboardState(NULL);
 		d->gfx.window = SDL_CreateWindow(TITLE, SDL_WINDOWPOS_UNDEFINED,
 				SDL_WINDOWPOS_UNDEFINED, d->gfx.width, d->gfx.height, SDL_WINDOW_SHOWN);
-		d->gfx.dop = d->gfx.width / 2 / tan(30 * DEGREES);
 		d->gfx.screen = SDL_GetWindowSurface(d->gfx.window);
-		if (d->gfx.window) //|| d->gfx.screen != NULL)
+		if (d->gfx.window && d->gfx.screen != NULL)
 			return (0);
 	}
 	else
@@ -93,8 +100,6 @@ int	main(void)
 	if (initialize_menu(&data.gfx, &data.system, &data.event) == RUN_EDITOR)
 	{
 		data.gfx.screen = NULL;																	//Maybe unnececssary.
-		data.gfx.window = SDL_CreateWindow(TITLE, SDL_WINDOWPOS_UNDEFINED,						//Trial and error for renderer.
-				SDL_WINDOWPOS_UNDEFINED, data.gfx.width, data.gfx.height, SDL_WINDOW_SHOWN);
 		data.gfx.renderer = SDL_CreateRenderer(data.gfx.window, -1, SDL_RENDERER_ACCELERATED);	//To-be-removed.
 		map_editor("maps/bluehole.dn", &data);
 		data.gfx.screen = SDL_GetWindowSurface(data.gfx.window);								//To-be-removed.

@@ -246,13 +246,14 @@ typedef struct s_graphics {
 	SDL_Window		*window;
 	SDL_Surface		*screen;
 	SDL_Surface		*image;
-	float			dop;		//distance to projection plane
+	float			proj_dist;
 	const char		*sdl_error_string;
 	int				width;
 	int				height;
 	int				f;
 	int				x;
 	int				y;
+	int				centre;
 	uint32_t		color;
 	int				scale;
 	float			shake_x;
@@ -263,7 +264,7 @@ typedef struct s_graphics {
 	t_txt			txt;
 	t_sprite		sprite;
 	t_frame			frame;
-	SDL_Event		event;		//All SDL calls should be here
+	SDL_Event		event;
 }	t_gfx;
 
 typedef struct s_map
@@ -320,9 +321,8 @@ typedef struct s_project_drowning {
 	SDL_Rect				rect;
 	SDL_Event				event;
 	t_map					map;
-	int						hg;
 	float					delta_time;
-}	t_drown; //data
+}	t_drown;
 
 //	Listed error types. See 'error_management.c' for their output.
 typedef enum e_error

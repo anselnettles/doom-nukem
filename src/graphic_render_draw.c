@@ -104,7 +104,7 @@ void	draw_texture(t_ray *ray, int y, int y_max, t_wall wall, float distance, int
 	int			j;
 	//char		c;
 
-	texture_at_distance = BITS / distance * ray->gfx.dop;
+	texture_at_distance = BITS / distance * ray->gfx.proj_dist;
 	i = 64 / texture_at_distance;
 	j = 0;
 	//c = ray->map.map[(int)roundf(wall.y / BITS)][(int)roundf(wall.x / BITS)][0];
@@ -143,7 +143,7 @@ void	draw_floor(t_ray *ray, t_wall wall, int win_y)
 
 	while (win_y < wall.prev_y && win_y < ray->gfx.height)
 	{
-		dir = atanf((float)(win_y - ray->height) / ray->gfx.dop);
+		dir = atanf((float)(win_y - ray->height) / ray->gfx.proj_dist);
 		wall.distance = ray->player.height / dir;
 		wall.distance /= cosf(ray->player.dir - wall.dir);
 		wall.x = ray->player.x - wall.dx * wall.distance;
@@ -172,7 +172,7 @@ void	draw_ceiling(t_ray *ray, t_wall wall, int win_y)
 		player_height = 4;
 	while (win_y >= 0)
 	{
-		dir = atanf((float)(win_y - ray->height) / ray->gfx.dop);
+		dir = atanf((float)(win_y - ray->height) / ray->gfx.proj_dist);
 		wall.distance = 512 / dir;
 		wall.distance /= cosf(ray->player.dir - wall.dir);
 		wall.x = ray->player.x + wall.dx * wall.distance;
@@ -203,10 +203,10 @@ void	draw_thread(t_ray *ray, float distance, t_wall *wall)
 	height = 64;
 	if (ray->map.map[(int)roundf(wall->y / BITS)][(int)roundf(wall->x / BITS)][0] != '#')
 		height = ray->map.map[(int)roundf(wall->y / BITS)][(int)roundf(wall->x / BITS)][0] - '0';
-	wall_height = ((BITS / 8) / distance * ray->gfx.dop) * height;
-	y_max = ray->height + ((BITS + ray->player.height - 32) / distance * (ray->gfx.dop) / 2);
+	wall_height = ((BITS / 8) / distance * ray->gfx.proj_dist) * height;
+	y_max = ray->height + ((BITS + ray->player.height - 32) / distance * (ray->gfx.proj_dist) / 2);
 	scaled_y_max = y_max;
-	//scaled_y = y_max - ((BITS + ray->player.height - 32) / distance * ray->gfx.dop);
+	//scaled_y = y_max - ((BITS + ray->player.height - 32) / distance * ray->gfx.proj_dist);
 	y = y_max - wall_height;
 	//if (ray->map.map[(int)roundf(wall->y / BITS)][(int)roundf(wall->x / BITS)][0] == '#')
 	//	scaled_y = y;
