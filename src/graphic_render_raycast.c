@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 15:49:19 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/20 13:03:01 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/20 13:33:56 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,52 +37,68 @@ int		get_modulo(t_wall wall)
 }
 */
 
+int		ft_diagonal_1(t_wall *wall, t_ray *ray)
+{
+	while (ray->map.map[(int)roundf(wall->y / BITS)][(int)roundf(wall->x / BITS)][2] == '\\')
+	{
+		wall->x -= wall->dx;
+		wall->y -= wall->dy;
+		if ((int)roundf(wall->y) % 64 - (int)roundf(wall->x) % 64 == 0 || (int)roundf(wall->y) % 64 - (int)roundf(wall->x) % 64 == -1
+			|| (int)roundf(wall->y) % 64 - (int)roundf(wall->x) % 64 == 1)
+			return(1);
+	}
+	return(0);
+}
+
+int		ft_diagonal_2(t_wall *wall, t_ray *ray)
+{
+	while (ray->map.map[(int)roundf(wall->y / BITS)][(int)roundf(wall->x / BITS)][2] == '<')
+	{
+		wall->x -= wall->dx;
+		wall->y -= wall->dy;
+		if ((int)roundf(wall->y) % 64 - (int)roundf(wall->x) % 64 == 0 || (int)roundf(wall->y) % 64 - (int)roundf(wall->x) % 64 == -1
+			|| (int)roundf(wall->y) % 64 - (int)roundf(wall->x) % 64 == 1)
+			return(1);
+	}
+	return(0);
+}
+
+int		ft_diagonal_3(t_wall *wall, t_ray *ray)
+{
+	while (ray->map.map[(int)roundf(wall->y / BITS)][(int)roundf(wall->x / BITS)][2] == '/')
+	{
+		wall->x -= wall->dx;
+		wall->y -= wall->dy;
+		if ((int)roundf(wall->y) % 64 + (int)roundf(wall->x) % 64 == 64 || (int)roundf(wall->y) % 64 + (int)roundf(wall->x) % 64 == 65
+			|| (int)roundf(wall->y) % 64 + (int)roundf(wall->x) % 64 == 63)
+			return(1);
+	}
+	return(0);
+}
+
+int		ft_diagonal_4(t_wall *wall, t_ray *ray)
+{
+	while (ray->map.map[(int)roundf(wall->y / BITS)][(int)roundf(wall->x / BITS)][2] == '>')
+	{
+		wall->x -= wall->dx;
+		wall->y -= wall->dy;
+		if ((int)roundf(wall->y) % 64 + (int)roundf(wall->x) % 64 == 64 || (int)roundf(wall->y) % 64 + (int)roundf(wall->x) % 64 == 65
+			|| (int)roundf(wall->y) % 64 + (int)roundf(wall->x) % 64 == 63)
+			return(1);
+	}
+	return(0);
+}
+
 int		ft_calc_diagonal(t_wall *wall, t_ray *ray)
 {
 	if (ray->map.map[(int)roundf(wall->y / BITS)][(int)roundf(wall->x / BITS)][2] == '\\')
-	{
-		while (ray->map.map[(int)roundf(wall->y / BITS)][(int)roundf(wall->x / BITS)][2] == '\\')
-		{
-			wall->x -= wall->dx;
-			wall->y -= wall->dy;
-			if ((int)roundf(wall->y) % 64 - (int)roundf(wall->x) % 64 == 0 || (int)roundf(wall->y) % 64 - (int)roundf(wall->x) % 64 == -1
-				|| (int)roundf(wall->y) % 64 - (int)roundf(wall->x) % 64 == 1)
-				return(1);
-		}
-	}
+		return(ft_diagonal_1(wall, ray));
 	if (ray->map.map[(int)roundf(wall->y / BITS)][(int)roundf(wall->x / BITS)][2] == '<')
-	{
-		while (ray->map.map[(int)roundf(wall->y / BITS)][(int)roundf(wall->x / BITS)][2] == '<')
-		{
-			wall->x -= wall->dx;
-			wall->y -= wall->dy;
-			if ((int)roundf(wall->y) % 64 - (int)roundf(wall->x) % 64 == 0 || (int)roundf(wall->y) % 64 - (int)roundf(wall->x) % 64 == -1
-				|| (int)roundf(wall->y) % 64 - (int)roundf(wall->x) % 64 == 1)
-				return(1);
-		}
-	}
+		return(ft_diagonal_2(wall, ray));
 	if (ray->map.map[(int)roundf(wall->y / BITS)][(int)roundf(wall->x / BITS)][2] == '/')
-	{
-		while (ray->map.map[(int)roundf(wall->y / BITS)][(int)roundf(wall->x / BITS)][2] == '/')
-		{
-			wall->x -= wall->dx;
-			wall->y -= wall->dy;
-			if ((int)roundf(wall->y) % 64 + (int)roundf(wall->x) % 64 == 64 || (int)roundf(wall->y) % 64 + (int)roundf(wall->x) % 64 == 65
-				|| (int)roundf(wall->y) % 64 + (int)roundf(wall->x) % 64 == 63)
-				return(1);
-		}
-	}
+		return(ft_diagonal_3(wall, ray));
 	if (ray->map.map[(int)roundf(wall->y / BITS)][(int)roundf(wall->x / BITS)][2] == '>')
-	{
-		while (ray->map.map[(int)roundf(wall->y / BITS)][(int)roundf(wall->x / BITS)][2] == '>')
-		{
-			wall->x -= wall->dx;
-			wall->y -= wall->dy;
-			if ((int)roundf(wall->y) % 64 + (int)roundf(wall->x) % 64 == 64 || (int)roundf(wall->y) % 64 + (int)roundf(wall->x) % 64 == 65
-				|| (int)roundf(wall->y) % 64 + (int)roundf(wall->x) % 64 == 63)
-				return(1);
-		}
-	}
+		return(ft_diagonal_4(wall, ray));
 	return(0);
 }
 
