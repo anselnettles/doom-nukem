@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 17:50:06 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/17 18:11:14 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/20 16:58:05 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ void		sdl_loop(t_drown *d)
 			d->player.velocity.y = 0;
 			d->player.in_air = 0;
 		}
+		if (d->player.height > 514)
+			d->player.height = 514;
 		track_time(d);
 		while (SDL_PollEvent(&d->event) != 0)
 		{
