@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/19 19:41:10 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/20 09:28:16 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define DROWNING_H
 
 //	LIBRARIES
-# include <stdio.h>							//Standard input output.
 # include <math.h>							// Math library.
 # include <unistd.h>						//UNIX Standard library.
 # include <fcntl.h>							//File Control library.
@@ -90,9 +89,8 @@ typedef struct s_system {
 	float			frame_time;
 	uint32_t		second;
 	uint32_t		five_second;
-	int				color_filter;
-	int				scanline;
 	int				overlay_toggle;
+	int				filters;
 }	t_system;
 
 typedef struct s_vectorf {
