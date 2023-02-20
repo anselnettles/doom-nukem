@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 18:24:05 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/20 08:47:24 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/20 09:27:50 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,13 @@ static int	initialize_media(t_drown *d)
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS | SDL_INIT_EVERYTHING) > SDL_ERROR)		//Remove 'everything' when unnecessary.
 	{
 		d->system.play_state = PLAY;
-		d->gfx.scale = 1;
+		d->gfx.scale = 2;
 		d->gfx.width = (WIDTH * d->gfx.scale);
 		d->gfx.height = (HEIGHT * d->gfx.scale);
 		d->gfx.proj_dist = (d->gfx.width / 2) / tan(30 * DEGREES);
 		d->gfx.centre = (d->gfx.height / 2);
 		d->system.overlay_toggle = TRUE;
+		d->system.filters = TRUE;
 		d->system.keyboard_state = SDL_GetKeyboardState(NULL);
 		d->gfx.window = SDL_CreateWindow(TITLE, SDL_WINDOWPOS_UNDEFINED,
 				SDL_WINDOWPOS_UNDEFINED, d->gfx.width, d->gfx.height, SDL_WINDOW_SHOWN);
