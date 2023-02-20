@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 18:24:05 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/19 21:19:42 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/20 08:47:24 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,14 @@ int	main(void)
 	if (initialize_menu(&data.gfx, &data.system, &data.event) == RUN_EDITOR)
 	{
 		data.gfx.screen = NULL;																	//Maybe unnececssary.
+		data.gfx.window = SDL_CreateWindow(TITLE, SDL_WINDOWPOS_UNDEFINED,
+				SDL_WINDOWPOS_UNDEFINED, data.gfx.width, data.gfx.height, SDL_WINDOW_SHOWN);
 		data.gfx.renderer = SDL_CreateRenderer(data.gfx.window, -1, SDL_RENDERER_ACCELERATED);	//To-be-removed.
+		SDL_SetWindowSize(data.gfx.window, data.gfx.width, data.gfx.height);
 		map_editor("maps/bluehole.dn", &data);
+		data.gfx.renderer = NULL;
+		data.gfx.window = SDL_CreateWindow(TITLE, SDL_WINDOWPOS_UNDEFINED,
+				SDL_WINDOWPOS_UNDEFINED, data.gfx.width, data.gfx.height, SDL_WINDOW_SHOWN);
 		data.gfx.screen = SDL_GetWindowSurface(data.gfx.window);								//To-be-removed.
 	}
 	if (initialize_player(&data) == ERROR)
