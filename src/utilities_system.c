@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 17:50:06 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/21 12:43:48 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/21 12:49:01 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,6 @@ void	crouch(t_drown *data)
 		data->player.base_height = 16;
 	else
 		data->player.base_height = 32;
-	/*data->player.height = data->player.base_height + (data->map.map[(int)roundf(data->player.y / BITS)]
-			[(int)roundf(data->player.x / BITS)][0] - '0') * 8;*/
 }
 
 //	Sdl_loop() keeps Simple Direct MediaLayer's PollEvent constantly

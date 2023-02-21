@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 10:03:55 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/02/21 12:42:24 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/21 13:00:39 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ void	draw_floor(t_ray *ray, t_wall wall, int win_y)
 	while (win_y < wall.prev_y && win_y < ray->gfx.height)
 	{
 		dir = atanf((float)(win_y - ray->height) / ray->gfx.proj_dist);
-		wall.distance = ray->player.height / dir;
+		wall.distance = (ray->player.height) / dir;
 		wall.distance /= cosf(ray->player.dir - wall.dir);
 		wall.x = ray->player.x - wall.dx * wall.distance;
 		wall.y = ray->player.y - wall.dy * wall.distance;
@@ -204,7 +204,7 @@ void	draw_thread(t_ray *ray, float distance, t_wall *wall)
 	if (ray->map.map[(int)roundf(wall->y / BITS)][(int)roundf(wall->x / BITS)][0] != '#')
 		height = ray->map.map[(int)roundf(wall->y / BITS)][(int)roundf(wall->x / BITS)][0] - '0';
 	wall_height = ((BITS / 8) / distance * ray->gfx.proj_dist) * height;
-	y_max = ray->height + ((BITS + ray->player.height - ray->player.base_height) / distance * (ray->gfx.proj_dist) / 2);
+	y_max = ray->height + ((/*BITS + */ray->player.height + ray->player.base_height) / distance * (ray->gfx.proj_dist) / 2);
 	scaled_y_max = y_max;
 	//scaled_y = y_max - ((BITS + ray->player.height - 32) / distance * ray->gfx.proj_dist);
 	y = y_max - wall_height;
