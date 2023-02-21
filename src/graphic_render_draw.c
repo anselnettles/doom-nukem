@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 10:03:55 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/02/21 13:00:39 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/21 14:53:51 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,6 +189,49 @@ void	draw_ceiling(t_ray *ray, t_wall wall, int win_y)
 	}
 }
 
+int		draw_wall_top(t_ray *ray, t_wall wall, int win_y, int wall_height, int wall_screen_height)
+{
+	int tx;
+	int ty;
+	int tmp;
+	char	c;
+	float	dir;
+
+	int		trigger = 0;
+	c = ray->map.map[(int)roundf(wall.y / 64)][(int)roundf(wall.x / 64)][0];
+	tmp = win_y - wall_screen_height;//win_y - wall_screen_height;
+	while (win_y - wall_screen_height > 0 && tmp > 0 && win_y - wall_screen_height < ray->gfx.height)
+	{
+		dir = tanf((float)(win_y - wall_screen_height - ray->height) / ray->gfx.proj_dist);
+		//wall_height = 0;
+		wall.distance = (ray->player.height - (float)wall_height * 8.f) / dir;
+		wall.distance /= cosf(ray->player.dir - wall.dir);
+		wall.x = ray->player.x - wall.dx * wall.distance;
+		wall.y = ray->player.y - wall.dy * wall.distance;
+		tx = (int)roundf(wall.y) % 64;
+		ty = (int)roundf(wall.x) % 64;
+		if (tx < 0)
+			tx *= -1;
+		if (ty < 0)
+			ty *= -1;
+		if ((int)roundf(wall.x / 64) < 28 && (int)roundf(wall.y / 64) < 20 && wall.y > 0 && wall.x > 0)
+		{
+			if (ray->map.map[(int)roundf(wall.y / 64)][(int)roundf(wall.x /64)][0] == c && tmp > 0 && tmp < wall.prev_y)
+			{
+				//printf("x is == %f, y is == %f, window_y == %d\n", wall.x, wall.y, tmp);
+				pixel_put(&ray->gfx, ray->x, tmp, ray->gfx.txt.texture_b[ty][tx]);					///ONGELMA ON TASSA
+				tmp--;// = win_y - wall_screen_height;																			///ONGELMA ON TASSA
+				trigger = 1;
+			}
+			//else
+				//return(tmp);
+		}
+		else// if (trigger == 1)
+			break;
+		win_y--;
+	}
+	return(tmp);					
+}
 void	draw_thread(t_ray *ray, float distance, t_wall *wall)
 {
 	int		y;
@@ -220,6 +263,8 @@ void	draw_thread(t_ray *ray, float distance, t_wall *wall)
 		draw_ceiling(ray, *wall, wall->prev_y);
 	draw_floor(ray, *wall, y_max);
 	draw_texture(ray, y, y_max, *wall, distance, scaled_y_max);
+	if(height < ray->player.height && y < wall->prev_y)
+		wall->prev_y = draw_wall_top(ray, *wall, scaled_y_max, height, wall_height);
 	if (y < wall->prev_y)
 		wall->prev_y = y;
 }
