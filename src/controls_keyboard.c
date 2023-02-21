@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 14:16:37 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/21 11:46:34 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/21 12:39:30 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ void	move_strafe(t_drown *data)
 		}
 		if ((data->map.map[(int)roundf(data->player.y / BITS)]
 				[(int)roundf(data->player.x / BITS)]
-				[0] - '0') * 8 > data->player.height -24
+				[0] - '0') * 8 > data->player.height - 24
 				|| data->map.map[(int)roundf(data->player.y / BITS)]
 				[(int)roundf(data->player.x / BITS)][0] == '#')
 		{
