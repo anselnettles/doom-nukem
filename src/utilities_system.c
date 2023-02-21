@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 17:50:06 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/20 16:58:05 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/21 11:51:06 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,14 @@ static void	track_time(t_drown *d)
 		animation_loop(d);
 }
 
+void	crouch(t_drown *data)
+{
+	if (data->system.keyboard_state[SDL_SCANCODE_C])
+		data->player.base_height = 16;
+	else
+		data->player.base_height = 32;
+}
+
 //	Sdl_loop() keeps Simple Direct MediaLayer's PollEvent constantly
 //	running and checks for control calls while rerendering the graphical
 //	view.
@@ -50,6 +58,7 @@ void		sdl_loop(t_drown *d)
 	d->system.keyboard_state = SDL_GetKeyboardState(NULL);
 	while (d->system.play_state == PLAY)
 	{
+		crouch(d);
 		d->player.velocity.y -= GRAVITY;
 		d->player.height += d->player.velocity.y * d->system.frame_time;
 		if (d->player.height <= d->player.base_height)
