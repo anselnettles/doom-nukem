@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 14:16:37 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/20 16:54:32 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/21 11:46:34 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	move_forward_back(t_drown *data)
 	}
 	if (data->system.overlay_toggle == TRUE)
 	data->player.height
-		= 32 + (data->map.map[(int)roundf(data->player.y / BITS)]
+		= data->player.base_height + (data->map.map[(int)roundf(data->player.y / BITS)]
 		[(int)roundf(data->player.x / BITS)][0] - '0') * 8;
 	data->player.x = roundf(data->player.x);
 	data->player.y = roundf(data->player.y);
@@ -131,7 +131,7 @@ void	move_strafe(t_drown *data)
 	}
 	if (data->system.overlay_toggle == TRUE)
 	data->player.height
-		= 32 + (data->map.map[(int)roundf(data->player.y / BITS)]
+		= data->player.base_height + (data->map.map[(int)roundf(data->player.y / BITS)]
 			[(int)roundf(data->player.x / BITS)][0] - '0') * 8;
 	data->player.x = roundf(data->player.x);
 	data->player.y = roundf(data->player.y);
