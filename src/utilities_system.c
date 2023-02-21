@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 17:50:06 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/21 11:51:06 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/21 12:43:48 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ void	crouch(t_drown *data)
 		data->player.base_height = 16;
 	else
 		data->player.base_height = 32;
+	/*data->player.height = data->player.base_height + (data->map.map[(int)roundf(data->player.y / BITS)]
+			[(int)roundf(data->player.x / BITS)][0] - '0') * 8;*/
 }
 
 //	Sdl_loop() keeps Simple Direct MediaLayer's PollEvent constantly
@@ -61,9 +63,11 @@ void		sdl_loop(t_drown *d)
 		crouch(d);
 		d->player.velocity.y -= GRAVITY;
 		d->player.height += d->player.velocity.y * d->system.frame_time;
-		if (d->player.height <= d->player.base_height)
+		if (d->player.height <= d->player.base_height + (d->map.map[(int)roundf(d->player.y / BITS)]
+			[(int)roundf(d->player.x / BITS)][0] - '0') * 8)
 		{
-			d->player.height = d->player.base_height;
+			d->player.height = d->player.base_height + (d->map.map[(int)roundf(d->player.y / BITS)]
+			[(int)roundf(d->player.x / BITS)][0] - '0') * 8;
 			d->player.velocity.y = 0;
 			d->player.in_air = 0;
 		}
