@@ -6,11 +6,26 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 17:50:06 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/21 12:49:01 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/22 14:19:38 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "drowning.h"
+
+void		collect_airbottle(void)
+{
+	//called by draw thread() when player collides to item 'I'(?)
+
+	//remove item from map/draw;
+	//data->gfx.frame.bubble--;
+	//play sound effect;
+	//gfx.frame.rightarm = 3;
+			//few milliseconds;
+	//gfx.frame.rightarm = 4;
+			//y_flail back and forth;
+	//overlay effect;
+	//over.
+}
 
 void		scale_window(t_gfx *gfx)
 {
