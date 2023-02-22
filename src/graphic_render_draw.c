@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 10:03:55 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/02/21 14:53:51 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/22 10:26:07 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,7 +197,6 @@ int		draw_wall_top(t_ray *ray, t_wall wall, int win_y, int wall_height, int wall
 	char	c;
 	float	dir;
 
-	int		trigger = 0;
 	c = ray->map.map[(int)roundf(wall.y / 64)][(int)roundf(wall.x / 64)][0];
 	tmp = win_y - wall_screen_height;//win_y - wall_screen_height;
 	while (win_y - wall_screen_height > 0 && tmp > 0 && win_y - wall_screen_height < ray->gfx.height)
@@ -218,13 +217,9 @@ int		draw_wall_top(t_ray *ray, t_wall wall, int win_y, int wall_height, int wall
 		{
 			if (ray->map.map[(int)roundf(wall.y / 64)][(int)roundf(wall.x /64)][0] == c && tmp > 0 && tmp < wall.prev_y)
 			{
-				//printf("x is == %f, y is == %f, window_y == %d\n", wall.x, wall.y, tmp);
 				pixel_put(&ray->gfx, ray->x, tmp, ray->gfx.txt.texture_b[ty][tx]);					///ONGELMA ON TASSA
 				tmp--;// = win_y - wall_screen_height;																			///ONGELMA ON TASSA
-				trigger = 1;
 			}
-			//else
-				//return(tmp);
 		}
 		else// if (trigger == 1)
 			break;
