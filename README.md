@@ -9,3 +9,7 @@ https://user-images.githubusercontent.com/70949716/218528549-8c36df09-ce95-4925-
 
 This C program is tagged with my school's "42" user account "aviholai". <br>
 As of January 24th 2023, the work became a  collaboration project with @Dofidog (Topi Paaso) and @UItsi (Timo Turto).<br>
+
+## Controls:
+<b>• `F3` toggles Dev Mode.</b><br>
+Developer mode off color filters and overlay textures. Allows the user to swim upwards by tapping the jump key.
