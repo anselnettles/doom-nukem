@@ -221,6 +221,18 @@ typedef struct s_animations {
 	uint32_t	ammo;
 }	t_frame;
 
+typedef struct s_image {
+	char	*pixels;
+	int	width;
+	int	height;
+}	t_image;
+
+typedef struct s_animation {
+	t_image	frames[8];
+	int	frame_count;
+	//char	name[64];
+}	t_animation;
+
 typedef struct	s_sprites {
 	uint32_t	right_arm[3][238][250];
 	uint32_t	letters[20][728];
@@ -265,6 +277,7 @@ typedef struct s_graphics {
 	t_sprite		sprite;
 	t_frame			frame;
 	SDL_Event		event;
+	t_animation		animation;
 }	t_gfx;
 
 typedef struct s_map
