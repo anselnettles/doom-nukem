@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 10:03:55 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/02/22 10:26:07 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/24 12:29:32 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,6 +213,8 @@ int		draw_wall_top(t_ray *ray, t_wall wall, int win_y, int wall_height, int wall
 			tx *= -1;
 		if (ty < 0)
 			ty *= -1;
+		if (wall.distance < 0 || wall.distance > 10000)
+			break;
 		if ((int)roundf(wall.x / 64) < 28 && (int)roundf(wall.y / 64) < 20 && wall.y > 0 && wall.x > 0)
 		{
 			if (ray->map.map[(int)roundf(wall.y / 64)][(int)roundf(wall.x /64)][0] == c && tmp > 0 && tmp < wall.prev_y)
@@ -258,7 +260,7 @@ void	draw_thread(t_ray *ray, float distance, t_wall *wall)
 		draw_ceiling(ray, *wall, wall->prev_y);
 	draw_floor(ray, *wall, y_max);
 	draw_texture(ray, y, y_max, *wall, distance, scaled_y_max);
-	if(height < ray->player.height && y < wall->prev_y)
+	if(height < ray->player.height && y < wall->prev_y && height != 0)
 		wall->prev_y = draw_wall_top(ray, *wall, scaled_y_max, height, wall_height);
 	if (y < wall->prev_y)
 		wall->prev_y = y;
