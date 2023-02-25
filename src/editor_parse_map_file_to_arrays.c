@@ -2,8 +2,13 @@
 
 static void array_selection(char *arr_selection, char *str, t_index *index, t_gfx *gfx)
 {
+	t_animation			*heal;
     uint32_t            hex_value;
-//2D arrays
+	heal = &gfx->animation;
+
+
+	heal->frames[0].pixels = (char *)malloc(sizeof(char) * (250 * 238) + 1);
+	//2D arrays
     if (strcmp(arr_selection, "texture_a") == 0)
     {
         hex_value = (uint32_t)strtol(str, NULL, 16);
@@ -77,6 +82,14 @@ static void array_selection(char *arr_selection, char *str, t_index *index, t_gf
         hex_value = swap_red_with_blue(hex_value);
         gfx->sprite.ammo[index->i2][index->i1][index->i0] = hex_value;
     }
+	else if (strcmp(arr_selection, "heal") == 0)
+	{
+		hex_value = (uint32_t)strtol(str, NULL, 16);
+		hex_value = swap_red_with_blue(hex_value);
+		heal->frames[0].pixels[index->i0] = hex_value;
+		printf("hexvalue is: %d\n", hex_value);
+		//gfx->sprite.heal[index->i2][index->i1][index->i0] = hex_value;
+	}
     /*else if (strcmp(arr_selection, "goal") == 0)
     {
         hex_value = (uint32_t)strtol(str, NULL, 16);
@@ -252,12 +265,15 @@ static void parse_images(char *buf, t_gfx *gfx)
     parse_textures_2D('E', gfx, buf, "skybox");
     parse_textures_2D('G', gfx, buf, "letters");
     parse_textures_2D('K', gfx, buf, "bubble");
+    parse_textures_2D('N', gfx, buf, "heal");
 //3 dimensional array parse
     parse_textures_3D('F', gfx, buf, "right_arm");
     parse_textures_3D('H', gfx, buf, "harpoon");
     parse_textures_3D('I', gfx, buf, "bottle");
     parse_textures_3D('J', gfx, buf, "timer");
     parse_textures_3D('L', gfx, buf, "ammo");
+//	parse_textures_3D('N', gfx, buf, "heal");
+	write(1, "are we done? ", 13);
 //4 dimensional array parse
 /*
 <symbol>    drown->sprite.monster[8][3][128][128]
