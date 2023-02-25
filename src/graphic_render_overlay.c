@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 11:08:33 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/20 09:28:46 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/25 12:28:47 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,34 @@ static int	draw_right_arm(t_index *index, t_gfx *gfx, int s)
 	return (0);
 }
 
+static int	draw_test(t_gfx *gfx, int s)
+{
+	int y = 0;
+	int x = 0;
+	int width = 250;
+	int i = 0;
+	int i2 = 0;
+	(void )s;
+	while (i2 < 238)
+	{
+		while (i < 250)
+		{
+			pixel_put(gfx, 150 + i, 150 + i2, gfx->animation.frames[0].pixels[x + (y * width)]);
+			i++;
+			x++;
+		}
+		i2++;
+		y++;
+		i = 0;
+		x = 0;
+	}
+
+	return (0);
+}
+
 int	render_overlay(t_drown *d)
 {
+	draw_test(&d->gfx, d->gfx.scale);
 	if (draw_right_arm(&d->index, &d->gfx, d->gfx.scale) == ERROR)
 		return (ERROR);
 	if (d->system.filters == TRUE)
