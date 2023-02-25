@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 11:08:33 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/25 12:28:47 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/25 12:52:48 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ static int	draw_test(t_gfx *gfx, int s)
 	{
 		while (i < 250)
 		{
+			printf("drawing: %d\n", gfx->animation.frames[0].pixels[x + (y * width)]);
 			pixel_put(gfx, 150 + i, 150 + i2, gfx->animation.frames[0].pixels[x + (y * width)]);
 			i++;
 			x++;

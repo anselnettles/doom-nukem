@@ -1,6 +1,6 @@
 #include "drowning.h"
 
-static void array_selection(char *arr_selection, char *str, t_index *index, t_gfx *gfx)
+static void array_selection(char *arr_selection, char *str, t_index *index, t_gfx *gfx, int i)
 {
 	t_animation			*heal;
     uint32_t            hex_value;
@@ -56,8 +56,8 @@ static void array_selection(char *arr_selection, char *str, t_index *index, t_gf
     {
         hex_value = (uint32_t)strtol(str, NULL, 16);
         hex_value = swap_red_with_blue(hex_value);
-        gfx->sprite.right_arm[index->i2][index->i1][index->i0] = hex_value;
-    }
+       gfx->sprite.right_arm[index->i2][index->i1][index->i0] = hex_value;
+	}
     else if (strcmp(arr_selection, "harpoon") == 0)
     {
         hex_value = (uint32_t)strtol(str, NULL, 16);
@@ -86,7 +86,7 @@ static void array_selection(char *arr_selection, char *str, t_index *index, t_gf
 	{
 		hex_value = (uint32_t)strtol(str, NULL, 16);
 		hex_value = swap_red_with_blue(hex_value);
-		heal->frames[0].pixels[index->i0] = hex_value;
+		heal->frames[0].pixels[i] = hex_value;
 		printf("hexvalue is: %d\n", hex_value);
 		//gfx->sprite.heal[index->i2][index->i1][index->i0] = hex_value;
 	}
@@ -178,7 +178,7 @@ static void parse_textures_3D(char limiter, t_gfx *gfx, char *buf, char *arr_sel
                 k++;
             }
             str[a] = '\0';
-            array_selection(arr_selection, str, &index, gfx);
+            array_selection(arr_selection, str, &index, gfx, k);
             if (buf[k] == '}')
             {
                 index.i2++;
@@ -232,7 +232,7 @@ static void parse_textures_2D(char limiter, t_gfx *gfx, char *buf, char *arr_sel
                 k++;
             }
             str[a] = '\0';
-            array_selection(arr_selection, str, &index, gfx);
+            array_selection(arr_selection, str, &index, gfx, k);
             if (buf[k] == '}')
             {
                 k++;
