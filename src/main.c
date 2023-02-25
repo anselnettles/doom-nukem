@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 18:24:05 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/20 09:27:50 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/24 15:57:38 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ int	main(void)
 				SDL_WINDOWPOS_UNDEFINED, data.gfx.width, data.gfx.height, SDL_WINDOW_SHOWN);
 		data.gfx.screen = SDL_GetWindowSurface(data.gfx.window);								//To-be-removed.
 	}
+	printf("size of data: %lu", sizeof(data));
 	if (initialize_player(&data) == ERROR)
 		return (error(PLAYER_FAIL));
 	if (data.system.play_state == PLAY)
