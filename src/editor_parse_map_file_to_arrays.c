@@ -87,7 +87,7 @@ static void array_selection(char *arr_selection, char *str, t_index *index, t_gf
 		hex_value = (uint32_t)strtol(str, NULL, 16);
 		hex_value = swap_red_with_blue(hex_value);
 		heal->frames[0].pixels[i] = hex_value;
-		printf("hexvalue is: %d\n", hex_value);
+		printf("hexvalue is: %d\n", heal->frames[0].pixels[i]);
 		//gfx->sprite.heal[index->i2][index->i1][index->i0] = hex_value;
 	}
     /*else if (strcmp(arr_selection, "goal") == 0)
@@ -152,6 +152,7 @@ static void parse_textures_3D(char limiter, t_gfx *gfx, char *buf, char *arr_sel
     char    str[11];
     int     a;
     int     k;
+	int		i = 0;
     t_index index;
 
     k = 0;
@@ -178,7 +179,7 @@ static void parse_textures_3D(char limiter, t_gfx *gfx, char *buf, char *arr_sel
                 k++;
             }
             str[a] = '\0';
-            array_selection(arr_selection, str, &index, gfx, k);
+            array_selection(arr_selection, str, &index, gfx, i);
             if (buf[k] == '}')
             {
                 index.i2++;
@@ -207,9 +208,11 @@ static void parse_textures_2D(char limiter, t_gfx *gfx, char *buf, char *arr_sel
     char    str[11];
     int     a;
     int     k;
+	int		i;
     t_index index;
 
     k = 0;
+	i = 0;
     while (buf[k] != limiter)
         k++;
     k++;
@@ -232,7 +235,7 @@ static void parse_textures_2D(char limiter, t_gfx *gfx, char *buf, char *arr_sel
                 k++;
             }
             str[a] = '\0';
-            array_selection(arr_selection, str, &index, gfx, k);
+            array_selection(arr_selection, str, &index, gfx, i);
             if (buf[k] == '}')
             {
                 k++;
@@ -241,7 +244,8 @@ static void parse_textures_2D(char limiter, t_gfx *gfx, char *buf, char *arr_sel
             if (buf[k] == ',')
             {
                 index.i0++;
-                k++;        
+                k++;
+		 		i++;		
             }
             if (buf[k] == ' ')
                 k++;
