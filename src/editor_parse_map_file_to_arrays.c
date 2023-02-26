@@ -2,12 +2,12 @@
 
 static void array_selection(char *arr_selection, char *str, t_index *index, t_gfx *gfx, int i)
 {
-	t_animation			*heal;
+	//t_animation			*heal;
     uint32_t            hex_value;
-	heal = &gfx->animation;
+	//heal = &gfx->animation;
 
 
-	heal->frames[0].pixels = (char *)malloc(sizeof(char) * (250 * 238) + 1);
+	gfx->animation.frames[0].pixels = (int *)malloc(sizeof(int) * (250 * 238) + 1);
 	//2D arrays
     if (strcmp(arr_selection, "texture_a") == 0)
     {
@@ -86,8 +86,8 @@ static void array_selection(char *arr_selection, char *str, t_index *index, t_gf
 	{
 		hex_value = (uint32_t)strtol(str, NULL, 16);
 		hex_value = swap_red_with_blue(hex_value);
-		heal->frames[0].pixels[i] = hex_value;
-		printf("hexvalue is: %d\n", heal->frames[0].pixels[i]);
+		gfx->animation.frames[0].pixels[i] = hex_value;
+		printf("hexvalue is: %d\n", gfx->animation.frames[0].pixels[i]);
 		//gfx->sprite.heal[index->i2][index->i1][index->i0] = hex_value;
 	}
     /*else if (strcmp(arr_selection, "goal") == 0)

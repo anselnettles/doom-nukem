@@ -222,7 +222,7 @@ typedef struct s_animations {
 }	t_frame;
 
 typedef struct s_image {
-	char	*pixels;
+	int	*pixels;
 	int	width;
 	int	height;
 }	t_image;

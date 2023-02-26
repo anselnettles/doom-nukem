@@ -51,6 +51,7 @@ static int	draw_test(t_gfx *gfx, int s)
 	{
 		while (i < 250)
 		{
+			printf("hexvalue: %d\n", gfx->animation.frames[0].pixels[i]);
 			printf("drawing: %d\n", gfx->animation.frames[0].pixels[x + (y * width)]);
 			pixel_put(gfx, 150 + i, 150 + i2, gfx->animation.frames[0].pixels[x + (y * width)]);
 			i++;
