@@ -349,8 +349,8 @@ typedef enum e_error
 	READ_FAIL,
 	FILE_MAX,
 	CLOSE_FAIL,
-	BAD_SYMBOL,
-	BAD_WIDTH,
+	PARSE_FAIL,
+	MALLOC_FAIL,
 	BAD_WALL,
 	EDITOR_FAIL,
 	SDL_FAIL,
@@ -401,7 +401,7 @@ void		move_forward_back(t_drown *data);
 void		move_strafe(t_drown *data);
 int			overwrite_map_file(t_map *map, t_editor_images *images);
 void		param_to_modify(t_map *map);
-int			parse_textures(char *buf, t_index *i, t_gfx *gfx);
+static void	parse_textures(char identity, t_index *i, t_gfx *gfx, char *buf);
 int			pixel_put(t_gfx *gfx, int x_src, int y_src, uint32_t color);
 void		read_map(char *map_file, t_drown *data);
 int			render_hud(t_index *index, t_gfx *gfx, int scale);
