@@ -136,7 +136,7 @@ void    read_map(char *map_file, t_drown *data)
         tt_errors("read_map: validate_buffer_format() fail.");
         exit(-1);
     }
-    parse_textures(buf, &data->index, &data->gfx);
+	texture_allocation(buf, &data->index, &data->gfx);
     count_map_data(buf, &data->editor.images);
     malloc_3D_map_array(&data->map, &data->editor.images);
     buffer_to_3D_map_array(buf, &data->map);
