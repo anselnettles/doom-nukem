@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 15:49:19 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/20 13:33:56 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/26 16:13:04 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int		ft_calc_diagonal(t_wall *wall, t_ray *ray)
 	return(0);
 }
 
-void	*ft_raycast_thread(void  *args)
+void	*ft_raycast_thread(void  *args)				//NEEDS FIXING, ADD DDA-ALGO	&& RM 'remember' parameter, check each wall individually instead of skipping walls with same value.
 {
     t_ray		*ray;
 	t_wall		wall;

@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 14:16:37 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/21 12:39:30 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/26 13:50:10 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,9 @@ void	move_forward_back(t_drown *data)
 	if (data->system.overlay_toggle == TRUE)
 	data->player.height
 		= data->player.base_height + (data->map.map[(int)roundf(data->player.y / BITS)]
-		[(int)roundf(data->player.x / BITS)][0] - '0') * 8;
+		[(int)roundf(data->player.x / BITS)][0] - '0') * 8.f;
+	/*data->player.altitude = (data->map.map[(int)roundf(data->player.y / BITS)]
+		[(int)roundf(data->player.x / BITS)][0] - '0') * 8.f;*/
 	data->player.x = roundf(data->player.x);
 	data->player.y = roundf(data->player.y);
 	y_right_arm_flail(&data->gfx);
@@ -133,6 +135,8 @@ void	move_strafe(t_drown *data)
 	data->player.height
 		= data->player.base_height + (data->map.map[(int)roundf(data->player.y / BITS)]
 			[(int)roundf(data->player.x / BITS)][0] - '0') * 8;
+	/*data->player.altitude = (data->map.map[(int)roundf(data->player.y / BITS)]
+		[(int)roundf(data->player.x / BITS)][0] - '0') * 8.f;*/
 	data->player.x = roundf(data->player.x);
 	data->player.y = roundf(data->player.y);
 }
