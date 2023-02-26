@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 18:24:05 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/24 15:57:38 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/26 13:56:31 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ static int	initialize_menu(t_gfx *gfx, t_system *system, SDL_Event *event)
 static int	initialize_media(t_drown *d)
 {
 	read_map("maps/bluehole.dn", d);														//WIP.
+//	printf("hexvalue is: %d\n", d->gfx.animation.frames[0].pixels[]);
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS | SDL_INIT_EVERYTHING) > SDL_ERROR)		//Remove 'everything' when unnecessary.
 	{
 		d->system.play_state = PLAY;
