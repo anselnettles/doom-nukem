@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/25 12:52:55 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/26 15:51:19 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,16 +222,16 @@ typedef struct s_animations {
 }	t_frame;
 
 typedef struct s_image {
-	int	*pixels;
+	uint32_t	*pixels;
 	int	width;
 	int	height;
 }	t_image;
 
-typedef struct s_animation {
-	t_image	frames[8];
+typedef struct s_sprite_new {
+	t_image	frame_new[8];
 	int	frame_count;
 	//char	name[64];
-}	t_animation;
+}	t_sprite_new;
 
 typedef struct	s_sprites {
 	uint32_t	right_arm[3][238][250];
@@ -277,7 +277,7 @@ typedef struct s_graphics {
 	t_sprite		sprite;
 	t_frame			frame;
 	SDL_Event		event;
-	t_animation		animation;
+	t_sprite_new	sprite_new;
 }	t_gfx;
 
 typedef struct s_map

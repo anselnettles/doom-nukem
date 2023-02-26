@@ -1,14 +1,10 @@
 #include "drowning.h"
 
-static void array_selection(char *arr_selection, char *str, t_index *index, t_gfx *gfx, int i)
+static void array_selection(char *arr_selection, char *str, t_index *index, t_gfx *gfx)
 {
-	//t_animation			*heal;
     uint32_t            hex_value;
-	//heal = &gfx->animation;
 
-
-	gfx->animation.frames[0].pixels = (int *)malloc(sizeof(int) * (250 * 238) + 1);
-	//2D arrays
+		//2D arrays
     if (strcmp(arr_selection, "texture_a") == 0)
     {
         hex_value = (uint32_t)strtol(str, NULL, 16);
@@ -56,7 +52,11 @@ static void array_selection(char *arr_selection, char *str, t_index *index, t_gf
     {
         hex_value = (uint32_t)strtol(str, NULL, 16);
         hex_value = swap_red_with_blue(hex_value);
-       gfx->sprite.right_arm[index->i2][index->i1][index->i0] = hex_value;
+       //gfx->sprite.right_arm[index->i2][index->i1][index->i0] = hex_value;
+		//printf("Index %d: %d\n", index->i0, gfx->sprite_new.frame_new[index->i2].pixels[index->i0]);
+		gfx->sprite_new.frame_new[index->i2].pixels[index->i0] = hex_value;
+		printf("Frame %d. Index %d HEX: %d\n", index->i2, index->i0, gfx->sprite_new.frame_new[index->i2].pixels[index->i0]);
+
 	}
     else if (strcmp(arr_selection, "harpoon") == 0)
     {
@@ -82,14 +82,17 @@ static void array_selection(char *arr_selection, char *str, t_index *index, t_gf
         hex_value = swap_red_with_blue(hex_value);
         gfx->sprite.ammo[index->i2][index->i1][index->i0] = hex_value;
     }
-	else if (strcmp(arr_selection, "heal") == 0)
+/*	else if (strcmp(arr_selection, "heal") == 0)
 	{
 		hex_value = (uint32_t)strtol(str, NULL, 16);
 		hex_value = swap_red_with_blue(hex_value);
+		printf("Index %d: %d\n", i, gfx->animation.frames[0].pixels[i]);
 		gfx->animation.frames[0].pixels[i] = hex_value;
-		printf("hexvalue is: %d\n", gfx->animation.frames[0].pixels[i]);
+		printf("Index %d: %d\n", i, gfx->animation.frames[0].pixels[i]);
+		//printf("hexvalue is: %d\n", gfx->animation.frames[0].pixels[i]);
 		//gfx->sprite.heal[index->i2][index->i1][index->i0] = hex_value;
 	}
+*/
     /*else if (strcmp(arr_selection, "goal") == 0)
     {
         hex_value = (uint32_t)strtol(str, NULL, 16);
@@ -152,7 +155,6 @@ static void parse_textures_3D(char limiter, t_gfx *gfx, char *buf, char *arr_sel
     char    str[11];
     int     a;
     int     k;
-	int		i = 0;
     t_index index;
 
     k = 0;
@@ -168,7 +170,7 @@ static void parse_textures_3D(char limiter, t_gfx *gfx, char *buf, char *arr_sel
         if (buf[k] == '{')
             k++;
         index.i0 = 0;                 //reset "x"
-        index.i1 = 0;                 //reset "y"
+        //index.i1 = 0;                 //reset "y"
         while (buf[k] != '}')         //loops per texture
         {
             a = 0;
@@ -179,10 +181,13 @@ static void parse_textures_3D(char limiter, t_gfx *gfx, char *buf, char *arr_sel
                 k++;
             }
             str[a] = '\0';
-            array_selection(arr_selection, str, &index, gfx, i);
+            array_selection(arr_selection, str, &index, gfx);
+			//if (index.i2 <= 2 && index.i0 <= 59499)
+			//	printf("its what: %d\n", gfx->sprite_new.frame_new[index.i2].pixels[index.i0]);
             if (buf[k] == '}')
             {
                 index.i2++;
+				index.i0 = 0;
                 k++;
                 break ;
             }
@@ -195,8 +200,8 @@ static void parse_textures_3D(char limiter, t_gfx *gfx, char *buf, char *arr_sel
                 k++;
             if (buf[k] == '\n')
             {
-                index.i0 = 0;         //reset "x"
-                index.i1++;
+                //index.i0 = 0;         //reset "x"
+             //   index.i1++;
                 k++;
             }
         }
@@ -208,11 +213,9 @@ static void parse_textures_2D(char limiter, t_gfx *gfx, char *buf, char *arr_sel
     char    str[11];
     int     a;
     int     k;
-	int		i;
     t_index index;
 
     k = 0;
-	i = 0;
     while (buf[k] != limiter)
         k++;
     k++;
@@ -235,7 +238,7 @@ static void parse_textures_2D(char limiter, t_gfx *gfx, char *buf, char *arr_sel
                 k++;
             }
             str[a] = '\0';
-            array_selection(arr_selection, str, &index, gfx, i);
+            array_selection(arr_selection, str, &index, gfx);
             if (buf[k] == '}')
             {
                 k++;
@@ -245,7 +248,6 @@ static void parse_textures_2D(char limiter, t_gfx *gfx, char *buf, char *arr_sel
             {
                 index.i0++;
                 k++;
-		 		i++;		
             }
             if (buf[k] == ' ')
                 k++;
@@ -256,7 +258,7 @@ static void parse_textures_2D(char limiter, t_gfx *gfx, char *buf, char *arr_sel
                 k++;
             }
         }
-    }  
+    }
 }
 
 static void parse_images(char *buf, t_gfx *gfx)
@@ -269,24 +271,39 @@ static void parse_images(char *buf, t_gfx *gfx)
     parse_textures_2D('E', gfx, buf, "skybox");
     parse_textures_2D('G', gfx, buf, "letters");
     parse_textures_2D('K', gfx, buf, "bubble");
-    parse_textures_2D('N', gfx, buf, "heal");
+//    parse_textures_2D('N', gfx, buf, "heal");
+	//
+	//
 //3 dimensional array parse
     parse_textures_3D('F', gfx, buf, "right_arm");
+	printf("Done with right arm.\n");
     parse_textures_3D('H', gfx, buf, "harpoon");
     parse_textures_3D('I', gfx, buf, "bottle");
     parse_textures_3D('J', gfx, buf, "timer");
     parse_textures_3D('L', gfx, buf, "ammo");
 //	parse_textures_3D('N', gfx, buf, "heal");
-	write(1, "are we done? ", 13);
+
 //4 dimensional array parse
 /*
 <symbol>    drown->sprite.monster[8][3][128][128]
-*/    
+*/   
+	printf("This is frame 2, pixel 53249: %d\n", gfx->sprite_new.frame_new[2].pixels[53249]);
+	//int i = 0;
+	//while (i++ != 59500)
+	//	if (gfx->sprite_new.frame_new[0].pixels[i] != 0)
+	//		printf("(INDEX %d): %d\n", i, gfx->sprite_new.frame_new[0].pixels[i]);
+
 }
 
 //limiters of image file: !, %, $, ... will not be made into global list. Parser will be left shit like this: limiters inside the function
 void    parse_map_file_to_arrays(char *buf, t_gfx *gfx)
 {
+	if (!(gfx->sprite_new.frame_new[0].pixels = (uint32_t *)malloc(sizeof(uint32_t) * (250 * 238) + 1)))
+		exit (-1);
+	if (!(gfx->sprite_new.frame_new[1].pixels = (uint32_t *)malloc(sizeof(uint32_t) * (250 * 238) + 1)))
+		exit (-1);
+	if (!(gfx->sprite_new.frame_new[2].pixels = (uint32_t *)malloc(sizeof(uint32_t) * (250 * 238) + 1)))
+		exit (-1);
     parse_images(buf, gfx);
 
     // parse_sprites(buf, editor);

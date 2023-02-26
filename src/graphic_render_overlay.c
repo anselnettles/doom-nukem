@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 11:08:33 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/25 12:52:48 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/26 15:52:49 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int	draw_right_arm(t_index *index, t_gfx *gfx, int s)
 	}
 	return (0);
 }
-
+/*
 static int	draw_test(t_gfx *gfx, int s)
 {
 	int y = 0;
@@ -51,7 +51,7 @@ static int	draw_test(t_gfx *gfx, int s)
 	{
 		while (i < 250)
 		{
-			printf("hexvalue: %d\n", gfx->animation.frames[0].pixels[i]);
+			//printf("hexvalue: %d\n", gfx->animation.frames[0].pixels[i]);
 			printf("drawing: %d\n", gfx->animation.frames[0].pixels[x + (y * width)]);
 			pixel_put(gfx, 150 + i, 150 + i2, gfx->animation.frames[0].pixels[x + (y * width)]);
 			i++;
@@ -64,11 +64,10 @@ static int	draw_test(t_gfx *gfx, int s)
 	}
 
 	return (0);
-}
+}*/
 
 int	render_overlay(t_drown *d)
 {
-	draw_test(&d->gfx, d->gfx.scale);
 	if (draw_right_arm(&d->index, &d->gfx, d->gfx.scale) == ERROR)
 		return (ERROR);
 	if (d->system.filters == TRUE)
