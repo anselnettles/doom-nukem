@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 11:08:33 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/26 15:52:49 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/26 19:50:34 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,9 @@ static int	draw_right_arm(t_index *index, t_gfx *gfx, int s)
 	{
 		while ((index->x) < (gfx->width))
 		{
-			if (gfx->sprite.right_arm[gfx->f][gfx->y][gfx->x])
+			if (gfx->texture[5].frame[gfx->f].pixels[gfx->x + (gfx->y * 250)])
 				if (pixel_put(gfx, index->x, index->y,
-						gfx->sprite.right_arm
-						[gfx->f][gfx->y][gfx->x]) == ERROR)
+						gfx->texture[5].frame[gfx->f].pixels[gfx->x + (gfx->y * 250)]) == ERROR)
 					return (ERROR);
 			index->x += s;
 			gfx->x++;
@@ -38,33 +37,6 @@ static int	draw_right_arm(t_index *index, t_gfx *gfx, int s)
 	}
 	return (0);
 }
-/*
-static int	draw_test(t_gfx *gfx, int s)
-{
-	int y = 0;
-	int x = 0;
-	int width = 250;
-	int i = 0;
-	int i2 = 0;
-	(void )s;
-	while (i2 < 238)
-	{
-		while (i < 250)
-		{
-			//printf("hexvalue: %d\n", gfx->animation.frames[0].pixels[i]);
-			printf("drawing: %d\n", gfx->animation.frames[0].pixels[x + (y * width)]);
-			pixel_put(gfx, 150 + i, 150 + i2, gfx->animation.frames[0].pixels[x + (y * width)]);
-			i++;
-			x++;
-		}
-		i2++;
-		y++;
-		i = 0;
-		x = 0;
-	}
-
-	return (0);
-}*/
 
 int	render_overlay(t_drown *d)
 {
