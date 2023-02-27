@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 19:46:58 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/27 09:47:38 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/27 17:05:01 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,44 +36,45 @@ static int	parse_textures(char identity, t_index *i, t_gfx *gfx, char *buf)
 	char	str[11];
 
 	i->i = 0;
-	while (buf[i->i] != '\0')
+	i->f = 0;
+	while (buf[i->i++] != '\0')
 	{
 		if (buf[i->i] == identity)
 		{
 			while (buf[i->i - 1] != '{')
 				i->i++;
-        		i->hex_count = 0;                 //reset "x"
-        		while (buf[i->i] != '}')          //loops per texture
-        		{
-            			i->hex_step = 0;
-            			while (buf[i->i] != ',' && buf[i->i] != '}')
-            			{
-                			str[i->hex_step] = buf[i->i];
-                			i->hex_step++;
-                			i->i++;
-            			}
-            			str[i->hex_step] = '\0';
-            			store_graphic(identity, str, i, gfx);
-            			if (buf[i->i] == '}')
-            			{
-                			i->i++;
-                			break ;
-            			}
-            			if (buf[i->i] == ',')
-            			{
-                			i->hex_count++;
-                			i->i++;
-            			}
-            			if (buf[i->i] == ' ')
-                			i->i++;
-            			if (buf[i->i] == '\n')
-            			{
-                			i->i++;
-            			}
-        		}
+			while (buf[i->i] != identity)
+			{
+				i->hex_count = 0;
+				while (buf[i->i] != '}')
+				{
+					i->hex_step = 0;
+					while (buf[i->i] != ',' && buf[i->i] != '}')
+					{
+						str[i->hex_step] = buf[i->i++];
+						i->hex_step++;
+					}
+					str[i->hex_step] = '\0';
+					store_graphic(identity, str, i, gfx);
+					if (buf[i->i] == '}')
+					{
+						i->i++;
+						printf("[[[BREAK]]]\n");
+						printf("I->I: %c, Identity: %c\n", buf[i->i], identity);
+						break ;
+					}
+					if (buf[i->i++] == ',')
+						i->hex_count++;
+					if (buf[i->i] == ' ')
+						i->i++;
+					if (buf[i->i] == '\n')
+						i->i++;
+				}
+				i->f++;
+			}
+			write(1, "Here.", 5);
 			return (0);
 		}
-	i->i++;
 	}
 	return (ERROR);
 }
@@ -97,10 +98,11 @@ int	texture_allocation(char *buf, t_index *i, t_gfx *gfx)
 
 	memory_allocate_textures(gfx);
 	identity = 'A';
-	while (identity <= 'G' ) // To be continued all the way to final map file identity.
+	while (identity <= 'L' ) // To be continued all the way to final map file identity.
 	{
-		if (parse_textures(identity, i, gfx, buf) == ERROR)
+		if (identity != 'F' && parse_textures(identity, i, gfx, buf) == ERROR)
 			return (error(PARSE_FAIL));
+		write(1, "Hellooo", 7);
 		identity++;
 	}
 	printf("(This is 'right_arm' frame 2, pixel 53249): %d\n", gfx->texture[5].frame[2].pixels[53249]);
