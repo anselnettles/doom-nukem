@@ -33,7 +33,7 @@ static void store_graphic(char identity, char *str, t_index *i, t_gfx *gfx)
 //	via 'store_graphic()'.
 static int	parse_textures(char identity, t_index *i, t_gfx *gfx, char *buf)
 {
-	char	str[11];
+	char	str[20];
 
 	i->i = 0;
 	i->f = 0;
@@ -98,9 +98,9 @@ int	texture_allocation(char *buf, t_index *i, t_gfx *gfx)
 
 	memory_allocate_textures(gfx);
 	identity = 'A';
-	while (identity <= 'L' ) // To be continued all the way to final map file identity.
+	while (identity <= 'F' ) // To be continued all the way to final map file identity.
 	{
-		if (identity != 'F' && parse_textures(identity, i, gfx, buf) == ERROR)
+		if (parse_textures(identity, i, gfx, buf) == ERROR)
 			return (error(PARSE_FAIL));
 		write(1, "Hellooo", 7);
 		identity++;
