@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utilities_movement.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 14:16:37 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/06 09:49:42 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/27 15:52:10 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	delta_move_player(t_drown *data)
 
 void	delta_time_move(t_drown *data)
 {
+		crouch(data);
 		data->player.x -= data->player.velocity.x * data->system.frame_time * data->player.dx;
 		data->player.y -= data->player.velocity.x * data->system.frame_time * data->player.dy;
 		while (data->player.height < (data->map.map[(int)roundf(data->player.y / 64)][(int)roundf(data->player.x / 64)][0] - '0') * 8
@@ -56,5 +57,16 @@ void	delta_time_move(t_drown *data)
 			data->player.x += data->player.velocity.x * data->system.frame_time * data->player.dx;
 			data->player.y += data->player.velocity.x * data->system.frame_time * data->player.dy;
 		}
-		data->player.base_height = 32 + (data->map.map[(int)roundf(data->player.y / 64)][(int)roundf(data->player.x / 64)][0] - '0') * 8;
+		//KORJAA TAMA >
+		data->player.altitude = (data->map.map[(int)roundf(data->player.y / 64)][(int)roundf(data->player.x / 64)][0] - '0') * 8;
+		data->player.velocity.y -= GRAVITY;
+		data->player.height += data->player.velocity.y * data->system.frame_time;
+		if (data->player.height <= data->player.base_height + data->player.altitude)
+		{
+			data->player.height = data->player.base_height + data->player.altitude;
+			data->player.velocity.y = 0;
+			data->player.in_air = 0;
+		}
+		if (data->player.height > 514)
+			data->player.height = 514;
 }

@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 17:50:06 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/22 14:19:38 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/27 15:51:44 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void		sdl_loop(t_drown *d)
 	d->system.keyboard_state = SDL_GetKeyboardState(NULL);
 	while (d->system.play_state == PLAY)
 	{
-		crouch(d);
+		/*crouch(d);
 		d->player.velocity.y -= GRAVITY;
 		d->player.height += d->player.velocity.y * d->system.frame_time;
 		if (d->player.height <= d->player.base_height + (d->map.map[(int)roundf(d->player.y / BITS)]
@@ -85,7 +85,7 @@ void		sdl_loop(t_drown *d)
 			d->player.in_air = 0;
 		}
 		if (d->player.height > 514)
-			d->player.height = 514;
+			d->player.height = 514;*/
 		track_time(d);
 		while (SDL_PollEvent(&d->event) != 0)
 		{
