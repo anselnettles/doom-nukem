@@ -217,7 +217,7 @@ typedef struct s_wall {
 	int			prev_y;
 }	t_wall;
 
-typedef struct s_animations {			//TO BE REMOVED.
+typedef struct s_animation {
 	uint32_t	right_arm;
 	uint32_t	timer;
 	uint32_t	bubble;
@@ -234,24 +234,6 @@ typedef struct s_texture {
 	t_image	frame[10];
 	int	frame_count;
 }	t_texture;
-/*
-typedef struct	s_sprites {			//TO BE REMOVED
-	uint32_t	right_arm[3][238][250];
-	uint32_t	letters[20][728];
-	uint32_t	harpoon[6][64][64];
-	uint32_t	bottle[3][64][38];
-	uint32_t	timer[8][90][60];
-	uint32_t	bubble[12][12];
-	uint32_t	ammo[2][45][32];
-}	t_sprite;
-
-typedef struct s_textures {			//TO BE REMOVED
-	uint32_t	texture_a[64][64];
-	uint32_t	texture_b[64][64];
-	uint32_t	texture_c[64][64];
-	uint32_t	texture_d[64][64];
-	uint32_t	skybox[64][128];
-}	t_txt;*/
 
 //	Graphical-wise variables used for SDL and graphical drawing.
 //	Mother to raycast struct.
@@ -275,11 +257,9 @@ typedef struct s_graphics {
 	int				shake_xtoggle;
 	int				shake_ytoggle;
 	int				flow_y_adjust;
-//	t_txt			txt;	//to be removed
 	t_texture		texture[12];
-	t_frame			frame;	//to be removed.
+	t_frame			frame;
 	SDL_Event		event;
-//	t_sprite		sprite;	//to be removed.
 }	t_gfx;
 
 typedef struct s_map
