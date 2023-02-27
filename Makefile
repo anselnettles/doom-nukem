@@ -6,7 +6,7 @@
 #    By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/16 17:04:55 by aviholai          #+#    #+#              #
-#    Updated: 2023/02/27 09:30:45 by aviholai         ###   ########.fr        #
+#    Updated: 2023/02/27 09:38:42 by aviholai         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ FILES				=	\
 						editor_map_editor \
 						editor_overwrite_map_file \
 						editor_param_to_modify \
-						editor_parse_map_file_to_arrays \
+						editor_parse_textures \
 						editor_parse_textures_malloc \
 						editor_read_map \
 						editor_save_changes \
