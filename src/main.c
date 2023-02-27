@@ -102,7 +102,7 @@ int	main(void)
 		return (error(SDL_FAIL));
 	if (initialize_menu(&data.gfx, &data.system, &data.event) == RUN_EDITOR)
 	{
-		data.gfx.screen = NULL;																	//Maybe unnececssary.
+		data.gfx.screen = NULL;		//Maybe unnececssary.
 		data.gfx.window = SDL_CreateWindow(TITLE, SDL_WINDOWPOS_UNDEFINED,
 				SDL_WINDOWPOS_UNDEFINED, data.gfx.width, data.gfx.height, SDL_WINDOW_SHOWN);
 		data.gfx.renderer = SDL_CreateRenderer(data.gfx.window, -1, SDL_RENDERER_ACCELERATED);	//To-be-removed.
@@ -111,9 +111,8 @@ int	main(void)
 		data.gfx.renderer = NULL;
 		data.gfx.window = SDL_CreateWindow(TITLE, SDL_WINDOWPOS_UNDEFINED,
 				SDL_WINDOWPOS_UNDEFINED, data.gfx.width, data.gfx.height, SDL_WINDOW_SHOWN);
-		data.gfx.screen = SDL_GetWindowSurface(data.gfx.window);								//To-be-removed.
+		data.gfx.screen = SDL_GetWindowSurface(data.gfx.window);	//To-be-removed.
 	}
-	printf("size of data: %lu", sizeof(data));
 	if (initialize_player(&data) == ERROR)
 		return (error(PLAYER_FAIL));
 	if (data.system.play_state == PLAY)
