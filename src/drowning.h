@@ -402,7 +402,7 @@ void		move_strafe(t_drown *data);
 int			overwrite_map_file(t_map *map, t_editor_images *images);
 void		param_to_modify(t_map *map);
 int			pixel_put(t_gfx *gfx, int x_src, int y_src, uint32_t color);
-void		read_map(char *map_file, t_drown *data);
+int		read_map(char *map_file, t_drown *data);
 int			render_hud(t_index *index, t_gfx *gfx, int scale);
 int			render_overlay(t_drown *d);
 int			render(t_drown *d);
