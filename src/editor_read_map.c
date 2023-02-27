@@ -112,7 +112,7 @@ static void count_map_data(char *buf, t_editor_images *images)
 /*
     Reads a map file into a char *buf and converts the buf to char ***map.
 */
-void    read_map(char *map_file, t_drown *data)
+int	read_map(char *map_file, t_drown *data)
 {
     int     fd;
     int     ret;
@@ -136,8 +136,10 @@ void    read_map(char *map_file, t_drown *data)
         tt_errors("read_map: validate_buffer_format() fail.");
         exit(-1);
     }
-	texture_allocation(buf, &data->index, &data->gfx);
+	if (texture_allocation(buf, &data->index, &data->gfx) == ERROR)
+		return (ERROR);
     count_map_data(buf, &data->editor.images);
     malloc_3D_map_array(&data->map, &data->editor.images);
     buffer_to_3D_map_array(buf, &data->map);
+	return (0);
 }
