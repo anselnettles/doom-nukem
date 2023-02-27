@@ -6,12 +6,12 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 16:02:50 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/16 16:58:40 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/27 16:43:49 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "drowning.h"
-
+/*
 static void	draw_timer_bubbles(t_index *index, t_gfx *gfx, int s)
 {
 	int	start_y = index->y - (55 * s);
@@ -115,4 +115,4 @@ int	render_hud(t_index *index, t_gfx *gfx, int scale)
 	if (draw_ammo(index, gfx, scale) == ERROR)
 		return (ERROR);
 	return (0);
-}
+}*/

@@ -109,6 +109,30 @@ static void count_map_data(char *buf, t_editor_images *images)
     }
 }
 
+int	calculate_map_size(char *map_file)
+{
+	int		size = 0;
+	int		ret;
+	int		fd;
+	char	buf[1000 + 1];
+	
+	fd = open(map_file, O_RDONLY);
+	if (fd == -1)
+		exit (-1);
+	ret = read(fd, buf, 1000);
+	while (ret)
+	{
+		buf[ret] = '\0';
+		size += ft_strlen(buf);
+		ret = read(fd, buf, 1000);
+	}
+	if (ret == (-1))
+		exit (-1);
+	if (close(fd) == -1)
+		exit (-1);
+	return (size);
+}
+
 /*
     Reads a map file into a char *buf and converts the buf to char ***map.
 */
@@ -116,20 +140,27 @@ int	read_map(char *map_file, t_drown *data)
 {
     int     fd;
     int     ret;
-    char    buf[BUF_SIZE + 1];
+	int		size;
+    char    *buf;
 
+	size = calculate_map_size(map_file);
+	buf = (char *)malloc(sizeof(char) * size + 1);
+	if (buf == NULL)
+		exit (-1);
     fd = open(map_file, O_RDONLY);
     if (fd < 0)
     {
         tt_errors("read_map: open() fail.");
         exit(-1);
     }
-    ret = read(fd, buf, BUF_SIZE);
+
+	printf("size of map is: %d\n\n", size);
+	ret = read(fd, buf, size);
     if (ret <= 0)
-    {
-        tt_errors("read_map: read() fail.\nEmpty, invalid or inaccessible map file.");
-        exit(-1);
-    }
+	{
+		tt_errors("read_map: read() fail.\nEmpty, invalid or inaccessible map file.");
+		exit(-1);
+	}
     buf[ret] = '\0';
     if (validate_buffer_format(buf, &data->editor.images) != 1)
     {
