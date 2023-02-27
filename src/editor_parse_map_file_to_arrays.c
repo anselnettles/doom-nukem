@@ -18,7 +18,8 @@ static void store_graphic(char identity, char *str, t_index *i, t_gfx *gfx)
 	hex_value = (uint32_t)strtol(str, NULL, 16);
 	hex_value = swap_red_with_blue(hex_value);
 	gfx->texture[identity - 65].frame[i->f].pixels[i->hex_count] = hex_value;
-	//printf("Frame %d. Index %d HEX: %d\n", i->f, i->hex_count, gfx->texture[identity - 65].frame[i->f].pixels[i->hex_count]);
+	if (identity - 65 < 4)
+		printf("ID: %d. Frame: %d. Index: %d HEX: %d\n", (identity - 65), i->f, i->hex_count, gfx->texture[identity - 65].frame[i->f].pixels[i->hex_count]);
 }
 
 static int	parse_textures(char identity, t_index *i, t_gfx *gfx, char *buf)
@@ -26,46 +27,44 @@ static int	parse_textures(char identity, t_index *i, t_gfx *gfx, char *buf)
 	char	str[11];
 
 	i->i = 0;
-	while (buf[i->i] != identity)
+	while (buf[i->i] != '\0')
 	{
-		i->i++;
-	i->i++;
-	while (buf[i->i] != identity)
-	{
-        while (buf[i->i] != '{')
-            i->i++;
-        if (buf[i->i] == '{')
-            i->i++;
-        i->hex_count = 0;                 //reset "x"
-        while (buf[i->i] != '}')          //loops per texture
-        {
-            i->hex_step = 0;
-            while (buf[i->i] != ',' && buf[i->i] != '}')
-            {
-                str[i->hex_step] = buf[i->i];
-                i->hex_step++;
-                i->i++;
-            }
-            str[i->hex_step] = '\0';
-            store_graphic(identity, str, i, gfx);
-            if (buf[i->i] == '}')
-            {
-                i->i++;
-                break ;
-            }
-            if (buf[i->i] == ',')
-            {
-                i->hex_count++;
-                i->i++;
-            }
-            if (buf[i->i] == ' ')
-                i->i++;
-            if (buf[i->i] == '\n')
-            {
-                i->i++;
-            }
-        }
+		if (buf[i->i] == identity)
+		{
+			while (buf[i->i - 1] != '{')
+				i->i++;
+        		i->hex_count = 0;                 //reset "x"
+        		while (buf[i->i] != '}')          //loops per texture
+        		{
+            			i->hex_step = 0;
+            			while (buf[i->i] != ',' && buf[i->i] != '}')
+            			{
+                			str[i->hex_step] = buf[i->i];
+                			i->hex_step++;
+                			i->i++;
+            			}
+            			str[i->hex_step] = '\0';
+            			store_graphic(identity, str, i, gfx);
+            			if (buf[i->i] == '}')
+            			{
+                			i->i++;
+                			break ;
+            			}
+            			if (buf[i->i] == ',')
+            			{
+                			i->hex_count++;
+                			i->i++;
+            			}
+            			if (buf[i->i] == ' ')
+                			i->i++;
+            			if (buf[i->i] == '\n')
+            			{
+                			i->i++;
+            			}
+        		}
+			return (0);
 		}
+	i->i++;
 	}
 	return (ERROR);
 }
