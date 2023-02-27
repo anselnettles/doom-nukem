@@ -6,7 +6,7 @@
 #    By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/16 17:04:55 by aviholai          #+#    #+#              #
-#    Updated: 2023/02/19 15:15:33 by aviholai         ###   ########.fr        #
+#    Updated: 2023/02/27 09:30:45 by aviholai         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ FILES				=	\
 						editor_overwrite_map_file \
 						editor_param_to_modify \
 						editor_parse_map_file_to_arrays \
+						editor_parse_textures_malloc \
 						editor_read_map \
 						editor_save_changes \
 						editor_select_new_param_value \
@@ -62,7 +63,7 @@ SRC					=	$(addprefix src/, $(addsuffix .c, $(FILES)))
 OBJ					=	$(addprefix obj/, $(addsuffix .o, $(FILES)))
 OBJ_DIR				=	obj
 LISTSRC				=	$(foreach part,$(SRC), 	$(PL)		${G}| $(part)\n)
-FLAGS				=	-g -O3	-Wall -Wextra -Werror
+FLAGS				=	-g -Wall -Wextra -Werror # -03
 HEADER				=	-I./src
 LIBFT				=	libft/
 
