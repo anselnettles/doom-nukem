@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/27 16:43:15 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/27 17:14:55 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -428,4 +428,5 @@ int			ft_diagonal_1(t_wall *wall, t_ray *ray);
 int			ft_diagonal_2(t_wall *wall, t_ray *ray);
 int			ft_diagonal_3(t_wall *wall, t_ray *ray);
 int			ft_diagonal_4(t_wall *wall, t_ray *ray);
+void		crouch(t_drown *data);
 #endif
