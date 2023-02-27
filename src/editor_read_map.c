@@ -153,8 +153,6 @@ int	read_map(char *map_file, t_drown *data)
         tt_errors("read_map: open() fail.");
         exit(-1);
     }
-
-	printf("size of map is: %d\n\n", size);
 	ret = read(fd, buf, size);
     if (ret <= 0)
 	{
