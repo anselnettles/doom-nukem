@@ -416,6 +416,7 @@ void		set_image_limits(t_editor_images *images);
 void		set_values_for_parameters(t_character *chars);
 int			string_timeline(t_drown *d);
 uint32_t	swap_red_with_blue(uint32_t hex_value);
+int		texture_allocation(char *buf, t_index *i, t_gfx *gfx);
 void		tt_errors(char *error_msg);
 int			validate_buffer_format(char *buf, t_editor_images *images);
 int			validate_map_temp(t_drown *data);
