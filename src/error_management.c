@@ -23,8 +23,8 @@ int	error(int code)
 	error_message[4] = T_RED "Error: File read failure.\n" T_NUL;
 	error_message[5] = T_RED "Error: File too large.\n" T_NUL;
 	error_message[6] = T_RED "Error: File close failure.\n" T_NUL;
-	error_message[7] = T_RED " is an illegal character in map file.\n" T_NUL;
-	error_message[8] = T_RED "Error: File map aspect is inconsistent.\n" T_NUL;
+	error_message[7] = T_RED "Error: Texture parsing failure.\n" T_NUL;
+	error_message[8] = T_RED "Error: Texture memory failure.\n" T_NUL;
 	error_message[9] = T_RED "Error: Map WALL has a bad parameter.\n" T_NUL;
 	error_message[10] = T_RED "Error: Level editor failure.\n" T_NUL;
 	error_message[11] = T_RED "\n Error: SDL library failure.\n" T_NUL;

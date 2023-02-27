@@ -58,7 +58,7 @@ void	draw_texture(t_ray *ray, int y, int y_max, t_wall wall, float distance, int
 		if (y_max - j >= 0 && y_max - j < ray->gfx.height)
 		{
 			pixel_put(&ray->gfx, ray->x, y_max - j,
-				ray->gfx.txt.texture_b[(int)texture_y][texture_x]);
+				ray->gfx.texture[1].frame[0].pixels[texture_x + ((int)texture_y * 64)]);
 		}
 		j++;
 		texture_y -= i;
@@ -87,7 +87,7 @@ void	draw_floor(t_ray *ray, t_wall wall, int win_y)
 		if (ty < 0)
 			ty *= -1;
 		if (win_y > 0)
-			pixel_put(&ray->gfx, ray->x, win_y, ray->gfx.txt.texture_a[ty][tx]);
+			pixel_put(&ray->gfx, ray->x, win_y, ray->gfx.texture[0].frame[0].pixels[tx + (ty * 64)]);
 		win_y++;
 	}
 }
@@ -116,7 +116,7 @@ void	draw_ceiling(t_ray *ray, t_wall wall, int win_y)
 		if (ty < 0)
 			ty *= -1;
 		if (win_y < ray->gfx.height)
-			pixel_put(&ray->gfx, ray->x, win_y, ray->gfx.txt.skybox[ty][tx]);
+			pixel_put(&ray->gfx, ray->x, win_y, ray->gfx.texture[4].frame[0].pixels[tx + (ty * 128)]);
 		win_y--;
 	}
 }
@@ -150,7 +150,7 @@ int		draw_wall_top(t_ray *ray, t_wall wall, int win_y, int wall_height, int wall
 		{
 			if (ray->map.map[(int)roundf(wall.y / 64)][(int)roundf(wall.x /64)][0] == c && tmp > 0 && tmp < wall.prev_y)
 			{
-				pixel_put(&ray->gfx, ray->x, tmp, ray->gfx.txt.texture_b[ty][tx]);
+				pixel_put(&ray->gfx, ray->x, tmp, ray->gfx.texture[1].frame[0].pixels[tx + (ty * 64)]);
 				tmp--;
 			}
 		}

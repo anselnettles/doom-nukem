@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 11:08:33 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/20 09:28:46 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/26 19:50:34 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,9 @@ static int	draw_right_arm(t_index *index, t_gfx *gfx, int s)
 	{
 		while ((index->x) < (gfx->width))
 		{
-			if (gfx->sprite.right_arm[gfx->f][gfx->y][gfx->x])
+			if (gfx->texture[5].frame[gfx->f].pixels[gfx->x + (gfx->y * 250)])
 				if (pixel_put(gfx, index->x, index->y,
-						gfx->sprite.right_arm
-						[gfx->f][gfx->y][gfx->x]) == ERROR)
+						gfx->texture[5].frame[gfx->f].pixels[gfx->x + (gfx->y * 250)]) == ERROR)
 					return (ERROR);
 			index->x += s;
 			gfx->x++;

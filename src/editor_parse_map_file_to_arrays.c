@@ -1,275 +1,116 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   editor_parse_map_file_to_arrays.c                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/26 19:46:58 by aviholai          #+#    #+#             */
+/*   Updated: 2023/02/26 22:03:33 by aviholai         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "drowning.h"
 
-static void array_selection(char *arr_selection, char *str, t_index *index, t_gfx *gfx)
+static void store_graphic(char identity, char *str, t_index *i, t_gfx *gfx)
 {
-    uint32_t            hex_value;
-//2D arrays
-    if (strcmp(arr_selection, "texture_a") == 0)
-    {
-        hex_value = (uint32_t)strtol(str, NULL, 16);
-        hex_value = swap_red_with_blue(hex_value);
-        gfx->txt.texture_a[index->i1][index->i0] = hex_value;
-    }
-    else if (strcmp(arr_selection, "texture_b") == 0)
-    {
-        hex_value = (uint32_t)strtol(str, NULL, 16);
-        hex_value = swap_red_with_blue(hex_value);
-        gfx->txt.texture_b[index->i1][index->i0] = hex_value;
-    }
-    else if (strcmp(arr_selection, "texture_c") == 0)
-    {
-        hex_value = (uint32_t)strtol(str, NULL, 16);
-        hex_value = swap_red_with_blue(hex_value);
-        gfx->txt.texture_c[index->i1][index->i0] = hex_value;
-    }
-    else if (strcmp(arr_selection, "texture_d") == 0)
-    {
-        hex_value = (uint32_t)strtol(str, NULL, 16);
-        hex_value = swap_red_with_blue(hex_value);
-        gfx->txt.texture_d[index->i1][index->i0] = hex_value;
-    }
-    else if (strcmp(arr_selection, "skybox") == 0)
-    {
-        hex_value = (uint32_t)strtol(str, NULL, 16);
-        hex_value = swap_red_with_blue(hex_value);
-        gfx->txt.skybox[index->i1][index->i0] = hex_value;
-    }
-    else if (strcmp(arr_selection, "letters") == 0)
-    {
-        hex_value = (uint32_t)strtol(str, NULL, 16);
-        hex_value = swap_red_with_blue(hex_value);
-        gfx->sprite.letters[index->i1][index->i0] = hex_value;
-    }
-    else if (strcmp(arr_selection, "bubble") == 0)
-    {
-        hex_value = (uint32_t)strtol(str, NULL, 16);
-        hex_value = swap_red_with_blue(hex_value);
-        gfx->sprite.bubble[index->i1][index->i0] = hex_value;
-    }
-//3D arrays
-    else if (strcmp(arr_selection, "right_arm") == 0)
-    {
-        hex_value = (uint32_t)strtol(str, NULL, 16);
-        hex_value = swap_red_with_blue(hex_value);
-        gfx->sprite.right_arm[index->i2][index->i1][index->i0] = hex_value;
-    }
-    else if (strcmp(arr_selection, "harpoon") == 0)
-    {
-        hex_value = (uint32_t)strtol(str, NULL, 16);
-        hex_value = swap_red_with_blue(hex_value);
-        gfx->sprite.harpoon[index->i2][index->i1][index->i0] = hex_value;
-    }
-    else if (strcmp(arr_selection, "bottle") == 0)
-    {
-        hex_value = (uint32_t)strtol(str, NULL, 16);
-        hex_value = swap_red_with_blue(hex_value);
-        gfx->sprite.bottle[index->i2][index->i1][index->i0] = hex_value;
-    }
-    else if (strcmp(arr_selection, "timer") == 0)
-    {
-        hex_value = (uint32_t)strtol(str, NULL, 16);
-        hex_value = swap_red_with_blue(hex_value);
-        gfx->sprite.timer[index->i2][index->i1][index->i0] = hex_value;
-    }
-    else if (strcmp(arr_selection, "ammo") == 0)
-    {
-        hex_value = (uint32_t)strtol(str, NULL, 16);
-        hex_value = swap_red_with_blue(hex_value);
-        gfx->sprite.ammo[index->i2][index->i1][index->i0] = hex_value;
-    }
-    /*else if (strcmp(arr_selection, "goal") == 0)
-    {
-        hex_value = (uint32_t)strtol(str, NULL, 16);
-        hex_value = swap_red_with_blue(hex_value);
-        editor->goal[index->i2][index->i1][index->i0] = hex_value;
-    }*/
-    /*else if (strcmp(arr_selection, "left_arm") == 0)
-    {
-        hex_value = (uint32_t)strtol(str, NULL, 16);
-        hex_value = swap_red_with_blue(hex_value);
-        editor->left_arm[index->i2][index->i1][index->i0] = hex_value;
-    }*/
-//2D section
-    /*else if (strcmp(arr_selection, "title_screen") == 0)
-    {
-        hex_value = (uint32_t)strtol(str, NULL, 16);
-        hex_value = swap_red_with_blue(hex_value);
-        editor->title_screen[index->i1][index->i0] = hex_value;
-    }*/
-    /*else if (strcmp(arr_selection, "foliage") == 0)
-    {
-        hex_value = (uint32_t)strtol(str, NULL, 16);
-        hex_value = swap_red_with_blue(hex_value);
-        editor->foliage[index->i1][index->i0] = hex_value;
-    }
-        else if (strcmp(arr_selection, "moss") == 0)
-    {
-        hex_value = (uint32_t)strtol(str, NULL, 16);
-        hex_value = swap_red_with_blue(hex_value);
-        editor->moss[index->i1][index->i0] = hex_value;
-    }*/
-    /*else if (strcmp(arr_selection, "weed") == 0)
-    {
-        hex_value = (uint32_t)strtol(str, NULL, 16);
-        hex_value = swap_red_with_blue(hex_value);
-        editor->weed[index->i2][index->i1][index->i0] = hex_value;
-    }*/
-    /*else if (strcmp(arr_selection, "beginning") == 0)
-    {
-        hex_value = (uint32_t)strtol(str, NULL, 16);
-        hex_value = swap_red_with_blue(hex_value);
-        editor->beginning[index->i2][index->i1][index->i0] = hex_value;
-    }*/
-    /*else if (strcmp(arr_selection, "bad_end") == 0)
-    {
-        hex_value = (uint32_t)strtol(str, NULL, 16);
-        hex_value = swap_red_with_blue(hex_value);
-        editor->bad_end[index->i2][index->i1][index->i0] = hex_value;
-    }*/
-    /*else if (strcmp(arr_selection, "good_end") == 0)
-    {
-        hex_value = (uint32_t)strtol(str, NULL, 16);
-        hex_value = swap_red_with_blue(hex_value);
-        editor->good_end[index->i2][index->i1][index->i0] = hex_value;
-    }*/
+	uint32_t	hex_value;
+	hex_value = (uint32_t)strtol(str, NULL, 16);
+	hex_value = swap_red_with_blue(hex_value);
+	gfx->texture[identity - 65].frame[i->f].pixels[i->hex_count] = hex_value;
+	if (identity - 65 < 4)
+		printf("ID: %d. Frame: %d. Index: %d HEX: %d\n", (identity - 65), i->f, i->hex_count, gfx->texture[identity - 65].frame[i->f].pixels[i->hex_count]);
 }
 
-static void parse_textures_3D(char limiter, t_gfx *gfx, char *buf, char *arr_selection)
+static int	parse_textures(char identity, t_index *i, t_gfx *gfx, char *buf)
 {
-    char    str[11];
-    int     a;
-    int     k;
-    t_index index;
+	char	str[11];
 
-    k = 0;
-    while (buf[k] != limiter)
-        k++;
-    k++;
-    index.i2 = 0;
-    a = 0;
-    while (buf[k] != limiter)
-    {
-        while (buf[k] != '{')
-            k++;
-        if (buf[k] == '{')
-            k++;
-        index.i0 = 0;                 //reset "x"
-        index.i1 = 0;                 //reset "y"
-        while (buf[k] != '}')         //loops per texture
-        {
-            a = 0;
-            while (buf[k] != ',' && buf[k] != '}')
-            {
-                str[a] = buf[k];
-                a++;
-                k++;
-            }
-            str[a] = '\0';
-            array_selection(arr_selection, str, &index, gfx);
-            if (buf[k] == '}')
-            {
-                index.i2++;
-                k++;
-                break ;
-            }
-            if (buf[k] == ',')
-            {
-                index.i0++;
-                k++;        
-            }
-            if (buf[k] == ' ')
-                k++;
-            if (buf[k] == '\n')
-            {
-                index.i0 = 0;         //reset "x"
-                index.i1++;
-                k++;
-            }
-        }
-    }
+	i->i = 0;
+	while (buf[i->i] != '\0')
+	{
+		if (buf[i->i] == identity)
+		{
+			while (buf[i->i - 1] != '{')
+				i->i++;
+        		i->hex_count = 0;                 //reset "x"
+        		while (buf[i->i] != '}')          //loops per texture
+        		{
+            			i->hex_step = 0;
+            			while (buf[i->i] != ',' && buf[i->i] != '}')
+            			{
+                			str[i->hex_step] = buf[i->i];
+                			i->hex_step++;
+                			i->i++;
+            			}
+            			str[i->hex_step] = '\0';
+            			store_graphic(identity, str, i, gfx);
+            			if (buf[i->i] == '}')
+            			{
+                			i->i++;
+                			break ;
+            			}
+            			if (buf[i->i] == ',')
+            			{
+                			i->hex_count++;
+                			i->i++;
+            			}
+            			if (buf[i->i] == ' ')
+                			i->i++;
+            			if (buf[i->i] == '\n')
+            			{
+                			i->i++;
+            			}
+        		}
+			return (0);
+		}
+	i->i++;
+	}
+	return (ERROR);
 }
 
-static void parse_textures_2D(char limiter, t_gfx *gfx, char *buf, char *arr_selection)
-{
-    char    str[11];
-    int     a;
-    int     k;
-    t_index index;
+//	Texture 'A', 0:	Floor texture.	Frames: 0.			Dimensions: 64 x 64.
+//	Texture 'B', 1:	Wall texture.	Frames: 0.			Dimensions: 64 x 64.
+//	Texture 'C', 2:	Pillar texture.	Frames: 0.			Dimensions: 64 x 64.
+//	Texture 'D', 3:	Crate texture.	Frames: 0.			Dimensions: 64 x 64.
+//	Texture 'E', 4:	Sky texture.	Frames: 0.			Dimensions: 128 x 64.
+//	Texture 'F', 5:	Right arm.		Frames: 0 to 2.		Dimensions: 250 x 238.
+//	Texture 'G', 6:	Letters.		Frames: 0.			Dimensions: 728 x 20.
 
-    k = 0;
-    while (buf[k] != limiter)
-        k++;
-    k++;
-    a = 0;
-    while (buf[k] != limiter)
-    {
-        while (buf[k] != '{')
-            k++;
-        if (buf[k] == '{')
-            k++;
-        index.i0 = 0;                 //reset "x"
-        index.i1 = 0;                 //reset "y"
-        while (buf[k] != '}')         //loops per texture
-        {
-            a = 0;
-            while (buf[k] != ',' && buf[k] != '}')
-            {
-                str[a] = buf[k];
-                a++;
-                k++;
-            }
-            str[a] = '\0';
-            array_selection(arr_selection, str, &index, gfx);
-            if (buf[k] == '}')
-            {
-                k++;
-                break ;
-            }
-            if (buf[k] == ',')
-            {
-                index.i0++;
-                k++;        
-            }
-            if (buf[k] == ' ')
-                k++;
-            if (buf[k] == '\n')
-            {
-                index.i0 = 0;         //reset "x"
-                index.i1++;
-                k++;
-            }
-        }
-    }  
+int	memory_allocate_textures(t_index *i, t_gfx *gfx)
+{
+	if (!(gfx->texture[0].frame[0].pixels = (uint32_t *)malloc(sizeof(uint32_t) * (64 * 64) + 1)))
+		return (ERROR);
+	if (!(gfx->texture[1].frame[0].pixels = (uint32_t *)malloc(sizeof(uint32_t) * (64 * 64) + 1)))
+		return (ERROR);
+	if (!(gfx->texture[2].frame[0].pixels = (uint32_t *)malloc(sizeof(uint32_t) * (64 * 64) + 1)))
+		return (ERROR);
+	if (!(gfx->texture[3].frame[0].pixels = (uint32_t *)malloc(sizeof(uint32_t) * (64 * 64) + 1)))
+		return (ERROR);
+	if (!(gfx->texture[4].frame[0].pixels = (uint32_t *)malloc(sizeof(uint32_t) * (128 * 64) + 1)))
+		return (ERROR);
+	if (!(gfx->texture[5].frame[0].pixels = (uint32_t *)malloc(sizeof(uint32_t) * (250 * 238) + 1)))
+		return (ERROR);
+	if (!(gfx->texture[5].frame[1].pixels = (uint32_t *)malloc(sizeof(uint32_t) * (250 * 238) + 1)))
+		return (ERROR);
+	if (!(gfx->texture[5].frame[2].pixels = (uint32_t *)malloc(sizeof(uint32_t) * (250 * 238) + 1)))
+		return (ERROR);
+	return (0);
 }
 
-static void parse_images(char *buf, t_gfx *gfx)
+int	texture_allocation(char *buf, t_index *i, t_gfx *gfx)
 {
-//2 dimensional array parse
-    parse_textures_2D('A', gfx, buf, "texture_a");   
-    parse_textures_2D('B', gfx, buf, "texture_b");   
-    parse_textures_2D('C', gfx, buf, "texture_c");   
-    parse_textures_2D('D', gfx, buf, "texture_d");
-    parse_textures_2D('E', gfx, buf, "skybox");
-    parse_textures_2D('G', gfx, buf, "letters");
-    parse_textures_2D('K', gfx, buf, "bubble");
-//3 dimensional array parse
-    parse_textures_3D('F', gfx, buf, "right_arm");
-    parse_textures_3D('H', gfx, buf, "harpoon");
-    parse_textures_3D('I', gfx, buf, "bottle");
-    parse_textures_3D('J', gfx, buf, "timer");
-    parse_textures_3D('L', gfx, buf, "ammo");
-//4 dimensional array parse
-/*
-<symbol>    drown->sprite.monster[8][3][128][128]
-*/    
-}
+	char	identity;
 
-//limiters of image file: !, %, $, ... will not be made into global list. Parser will be left shit like this: limiters inside the function
-void    parse_map_file_to_arrays(char *buf, t_gfx *gfx)
-{
-    parse_images(buf, gfx);
-
-    // parse_sprites(buf, editor);
-    // ...
-    // return (1);
+	if (memory_allocate_textures(i, gfx) == ERROR)
+		return (error(MALLOC_FAIL));
+	identity = 'A';
+	while (identity <= 'F' ) // To be continued all the way to final map file identity.
+	{
+		if (parse_textures(identity, i, gfx, buf) == ERROR)
+			return (error(PARSE_FAIL));
+		identity++;
+	}
+	printf("(This is 'right_arm' frame 2, pixel 53249): %d\n", gfx->texture[5].frame[2].pixels[53249]);
+	return (0);
 }

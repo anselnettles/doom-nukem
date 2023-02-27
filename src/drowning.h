@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/20 16:12:06 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/26 21:06:20 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,7 +181,10 @@ typedef struct s_index {
 	int				x;
 	int				y;
 	int				p; //[y][x][p]
+	int				f;
 	int				width;
+	int				hex_count;
+	int				hex_step;
 	//from map editor s_index
 	unsigned short int  i0;
     unsigned short int  i1;
@@ -220,6 +223,17 @@ typedef struct s_animations {
 	uint32_t	bubble;
 	uint32_t	ammo;
 }	t_frame;
+
+typedef struct s_image {
+	uint32_t	*pixels;
+	int	width;
+	int	height;
+}	t_image;
+
+typedef struct s_texture {
+	t_image	frame[10];
+	int	frame_count;
+}	t_texture;
 
 typedef struct	s_sprites {
 	uint32_t	right_arm[3][238][250];
@@ -262,9 +276,10 @@ typedef struct s_graphics {
 	int				shake_ytoggle;
 	int				flow_y_adjust;
 	t_txt			txt;
-	t_sprite		sprite;
+	t_texture		texture[12];
 	t_frame			frame;
 	SDL_Event		event;
+	t_sprite		sprite;
 }	t_gfx;
 
 typedef struct s_map
@@ -334,8 +349,8 @@ typedef enum e_error
 	READ_FAIL,
 	FILE_MAX,
 	CLOSE_FAIL,
-	BAD_SYMBOL,
-	BAD_WIDTH,
+	PARSE_FAIL,
+	MALLOC_FAIL,
 	BAD_WALL,
 	EDITOR_FAIL,
 	SDL_FAIL,
@@ -386,7 +401,6 @@ void		move_forward_back(t_drown *data);
 void		move_strafe(t_drown *data);
 int			overwrite_map_file(t_map *map, t_editor_images *images);
 void		param_to_modify(t_map *map);
-void		parse_map_file_to_arrays(char *buf, t_gfx *gfx);
 int			pixel_put(t_gfx *gfx, int x_src, int y_src, uint32_t color);
 void		read_map(char *map_file, t_drown *data);
 int			render_hud(t_index *index, t_gfx *gfx, int scale);
@@ -402,6 +416,7 @@ void		set_image_limits(t_editor_images *images);
 void		set_values_for_parameters(t_character *chars);
 int			string_timeline(t_drown *d);
 uint32_t	swap_red_with_blue(uint32_t hex_value);
+int		texture_allocation(char *buf, t_index *i, t_gfx *gfx);
 void		tt_errors(char *error_msg);
 int			validate_buffer_format(char *buf, t_editor_images *images);
 int			validate_map_temp(t_drown *data);

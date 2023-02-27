@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 18:24:05 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/20 09:27:50 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/26 13:56:31 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ static int	initialize_menu(t_gfx *gfx, t_system *system, SDL_Event *event)
 static int	initialize_media(t_drown *d)
 {
 	read_map("maps/bluehole.dn", d);														//WIP.
+//	printf("hexvalue is: %d\n", d->gfx.animation.frames[0].pixels[]);
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS | SDL_INIT_EVERYTHING) > SDL_ERROR)		//Remove 'everything' when unnecessary.
 	{
 		d->system.play_state = PLAY;
@@ -111,6 +112,7 @@ int	main(void)
 				SDL_WINDOWPOS_UNDEFINED, data.gfx.width, data.gfx.height, SDL_WINDOW_SHOWN);
 		data.gfx.screen = SDL_GetWindowSurface(data.gfx.window);								//To-be-removed.
 	}
+	printf("size of data: %lu", sizeof(data));
 	if (initialize_player(&data) == ERROR)
 		return (error(PLAYER_FAIL));
 	if (data.system.play_state == PLAY)
