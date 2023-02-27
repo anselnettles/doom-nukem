@@ -18,7 +18,7 @@ static void store_graphic(char identity, char *str, t_index *i, t_gfx *gfx)
 	hex_value = (uint32_t)strtol(str, NULL, 16);
 	hex_value = swap_red_with_blue(hex_value);
 	gfx->texture[identity - 65].frame[i->f].pixels[i->hex_count] = hex_value;
-	if (identity - 65 < 4)
+	if (identity - 65 < 7)
 		printf("ID: %d. Frame: %d. Index: %d HEX: %d\n", (identity - 65), i->f, i->hex_count, gfx->texture[identity - 65].frame[i->f].pixels[i->hex_count]);
 }
 
@@ -77,7 +77,7 @@ static int	parse_textures(char identity, t_index *i, t_gfx *gfx, char *buf)
 //	Texture 'F', 5:	Right arm.		Frames: 0 to 2.		Dimensions: 250 x 238.
 //	Texture 'G', 6:	Letters.		Frames: 0.			Dimensions: 728 x 20.
 
-int	memory_allocate_textures(t_index *i, t_gfx *gfx)
+static int	memory_allocate_textures(t_index *i, t_gfx *gfx)
 {
 	if (!(gfx->texture[0].frame[0].pixels = (uint32_t *)malloc(sizeof(uint32_t) * (64 * 64) + 1)))
 		return (ERROR);
@@ -95,6 +95,10 @@ int	memory_allocate_textures(t_index *i, t_gfx *gfx)
 		return (ERROR);
 	if (!(gfx->texture[5].frame[2].pixels = (uint32_t *)malloc(sizeof(uint32_t) * (250 * 238) + 1)))
 		return (ERROR);
+	if (!(gfx->texture[6].frame[0].pixels = (uint32_t *)malloc(sizeof(uint32_t) * (728 * 20) + 1)))
+		return (ERROR);
+	//if (memory_allocate_textures_second_batch() == ERROR)
+	//return (ERROR);
 	return (0);
 }
 
@@ -105,7 +109,7 @@ int	texture_allocation(char *buf, t_index *i, t_gfx *gfx)
 	if (memory_allocate_textures(i, gfx) == ERROR)
 		return (error(MALLOC_FAIL));
 	identity = 'A';
-	while (identity <= 'F' ) // To be continued all the way to final map file identity.
+	while (identity <= 'G' ) // To be continued all the way to final map file identity.
 	{
 		if (parse_textures(identity, i, gfx, buf) == ERROR)
 			return (error(PARSE_FAIL));

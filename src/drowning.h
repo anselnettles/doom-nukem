@@ -217,7 +217,7 @@ typedef struct s_wall {
 	int			prev_y;
 }	t_wall;
 
-typedef struct s_animations {
+typedef struct s_animations {			//TO BE REMOVED.
 	uint32_t	right_arm;
 	uint32_t	timer;
 	uint32_t	bubble;
@@ -235,7 +235,7 @@ typedef struct s_texture {
 	int	frame_count;
 }	t_texture;
 
-typedef struct	s_sprites {
+typedef struct	s_sprites {			//TO BE REMOVED
 	uint32_t	right_arm[3][238][250];
 	uint32_t	letters[20][728];
 	uint32_t	harpoon[6][64][64];
@@ -245,7 +245,7 @@ typedef struct	s_sprites {
 	uint32_t	ammo[2][45][32];
 }	t_sprite;
 
-typedef struct s_textures {
+typedef struct s_textures {			//TO BE REMOVED
 	uint32_t	texture_a[64][64];
 	uint32_t	texture_b[64][64];
 	uint32_t	texture_c[64][64];
@@ -275,11 +275,11 @@ typedef struct s_graphics {
 	int				shake_xtoggle;
 	int				shake_ytoggle;
 	int				flow_y_adjust;
-	t_txt			txt;
+	t_txt			txt;	//to be removed
 	t_texture		texture[12];
-	t_frame			frame;
+	t_frame			frame;	//to be removed.
 	SDL_Event		event;
-	t_sprite		sprite;
+	t_sprite		sprite;	//to be removed.
 }	t_gfx;
 
 typedef struct s_map
@@ -402,7 +402,7 @@ void		move_strafe(t_drown *data);
 int			overwrite_map_file(t_map *map, t_editor_images *images);
 void		param_to_modify(t_map *map);
 int			pixel_put(t_gfx *gfx, int x_src, int y_src, uint32_t color);
-void		read_map(char *map_file, t_drown *data);
+int		read_map(char *map_file, t_drown *data);
 int			render_hud(t_index *index, t_gfx *gfx, int scale);
 int			render_overlay(t_drown *d);
 int			render(t_drown *d);

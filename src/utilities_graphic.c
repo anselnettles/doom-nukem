@@ -49,10 +49,10 @@ int	draw_letter(t_gfx *gfx, int start_x, int start_gfx_x, int goal_x)
 	{
 		while (gfx->x < (goal_x))
 		{
-			if (gfx->sprite.letters[gfx->y][gfx->x])
+			if (gfx->texture[6].frame[0].pixels[gfx->x + (gfx->y * 728)])
 			{
 				if (pixel_put(gfx, x, (y + (gfx->flow_y_adjust * gfx->scale)),
-						gfx->sprite.letters[gfx->y][gfx->x]) == ERROR)
+						gfx->texture[6].frame[0].pixels[gfx->x + (gfx->y * 728)]) == ERROR)
 					return (ERROR);
 			}
 			x += (gfx->scale);
