@@ -6,12 +6,18 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 19:46:58 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/27 09:39:37 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/27 09:47:38 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "drowning.h"
 
+//	Applies the parsed HEX color value string to a suitable 'uint32_t' variable.
+//	Due to the colors being in faulty blue-green-red format, they're reinstated
+//	to suitable red-green-blue.
+//	The hex values are saved one-by-one in the 'gfx->texture' arrays.
+//	'Identity - 65' corresponds to the correct texture array, since in ASCII
+//	table conversion to decimal numbers 65 is the difference of 'A' to 0.
 static void store_graphic(char identity, char *str, t_index *i, t_gfx *gfx)
 {
 	uint32_t	hex_value;
@@ -22,6 +28,9 @@ static void store_graphic(char identity, char *str, t_index *i, t_gfx *gfx)
 		printf("ID: %d. Frame: %d. Index: %d HEX: %d\n", (identity - 65), i->f, i->hex_count, gfx->texture[identity - 65].frame[i->f].pixels[i->hex_count]);
 }
 
+//	Parses through the map file's textures' HEX color values. Saves them in
+//	variable 'str' and saves them in the 'gfx->texture' arrays one-by-one
+//	via 'store_graphic()'.
 static int	parse_textures(char identity, t_index *i, t_gfx *gfx, char *buf)
 {
 	char	str[11];
