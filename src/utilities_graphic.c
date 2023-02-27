@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 13:35:22 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/17 15:12:58 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/27 10:23:33 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ int	draw_letter(t_gfx *gfx, int start_x, int start_gfx_x, int goal_x)
 			if (gfx->texture[6].frame[0].pixels[gfx->x + (gfx->y * 728)])
 			{
 				if (pixel_put(gfx, x, (y + (gfx->flow_y_adjust * gfx->scale)),
-						gfx->texture[6].frame[0].pixels[gfx->x + (gfx->y * 728)]) == ERROR)
+						gfx->texture[6].frame[0].pixels
+						[gfx->x + (gfx->y * 728)]) == ERROR)
 					return (ERROR);
 			}
 			x += (gfx->scale);
@@ -89,7 +90,7 @@ int	gfx_write(t_gfx *gfx, char *s)
 			return (error(GFX_WRITE_ERROR));
 		i++;
 		x += (LETTER_WIDTH * gfx->scale);
-		if (s[i - 1] == 'I' || s[i - 1] == '!')
+		if (s[i - 1] == 'I' || s[i - 1] == '!' || s[i - 1] == '\'')
 			x -= 6;
 	}
 	return (0);
