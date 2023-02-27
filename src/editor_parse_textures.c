@@ -24,8 +24,7 @@ static void store_graphic(char identity, char *str, t_index *i, t_gfx *gfx)
 	hex_value = (uint32_t)strtol(str, NULL, 16);
 	hex_value = swap_red_with_blue(hex_value);
 	gfx->texture[identity - 65].frame[i->f].pixels[i->hex_count] = hex_value;
-	if (identity - 65 < 7)
-		printf("ID: %d. Frame: %d. Index: %d HEX: %d\n", (identity - 65), i->f, i->hex_count, gfx->texture[identity - 65].frame[i->f].pixels[i->hex_count]);
+	//printf("ID: %d. Frame: %d. Index: %d HEX: %d\n", (identity - 65), i->f, i->hex_count, gfx->texture[identity - 65].frame[i->f].pixels[i->hex_count]);
 }
 
 //	Parses through the map file's textures' HEX color values. Saves them in
@@ -33,7 +32,7 @@ static void store_graphic(char identity, char *str, t_index *i, t_gfx *gfx)
 //	via 'store_graphic()'.
 static int	parse_textures(char identity, t_index *i, t_gfx *gfx, char *buf)
 {
-	char	str[20];
+	char	str[11];
 
 	i->i = 0;
 	i->f = 0;
@@ -49,7 +48,8 @@ static int	parse_textures(char identity, t_index *i, t_gfx *gfx, char *buf)
 				while (buf[i->i] != '}')
 				{
 					i->hex_step = 0;
-					while (buf[i->i] != ',' && buf[i->i] != '}')
+					while (buf[i->i] != ',' && buf[i->i] != '}'
+							&& i->hex_step <= 9)
 					{
 						str[i->hex_step] = buf[i->i++];
 						i->hex_step++;
@@ -59,8 +59,6 @@ static int	parse_textures(char identity, t_index *i, t_gfx *gfx, char *buf)
 					if (buf[i->i] == '}')
 					{
 						i->i++;
-						printf("[[[BREAK]]]\n");
-						printf("I->I: %c, Identity: %c\n", buf[i->i], identity);
 						break ;
 					}
 					if (buf[i->i++] == ',')
@@ -72,7 +70,6 @@ static int	parse_textures(char identity, t_index *i, t_gfx *gfx, char *buf)
 				}
 				i->f++;
 			}
-			write(1, "Here.", 5);
 			return (0);
 		}
 	}
@@ -98,13 +95,11 @@ int	texture_allocation(char *buf, t_index *i, t_gfx *gfx)
 
 	memory_allocate_textures(gfx);
 	identity = 'A';
-	while (identity <= 'F' ) // To be continued all the way to final map file identity.
+	while (identity <= 'L' )
 	{
 		if (parse_textures(identity, i, gfx, buf) == ERROR)
 			return (error(PARSE_FAIL));
-		write(1, "Hellooo", 7);
 		identity++;
 	}
-	printf("(This is 'right_arm' frame 2, pixel 53249): %d\n", gfx->texture[5].frame[2].pixels[53249]);
 	return (0);
 }
