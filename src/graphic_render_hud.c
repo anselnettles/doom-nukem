@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "drowning.h"
-/*
+
 static void	draw_timer_bubbles(t_index *index, t_gfx *gfx, int s)
 {
 	int	start_y = index->y - (55 * s);
@@ -32,9 +32,9 @@ static void	draw_timer_bubbles(t_index *index, t_gfx *gfx, int s)
 			gfx_x = 0;
 			while (gfx_x < 12)
 			{
-				if (gfx->sprite.bubble[gfx_y][gfx_x])
+				if (gfx->texture[10].frame[0].pixels[gfx->x + (gfx->y * 12)])
 					pixel_put(gfx, x, y + (gfx->frame.timer % 2),
-								gfx->sprite.bubble[gfx_y][gfx_x]);
+						gfx->texture[10].frame[0].pixels[gfx->x + (gfx->y * 12)]);
 				x += s;
 				gfx_x++;
 			}
@@ -44,6 +44,7 @@ static void	draw_timer_bubbles(t_index *index, t_gfx *gfx, int s)
 		}
 		i++;
 	}
+
 }
 
 static int	draw_timer_bottle(t_index *index, t_gfx *gfx, int s)
@@ -57,11 +58,10 @@ static int	draw_timer_bottle(t_index *index, t_gfx *gfx, int s)
 	{
 		while ((gfx->x) < (60))
 		{
-			if (gfx->sprite.timer[gfx->f][gfx->y][gfx->x])
+			if (gfx->texture[9].frame[gfx->f].pixels[gfx->x + (gfx->y * 60)])
 			{
 				if (pixel_put(gfx, index->x, index->y,
-						gfx->sprite.timer
-						[gfx->f][gfx->y][gfx->x]) == ERROR)
+						gfx->texture[9].frame[gfx->f].pixels[gfx->x + (gfx->y * 60)]) == ERROR)
 					return (ERROR);
 			}
 			index->x += s;
@@ -89,11 +89,10 @@ static int	draw_ammo(t_index *index, t_gfx *gfx, int s)
 	{
 		while ((gfx->x) < (32))
 		{
-			if (gfx->sprite.ammo[gfx->f][gfx->y][gfx->x])
+			if (gfx->texture[11].frame[gfx->f].pixels[gfx->x + (gfx->y * 32)])
 			{
 				if (pixel_put(gfx, index->x, index->y,
-						gfx->sprite.ammo
-						[gfx->f][gfx->y][gfx->x]) == ERROR)
+						gfx->texture[11].frame[gfx->f].pixels[gfx->x + (gfx->y * 32)]) == ERROR)
 					return (ERROR);
 			}
 			index->x += s;
@@ -115,4 +114,4 @@ int	render_hud(t_index *index, t_gfx *gfx, int scale)
 	if (draw_ammo(index, gfx, scale) == ERROR)
 		return (ERROR);
 	return (0);
-}*/
+}
