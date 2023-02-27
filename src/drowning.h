@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/27 09:27:31 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/27 16:43:15 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,7 +234,7 @@ typedef struct s_texture {
 	t_image	frame[10];
 	int	frame_count;
 }	t_texture;
-
+/*
 typedef struct	s_sprites {			//TO BE REMOVED
 	uint32_t	right_arm[3][238][250];
 	uint32_t	letters[20][728];
@@ -251,7 +251,7 @@ typedef struct s_textures {			//TO BE REMOVED
 	uint32_t	texture_c[64][64];
 	uint32_t	texture_d[64][64];
 	uint32_t	skybox[64][128];
-}	t_txt;
+}	t_txt;*/
 
 //	Graphical-wise variables used for SDL and graphical drawing.
 //	Mother to raycast struct.
@@ -275,11 +275,11 @@ typedef struct s_graphics {
 	int				shake_xtoggle;
 	int				shake_ytoggle;
 	int				flow_y_adjust;
-	t_txt			txt;	//to be removed
+//	t_txt			txt;	//to be removed
 	t_texture		texture[12];
 	t_frame			frame;	//to be removed.
 	SDL_Event		event;
-	t_sprite		sprite;	//to be removed.
+//	t_sprite		sprite;	//to be removed.
 }	t_gfx;
 
 typedef struct s_map
