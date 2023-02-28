@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 10:03:55 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/02/27 15:53:10 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/28 17:42:27 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,70 @@ void	draw_texture(t_ray *ray, int y, int y_max, t_wall wall, float distance, int
 		}
 		if (y_max - j >= 0 && y_max - j < ray->gfx.height)
 		{
+			if (wall.lock[y_max - j] == '0')
 			pixel_put(&ray->gfx, ray->x, y_max - j,
 				ray->gfx.texture[1].frame[0].pixels[texture_x + ((int)texture_y * 64)]);
 		}
 		j++;
 		texture_y -= i;
 	}
+}
+
+int		draw_sprite(t_ray *ray, t_wall *wall, int win_y, float distance)
+{
+	float	texture_at_distance;
+	float		i;
+	int			j;
+	int			texture_x;
+	float		texture_y;
+
+	//distance -= 32;
+	texture_at_distance = 64 / distance * ray->gfx.proj_dist;		//replace 64 with sprite_height
+	i = 64 / texture_at_distance;			//63 == sprite_height - 1
+	j = 0;
+	win_y -= (int)texture_at_distance / 5;
+	texture_x = (int)wall->x % 38;
+	texture_y =  63;
+	while (win_y - j > 0 && j <= texture_at_distance)
+	{
+		if (ray->gfx.texture[8].frame[0].pixels[texture_x + ((int)texture_y * 38)])
+		{
+			pixel_put(&ray->gfx, ray->x, win_y - j,
+				ray->gfx.texture[8].frame[0].pixels[texture_x + ((int)texture_y * 38)]);
+			wall->lock[win_y - j] = '1';
+		}
+		j++;
+		texture_y -= i;
+
+	}
+	
+	/*int		x;
+	int		y;
+
+	wall->prev_y = wall->prev_y;
+	//ray->gfx->f = gfx->frame.ammo;
+	ray->gfx.y = 0;
+	y = (win_y * ray->gfx.scale);
+	x = ray->x;
+	while ((ray->gfx.y) < (64))
+	{
+		ray->gfx.x = 0;
+		while ((ray->gfx.x) < (38))
+		{
+			if (ray->gfx.texture[8].frame[0].pixels[ray->gfx.x + (ray->gfx.y * 38)])
+			{
+				if (pixel_put(&ray->gfx, x, y,
+						ray->gfx.texture[11].frame[0].pixels[ray->gfx.x + (ray->gfx.y * 38)]) == ERROR)
+					return (ERROR);
+			}
+			//x += ray->gfx.scale;
+			ray->gfx.x++;
+		}
+		y += ray->gfx.scale;
+		ray->gfx.y++;
+		x = ray->x;
+	}*/
+	return (win_y - j);
 }
 
 void	draw_floor(t_ray *ray, t_wall wall, int win_y)
@@ -115,7 +173,7 @@ void	draw_ceiling(t_ray *ray, t_wall wall, int win_y)
 			tx *= -1;
 		if (ty < 0)
 			ty *= -1;
-		if (win_y < ray->gfx.height)
+		if (win_y < ray->gfx.height && wall.lock[win_y] == '0')
 			pixel_put(&ray->gfx, ray->x, win_y, ray->gfx.texture[4].frame[0].pixels[tx + (ty * 128)]);
 		win_y--;
 	}
@@ -189,4 +247,6 @@ void	draw_thread(t_ray *ray, float distance, t_wall *wall)
 		wall->prev_y = draw_wall_top(ray, *wall, scaled_y_max, height, wall_height);
 	if (y < wall->prev_y)
 		wall->prev_y = y;
+	if (ray->map.map[(int)roundf(wall->y / BITS)][(int)roundf(wall->x / BITS)][3] == 'I')
+		draw_sprite(ray, wall, y, distance);
 }

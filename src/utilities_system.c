@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 17:50:06 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/28 14:57:38 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/28 15:57:04 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void		sdl_loop(t_drown *d)
 	d->system.keyboard_state = SDL_GetKeyboardState(NULL);
 	while (d->system.play_state == PLAY)
 	{
+		d->map.map[15][10][3] = 'I';
 		/*crouch(d);
 		d->player.velocity.y -= GRAVITY;
 		d->player.height += d->player.velocity.y * d->system.frame_time;

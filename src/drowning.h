@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/28 14:16:22 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/28 17:27:22 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,6 +215,7 @@ typedef struct s_wall {
 	float		dy;
 	float		distance;
 	int			prev_y;
+	char		*lock;
 }	t_wall;
 
 typedef struct s_animation {
