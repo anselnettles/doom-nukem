@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:28:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/27 15:53:22 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/28 13:06:59 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,13 @@
 //	Texture 'I', 8:		Bottle.			Frames: 0 to 3.		Size: 38 x 64
 //	Texture 'J', 9:		Timer.			Frames: 0 to 9.		Size: 60 x 90
 //	Texture 'K', 10:	Bubble.			Frames: 0.			Size: 12 x 12
-//	Texture 'L', 11:	Ammo.			Frames:	0 to 2.		Size: 32 x 45
+//	Texture 'L', 11:	Ammo.			Frames:	0 to 1.		Size: 32 x 45
 
 static void	memory_allocate_textures_fourth_batch(t_gfx *gfx)
 {
 	gfx->texture[11].frame[0].pixels
 		= (uint32_t *)malloc(sizeof(uint32_t) * (32 * 45) + 1);
 	gfx->texture[11].frame[1].pixels
-		= (uint32_t *)malloc(sizeof(uint32_t) * (32 * 45) + 1);
-	gfx->texture[11].frame[2].pixels
 		= (uint32_t *)malloc(sizeof(uint32_t) * (32 * 45) + 1);
 }
 
@@ -89,7 +87,42 @@ static void	memory_allocate_textures_second_batch(t_gfx *gfx)
 	memory_allocate_textures_third_batch(gfx);
 }
 
-void	memory_allocate_textures(t_gfx *gfx)
+static int	confirm_memory_allocation_second_batch(t_gfx *gfx, int t, int f)
+{
+	(void)f;
+	(void)t;
+	(void)gfx;
+	return (0);
+}
+
+static int	confirm_memory_allocation_first_batch(t_gfx *gfx, int t, int f)
+{
+	while (t < 5)
+		if (gfx->texture[t++].frame[f].pixels == NULL)
+			return (ERROR);
+	while (f < 5)
+		if ((gfx->texture[5].frame[f++].pixels == NULL)
+			|| (gfx->texture[6].frame[0].pixels == NULL))
+			return (ERROR);
+	f = 0;
+	while (f < 7)
+		if (gfx->texture[7].frame[f++].pixels == NULL)
+			return (ERROR);
+	f = 0;
+	while (f < 4)
+		if (gfx->texture[8].frame[f++].pixels == NULL)
+			return (ERROR);
+	f = 0;
+	while (f < 10)
+		if ((gfx->texture[9].frame[f++].pixels == NULL)
+			|| (gfx->texture[10].frame[0].pixels == NULL)
+			|| (gfx->texture[11].frame[0].pixels == NULL)
+			|| (gfx->texture[11].frame[1].pixels == NULL))
+			return (ERROR);
+	return (0);
+}
+
+int	memory_allocate_textures(t_gfx *gfx, int f)
 {
 	gfx->texture[0].frame[0].pixels
 		= (uint32_t *)malloc(sizeof(uint32_t) * (64 * 64));
@@ -101,20 +134,14 @@ void	memory_allocate_textures(t_gfx *gfx)
 		= (uint32_t *)malloc(sizeof(uint32_t) * (64 * 64));
 	gfx->texture[4].frame[0].pixels
 		= (uint32_t *)malloc(sizeof(uint32_t) * (128 * 64));
-	gfx->texture[5].frame[0].pixels
-		= (uint32_t *)malloc(sizeof(uint32_t) * (250 * 238));
-	gfx->texture[5].frame[1].pixels
-		= (uint32_t *)malloc(sizeof(uint32_t) * (250 * 238));
-	if (!(gfx->texture[5].frame[2].pixels
-		= (uint32_t *)malloc(sizeof(uint32_t) * (250 * 238))))
-		exit (-1);
-	if (!(gfx->texture[5].frame[3].pixels
-		= (uint32_t *)malloc(sizeof(uint32_t) * (250 * 238))))
-		exit (-1);
-	if (!(gfx->texture[5].frame[4].pixels
-		= (uint32_t *)malloc(sizeof(uint32_t) * (250 * 238))))
-		exit (-1);
+	while (f < 5)
+		gfx->texture[5].frame[f++].pixels
+			= (uint32_t *)malloc(sizeof(uint32_t) * (250 * 238));
 	gfx->texture[6].frame[0].pixels
 		= (uint32_t *)malloc(sizeof(uint32_t) * (728 * 20));
 	memory_allocate_textures_second_batch(gfx);
+	if (confirm_memory_allocation_first_batch(gfx, 0, 0) == ERROR
+		|| (confirm_memory_allocation_second_batch(gfx, 0, 0)) == ERROR)
+		return (ERROR);
+	return (0);
 }
