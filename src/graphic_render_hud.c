@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 16:02:50 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/27 16:43:49 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/28 17:44:32 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,29 +18,27 @@ static void	draw_timer_bubbles(t_index *index, t_gfx *gfx, int s)
 	int	start_x = index->x + (10 * s);
 	int x;
 	int y;
-	int	gfx_y;
-	int	gfx_x;
 	int	i = gfx->frame.bubble;
 
 	while (13 - i)
 	{
 		y = start_y + (i % 4 * 13 * s);
-		gfx_y = 0;
-		while (gfx_y < 12)
+		gfx->y = 0;
+		while (gfx->y < 12)
 		{
 			x = start_x + (i % 3 * 13 * s);
-			gfx_x = 0;
-			while (gfx_x < 12)
+			gfx->x = 0;
+			while (gfx->x < 12)
 			{
 				if (gfx->texture[10].frame[0].pixels[gfx->x + (gfx->y * 12)])
 					pixel_put(gfx, x, y + (gfx->frame.timer % 2),
 						gfx->texture[10].frame[0].pixels[gfx->x + (gfx->y * 12)]);
 				x += s;
-				gfx_x++;
+				gfx->x++;
 			}
 			y += s;
-			gfx_y++;
-			gfx_x = 0;
+			gfx->y++;
+			gfx->x = 0;
 		}
 		i++;
 	}
