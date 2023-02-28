@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 10:28:04 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/28 14:36:27 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/28 19:28:44 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ static void	right_arm_loop(t_drown *d)
 	if (d->system.time % 600 > 0 && d->system.time % 600 < 600)
 		d->gfx.frame.right_arm = 1;
 	if (d->system.time % 1200 > 0 && d->system.time % 1200 < 600)
+		d->gfx.frame.bottle = 2;
 		d->gfx.frame.right_arm = 2;
 	if (d->system.time % 1800 > 0 && d->system.time % 1800 < 600)
 		d->gfx.frame.right_arm = 1;
@@ -103,20 +104,36 @@ static void	right_arm_loop(t_drown *d)
 			d->gfx.frame.right_arm = 4;
 	}
 	else if (d->gfx.frame.right_arm == 4)
+	{
 		if (d->system.time % 800 > 400)
 			d->gfx.frame.right_arm = 0;
+	}
+}
+
+static void	collectible_loop(t_drown *d)
+{
+	if (d->system.time % 1000 > 0 && d->system.time % 1000 < 250)
+		d->gfx.frame.bottle = 0;
+	if ((d->system.time % 1000 >= 250 && d->system.time % 1000 < 500)
+		|| (d->system.time % 1000 >= 750 && d->system.time % 1000 < 1000))
+		d->gfx.frame.bottle = 1;
+	if (d->system.time % 1000 >= 500 && d->system.time % 1000 < 750)
+		d->gfx.frame.bottle = 2;
 }
 
 static void	flow_adjustment(t_drown *d)
 {
 	if (d->system.time % 2400 > 0 && d->system.time % 2400 < 600)
+	{
 			d->gfx.flow_y_adjust = (d->system.time % 200 / 60);
+	}
 }
 
 int	animation_loop(t_drown *d)
 {
 	right_arm_loop(d);
 	timer_loop(d);
+	collectible_loop(d);
 	flow_adjustment(d);
 	return (0);
 }
