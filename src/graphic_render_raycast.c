@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 15:49:19 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/28 17:50:00 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/28 18:12:47 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,11 +127,11 @@ void	*ft_raycast_thread(void  *args)				//NEEDS FIXING, ADD DDA-ALGO	&& RM 'reme
 	ray->count = 0;
 	wall.dir = ray->dir;
 	wall.prev_y = ray->gfx.height;
-	wall.lock = (char *)malloc(sizeof(char) * ray->gfx.height);
+	wall.lock = (char *)malloc(sizeof(char) * ray->gfx.height + 1);
 	if (wall.lock == NULL)
 		exit(-1);
-	ft_bzero2(wall.lock, ray->gfx.height);
 	wall.lock[ray->gfx.height] = '\0';
+	ft_bzero2(wall.lock, ray->gfx.height - 1);
 	while (ray->count < (ray->gfx.width / 6))
 	{
 		if (wall.dir > 2 * PI)
@@ -167,7 +167,7 @@ void	*ft_raycast_thread(void  *args)				//NEEDS FIXING, ADD DDA-ALGO	&& RM 'reme
 		ray->x++;
 		ray->count++;
 	}
-	//free(wall.lock);
+	free(wall.lock);
 	return (NULL);
 }
 
