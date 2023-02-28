@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/28 17:27:22 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/28 19:07:36 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,6 +223,7 @@ typedef struct s_animation {
 	uint32_t	timer;
 	uint32_t	bubble;
 	uint32_t	ammo;
+	uint32_t	bottle;
 }	t_frame;
 
 typedef struct s_image {
