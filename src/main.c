@@ -62,7 +62,7 @@ static int	initialize_menu(t_gfx *gfx, t_system *system, SDL_Event *event)
 static int	initialize_media(t_drown *d)
 {
 //	printf("hexvalue is: %d\n", d->gfx.animation.frames[0].pixels[]);
-	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS | SDL_INIT_EVERYTHING) > SDL_ERROR)		//Remove 'everything' when unnecessary.
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS) > SDL_ERROR)
 	{
 		d->system.play_state = PLAY;
 		d->gfx.scale = 2;
@@ -102,16 +102,10 @@ int	main(void)
 		return (error(SDL_FAIL));
 	if (initialize_menu(&data.gfx, &data.system, &data.event) == RUN_EDITOR)
 	{
-		data.gfx.screen = NULL;		//Maybe unnececssary.
-		data.gfx.window = SDL_CreateWindow(TITLE, SDL_WINDOWPOS_UNDEFINED,
-				SDL_WINDOWPOS_UNDEFINED, data.gfx.width, data.gfx.height, SDL_WINDOW_SHOWN);
-		data.gfx.renderer = SDL_CreateRenderer(data.gfx.window, -1, SDL_RENDERER_ACCELERATED);	//To-be-removed.
-		SDL_SetWindowSize(data.gfx.window, data.gfx.width, data.gfx.height);
-		map_editor("maps/bluehole.dn", &data);
-		data.gfx.renderer = NULL;
-		data.gfx.window = SDL_CreateWindow(TITLE, SDL_WINDOWPOS_UNDEFINED,
-				SDL_WINDOWPOS_UNDEFINED, data.gfx.width, data.gfx.height, SDL_WINDOW_SHOWN);
-		data.gfx.screen = SDL_GetWindowSurface(data.gfx.window);	//To-be-removed.
+	//	SDL_FillRect(data.gfx.screen, NULL, 0);
+	//	SDL_UpdateWindowSurface(gfx->window);
+		if (map_editor(&data) == ERROR)
+			return (error(EDITOR_FAIL));
 	}
 	if (initialize_player(&data) == ERROR)
 		return (error(PLAYER_FAIL));
