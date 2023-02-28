@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/28 13:05:42 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/28 14:16:22 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -346,6 +346,7 @@ typedef enum e_error
 int			animation_loop(t_drown *d);
 void		choose_to_reset_map_or_exit(t_drown *data);
 void		close_program(t_gfx *gfx);
+void		collect_airbottle(t_drown *d);
 char		*copy_line(char *line, t_map *data);
 void		copy_map_to_map_temp(t_drown *data);
 void		create_map_temp(t_drown *data);
