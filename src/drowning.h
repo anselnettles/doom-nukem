@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/27 17:14:55 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/02/28 13:05:42 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -377,7 +377,7 @@ int			init(t_gfx *gfx);
 void		initialization(t_drown *data, char *map_file);
 int			map_editor(char *map_file, t_drown *data);
 void		map_len(char *file, t_map *data);
-void		memory_allocate_textures(t_gfx *gfx);
+int			memory_allocate_textures(t_gfx *gfx, int f);
 void		move_forward_back(t_drown *data);
 void		move_strafe(t_drown *data);
 int			overwrite_map_file(t_map *map, t_editor_images *images);
