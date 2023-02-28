@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 14:16:37 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/27 15:50:30 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/28 14:16:35 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	deal_key(int key, t_drown *data)
 		data->system.overlay_toggle = -data->system.overlay_toggle;
 	if (data->system.keyboard_state[SDL_SCANCODE_F5]
 		&& data->gfx.frame.bubble > 1)
-		data->gfx.frame.bubble--;
+		collect_airbottle(data);
 }
 
 // void	move_forward_back(t_drown *data)
