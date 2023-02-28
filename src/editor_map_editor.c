@@ -1,14 +1,27 @@
 #include "drowning.h"
 
-int map_editor(char *map_file, t_drown *data)
+static int	initialize_editor(t_drown *data)
 {
-    short int       quit;
+	set_image_limits(&data->editor.images);
+	set_values_for_parameters(&data->editor.chars);
+	create_map_temp(data);
+	copy_map_to_map_temp(data);
+	if (validate_map_temp(data) != 1)
+		return (ERROR);
+	return (0);
+}
 
-    initialization(data, map_file);
-    img1_to_gui(data);
-    SDL_SetRenderDrawColor(data->gfx.renderer, 0x00, 0x00, 0x00, 0x00);
-    SDL_RenderPresent(data->gfx.renderer);  
-    quit = 0;
+int map_editor(t_drown *data)
+{
+		SDL_FillRect(data->gfx.screen, NULL, 0);	//to be removed.
+		SDL_UpdateWindowSurface(data->gfx.window);	//to be removed.
+	short int	quit;
+	if (initialize_editor(data) == ERROR)
+		return (ERROR);
+	img1_to_gui(data);
+	//SDL_SetRenderDrawColor(data->gfx.renderer, 0x00, 0x00, 0x00, 0x00);
+	//SDL_RenderPresent(data->gfx.renderer);  
+	quit = 0;
     while (quit == 0)
     {
         while (SDL_PollEvent(&data->gfx.event))
