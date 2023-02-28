@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 10:03:55 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/02/28 18:11:51 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/02/28 19:10:23 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int		draw_sprite(t_ray *ray, t_wall *wall, int win_y, float distance)
 	float	texture_at_distance;
 	float		i;
 	int			j;
+	int			f;
 	int			texture_x;
 	float		texture_y;
 
@@ -78,15 +79,16 @@ int		draw_sprite(t_ray *ray, t_wall *wall, int win_y, float distance)
 	texture_at_distance = 64 / distance * ray->gfx.proj_dist;		//replace 64 with sprite_height
 	i = 64 / texture_at_distance;			//63 == sprite_height - 1
 	j = 0;
+	f = ray->gfx.frame.bottle;
 	win_y -= (int)texture_at_distance / 5;
 	texture_x = (int)wall->x % 38;
 	texture_y =  63;
 	while (win_y - j < ray->gfx.height && win_y - j > 0 && j <= texture_at_distance)
 	{
-		if (ray->gfx.texture[8].frame[0].pixels[texture_x + ((int)texture_y * 38)])
+		if (ray->gfx.texture[8].frame[f].pixels[texture_x + ((int)texture_y * 38)])
 		{
 			pixel_put(&ray->gfx, ray->x, win_y - j,
-				ray->gfx.texture[8].frame[0].pixels[texture_x + ((int)texture_y * 38)]);
+				ray->gfx.texture[8].frame[f].pixels[texture_x + ((int)texture_y * 38)]);
 			wall->lock[win_y - j] = '1';
 		}
 		j++;
