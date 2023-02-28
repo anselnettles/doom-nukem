@@ -91,7 +91,6 @@ static void	right_arm_loop(t_drown *d)
 	if (d->system.time % 600 > 0 && d->system.time % 600 < 600)
 		d->gfx.frame.right_arm = 1;
 	if (d->system.time % 1200 > 0 && d->system.time % 1200 < 600)
-		d->gfx.frame.bottle = 2;
 		d->gfx.frame.right_arm = 2;
 	if (d->system.time % 1800 > 0 && d->system.time % 1800 < 600)
 		d->gfx.frame.right_arm = 1;
