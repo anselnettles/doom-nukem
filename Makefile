@@ -28,7 +28,6 @@ FILES				=	\
 						editor_img2_to_gui \
 						editor_img3_is_mouse_in_grid \
 						editor_img3_to_gui \
-						editor_init \
 						editor_map_editor \
 						editor_overwrite_map_file \
 						editor_param_to_modify \
