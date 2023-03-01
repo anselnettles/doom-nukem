@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:28:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/01 14:15:26 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/01 17:50:54 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ int	memory_allocate_textures(t_gfx *gfx, int f)
 	gfx->texture[3].frame[0].pixels
 		= (uint32_t *)malloc(sizeof(uint32_t) * (64 * 64));
 	gfx->texture[4].frame[0].pixels
-		= (uint32_t *)malloc(sizeof(uint32_t) * (963 * 240));
+		= (uint32_t *)malloc(sizeof(uint32_t) * (720 * 240));
 	while (f < 5)
 		gfx->texture[5].frame[f++].pixels
 			= (uint32_t *)malloc(sizeof(uint32_t) * (250 * 238));
