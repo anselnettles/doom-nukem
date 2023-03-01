@@ -11,23 +11,26 @@
 `a` - `c` : Texture reference<br>
 `X`       : Player start position<br>
 `Z`       : Player goal location<br>
+`I`       : Collectible item: Bottle. Oxygen replenishment.<br>
 `R`       : A map square with a ceiling texture over it. A roof of cubes should be applied over this square up to full height (`#`)<br>
 
-## Entity marks for begin and end of texture information:
+## Identity marks for begin and end of texture information:
 <br>
 
-`A`       : `drown->gfx.txt.texture_a[64][64]` starts and ends. <br>
-`B`       : `drown->gfx.txt.texture_b[64][64]` starts and ends. <br>
-`C`       : `drown->gfx.txt.texture_c[64][64]` starts and ends. <br>
-`D`       : `drown->gfx.txt.texture_d[64][64]` starts and ends. <br>
-`E`       : `drown->gfx.txt.skybox[64][128]` starts and ends. <br>
-`F`       : `drown->gfx.sprite.right_arm[3][238][250]` starts and ends. <br>
-`G`       : `drown->gfx.sprite.letters[20][728]` starts and ends. <br>
-`H`       : `drown->gfx.sprite.harpoon[6][64][64]` stars and ends here. <br> 
-`I`       : `drown->gfx.sprite.bottle[3][64][38]` starts and ends here. <br>
-`J`       : `drown->gfx.sprite.timer[8][90][60]` starts and ends here. <br>
-`K`       : `drown->gfx.sprite.bubble[12][12]`  starts and ends here. <br>
-`L`       : `drown->gfx.sprite.ammo[2][45][32]` starts and ends here. <br>
+Texture `A`, 0:		Floor texture.  Frames: 0.	  		Size: 64 x 64 <br>
+Texture `B`, 1:		Wall texture.	  Frames: 0.	  		Size: 64 x 64 <br>
+Texture `C`, 2:		Pillar texture.	Frames: 0.	  		Size: 64 x 64 <br>
+Texture `D`, 3:		Crate texture.	Frames: 0.	  		Size: 64 x 64 <br>
+Texture `E`, 4:		Sky texture.	  Frames: 0.	  		Size: 720 x 240 <br>
+Texture `F`, 5:		Right arm.	   	Frames: 0 to 4.	  Size: 250 x 238 <br>
+Texture `G`, 6:		Letters.	    	Frames: 0.			  Size: 728 x 20 <br> 
+Texture `H`, 7:		Harpoon.	    	Frames: 0 to 6.		Size: 64 x 64 <br>
+Texture `I`, 8:		Bottle.		  	  Frames: 0 to 3.		Size: 38 x 64 <br>
+Texture `J`, 9:		Timer.		    	Frames: 0 to 9.		Size: 60 x 90 <br>
+Texture `K`, 10:	Bubble.		    	Frames: 0.		  	Size: 12 x 12 <br>
+Texture `L`, 11:	Ammo.			      Frames:	0 to 1.		Size: 32 x 45 <br>
+Texture 'M', 12:  Monster.        <br>
+Texture 'N', 13:  Algae.        Frames: 0 to 4.   Size: 64 x 64 <br>
 
 ## In-recorded textures graphics:
 <br>
@@ -52,7 +55,7 @@
 
 ![image](https://user-images.githubusercontent.com/70949716/216763126-8dc46de6-ee83-449e-aff6-b13f54279044.png) <br>
 
-## To be included: 
+## To be included: (To be re-written)
 <br>
 
 `drown->gfx.sprite.weed[3][48][20];`  : Seaweed. Animated. Used aplenty. <br>
