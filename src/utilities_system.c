@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 17:50:06 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/01 16:30:03 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/01 16:59:50 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,9 @@ void	draw_skybox(t_drown *data)
 	int		i;
 
 	x = 0;
-	tx = (int)(sinf(2 * PI - data->player.dir) *);
+	tx = (int)roundf((936.f / (360.f * (float)DEGREES)) * data->player.dir);
+	if (tx > 936)
+		tx -= 936;
 	stretch = (data->gfx.width * data->gfx.scale) / 321;
 	if (tx < 0)
 		tx *= -1;
