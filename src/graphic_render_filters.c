@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 17:40:31 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/10 17:42:14 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/01 22:33:10 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,31 @@ void	draw_color_filter(t_gfx *gfx)
 		x = 0;
 		y++;
 	}
+}
+
+uint32_t	fade_brightness(uint32_t color, int multiplier)
+{
+	uint32_t	red;
+	uint32_t	green;
+	uint32_t	blue;
+	float		redf;
+	float		greenf;
+	float		bluef;
+
+	red = color >> 16;
+	green = color >> 8;
+	green = green << 24;
+	green = green >> 24;
+	blue = color << 24;
+	blue = blue >> 24;
+	redf = red;
+	redf /= (float)(multiplier);
+	greenf = green;
+	greenf /= (float)(multiplier);
+	bluef = blue;
+	bluef /= (float)(multiplier);
+	color = (((uint32_t)redf&0xFF) << 16) | (((uint32_t)greenf&0xff) << 8) | ((uint32_t)bluef&0xFF);
+	return (color);
 }
 
 void	draw_scanlines(t_gfx *gfx)
