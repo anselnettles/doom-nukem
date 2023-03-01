@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:28:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/01 18:13:05 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/01 21:09:54 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 //	Texture 'J', 9:		Timer.			Frames: 0 to 9.		Size: 60 x 90
 //	Texture 'K', 10:	Bubble.			Frames: 0.			Size: 12 x 12
 //	Texture 'L', 11:	Ammo.			Frames:	0 to 1.		Size: 32 x 45
+//	Texture 'M', 12		Monster.		Placeholder.
+//	Texture 'N', 13		Algae texture.	Frames: 0 to 3.		Size: 64 x 64
 
 static void	memory_allocate_textures_fourth_batch(t_gfx *gfx)
 {
@@ -31,6 +33,16 @@ static void	memory_allocate_textures_fourth_batch(t_gfx *gfx)
 		= (uint32_t *)malloc(sizeof(uint32_t) * (32 * 45));
 	gfx->texture[11].frame[1].pixels
 		= (uint32_t *)malloc(sizeof(uint32_t) * (32 * 45));
+	gfx->texture[12].frame[0].pixels
+		= (uint32_t *)malloc(sizeof(uint32_t) * (100 * 100));
+	gfx->texture[13].frame[0].pixels
+		= (uint32_t *)malloc(sizeof(uint32_t) * (64 * 64));
+	gfx->texture[13].frame[1].pixels
+		= (uint32_t *)malloc(sizeof(uint32_t) * (64 * 64));
+	gfx->texture[13].frame[2].pixels
+		= (uint32_t *)malloc(sizeof(uint32_t) * (64 * 64));
+	gfx->texture[13].frame[3].pixels
+		= (uint32_t *)malloc(sizeof(uint32_t) * (64 * 64));
 }
 
 static void	memory_allocate_textures_third_batch(t_gfx *gfx)
@@ -89,9 +101,10 @@ static void	memory_allocate_textures_second_batch(t_gfx *gfx)
 
 static int	confirm_memory_allocation_second_batch(t_gfx *gfx, int t, int f)
 {
-	(void)f;
 	(void)t;
-	(void)gfx;
+		while (f < 4)
+		gfx->texture[13].frame[f++].pixels
+			= (uint32_t *)malloc(sizeof(uint32_t) * (250 * 238));
 	return (0);
 }
 
