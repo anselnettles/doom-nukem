@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 17:50:06 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/01 16:59:50 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/01 17:58:16 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,15 +74,15 @@ void	draw_skybox_collumn(t_drown *data, int x, int tx)
 
 	y = 0;
 	ty = 0;// data->gfx.centre;
-	while (ty > 240)
-		ty -= 240;
+	/*while (ty > 240)
+		ty -= 240;*/
 	stretch = (data->gfx.height) / 240;
 	while (y < data->gfx.height)
 	{
 		i = 0;
-		while(i < stretch)
+		while(i < stretch && tx < 720)
 		{
-			pixel_put(&data->gfx, x, y + i, data->gfx.texture[4].frame[0].pixels[tx + ty * 963]);
+			pixel_put(&data->gfx, x, y + i, data->gfx.texture[4].frame[0].pixels[tx + ty * 720]);
 			i ++;//  data->gfx.scale;
 		}
 		y += i;
@@ -98,14 +98,14 @@ void	draw_skybox(t_drown *data)
 	int		i;
 
 	x = 0;
-	tx = (int)roundf((936.f / (360.f * (float)DEGREES)) * data->player.dir);
-	if (tx > 936)
-		tx -= 936;
-	stretch = (data->gfx.width * data->gfx.scale) / 321;
+	tx = (int)roundf((720.f / (360.f * (float)DEGREES)) * data->player.dir);
+	stretch = (data->gfx.width * data->gfx.scale) / 320;
 	if (tx < 0)
 		tx *= -1;
 	while (x < data->gfx.width)
 	{
+		if (tx >= 720)
+		tx -= 720;
 		i = 0;
 		while (i < stretch)
 		{
