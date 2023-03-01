@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 15:49:19 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/28 18:12:47 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/01 12:50:35 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,12 +115,85 @@ void	ft_bzero2(void *dst, size_t n)
 	}
 }
 
+void	init_new_wall(t_ray *ray, t_wall *wall)
+{
+	if (wall->dir > 2 * PI)
+		wall->dir -= 2 * PI;
+	if (wall->dir < 0)
+		wall->dir += 2 * PI;
+	wall->dx = cosf(wall->dir);
+	wall->dy = sinf(wall->dir);
+	wall->x = ray->player.x;
+	wall->y = ray->player.y;
+	wall->prev_y = ray->gfx.height;
+}
+
+int		get_modul(t_wall wall)
+{
+	int		modul_x;
+	int		modul_y;
+
+	modul_x = (int)roundf(wall.x) % BITS;
+	modul_y = (int)roundf(wall.y) % BITS;
+	/*if (modul_x == 0 || modul_y == 0)
+		 return(BITS);*/
+	if (wall.dx < 0)
+		modul_x = BITS - modul_x;
+	if (wall.dy < 0)
+		modul_y = BITS - modul_y;
+	if (modul_x == 0)
+		modul_x = 64;
+	if (modul_y == 0)
+		modul_y = 64;
+	/*if (modul_x == 0)
+		return(modul_y);
+	if (modul_y == 0)
+		return(modul_x);*/
+	if (modul_x > modul_y)
+		return(modul_y);
+	return(modul_x);
+		
+}
+
+void	*ft_raycast_thread1(void  *args)				//NEEDS FIXING, ADD DDA-ALGO	&& RM 'remember' parameter, check each wall individually instead of skipping walls with same value.
+{
+    t_ray		*ray;
+	t_wall		wall;
+	float	    distance;
+	int			modul;
+
+    ray = args;
+	ray->count = 0;
+	wall.dir = ray->dir;
+	while (ray->count < (ray->gfx.width / 6))
+	{
+		init_new_wall(ray, &wall);
+		while (ray->map.map[(int)roundf(wall.y / BITS)][(int)roundf(wall.x / BITS)][0] != '#')
+		{
+			modul = get_modul(wall);
+			modul = 1;
+			wall.x -= wall.dx * (float)modul;
+			wall.y -= wall.dy * (float)modul;
+//			if (ray->map.map[(int)roundf(wall.y / BITS)][(int)roundf(wall.x / BITS)][2] != '.')
+//					if (ft_calc_diagonal(&wall, ray))
+			distance = sqrtf(((wall.x - ray->player.x) * (wall.x - ray->player.x))
+				+ ((wall.y - ray->player.y) * (wall.y - ray->player.y)));
+			distance *= cosf(ray->player.dir - wall.dir);
+			draw_thread(ray, distance, &wall);
+		}
+		wall.dir += (60 * DEGREES) / ray->gfx.width;
+		ray->x++;
+		ray->count++;
+	}
+	return (NULL);
+}
+
 void	*ft_raycast_thread(void  *args)				//NEEDS FIXING, ADD DDA-ALGO	&& RM 'remember' parameter, check each wall individually instead of skipping walls with same value.
 {
     t_ray		*ray;
 	t_wall		wall;
 	float	    distance;
-//	int			modul;
+	int			modul;
 	int			remember;
 
     ray = args;
@@ -134,25 +207,17 @@ void	*ft_raycast_thread(void  *args)				//NEEDS FIXING, ADD DDA-ALGO	&& RM 'reme
 	ft_bzero2(wall.lock, ray->gfx.height - 1);
 	while (ray->count < (ray->gfx.width / 6))
 	{
-		if (wall.dir > 2 * PI)
-			wall.dir -= 2 * PI;
-		if (wall.dir < 0)
-			wall.dir += 2 * PI;
-		wall.dx = cosf(wall.dir);
-		wall.dy = sinf(wall.dir);
-		wall.x = ray->player.x;
-		wall.y = ray->player.y;
-		wall.prev_y = ray->gfx.height;
+		init_new_wall(ray, &wall);
 		remember = ray->map.map[(int)roundf(wall.y / BITS)][(int)roundf(wall.x / BITS)][0] - '0';
 		while (ray->map.map[(int)roundf(wall.y / BITS)][(int)roundf(wall.x / BITS)][0] != '#')
 		{
 			remember = ray->map.map[(int)roundf(wall.y / BITS)][(int)roundf(wall.x / BITS)][0] - '0';
 			while (ray->map.map[(int)roundf(wall.y / BITS)][(int)roundf(wall.x / BITS)][0] - '0' == remember)
 			{
-//				modul = get_modulo(wall);
-//				modul = 1;
-				wall.x -= wall.dx;// * modul;
-				wall.y -= wall.dy;// * modul;
+				modul = get_modul(wall);
+				//modul = 1;
+				wall.x -= wall.dx * modul;
+				wall.y -= wall.dy * modul;
 				if (ray->map.map[(int)roundf(wall.y / BITS)][(int)roundf(wall.x / BITS)][2] != '.')
 					if (ft_calc_diagonal(&wall, ray))
 						break ;

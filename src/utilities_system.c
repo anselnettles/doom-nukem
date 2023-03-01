@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 17:50:06 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/28 15:57:04 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/01 17:58:16 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,59 @@ void	crouch(t_drown *data)
 		data->player.base_height = 32;
 }
 
+void	draw_skybox_collumn(t_drown *data, int x, int tx)
+{
+	int		y;
+	int		ty;
+	int		i;
+	int		stretch;
+
+	y = 0;
+	ty = 0;// data->gfx.centre;
+	/*while (ty > 240)
+		ty -= 240;*/
+	stretch = (data->gfx.height) / 240;
+	while (y < data->gfx.height)
+	{
+		i = 0;
+		while(i < stretch && tx < 720)
+		{
+			pixel_put(&data->gfx, x, y + i, data->gfx.texture[4].frame[0].pixels[tx + ty * 720]);
+			i ++;//  data->gfx.scale;
+		}
+		y += i;
+		ty++;
+	}
+}
+
+void	draw_skybox(t_drown *data)
+{
+	int		x;
+	int		tx;
+	int		stretch;
+	int		i;
+
+	x = 0;
+	tx = (int)roundf((720.f / (360.f * (float)DEGREES)) * data->player.dir);
+	stretch = (data->gfx.width * data->gfx.scale) / 320;
+	if (tx < 0)
+		tx *= -1;
+	while (x < data->gfx.width)
+	{
+		if (tx >= 720)
+		tx -= 720;
+		i = 0;
+		while (i < stretch)
+		{
+			draw_skybox_collumn(data, x + i, tx);
+			i++;
+		}
+		x += i;
+		tx++;
+	}
+}
+
+
 //	Sdl_loop() keeps Simple Direct MediaLayer's PollEvent constantly
 //	running and checks for control calls while rerendering the graphical
 //	view.
@@ -108,6 +161,7 @@ void		sdl_loop(t_drown *d)
 		{
 			SDL_Delay(16.6666f - d->system.frame_time);
 		}
+			draw_skybox(d);
 			render(d);
 			d->system.last_time = d->system.time;
 		

@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 14:16:37 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/27 15:52:10 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/01 15:31:26 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,6 @@ void	delta_time_move(t_drown *data)
 			data->player.velocity.y = 0;
 			data->player.in_air = 0;
 		}
-		if (data->player.height > 514)
-			data->player.height = 514;
+		if (data->player.height > 600)
+			data->player.height = 600;
 }
