@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/28 19:07:36 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/01 21:51:22 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,6 +224,7 @@ typedef struct s_animation {
 	uint32_t	bubble;
 	uint32_t	ammo;
 	uint32_t	bottle;
+	uint32_t	algae;
 }	t_frame;
 
 typedef struct s_image {
@@ -259,7 +260,7 @@ typedef struct s_graphics {
 	int				shake_xtoggle;
 	int				shake_ytoggle;
 	int				flow_y_adjust;
-	t_texture		texture[12];
+	t_texture		texture[14];
 	t_frame			frame;
 	SDL_Event		event;
 }	t_gfx;
@@ -368,6 +369,7 @@ int			error(int code);
 void		fill_gaps(char *line);
 void		*ft_raycast_thread(void  *args);
 int			gfx_write(t_gfx *gfx, char *str);
+uint32_t	fade_brightness(uint32_t color, int multiplier);
 void		img1_and_img2(t_drown *data); //rename
 int			img1_img2_is_mouse_in_grid(t_drown *data);
 int			img1_to_gui(t_drown *data);
