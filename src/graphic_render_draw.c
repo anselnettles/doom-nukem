@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 10:03:55 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/02/28 19:10:23 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/01 14:30:25 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,8 +241,8 @@ void	draw_thread(t_ray *ray, float distance, t_wall *wall)
 	y = y_max - wall_height;
 	if (y_max > wall->prev_y || y > wall->prev_y)
 		y_max = wall->prev_y;
-	if (y <= wall->prev_y || y > ray->gfx.height)
-		draw_ceiling(ray, *wall, wall->prev_y);
+	/*if (y <= wall->prev_y || y > ray->gfx.height)
+		draw_ceiling(ray, *wall, wall->prev_y);*/
 	draw_floor(ray, *wall, y_max);
 	draw_texture(ray, y, y_max, *wall, distance, scaled_y_max);
 	if(height < ray->player.height && y < wall->prev_y && height != 0)
