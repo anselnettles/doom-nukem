@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 17:40:31 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/01 22:33:10 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/01 23:37:04 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ void	draw_color_filter(t_gfx *gfx)
 			green = green >> 24;
 			blue = color << 24;
 			blue = blue >> 24;
-			red /= 1.8;
-			green /= 2.2;
-			blue /= 1.2;
+			red /= 1.5;
+			green /= 1.6;
+			blue /= 1.05;
 			color = ((red&0xFF) << 16) | ((green&0xff) << 8) | (blue&0xFF);
 			pix[x + (y * gfx->width)] = color;
 			x++;
