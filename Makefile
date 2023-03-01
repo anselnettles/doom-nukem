@@ -29,7 +29,6 @@ FILES				=	\
 						editor_img3_is_mouse_in_grid \
 						editor_img3_to_gui \
 						editor_init \
-						editor_initialization \
 						editor_map_editor \
 						editor_overwrite_map_file \
 						editor_param_to_modify \
@@ -63,7 +62,7 @@ SRC					=	$(addprefix src/, $(addsuffix .c, $(FILES)))
 OBJ					=	$(addprefix obj/, $(addsuffix .o, $(FILES)))
 OBJ_DIR				=	obj
 LISTSRC				=	$(foreach part,$(SRC), 	$(PL)		${G}| $(part)\n)
-FLAGS				=	-g -Wall -Wextra -Werror # -03
+FLAGS				=	-g -Wall -Wextra -O3 #-Werror
 HEADER				=	-I./src
 LIBFT				=	libft/
 
