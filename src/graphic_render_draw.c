@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 10:03:55 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/03/02 14:22:52 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/02 15:10:28 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int		get_texture_x(t_ray *ray, t_wall wall)
 	return(BITS - (int)wall.x % BITS);
 }
 */
-void	draw_texture(t_ray *ray, int y, int y_max, t_wall wall, float distance, int scaled_y)			//FIX ME
+void	draw_texture(t_ray *ray, int y, int y_max, t_wall wall, float distance, int scaled_y, int wall_layer)			//FIX ME
 {
 	float		texture_at_distance;
 	float		texture_y;
@@ -116,6 +116,8 @@ void	draw_texture(t_ray *ray, int y, int y_max, t_wall wall, float distance, int
 			if (wall.lock[y_max - j] == '0')
 			{
 				color = ray->gfx.texture[1].frame[0].pixels[texture_x + ((int)texture_y * 64)];	//"Clean" texture draw.
+				if (wall_layer && ray->gfx.texture[13].frame[wall_layer - 1].pixels[texture_x + ((int)texture_y * 64)])
+					color = ray->gfx.texture[13].frame[wall_layer - 1].pixels[texture_x + ((int)texture_y * 64)];
 				//color = fade_brightness(ray->gfx.texture[1].frame[0].pixels[texture_x + ((int)texture_y * 64)], (i / 5) + shade_multiplier);	//Draw shading tests.
 				pixel_put(&ray->gfx, ray->x, y_max - j, color);
 				shade_multiplier -= 0.0035;
@@ -124,7 +126,7 @@ void	draw_texture(t_ray *ray, int y, int y_max, t_wall wall, float distance, int
 		texture_y -= i;
 	}
 }
-
+/*
 void	draw_texture2(t_ray *ray, int y, int y_max, t_wall wall, float distance, int scaled_y)			//FIX ME
 {
 	float		texture_at_distance;
@@ -168,7 +170,7 @@ void	draw_texture2(t_ray *ray, int y, int y_max, t_wall wall, float distance, in
 		j++;
 		texture_y -= i;
 	}
-}
+}*/
 
 int		draw_sprite(t_ray *ray, t_wall *wall, int win_y, float distance)
 {
@@ -342,6 +344,7 @@ void	draw_thread(t_ray *ray, float distance, t_wall *wall)
 	int		height;
 	int		wall_height;
 	int		scaled_y_max;
+	int		wall_layer;
 
 	if (distance < 5)
 		distance = 5;
@@ -360,10 +363,13 @@ void	draw_thread(t_ray *ray, float distance, t_wall *wall)
 	/*if (y <= wall->prev_y || y > ray->gfx.height)
 		draw_ceiling(ray, *wall, wall->prev_y);*/
 	draw_floor(ray, *wall, y_max);
+	wall_layer = 0;
 	if (ray->map.map[(int)roundf(wall->y / BITS)][(int)roundf(wall->x / BITS)][4] == '\'')
-		draw_texture2(ray, y, y_max, *wall, distance, scaled_y_max);
-	else
-		draw_texture(ray, y, y_max, *wall, distance, scaled_y_max);
+		wall_layer = 1;
+	else if (ray->map.map[(int)roundf(wall->y / BITS)][(int)roundf(wall->x / BITS)][4] == '"')
+		wall_layer = 3;
+	//	draw_texture2(ray, y, y_max, *wall, distance, scaled_y_max);
+	draw_texture(ray, y, y_max, *wall, distance, scaled_y_max, wall_layer);
 	if(height < ray->player.height && y < wall->prev_y && height != 0)
 		wall->prev_y = draw_wall_top(ray, *wall, scaled_y_max, height, wall_height);
 	if (y < wall->prev_y)
