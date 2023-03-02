@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/01 21:51:22 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/02 14:41:19 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -363,7 +363,7 @@ void		draw_color_filter(t_gfx *gfx);
 void		draw_floor(t_ray *ray, t_wall wall, int win_y);
 void		draw_map(t_drown *data);
 void		draw_scanlines(t_gfx *gfx);
-void		draw_texture(t_ray *ray, int y, int y_max, t_wall wall, float distance, int	scaled_y);
+void		draw_texture(t_ray *ray, int y, int y_max, t_wall wall, float distance, int	scaled_y, int wall_layer);
 void		draw_thread(t_ray *ray, float distance, t_wall *wall);
 int			error(int code);
 void		fill_gaps(char *line);
