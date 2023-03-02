@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 19:46:58 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/28 13:11:35 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/01 21:11:01 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ static int	parse_textures(char identity, t_index *i, t_gfx *gfx, char *buf)
 //	Texture 'B', 1:		Wall texture.	Frames: 0.			Size: 64 x 64
 //	Texture 'C', 2:		Pillar.			Frames: 0.			Size: 64 x 64
 //	Texture 'D', 3:		Crate texture.	Frames: 0.			Size: 64 x 64
-//	Texture 'E', 4:		Sky texture.	Frames: 0.			Size: 128 x 64
+//	Texture 'E', 4:		Sky texture.	Frames: 0.			Size: 720 x 240
 //	Texture 'F', 5:		Right arm.		Frames: 0 to 4.		Size: 250 x 238
 //	Texture 'G', 6:		Letters.		Frames: 0.			Size: 728 x 20
 //	Texture 'H', 7:		Harpoon.		Frames: 0 to 6.		Size: 64 x 64
@@ -88,7 +88,8 @@ static int	parse_textures(char identity, t_index *i, t_gfx *gfx, char *buf)
 //	Texture 'J', 9:		Timer.			Frames: 0 to 9.		Size: 60 x 90
 //	Texture 'K', 10:	Bubble.			Frames: 0.			Size: 12 x 12
 //	Texture 'L', 11:	Ammo.			Frames:	0 to 1.		Size: 32 x 45
-
+//	Texture 'M', 12:	Monster.		Placeholder.
+//	Texture 'N', 13:	Algae texture.	Frames: 0 to 3.		Size: 64 x 64
 int	texture_allocation(char *buf, t_index *i, t_gfx *gfx)
 {
 	char	identity;
@@ -96,7 +97,7 @@ int	texture_allocation(char *buf, t_index *i, t_gfx *gfx)
 	if (memory_allocate_textures(gfx, 0) == ERROR)
 		return (error(MALLOC_FAIL));
 	identity = 'A';
-	while (identity <= 'L' )
+	while (identity <= 'N' )
 	{
 		if (parse_textures(identity, i, gfx, buf) == ERROR)
 			return (error(PARSE_FAIL));

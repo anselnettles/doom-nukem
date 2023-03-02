@@ -34,6 +34,8 @@ void	draw_texture(t_ray *ray, int y, int y_max, t_wall wall, float distance, int
 	int			texture_x;
 	float		i;
 	int			j;
+	uint32_t	color;
+	float		shade_multiplier = 5;
 
 	texture_at_distance = BITS / distance * ray->gfx.proj_dist;
 	i = 64 / texture_at_distance;
@@ -56,11 +58,13 @@ void	draw_texture(t_ray *ray, int y, int y_max, t_wall wall, float distance, int
 			texture_y = 63;
 		}
 		if (y_max - j >= 0 && y_max - j < ray->gfx.height)
-		{
 			if (wall.lock[y_max - j] == '0')
-			pixel_put(&ray->gfx, ray->x, y_max - j,
-				ray->gfx.texture[1].frame[0].pixels[texture_x + ((int)texture_y * 64)]);
-		}
+			{
+				color = ray->gfx.texture[1].frame[0].pixels[texture_x + ((int)texture_y * 64)];	//"Clean" texture draw.
+				//color = fade_brightness(ray->gfx.texture[1].frame[0].pixels[texture_x + ((int)texture_y * 64)], (i / 5) + shade_multiplier);	//Draw shading tests.
+				pixel_put(&ray->gfx, ray->x, y_max - j, color);
+				shade_multiplier -= 0.0035;
+			}
 		j++;
 		texture_y -= i;
 	}
@@ -127,9 +131,11 @@ int		draw_sprite(t_ray *ray, t_wall *wall, int win_y, float distance)
 
 void	draw_floor(t_ray *ray, t_wall wall, int win_y)
 {
-	int		tx;
-	int		ty;
-	float	dir;
+	int			tx;
+	int			ty;
+	float		dir;
+	uint32_t	color;
+	int			shade_multiplier = 3;
 
 	while (win_y < wall.prev_y && win_y < ray->gfx.height)
 	{
@@ -147,7 +153,12 @@ void	draw_floor(t_ray *ray, t_wall wall, int win_y)
 		if (ty < 0)
 			ty *= -1;
 		if (win_y > 0)
-			pixel_put(&ray->gfx, ray->x, win_y, ray->gfx.texture[0].frame[0].pixels[tx + (ty * 64)]);
+		{
+			color = ray->gfx.texture[0].frame[0].pixels[tx + (ty * 64)];	//"Clean" texture draw.
+			//color = fade_brightness(ray->gfx.texture[0].frame[0].pixels[tx + (ty * 64)], wall.distance / 100 * shade_multiplier);	//Draw shading tests.
+			pixel_put(&ray->gfx, ray->x, win_y, color);
+			shade_multiplier += 0.2;
+		}
 		win_y++;
 	}
 }
