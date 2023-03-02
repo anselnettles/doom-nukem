@@ -6,27 +6,82 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 10:03:55 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/03/02 11:36:58 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/02 13:58:49 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "drowning.h"
 
-int	get_texture_x(t_ray *ray, t_wall wall)
+int	get_texture_x2(t_ray *ray, t_wall wall)
 {
 	char	c;
 
 	return ((int) wall.x % BITS);
 	c = ray->map.map[(int)roundf(wall.y / BITS)][(int)roundf(wall.x / BITS)][0];
-	if (ray->map.map[(int)roundf(wall.y - 1) / BITS][(int)roundf(wall.x / BITS)][0] != c)
+	if (ray->map.map[(int)roundf(wall.y - 32) / BITS][(int)roundf(wall.x / BITS)][0] != c)
 		return (BITS - (int)wall.x % BITS);
-	if (ray->map.map[(int)roundf(wall.y / BITS)][(int)roundf(wall.x + 1) / BITS][0] != c)
+	if (ray->map.map[(int)roundf(wall.y / BITS)][(int)roundf(wall.x + 32) / BITS][0] != c)
 		return (BITS - (int)wall.y % BITS);
-	if (ray->map.map[(int)roundf(wall.y / BITS)][(int)roundf(wall.x - 1) / BITS][0] != c)
+	if (ray->map.map[(int)roundf(wall.y / BITS)][(int)roundf(wall.x - 32) / BITS][0] != c)
 		return ((int)wall.y % BITS);
 	return ((int)wall.x % BITS);
 }
 
+int		get_texture_x(t_ray *ray, t_wall wall)
+{
+	if ((int)wall.x % BITS == 1 || (int)wall.x % BITS == 31 || (int)wall.x % BITS == 32)
+	{
+		if (wall.dx < 0)
+			return(BITS - (int)wall.y % BITS);
+		return ((int)wall.y % BITS);
+	}
+	else
+	{
+		if (wall.dy < 0 && ray->map.map[(int)roundf(wall.y / BITS)][(int)roundf(wall.x / BITS)][2] != '.')
+			return(BITS - (int)wall.x % BITS);
+		return((int)wall.x % BITS);
+	}
+}
+
+/*
+int		get_texture_x(t_ray *ray, t_wall wall)
+{
+	char	c;
+
+	c = ray->map.map[(int)roundf(wall.y / BITS)][(int)roundf(wall.x / BITS)][0];
+	if (wall.dx < 0)
+	{
+		if (wall.dy > 0)
+		{
+			if (ray->map.map[(int)roundf(wall.y / BITS)][(int)roundf(wall.x - 64) / BITS][0] != c)
+				return ((int)wall.y % BITS);
+			return((int)wall.x % BITS);
+		}
+		if (wall.dy < 0)
+		{
+			if (ray->map.map[(int)roundf(wall.y / BITS)][(int)roundf(wall.x - 64) / BITS][0] != c)
+				return ((int)wall.y % BITS);
+			return(BITS - (int)wall.x % BITS);
+		}
+	}
+	if (wall.dx > 0)
+	{
+		if (wall.dy > 0)
+		{
+			if (ray->map.map[(int)roundf(wall.y / BITS)][(int)roundf(wall.x + 64) / BITS][0] != c)
+				return (BITS - (int)wall.y % BITS);
+			return((int)wall.x % BITS);
+		}
+		if (wall.dy < 0)
+		{
+			if (ray->map.map[(int)roundf(wall.y / BITS)][(int)roundf(wall.x + 64) / BITS][0] != c)
+				return (BITS - (int)wall.y % BITS);
+			return(BITS - (int)wall.x % BITS);
+		}
+	}
+	return(BITS - (int)wall.x % BITS);
+}
+*/
 void	draw_texture(t_ray *ray, int y, int y_max, t_wall wall, float distance, int scaled_y)			//FIX ME
 {
 	float		texture_at_distance;
@@ -85,7 +140,9 @@ int		draw_sprite(t_ray *ray, t_wall *wall, int win_y, float distance)
 	j = 0;
 	f = ray->gfx.frame.bottle;
 	win_y -= (int)texture_at_distance / 5;
-	texture_x = (int)wall->x % 38;
+	texture_x = get_texture_x(ray, *wall);
+	if (texture_x > 38)
+		texture_x -= 38;
 	texture_y =  63;
 	while (texture_y >= 0 && win_y - j > 0 && j <= texture_at_distance)
 	{
