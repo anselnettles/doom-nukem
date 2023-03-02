@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 10:03:55 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/03/01 14:30:25 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/02 11:25:30 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,9 @@ int		draw_sprite(t_ray *ray, t_wall *wall, int win_y, float distance)
 	win_y -= (int)texture_at_distance / 5;
 	texture_x = (int)wall->x % 38;
 	texture_y =  63;
-	while (win_y - j < ray->gfx.height && win_y - j > 0 && j <= texture_at_distance)
+	while (texture_y >= 0 && win_y - j > 0 && j <= texture_at_distance)
 	{
-		if (ray->gfx.texture[8].frame[f].pixels[texture_x + ((int)texture_y * 38)])
+		if (ray->gfx.texture[8].frame[f].pixels[texture_x + ((int)texture_y * 38)] && win_y - j < ray->gfx.height && win_y - j < wall->prev_y)
 		{
 			pixel_put(&ray->gfx, ray->x, win_y - j,
 				ray->gfx.texture[8].frame[f].pixels[texture_x + ((int)texture_y * 38)]);
@@ -239,6 +239,8 @@ void	draw_thread(t_ray *ray, float distance, t_wall *wall)
 	y_max += ((ray->player.height - ray->player.base_height) / distance * ray->gfx.proj_dist);
 	scaled_y_max = y_max;
 	y = y_max - wall_height;
+	if (y <= ray->gfx.height)
+	{
 	if (y_max > wall->prev_y || y > wall->prev_y)
 		y_max = wall->prev_y;
 	/*if (y <= wall->prev_y || y > ray->gfx.height)
@@ -249,6 +251,7 @@ void	draw_thread(t_ray *ray, float distance, t_wall *wall)
 		wall->prev_y = draw_wall_top(ray, *wall, scaled_y_max, height, wall_height);
 	if (y < wall->prev_y)
 		wall->prev_y = y;
+	}
 	if (ray->map.map[(int)roundf(wall->y / BITS)][(int)roundf(wall->x / BITS)][3] == 'I')
 		draw_sprite(ray, wall, y, distance);
 }
