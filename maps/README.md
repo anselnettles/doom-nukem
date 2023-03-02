@@ -1,5 +1,4 @@
-# ASCII legends:
-<br>
+## Map ASCII legends:<br>
 
 `#`       : Full wall height<br>
 `1` - `9` : Floor height<br>
@@ -12,7 +11,77 @@
 `X`       : Player start position<br>
 `Z`       : Player goal location<br>
 `I`       : Collectible item: Bottle. Oxygen replenishment.<br>
-`R`       : A map square with a ceiling texture over it. A roof of cubes should be applied over this square up to full height (`#`)<br>
+`R`       : A map square with a ceiling texture over it. A roof of cubes should be applied over this square up to full height (`#`)<br><br>
+
+`map[x][y][z]`<br><br>
+`x`/`y`   : Coordinates.<br>
+`z`       : Parameter indicating what the coordinate contains.<br>
+            <i>Example: </i>`[][][0]` = wall height, `[][][1]` = wall texture type... `[][][n]`<br><br>
+ 
+ <i>Example</i>
+```
+#a/PR 1b>G. 2c\MR #a/PR
+..... #.>N. .b>KR .....
+#c/I. ..... #c/.. .....
+..... ..... ..... .....
+!texture_0={0xff8fbecf, 0xff8fbecf, 
+0xff8fbecf, 0xff8fbecf, 
+0xff8fbecf, 0xff8fbecf},
+texture_1={...}!
+~sprite_arm_right0={...},sprite_arm_right1{...},sprite_arm_right2{...}~
+@sprite_arm_left={...}$@
+?sprite_weed={...}?
++sprite_projectile={...}+
+|sprite_monster0={...}|
+$sprite_collectible0={...}$
+&sprite_goal={...}&
+"sprite_breakable={...}"
+%sprite_glass={...}%'\n'
+```
+
+`.`       : Ignore option during `render()`.<br><br>
+
+0:  Block height<br>
+    chars->param0_choice0 = '#';<br>
+    chars->param0_choice1 = '1';<br>
+    chars->param0_choice2 = '2';<br>
+    chars->param0_choice3 = '3';<br>
+    chars->param0_choice4 = '4';<br>
+    chars->param0_choice5 = '5';<br>
+    chars->param0_choice6 = '6';<br>
+    chars->param0_choice7 = '7';<br>
+    chars->param0_choice8 = '8';<br>
+    chars->param0_choice9 = '.';<br><br>
+
+1:  Texture<br>
+    chars->param1_choice0 = 'a';<br>
+    chars->param1_choice1 = 'b';<br>
+    chars->param1_choice2 = 'c';<br>
+    chars->param1_choice3 = '.';<br><br>
+
+2:  "45 degree"<br>
+    chars->param2_choice0 = '/';<br>
+    chars->param2_choice1 = '\\';<br>
+    chars->param2_choice2 = '>';<br>
+    chars->param2_choice3 = '<';<br>
+    chars->param2_choice4 = '.';<br><br>
+
+3:  Entity<br>
+    chars->param3_choice0 = 'P';    //player_start<br>
+    chars->param3_choice1 = 'G';    //goal<br>
+    chars->param3_choice2 = 'M';    //monster1<br>
+    chars->param3_choice3 = 'N';    //monster2<br>
+    chars->param3_choice4 = 'I';    //item1<br>
+    chars->param3_choice5 = 'J';    //item2<br>
+    chars->param3_choice6 = 'K';    //item3<br>
+    chars->param3_choice7 = '.';<br><br>
+
+4:  Special<br>
+    chars->param4_choice0 = 'R';    //"Secret path". Contains a hard-coded transparency value.<br>
+                                    //  Renders a ceiling on top of the i0(0)_wall_height_choice (WHC).<br>
+                                    //  Distance between WHC - Roof = hard-coded, e.g. 1 cube<br>
+    chars->param4_choice1 = '*';    //"Pillar to infinity"<br>
+    chars->param4_choice2 = '.';<br><br><br>
 
 ## Identity marks for begin and end of texture information:
 <br>
