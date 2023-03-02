@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 10:28:04 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/28 19:28:44 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/02 15:39:15 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,12 +112,20 @@ static void	right_arm_loop(t_drown *d)
 static void	collectible_loop(t_drown *d)
 {
 	if (d->system.time % 1000 > 0 && d->system.time % 1000 < 250)
+	{
 		d->gfx.frame.bottle = 0;
+		if (d->gfx.frame.algae <= 0)
+			d->gfx.frame.algae++;
+	}
 	if ((d->system.time % 1000 >= 250 && d->system.time % 1000 < 500)
 		|| (d->system.time % 1000 >= 750 && d->system.time % 1000 < 1000))
 		d->gfx.frame.bottle = 1;
 	if (d->system.time % 1000 >= 500 && d->system.time % 1000 < 750)
+	{
 		d->gfx.frame.bottle = 2;
+		if (d->gfx.frame.algae >= 1)
+			d->gfx.frame.algae--;
+	}
 }
 
 static void	flow_adjustment(t_drown *d)
