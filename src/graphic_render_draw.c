@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 10:03:55 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/03/02 15:10:28 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/02 15:36:31 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,12 +181,11 @@ int		draw_sprite(t_ray *ray, t_wall *wall, int win_y, float distance)
 	int			texture_x;
 	float		texture_y;
 
-	//distance -= 32;
 	texture_at_distance = 64 / distance * ray->gfx.proj_dist;		//replace 64 with sprite_height
 	i = 64 / texture_at_distance;			//63 == sprite_height - 1
 	j = 0;
 	f = ray->gfx.frame.bottle;
-	win_y -= (int)texture_at_distance / 5;
+	//win_y -= (int)texture_at_distance / 5;
 	texture_x = get_texture_x(ray, *wall);
 	if (texture_x > 38)
 		texture_x -= 38;
@@ -326,7 +325,8 @@ int		draw_wall_top(t_ray *ray, t_wall wall, int win_y, int wall_height, int wall
 		{
 			if (ray->map.map[(int)roundf(wall.y / 64)][(int)roundf(wall.x /64)][0] == c && tmp > 0 && tmp < wall.prev_y)
 			{
-				pixel_put(&ray->gfx, ray->x, tmp, ray->gfx.texture[1].frame[0].pixels[tx + (ty * 64)]);
+				if (wall.lock[tmp] == '0')
+					pixel_put(&ray->gfx, ray->x, tmp, ray->gfx.texture[1].frame[0].pixels[tx + (ty * 64)]);
 				tmp--;
 			}
 		}
@@ -370,11 +370,13 @@ void	draw_thread(t_ray *ray, float distance, t_wall *wall)
 		wall_layer = 3;
 	//	draw_texture2(ray, y, y_max, *wall, distance, scaled_y_max);
 	draw_texture(ray, y, y_max, *wall, distance, scaled_y_max, wall_layer);
+	if (ray->map.map[(int)roundf(wall->y / BITS)][(int)roundf(wall->x / BITS)][3] == 'I')
+		draw_sprite(ray, wall, y, distance);
 	if(height < ray->player.height && y < wall->prev_y && height != 0)
 		wall->prev_y = draw_wall_top(ray, *wall, scaled_y_max, height, wall_height);
 	if (y < wall->prev_y)
 		wall->prev_y = y;
 	}
-	if (ray->map.map[(int)roundf(wall->y / BITS)][(int)roundf(wall->x / BITS)][3] == 'I')
-		draw_sprite(ray, wall, y, distance);
+//	if (ray->map.map[(int)roundf(wall->y / BITS)][(int)roundf(wall->x / BITS)][3] == 'I')
+//		draw_sprite(ray, wall, y, distance);
 }
