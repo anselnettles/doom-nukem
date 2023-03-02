@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 10:03:55 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/03/02 11:25:30 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/02 11:36:58 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,8 @@ void	draw_floor(t_ray *ray, t_wall wall, int win_y)
 		{
 			color = ray->gfx.texture[0].frame[0].pixels[tx + (ty * 64)];	//"Clean" texture draw.
 			//color = fade_brightness(ray->gfx.texture[0].frame[0].pixels[tx + (ty * 64)], wall.distance / 100 * shade_multiplier);	//Draw shading tests.
-			pixel_put(&ray->gfx, ray->x, win_y, color);
+			if (win_y < ray->gfx.height && wall.lock[win_y] == '0')
+				pixel_put(&ray->gfx, ray->x, win_y, color);
 			shade_multiplier += 0.2;
 		}
 		win_y++;
