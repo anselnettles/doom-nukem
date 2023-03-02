@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 10:03:55 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/03/02 13:58:49 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/02 14:22:52 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,51 @@ void	draw_texture(t_ray *ray, int y, int y_max, t_wall wall, float distance, int
 			if (wall.lock[y_max - j] == '0')
 			{
 				color = ray->gfx.texture[1].frame[0].pixels[texture_x + ((int)texture_y * 64)];	//"Clean" texture draw.
+				//color = fade_brightness(ray->gfx.texture[1].frame[0].pixels[texture_x + ((int)texture_y * 64)], (i / 5) + shade_multiplier);	//Draw shading tests.
+				pixel_put(&ray->gfx, ray->x, y_max - j, color);
+				shade_multiplier -= 0.0035;
+			}
+		j++;
+		texture_y -= i;
+	}
+}
+
+void	draw_texture2(t_ray *ray, int y, int y_max, t_wall wall, float distance, int scaled_y)			//FIX ME
+{
+	float		texture_at_distance;
+	float		texture_y;
+	int			texture_x;
+	float		i;
+	int			j;
+	uint32_t	color;
+	float		shade_multiplier = 5;
+
+	texture_at_distance = BITS / distance * ray->gfx.proj_dist;
+	i = 64 / texture_at_distance;
+	j = 0;
+	texture_y = 63;
+	texture_x = get_texture_x(ray, wall);
+	while (scaled_y >= y_max)
+	{
+		scaled_y--;
+		texture_y -= i;
+		if (texture_y < 0)
+			texture_y = 63;
+	}
+	while (y_max - j > y && y_max - j > 0)
+	{
+		if (j > texture_at_distance || texture_y < 0)
+		{
+			y_max -= j;
+			j = 0;
+			texture_y = 63;
+		}
+		if (y_max - j >= 0 && y_max - j < ray->gfx.height)
+			if (wall.lock[y_max - j] == '0')
+			{
+				color = ray->gfx.texture[1].frame[0].pixels[texture_x + ((int)texture_y * 64)];	//"Clean" texture draw.
+				if (ray->gfx.texture[13].frame[0].pixels[texture_x + ((int)texture_y * 64)])
+					color = ray->gfx.texture[13].frame[0].pixels[texture_x + ((int)texture_y * 64)];
 				//color = fade_brightness(ray->gfx.texture[1].frame[0].pixels[texture_x + ((int)texture_y * 64)], (i / 5) + shade_multiplier);	//Draw shading tests.
 				pixel_put(&ray->gfx, ray->x, y_max - j, color);
 				shade_multiplier -= 0.0035;
@@ -315,7 +360,10 @@ void	draw_thread(t_ray *ray, float distance, t_wall *wall)
 	/*if (y <= wall->prev_y || y > ray->gfx.height)
 		draw_ceiling(ray, *wall, wall->prev_y);*/
 	draw_floor(ray, *wall, y_max);
-	draw_texture(ray, y, y_max, *wall, distance, scaled_y_max);
+	if (ray->map.map[(int)roundf(wall->y / BITS)][(int)roundf(wall->x / BITS)][4] == '\'')
+		draw_texture2(ray, y, y_max, *wall, distance, scaled_y_max);
+	else
+		draw_texture(ray, y, y_max, *wall, distance, scaled_y_max);
 	if(height < ray->player.height && y < wall->prev_y && height != 0)
 		wall->prev_y = draw_wall_top(ray, *wall, scaled_y_max, height, wall_height);
 	if (y < wall->prev_y)
