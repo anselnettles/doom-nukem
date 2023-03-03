@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 12:34:59 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/03 19:19:52 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/03 22:30:51 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ int	string_timeline(t_drown *d)
 				"THIS CAN'T BE HAPPENING! I'M GONNA DROWN!") == ERROR)
 			return (ERROR);
 	if (d->system.time > 12000 && d->system.time < 22200)
-		if (gfx_write(&d->gfx, "AH!! THE ROPE! THE BOAT WINCH!!") == ERROR)
+		if (gfx_write(&d->gfx, "AH!! THE CHAIN! THE BOAT WINCH!!") == ERROR)
 			return (ERROR);
 	if (d->system.time > 23200 && d->system.time < 32800)
 		if (gfx_write(&d->gfx,
-					"IT'S DANGLING ABOVE! I NEED TO CATCH THE ROPE!") == ERROR)
+					"IT'S DANGLING ABOVE! I NEED TO CATCH THE CHAIN!") == ERROR)
 			return (ERROR);
 	if (d->gfx.frame.bubble >= 13)
 		if (gfx_write(&d->gfx,
