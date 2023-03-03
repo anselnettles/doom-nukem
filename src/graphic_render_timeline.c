@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 12:34:59 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/16 11:02:32 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/03 19:19:52 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,11 @@ int	string_timeline(t_drown *d)
 		if (gfx_write(&d->gfx,
 					"GAME OVER.") == ERROR)
 			return (ERROR);
+	if (d->system.ending_state == REGULAR_ENDING)
+	{
+		SDL_FillRect(d->gfx.screen, NULL, 0);
+		if (gfx_write(&d->gfx, "CONGRATULATIONS! YOU ESCAPED!") == ERROR)
+				return (ERROR);
+	}
 	return (0);
 }
