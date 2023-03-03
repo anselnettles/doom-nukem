@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 17:50:06 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/01 17:58:16 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/03 19:21:27 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,11 @@ void		collect_airbottle(t_drown *d)
 	//play sound effect;
 	d->gfx.frame.right_arm = 3;
 	//overlay effect;
+}
+
+void	goal_point(t_drown *d)
+{
+	gfx_write(&d->gfx, "CONGRATULATIONS! YOU ESCAPED!");
 }
 
 void		scale_window(t_gfx *gfx)
@@ -126,7 +131,8 @@ void		sdl_loop(t_drown *d)
 	d->system.keyboard_state = SDL_GetKeyboardState(NULL);
 	while (d->system.play_state == PLAY)
 	{
-		d->map.map[15][10][3] = 'I';
+	//	d->map.map[4][15][3] = '$';
+	//	d->map.map[5][18][3] = 'Z';
 		/*crouch(d);
 		d->player.velocity.y -= GRAVITY;
 		d->player.height += d->player.velocity.y * d->system.frame_time;
@@ -157,6 +163,11 @@ void		sdl_loop(t_drown *d)
 		delta_move_player(d);
 		delta_time_move(d);
 		//strife(d);
+		
+
+		if (d->map.map[(int)roundf(d->player.y / 64)][(int)roundf(d->player.x / 64)][3] == 'Z') //&& d->player.height - d->player.base_height != d->player.altitude)
+			d->system.ending_state = REGULAR_ENDING;
+
 		if (d->system.frame_time < 16.6666f)			//OPTIMOI MINUT
 		{
 			SDL_Delay(16.6666f - d->system.frame_time);
