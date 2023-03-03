@@ -6,7 +6,7 @@
 /*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/02 23:10:11 by tturto           ###   ########.fr       */
+/*   Updated: 2023/03/03 16:24:40 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -273,7 +273,7 @@ typedef struct s_graphics {
 	int				shake_xtoggle;
 	int				shake_ytoggle;
 	int				flow_y_adjust;
-	t_texture		texture[14];
+	t_texture		texture[15];
 	t_frame			frame;
 	SDL_Event		event;
 }	t_gfx;
