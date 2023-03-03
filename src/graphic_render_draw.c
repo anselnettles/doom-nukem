@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 10:03:55 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/03/02 15:43:58 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/02 19:34:20 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,9 +118,9 @@ void	draw_texture(t_ray *ray, int y, int y_max, t_wall wall, float distance, int
 				color = ray->gfx.texture[1].frame[0].pixels[texture_x + ((int)texture_y * 64)];	//"Clean" texture draw.
 				if (wall_layer && ray->gfx.texture[13].frame[(wall_layer - 1) + ray->gfx.frame.algae].pixels[texture_x + ((int)texture_y * 64)])
 					color = ray->gfx.texture[13].frame[(wall_layer - 1) + ray->gfx.frame.algae].pixels[texture_x + ((int)texture_y * 64)];
-				//color = fade_brightness(color, (i / 5) + shade_multiplier);	//Draw shading tests.
+				color = fade_brightness(color, (int)((distance / 500) + (i / 4)) + shade_multiplier);	//Draw shading tests.
 				pixel_put(&ray->gfx, ray->x, y_max - j, color);
-				shade_multiplier -= 0.0035;
+				shade_multiplier -= 0.004;
 			}
 		j++;
 		texture_y -= i;
@@ -257,8 +257,8 @@ void	draw_floor(t_ray *ray, t_wall wall, int win_y)
 			ty *= -1;
 		if (win_y > 0)
 		{
-			color = ray->gfx.texture[0].frame[0].pixels[tx + (ty * 64)];	//"Clean" texture draw.
-			//color = fade_brightness(ray->gfx.texture[0].frame[0].pixels[tx + (ty * 64)], wall.distance / 100 * shade_multiplier);	//Draw shading tests.
+			//color = ray->gfx.texture[0].frame[0].pixels[tx + (ty * 64)];	//"Clean" texture draw.
+			color = fade_brightness(ray->gfx.texture[0].frame[0].pixels[tx + (ty * 64)], wall.distance / 100 * shade_multiplier);	//Draw shading tests.
 			if (win_y < ray->gfx.height && wall.lock[win_y] == '0')
 				pixel_put(&ray->gfx, ray->x, win_y, color);
 			shade_multiplier += 0.2;
