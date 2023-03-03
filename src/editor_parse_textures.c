@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 19:46:58 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/01 21:11:01 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/03 16:35:16 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void store_graphic(char identity, char *str, t_index *i, t_gfx *gfx)
 	hex_value = (uint32_t)strtol(str, NULL, 16);
 	hex_value = swap_red_with_blue(hex_value);
 	gfx->texture[identity - 65].frame[i->f].pixels[i->hex_count] = hex_value;
-//	printf("ID: %d. Frame: %d. Index: %d HEX: %d\n", (identity - 65), i->f, i->hex_count, gfx->texture[identity - 65].frame[i->f].pixels[i->hex_count]);
+	//printf("ID: %d. Frame: %d. Index: %d HEX: %d\n", (identity - 65), i->f, i->hex_count, gfx->texture[identity - 65].frame[i->f].pixels[i->hex_count]);
 }
 
 //	Parses through the map file's textures' HEX color values. Saves them in
@@ -90,6 +90,7 @@ static int	parse_textures(char identity, t_index *i, t_gfx *gfx, char *buf)
 //	Texture 'L', 11:	Ammo.			Frames:	0 to 1.		Size: 32 x 45
 //	Texture 'M', 12:	Monster.		Placeholder.
 //	Texture 'N', 13:	Algae texture.	Frames: 0 to 3.		Size: 64 x 64
+//	Texture 'O', 14:	Rope chain.		Frames: 0 to 2.		Size: 16 x 64
 int	texture_allocation(char *buf, t_index *i, t_gfx *gfx)
 {
 	char	identity;
@@ -97,7 +98,7 @@ int	texture_allocation(char *buf, t_index *i, t_gfx *gfx)
 	if (memory_allocate_textures(gfx, 0) == ERROR)
 		return (error(MALLOC_FAIL));
 	identity = 'A';
-	while (identity <= 'N' )
+	while (identity <= 'O' )
 	{
 		if (parse_textures(identity, i, gfx, buf) == ERROR)
 			return (error(PARSE_FAIL));
