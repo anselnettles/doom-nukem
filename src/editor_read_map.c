@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   editor_read_map.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/02 19:04:35 by tturto            #+#    #+#             */
+/*   Updated: 2023/03/02 21:39:30 by tturto           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "drowning.h"
 
 /*
@@ -70,7 +82,7 @@ static void malloc_3D_map_array(t_map *map, t_editor_images *images)
                 tt_errors("malloc_3d_map_array: malloc() fail.\nmap[][][X]");
                 exit (-1);
             }
-            map->map[row][column][PARAM_COUNT] = '!';
+            map->map[row][column][PARAM_COUNT] = '\0';
             column++;
             column_temp--;
         }
@@ -143,7 +155,7 @@ int	read_map(char *map_file, t_drown *data)
 	int		size;
     char    *buf;
 
-	size = calculate_map_size(map_file);
+    size = calculate_map_size(map_file);
 	buf = (char *)malloc(sizeof(char) * size + 1);
 	if (buf == NULL)
 		exit (-1);
@@ -165,6 +177,7 @@ int	read_map(char *map_file, t_drown *data)
         tt_errors("read_map: validate_buffer_format() fail.");
         exit(-1);
     }
+    close(fd);
 	if (texture_allocation(buf, &data->index, &data->gfx) == ERROR)
 		return (ERROR);
     count_map_data(buf, &data->editor.images);

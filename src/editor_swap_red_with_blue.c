@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   editor_swap_red_with_blue.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tturto                                     +#+  +:+       +#+        */
+/*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: tturto                                   #+#    #+#             */
-/*   Updated: 2023/02/19 14:45:19 by aviholai         ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2023/02/28 18:25:25 by tturto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "drowning.h"
 
 /*
- * Swaps hex colour code value Red with Blue. Function is used only due to
- * Piskel raw data export output being BGR instead of RGB.
- * XOR, OR, AND do not work in the same way as with binary format (10010101),
- * since values are 16-base
+	Swaps hex colour code value Red with Blue. Function is used only due to
+	Piskel raw data export output being BGR instead of RGB.
+	XOR, OR, AND do not work in the same way as with binary format (10010101),
+	since values are 16-base
 */
 uint32_t	swap_red_with_blue(uint32_t hex_value)
 {

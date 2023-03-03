@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 18:24:05 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/26 13:56:31 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/02 21:22:20 by tturto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ static int	initialize_menu(t_gfx *gfx, t_system *system, SDL_Event *event)
 	while (system->play_state == PLAY)
 	{
 		gfx_write(gfx, "PRESS 'Z' TO PLAY .. 'X' HARD MODE .. 'C' EDITOR");
+		// editor_pix_put(gfx, gfx->width / 2, gfx->height / 2, 0x00EEEEEE);
 		while (SDL_PollEvent(event))
 		{
 			if (event->type == SDL_QUIT)
@@ -102,9 +103,7 @@ int	main(void)
 		return (error(SDL_FAIL));
 	if (initialize_menu(&data.gfx, &data.system, &data.event) == RUN_EDITOR)
 	{
-	//	SDL_FillRect(data.gfx.screen, NULL, 0);
-	//	SDL_UpdateWindowSurface(gfx->window);
-		if (map_editor(&data) == ERROR)
+		if (map_editor("maps/bluehole.dn", &data) == ERROR)
 			return (error(EDITOR_FAIL));
 	}
 	if (initialize_player(&data) == ERROR)
