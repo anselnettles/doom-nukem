@@ -6,7 +6,7 @@
 /*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/03 16:24:40 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/03 19:15:37 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,9 @@
 # define DEGREES 0.0174532
 # define LETTER_WIDTH 8				//Width of a letter in sprite.
 # define LETTER_HEIGHT 20			//Height of a letter in sprite.
+# define BAD_ENDING 1				//Player dies.
+# define REGULAR_ENDING 2			//Player escapes.
+# define GOOD_ENDING 3				//Player escapes and defeats the monster.
 
 //	TERMINAL OUTPUT COLOR DEFINITIONS
 # define T_NUL "\033[0m"				//Default terminal type color.
@@ -84,6 +87,7 @@
 typedef struct s_system {
 	int				play_state;
 	int				user_request;
+	int				ending_state;
 	const uint8_t	*keyboard_state;
 	uint32_t		time;
 	uint32_t		last_time;
