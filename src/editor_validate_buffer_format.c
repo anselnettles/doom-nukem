@@ -1,25 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   editor_validate_buffer_format.c                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/02 20:13:47 by tturto            #+#    #+#             */
+/*   Updated: 2023/03/02 20:13:48 by tturto           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "drowning.h"
 
-/*
-	Modify read_map.c
-	Should allow non-NL ending map files to be read.
-
-	...
-    while (*buf != '\0')
-    {
-        while (*buf != ' ' && *buf != '\n' && *buf != '\0')
-		{
-			...
-		}
-		...
-	}
-*/
-
-/*
-	Validates buffer format.
-
-	Return 1 on success, 0 on fail.
-*/
 int	validate(char *buf, t_editor_images *images)
 {
 	unsigned short int	set_count;
@@ -72,12 +64,10 @@ int	validate(char *buf, t_editor_images *images)
 */
 static int	buffer_row_len_validation(char *buf)
 {
-//	unsigned short int	row_len_prev;
 	unsigned short int	row_len_current;
 	unsigned short int	row_len_temp;
 	unsigned short int	rswitch;
 
-//	row_len_prev = 0;
 	row_len_current = 0;
 	rswitch = 0;
 	while (*buf != '\0')
@@ -90,7 +80,6 @@ static int	buffer_row_len_validation(char *buf)
 		}
 		if (rswitch == 1)
 		{
-//			row_len_prev = row_len_current;
 			row_len_current = row_len_temp;
 			if (row_len_current != row_len_temp)
 			{

@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 11:08:33 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/03 14:05:32 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/03 15:01:05 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,41 +38,32 @@ static int	draw_right_arm(t_index *index, t_gfx *gfx, int s)
 	return (0);
 }
 
-static int	underwater_effect(t_drown *d, t_gfx *gfx, int scale)
+static void	underwater_effect(t_drown *d, t_gfx *gfx, int scale, int i)
 {
 	uint32_t	*color;
-	int			i;
 	int			toggle;
 	
 	color = gfx->screen->pixels;
 	gfx->x = 0;
 	gfx->y = 0;
-	i = 0;
-	(void) d;
-	toggle = FALSE;
+	toggle = -TRUE;
 	while (gfx->y < gfx->height)
 	{
 		while (gfx->x < gfx->width)
 		{
-			if (pixel_put(gfx, gfx->x, gfx->y, color[(gfx->x + i) + (gfx->y * gfx->width)]) == ERROR)
-				write(1, "yo", 2);
-			gfx->x++;
+			pixel_put(gfx, gfx->x, gfx->y,
+					color[(gfx->x + i * scale) + (gfx->y * gfx->width)]);
+			gfx->x += scale;
 		}
-		gfx->y++;
+		gfx->y += scale;
 		gfx->x = 0;
-		if (toggle == FALSE && (gfx->y / 10) % 2)
-			i++;
-		if (toggle == TRUE && !(gfx->y / 10 % 2))
-			i--;
-		if (i >= 10)
-			toggle = TRUE;
+		if ((toggle && !(gfx->y / 20 % 2)) || (!(toggle) && (gfx->y / 20) % 2))
+			i -= toggle;
+		if (i <= 0 || i >= 19)
+			toggle = -toggle;
 		if (i <= 0)
-		{
-			toggle = FALSE;
-			gfx->y += 10;
-		}
+			gfx->y += 20 * scale;
 	}
-	return (0);
 }
 
 /*
@@ -154,8 +145,7 @@ static int	underwater_effect(t_drown *d, t_gfx *gfx, int scale)
 
 int	render_overlay(t_drown *d)
 {
-	if (underwater_effect(d, &d->gfx, d->gfx.scale) == ERROR)
-		return (ERROR);
+	underwater_effect(d, &d->gfx, d->gfx.scale, 0);
 	if (draw_right_arm(&d->index, &d->gfx, d->gfx.scale) == ERROR)
 		return (ERROR);
 	if (d->system.filters == TRUE)
