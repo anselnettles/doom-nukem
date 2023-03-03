@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:28:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/02 12:22:34 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/03 16:33:00 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 //	Texture 'L', 11:	Ammo.			Frames:	0 to 1.		Size: 32 x 45
 //	Texture 'M', 12		Monster.		Placeholder.
 //	Texture 'N', 13		Algae texture.	Frames: 0 to 3.		Size: 64 x 64
-
+//	Texture 'O', 14:	Rope chain.		Frames: 0 to 2.		Size: 16 x 64
 static void	memory_allocate_textures_fourth_batch(t_gfx *gfx)
 {
 	gfx->texture[11].frame[0].pixels
@@ -43,6 +43,12 @@ static void	memory_allocate_textures_fourth_batch(t_gfx *gfx)
 		= (uint32_t *)malloc(sizeof(uint32_t) * (64 * 64));
 	gfx->texture[13].frame[3].pixels
 		= (uint32_t *)malloc(sizeof(uint32_t) * (64 * 64));
+	gfx->texture[14].frame[0].pixels
+		= (uint32_t *)malloc(sizeof(uint32_t) * (16 * 64));
+	gfx->texture[14].frame[1].pixels
+		= (uint32_t *)malloc(sizeof(uint32_t) * (16 * 64));
+	gfx->texture[14].frame[2].pixels
+		= (uint32_t *)malloc(sizeof(uint32_t) * (16 * 64));
 }
 
 static void	memory_allocate_textures_third_batch(t_gfx *gfx)
@@ -103,8 +109,12 @@ static int	confirm_memory_allocation_second_batch(t_gfx *gfx, int t, int f)
 {
 	(void)t;
 		while (f < 4)
-		gfx->texture[13].frame[f++].pixels
-			= (uint32_t *)malloc(sizeof(uint32_t) * (250 * 238));
+			if (gfx->texture[13].frame[f++].pixels == NULL)
+				return (ERROR);
+		f = 0;
+		while (f < 3)
+			if (gfx->texture[14].frame[f++].pixels == NULL)
+				return (ERROR);
 	return (0);
 }
 
