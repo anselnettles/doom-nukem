@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 11:08:33 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/03 16:14:30 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/03 16:15:37 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ static void	underwater_effect(t_drown *d, t_gfx *gfx, int scale, int i)
 int	render_overlay(t_drown *d)
 {
 	underwater_effect(d, &d->gfx, d->gfx.scale, 0);
-	shake_effect(d, &d->gfx, d->gfx.scale);
 	if (draw_right_arm(&d->index, &d->gfx, d->gfx.scale) == ERROR)
 		return (ERROR);
 	if (d->system.filters == TRUE)
