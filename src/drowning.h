@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   drowning.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/06 13:33:36 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/06 15:45:21 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,14 @@ typedef struct s_vectorf {
 	float	y;
 }	t_vectorf;
 
+typedef struct s_dda {
+	t_vectorf	delta_dist;
+	t_vectorf	step;
+	t_vectorf	side_dist;
+	int			hit;
+	int			side;
+}	t_dda;
+
 typedef struct s_editor_images
 {
     unsigned short int  img1_x_min;
@@ -284,6 +292,7 @@ typedef struct s_wall {
 	float		distance;
 	int			prev_y;
 	char		*lock;
+	int			side;
 }	t_wall;
 
 typedef struct s_animation {
@@ -477,6 +486,8 @@ int			ft_diagonal_2(t_wall *wall, t_ray *ray);
 int			ft_diagonal_3(t_wall *wall, t_ray *ray);
 int			ft_diagonal_4(t_wall *wall, t_ray *ray);
 void		crouch(t_drown *data);
+void		init_dda(t_ray *ray, t_wall *wall, t_dda *dda);
+void   		algo_dda(t_ray *ray, t_wall *wall, t_dda *dda);
 
 //dont remove before final build. it is used to test if map values are changed correctly
 void    	testing_print_map(t_drown *data, t_editor_images *images);
