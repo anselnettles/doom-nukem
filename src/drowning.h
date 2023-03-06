@@ -6,7 +6,7 @@
 /*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/03 19:15:37 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/06 13:33:36 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,6 @@
 # define RUN_EDITOR 2
 # define GRAVITY 10.f
 # define DEGREES 0.0174532
-# define LETTER_WIDTH 8				//Width of a letter in sprite.
-# define LETTER_HEIGHT 20			//Height of a letter in sprite.
 # define BAD_ENDING 1				//Player dies.
 # define REGULAR_ENDING 2			//Player escapes.
 # define GOOD_ENDING 3				//Player escapes and defeats the monster.
@@ -68,6 +66,58 @@
 # define T_ORANGES "\033[0;33m"			//A slim orange terminal type color.
 # define T_RED "\033[0;31m"				//A red terminal type color.
 # define T_LGRAY "\033[0;37m"			//A light gray terminal type color.
+
+//	SPRITE DIMENSIONS DEFINITIONS
+# define FLOOR 0
+# define WALL_TEXTURE 1
+# define PILLAR_TEXTURE 2
+# define CRATE 3
+# define TEXTURE_HEIGHT 64
+# define TEXTURE_WIDTH 64
+# define SKYBOX 4
+# define SKYBOX_HEIGHT 480
+# define SKYBOX_WIDTH 720
+# define RIGHT_ARM 5
+# define RIGHT_ARM_HEIGHT 250
+# define RIGHT_ARM_WIDTH 238
+# define LETTERS 6
+# define LETTERS_HEIGHT 20
+# define LETTERS_WIDTH 728
+# define LETTER_WIDTH 8					//Width of a single letter in sprite.
+# define HARPOON 7
+# define BOTTLE 8
+# define BOTTLE_WIDTH 38
+# define TIMER 9
+# define TIMER_HEIGHT 90
+# define TIMER_WIDTH 60
+# define BUBBLE 10
+# define BUBBLE_HEIGHT 12
+# define BUBBLE_WIDTH 12
+# define AMMO 11
+# define AMMO_HEIGHT 45
+# define AMMO_WIDTH 32
+# define MONSTER 12
+# define MONSTER_HEIGHT 128
+# define MONSTER_WIDTH 128
+# define ALGAE 13
+# define CHAIN 14
+# define CHAIN_WIDTH 12
+
+//	Texture 'A', 0:		Floor texture.	Frames: 0.			Size: 64 x 64
+//	Texture 'B', 1:		Wall texture.	Frames: 0.			Size: 64 x 64
+//	Texture 'C', 2:		Pillar.			Frames: 0.			Size: 64 x 64
+//	Texture 'D', 3:		Crate texture.	Frames: 0.			Size: 64 x 64
+//	Texture 'E', 4:		Sky texture.	Frames: 0.			Size: 720 x 240
+//	Texture 'F', 5:		Right arm.		Frames: 0 to 4.		Size: 250 x 238
+//	Texture 'G', 6:		Letters.		Frames: 0.			Size: 728 x 20
+//	Texture 'H', 7:		Harpoon.		Frames: 0 to 6.		Size: 64 x 64
+//	Texture 'I', 8:		Bottle.			Frames: 0 to 3.		Size: 38 x 64
+//	Texture 'J', 9:		Timer.			Frames: 0 to 9.		Size: 60 x 90
+//	Texture 'K', 10:	Bubble.			Frames: 0.			Size: 12 x 12
+//	Texture 'L', 11:	Ammo.			Frames:	0 to 1.		Size: 32 x 45
+//	Texture 'M', 12		Monster.		Placeholder.
+//	Texture 'N', 13		Algae texture.	Frames: 0 to 3.		Size: 64 x 64
+//	Texture 'O', 14:	Rope chain.		Frames: 0 to 2.		Size: 16 x 64
 
 //Map Editor definitions
 // # define BUF_SIZE 6000000	/*remove*/
