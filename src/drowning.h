@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   drowning.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/02 14:41:19 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/06 13:33:36 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,9 @@
 # define RUN_EDITOR 2
 # define GRAVITY 10.f
 # define DEGREES 0.0174532
-# define LETTER_WIDTH 8				//Width of a letter in sprite.
-# define LETTER_HEIGHT 20			//Height of a letter in sprite.
+# define BAD_ENDING 1				//Player dies.
+# define REGULAR_ENDING 2			//Player escapes.
+# define GOOD_ENDING 3				//Player escapes and defeats the monster.
 
 //	TERMINAL OUTPUT COLOR DEFINITIONS
 # define T_NUL "\033[0m"				//Default terminal type color.
@@ -66,15 +67,67 @@
 # define T_RED "\033[0;31m"				//A red terminal type color.
 # define T_LGRAY "\033[0;37m"			//A light gray terminal type color.
 
+//	SPRITE DIMENSIONS DEFINITIONS
+# define FLOOR 0
+# define WALL_TEXTURE 1
+# define PILLAR_TEXTURE 2
+# define CRATE 3
+# define TEXTURE_HEIGHT 64
+# define TEXTURE_WIDTH 64
+# define SKYBOX 4
+# define SKYBOX_HEIGHT 480
+# define SKYBOX_WIDTH 720
+# define RIGHT_ARM 5
+# define RIGHT_ARM_HEIGHT 250
+# define RIGHT_ARM_WIDTH 238
+# define LETTERS 6
+# define LETTERS_HEIGHT 20
+# define LETTERS_WIDTH 728
+# define LETTER_WIDTH 8					//Width of a single letter in sprite.
+# define HARPOON 7
+# define BOTTLE 8
+# define BOTTLE_WIDTH 38
+# define TIMER 9
+# define TIMER_HEIGHT 90
+# define TIMER_WIDTH 60
+# define BUBBLE 10
+# define BUBBLE_HEIGHT 12
+# define BUBBLE_WIDTH 12
+# define AMMO 11
+# define AMMO_HEIGHT 45
+# define AMMO_WIDTH 32
+# define MONSTER 12
+# define MONSTER_HEIGHT 128
+# define MONSTER_WIDTH 128
+# define ALGAE 13
+# define CHAIN 14
+# define CHAIN_WIDTH 12
+
+//	Texture 'A', 0:		Floor texture.	Frames: 0.			Size: 64 x 64
+//	Texture 'B', 1:		Wall texture.	Frames: 0.			Size: 64 x 64
+//	Texture 'C', 2:		Pillar.			Frames: 0.			Size: 64 x 64
+//	Texture 'D', 3:		Crate texture.	Frames: 0.			Size: 64 x 64
+//	Texture 'E', 4:		Sky texture.	Frames: 0.			Size: 720 x 240
+//	Texture 'F', 5:		Right arm.		Frames: 0 to 4.		Size: 250 x 238
+//	Texture 'G', 6:		Letters.		Frames: 0.			Size: 728 x 20
+//	Texture 'H', 7:		Harpoon.		Frames: 0 to 6.		Size: 64 x 64
+//	Texture 'I', 8:		Bottle.			Frames: 0 to 3.		Size: 38 x 64
+//	Texture 'J', 9:		Timer.			Frames: 0 to 9.		Size: 60 x 90
+//	Texture 'K', 10:	Bubble.			Frames: 0.			Size: 12 x 12
+//	Texture 'L', 11:	Ammo.			Frames:	0 to 1.		Size: 32 x 45
+//	Texture 'M', 12		Monster.		Placeholder.
+//	Texture 'N', 13		Algae texture.	Frames: 0 to 3.		Size: 64 x 64
+//	Texture 'O', 14:	Rope chain.		Frames: 0 to 2.		Size: 16 x 64
+
 //Map Editor definitions
-# define BUF_SIZE 6000000	//optimize size
+// # define BUF_SIZE 6000000	/*remove*/
 # define SCREEN_W 1280
 # define SCREEN_H 800
 # define IMG1_CATHETUS 12
-# define IMG2_CATHETUS 36
-# define IMG3_CATHETUS 48
-# define IMG2_PARAM_COL 2
-# define IMG2_PARAM_ROW 3
+# define IMG2_CATHETUS 80
+# define IMG3_CATHETUS 70
+# define IMG2_PARAM_COL 1
+# define IMG2_PARAM_ROW 5
 # define IMG3_PARAM_COL 1
 # define PARAM_COUNT 5
 # define ASCII_MIN 32
@@ -84,6 +137,7 @@
 typedef struct s_system {
 	int				play_state;
 	int				user_request;
+	int				ending_state;
 	const uint8_t	*keyboard_state;
 	uint32_t		time;
 	uint32_t		last_time;
@@ -133,6 +187,8 @@ typedef struct  s_character
     char    param0_choice7;
     char    param0_choice8;
     char    param0_choice9;
+    char    param0_choice10;
+    char    param0_choice11;
     //param1: texture
     char    param1_choice0;
     char    param1_choice1;
@@ -157,6 +213,8 @@ typedef struct  s_character
     char    param4_choice0;
     char    param4_choice1;
     char    param4_choice2;
+    char    param4_choice3;
+    char    param4_choice4;
 }   t_character;
 
 typedef struct s_mouse
@@ -165,10 +223,20 @@ typedef struct s_mouse
     int y;
 }   t_mouse;
 
+typedef struct s_xy_start_end
+{
+    int         x_start;
+    int         x_end;
+    int         y_start;
+    int         y_end;
+    uint32_t    colour;
+}   t_xy_start_end; //interval
+
 typedef struct s_editor
 {
 	t_editor_images images;
     t_character     chars;
+	t_xy_start_end	interval;
 	t_mouse			mouse;
 }	t_editor;
 
@@ -241,7 +309,6 @@ typedef struct s_texture {
 //	Graphical-wise variables used for SDL and graphical drawing.
 //	Mother to raycast struct.
 typedef struct s_graphics {
-	SDL_Renderer	*renderer;	//required in map_editor
 	SDL_Window		*window;
 	SDL_Surface		*screen;
 	SDL_Surface		*image;
@@ -260,19 +327,16 @@ typedef struct s_graphics {
 	int				shake_xtoggle;
 	int				shake_ytoggle;
 	int				flow_y_adjust;
-	t_texture		texture[14];
+	t_texture		texture[15];
 	t_frame			frame;
 	SDL_Event		event;
 }	t_gfx;
 
 typedef struct s_map
 {
-	char	**map2;
-	int		y_max;
-	int		x_max;
-
+	int					y_max;				//remove if topi does not use these
+	int					x_max;				//remove if topi does not use these
     char                ***map;
-    char                ***map_temp;        //remember to free
     //map coordinates referring x and y
     unsigned short int  map_x;
     unsigned short int  map_y;
@@ -288,7 +352,7 @@ typedef struct s_map
     unsigned short int  selection_index;
 }	t_map;
 
-typedef struct s_map_grid	//remove if not needed in final GUI
+typedef struct s_map_grid	//remove if not needed in final GUI, was part of render functions
 {
     int x1;
     int x2;
@@ -348,11 +412,10 @@ typedef enum e_error
 //	Non-static functions.
 int			animation_loop(t_drown *d);
 void		choose_to_reset_map_or_exit(t_drown *data);
+void    	clear_surface(t_drown *data);
 void		close_program(t_gfx *gfx);
 void		collect_airbottle(t_drown *d);
 char		*copy_line(char *line, t_map *data);
-void		copy_map_to_map_temp(t_drown *data);
-void		create_map_temp(t_drown *data);
 void		deal_key(int key, t_drown *data);
 void		deal_mouse(t_drown *data);
 void		delta_move_player(t_drown *data);
@@ -361,10 +424,14 @@ void		draw_ceiling(t_ray *ray, t_wall wall, int win_y);
 void		draw_collumn(t_ray *ray, int y, int y_max, Uint32 color);
 void		draw_color_filter(t_gfx *gfx);
 void		draw_floor(t_ray *ray, t_wall wall, int win_y);
+void    	draw_grid_of_squares(t_drown *data);
 void		draw_map(t_drown *data);
+void		draw_one_square(t_gfx *gfx, t_xy_start_end *interval);
 void		draw_scanlines(t_gfx *gfx);
 void		draw_texture(t_ray *ray, int y, int y_max, t_wall wall, float distance, int	scaled_y, int wall_layer);
 void		draw_thread(t_ray *ray, float distance, t_wall *wall);
+int			editor_pix_put(t_gfx *gfx, int x, int y, uint32_t colour);
+uint32_t   	element_colour(t_map *map, int row_now, int col_now, int image_switch);
 int			error(int code);
 void		fill_gaps(char *line);
 void		*ft_raycast_thread(void  *args);
@@ -372,39 +439,36 @@ int			gfx_write(t_gfx *gfx, char *str);
 uint32_t	fade_brightness(uint32_t color, int multiplier);
 void		img1_and_img2(t_drown *data); //rename
 int			img1_img2_is_mouse_in_grid(t_drown *data);
-int			img1_to_gui(t_drown *data);
-int			img2_to_gui(t_drown *data);
 int			img3_is_mouse_in_grid(t_drown *data);
-int			img3_to_gui(t_drown *data);
 void		init_player(t_player *player);
 int			init_sdl(SDL_Window *window, SDL_Surface *screen);
 int			init(t_gfx *gfx);
-int			map_editor(t_drown *data);
+int			is_element_bloated(t_map *map, t_editor_images *images);
+int			map_editor(char *map_file, t_drown *data);
 void		map_len(char *file, t_map *data);
 int			memory_allocate_textures(t_gfx *gfx, int f);
 void		move_forward_back(t_drown *data);
 void		move_strafe(t_drown *data);
-int			overwrite_map_file(t_map *map, t_editor_images *images);
 void		param_to_modify(t_map *map);
 int			pixel_put(t_gfx *gfx, int x_src, int y_src, uint32_t color);
-int		read_map(char *map_file, t_drown *data);
+int			read_map(char *map_file, t_drown *data);
 int			render_hud(t_index *index, t_gfx *gfx, int scale);
 int			render_overlay(t_drown *d);
 int			render(t_drown *d);
 void		render_thread(t_drown *data);
 void		rotate_player(int key, t_player *player);
-int			save_changes(t_gfx *gfx);
 void		scale_window(t_gfx *gfx);
 void		sdl_loop(t_drown *drown);
 void		select_new_param_value(t_drown *data);
-void		set_image_limits(t_editor_images *images);
+void		set_image_limits(t_drown *data);
 void		set_values_for_parameters(t_character *chars);
 int			string_timeline(t_drown *d);
 uint32_t	swap_red_with_blue(uint32_t hex_value);
-int		texture_allocation(char *buf, t_index *i, t_gfx *gfx);
+int			texture_allocation(char *buf, t_index *i, t_gfx *gfx);
 void		tt_errors(char *error_msg);
 int			validate_buffer_format(char *buf, t_editor_images *images);
-int			validate_map_temp(t_drown *data);
+int			validate_map(t_drown *data);
+int			validate_outer_walls(t_map *map, t_editor_images *images);
 void		x_right_arm_flail(t_gfx *gfx);
 void		y_right_arm_flail(t_gfx *gfx);
 int			ft_calc_diagonal(t_wall *wall, t_ray *ray);
@@ -413,4 +477,7 @@ int			ft_diagonal_2(t_wall *wall, t_ray *ray);
 int			ft_diagonal_3(t_wall *wall, t_ray *ray);
 int			ft_diagonal_4(t_wall *wall, t_ray *ray);
 void		crouch(t_drown *data);
+
+//dont remove before final build. it is used to test if map values are changed correctly
+void    	testing_print_map(t_drown *data, t_editor_images *images);
 #endif

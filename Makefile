@@ -19,22 +19,21 @@ FILES				=	\
 						controls_keyboard\
 						controls_mouse\
 						editor_choose_to_reset_map_or_exit\
+						editor_clear_surface \
 						editor_close_program \
-						editor_copy_map_to_map_temp \
-						editor_create_map_temp \
+						editor_draw_grid_of_squares \
+						editor_draw_one_square \
+						editor_element_colour \
 						editor_img1_and_img2 \
 						editor_img1_img2_is_mouse_in_grid \
-						editor_img1_to_gui \
-						editor_img2_to_gui \
 						editor_img3_is_mouse_in_grid \
-						editor_img3_to_gui \
+						editor_is_element_bloated \
 						editor_map_editor \
-						editor_overwrite_map_file \
 						editor_param_to_modify \
 						editor_parse_textures \
 						editor_parse_textures_malloc \
+						editor_pix_put \
 						editor_read_map \
-						editor_save_changes \
 						editor_select_new_param_value \
 						editor_set_image_limits \
 						editor_set_values_for_parameters \
@@ -42,26 +41,27 @@ FILES				=	\
 						editor_tt_errors \
 						editor_testing_print_map \
 						editor_validate_buffer_format \
-						editor_validate_map_temp \
-						error_management\
-						graphic_render\
-						graphic_render_animations\
-						graphic_render_draw\
-						graphic_render_filters\
-						graphic_render_hud\
-						graphic_render_overlay\
-						graphic_render_raycast\
-						graphic_render_timeline\
-						main\
-						utilities_graphic\
-						utilities_movement\
-						utilities_system\
+						editor_validate_map \
+						editor_validate_outer_walls \
+						error_management \
+						graphic_render \
+						graphic_render_animations \
+						graphic_render_draw \
+						graphic_render_filters \
+						graphic_render_hud \
+						graphic_render_overlay \
+						graphic_render_raycast \
+						graphic_render_timeline \
+						main \
+						utilities_graphic \
+						utilities_movement \
+						utilities_system
 
 SRC					=	$(addprefix src/, $(addsuffix .c, $(FILES)))
 OBJ					=	$(addprefix obj/, $(addsuffix .o, $(FILES)))
 OBJ_DIR				=	obj
 LISTSRC				=	$(foreach part,$(SRC), 	$(PL)		${G}| $(part)\n)
-FLAGS				=	-g -Wall -Wextra -O3 #-Werror
+FLAGS				=	-g -O3 #-Wall -Wextra -Werror
 HEADER				=	-I./src
 LIBFT				=	libft/
 

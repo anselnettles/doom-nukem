@@ -6,110 +6,99 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 16:02:50 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/28 17:44:32 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/06 14:23:15 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "drowning.h"
 
-static void	draw_timer_bubbles(t_index *index, t_gfx *gfx, int s)
+static void	draw_timer_bubbles(t_index *index, t_gfx *gfx, int s, int bubbles)
 {
-	int	start_y = index->y - (55 * s);
-	int	start_x = index->x + (10 * s);
-	int x;
-	int y;
-	int	i = gfx->frame.bubble;
-
-	while (13 - i)
+	index->y -= (55 * s);
+	index->x += (10 * s);
+	while (13 - bubbles)
 	{
-		y = start_y + (i % 4 * 13 * s);
+		index->y += (bubbles % 4 * 13 * s);
 		gfx->y = 0;
-		while (gfx->y < 12)
+		while (gfx->y < BUBBLE_HEIGHT)
 		{
-			x = start_x + (i % 3 * 13 * s);
+			index->x += (bubbles % 3 * 13 * s);
 			gfx->x = 0;
-			while (gfx->x < 12)
+			while (gfx->x < BUBBLE_WIDTH)
 			{
-				if (gfx->texture[10].frame[0].pixels[gfx->x + (gfx->y * 12)])
-					pixel_put(gfx, x, y + (gfx->frame.timer % 2),
-						gfx->texture[10].frame[0].pixels[gfx->x + (gfx->y * 12)]);
-				x += s;
+				if (gfx->texture[BUBBLE].frame[0].pixels
+					[gfx->x + (gfx->y * BUBBLE_WIDTH)])
+					pixel_put(gfx, index->x, index->y + (gfx->frame.timer % 2),
+						gfx->texture[BUBBLE].frame[0].pixels
+					[gfx->x + (gfx->y * BUBBLE_WIDTH)]);
+				index->x += s;
 				gfx->x++;
 			}
-			y += s;
+			index->y += s;
 			gfx->y++;
-			gfx->x = 0;
 		}
-		i++;
+		bubbles++;
 	}
-
 }
 
-static int	draw_timer_bottle(t_index *index, t_gfx *gfx, int s)
+static int	draw_timer_bottle(t_index *index, t_gfx *gfx, int s, int f)
 {
-	gfx->f = gfx->frame.timer;
-	gfx->x = 0;
 	gfx->y = 0;
 	index->y = (MARGIN * s);
-	index->x = (gfx->width - (60 * s) - (MARGIN * s));
-	while ((gfx->y) < (90))
+	index->x = (gfx->width - (TIMER_WIDTH * s) - (MARGIN * s));
+	while ((gfx->y) < (TIMER_HEIGHT))
 	{
-		while ((gfx->x) < (60))
+		gfx->x = 0;
+		while ((gfx->x) < (TIMER_WIDTH))
 		{
-			if (gfx->texture[9].frame[gfx->f].pixels[gfx->x + (gfx->y * 60)])
-			{
+			if (gfx->texture[TIMER].frame[f].pixels
+				[gfx->x + (gfx->y * TIMER_WIDTH)])
 				if (pixel_put(gfx, index->x, index->y,
-						gfx->texture[9].frame[gfx->f].pixels[gfx->x + (gfx->y * 60)]) == ERROR)
+						gfx->texture[TIMER].frame[f].pixels
+						[gfx->x + (gfx->y * TIMER_WIDTH)]) == ERROR)
 					return (ERROR);
-			}
 			index->x += s;
 			gfx->x++;
 		}
 		index->y += s;
 		gfx->y++;
-		index->x = ((gfx->width - (60 * s) - MARGIN * s));
-		gfx->x = 0;
+		index->x = ((gfx->width - (TIMER_WIDTH * s) - MARGIN * s));
 	}
-	draw_timer_bubbles(index, gfx, s);
+	draw_timer_bubbles(index, gfx, s, gfx->frame.bubble);
 	return (0);
 }
 
-static int	draw_ammo(t_index *index, t_gfx *gfx, int s)
+static int	draw_ammo(t_index *index, t_gfx *gfx, int s, int f)
 {
-
-	gfx->f = gfx->frame.ammo;
-	gfx->x = 0;
 	gfx->y = 0;
 	index->y = ((MARGIN * 2) * s);
-	index->x = (gfx->width - (120 * s) - (MARGIN * s));
-
-	while ((gfx->y) < (45))
+	index->x = (gfx->width - ((MARGIN * 7) * s));
+	while (gfx->y < AMMO_HEIGHT)
 	{
-		while ((gfx->x) < (32))
+		gfx->x = 0;
+		while (gfx->x < AMMO_WIDTH)
 		{
-			if (gfx->texture[11].frame[gfx->f].pixels[gfx->x + (gfx->y * 32)])
-			{
+			if (gfx->texture[AMMO].frame[f].pixels
+				[gfx->x + (gfx->y * AMMO_WIDTH)])
 				if (pixel_put(gfx, index->x, index->y,
-						gfx->texture[11].frame[gfx->f].pixels[gfx->x + (gfx->y * 32)]) == ERROR)
+						gfx->texture[AMMO].frame[f].pixels
+						[gfx->x + (gfx->y * AMMO_WIDTH)]) == ERROR)
 					return (ERROR);
-			}
 			index->x += s;
 			gfx->x++;
 		}
 		index->y += s;
 		gfx->y++;
-		index->x = ((gfx->width - (120 * s) - MARGIN * s));
-		gfx->x = 0;
+		index->x = ((gfx->width - ((MARGIN * 7) * s)));
 	}
-
 	return (0);
 }
 
 int	render_hud(t_index *index, t_gfx *gfx, int scale)
 {
-	if (draw_timer_bottle(index, gfx, scale) == ERROR)
+	if (draw_timer_bottle(index, gfx, scale, gfx->frame.timer) == ERROR)
 		return (ERROR);
-	if (draw_ammo(index, gfx, scale) == ERROR)
+	if (draw_ammo(index, gfx, scale, gfx->frame.ammo) == ERROR)
 		return (ERROR);
 	return (0);
 }

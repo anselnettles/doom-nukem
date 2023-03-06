@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 13:35:22 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/27 10:23:33 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/06 13:18:04 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	draw_letter(t_gfx *gfx, int start_x, int start_gfx_x, int goal_x)
 
 	x = start_x;
 	y = ((gfx->height / 4) * 3);
-	while (gfx->y < LETTER_HEIGHT)
+	while (gfx->y < LETTERS_HEIGHT)
 	{
 		while (gfx->x < (goal_x))
 		{

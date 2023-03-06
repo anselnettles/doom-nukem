@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 10:03:55 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/03/02 15:43:58 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/03 18:43:00 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,59 +118,46 @@ void	draw_texture(t_ray *ray, int y, int y_max, t_wall wall, float distance, int
 				color = ray->gfx.texture[1].frame[0].pixels[texture_x + ((int)texture_y * 64)];	//"Clean" texture draw.
 				if (wall_layer && ray->gfx.texture[13].frame[(wall_layer - 1) + ray->gfx.frame.algae].pixels[texture_x + ((int)texture_y * 64)])
 					color = ray->gfx.texture[13].frame[(wall_layer - 1) + ray->gfx.frame.algae].pixels[texture_x + ((int)texture_y * 64)];
-				//color = fade_brightness(color, (i / 5) + shade_multiplier);	//Draw shading tests.
+				color = fade_brightness(color, (int)((distance / 500) + (i / 4)) + shade_multiplier);	//Draw shading tests.
 				pixel_put(&ray->gfx, ray->x, y_max - j, color);
-				shade_multiplier -= 0.0035;
+				shade_multiplier -= 0.004;
 			}
 		j++;
 		texture_y -= i;
 	}
 }
-/*
-void	draw_texture2(t_ray *ray, int y, int y_max, t_wall wall, float distance, int scaled_y)			//FIX ME
+
+int		draw_goal_point(t_ray *ray, t_wall *wall, int win_y, float distance)
 {
-	float		texture_at_distance;
-	float		texture_y;
-	int			texture_x;
+	float	texture_at_distance;
 	float		i;
 	int			j;
-	uint32_t	color;
-	float		shade_multiplier = 5;
+	int			f;
+	int			texture_x;
+	float		texture_y;
 
-	texture_at_distance = BITS / distance * ray->gfx.proj_dist;
-	i = 64 / texture_at_distance;
+	texture_at_distance = 64 / distance * ray->gfx.proj_dist;		//replace 64 with sprite_height
+	i = 64 / texture_at_distance;			//63 == sprite_height - 1
 	j = 0;
-	texture_y = 63;
-	texture_x = get_texture_x(ray, wall);
-	while (scaled_y >= y_max)
+	f = ray->gfx.frame.bottle;
+	//win_y -= (int)texture_at_distance / 5;
+	texture_x = get_texture_x(ray, *wall);
+	if (texture_x > 16)
+		texture_x -= 16;
+	texture_y =  63;
+	while (texture_y >= 0 && win_y - j > 0 && j <= texture_at_distance)
 	{
-		scaled_y--;
-		texture_y -= i;
-		if (texture_y < 0)
-			texture_y = 63;
-	}
-	while (y_max - j > y && y_max - j > 0)
-	{
-		if (j > texture_at_distance || texture_y < 0)
+		if (ray->gfx.texture[14].frame[f].pixels[texture_x + ((int)texture_y * 16)] && win_y - j < ray->gfx.height && win_y - j < wall->prev_y)
 		{
-			y_max -= j;
-			j = 0;
-			texture_y = 63;
+			pixel_put(&ray->gfx, ray->x, win_y - j,
+				ray->gfx.texture[14].frame[f].pixels[texture_x + ((int)texture_y * 16)]);
+			wall->lock[win_y - j] = '1';
 		}
-		if (y_max - j >= 0 && y_max - j < ray->gfx.height)
-			if (wall.lock[y_max - j] == '0')
-			{
-				color = ray->gfx.texture[1].frame[0].pixels[texture_x + ((int)texture_y * 64)];	//"Clean" texture draw.
-				if (ray->gfx.texture[13].frame[0].pixels[texture_x + ((int)texture_y * 64)])
-					color = ray->gfx.texture[13].frame[0].pixels[texture_x + ((int)texture_y * 64)];
-				//color = fade_brightness(ray->gfx.texture[1].frame[0].pixels[texture_x + ((int)texture_y * 64)], (i / 5) + shade_multiplier);	//Draw shading tests.
-				pixel_put(&ray->gfx, ray->x, y_max - j, color);
-				shade_multiplier -= 0.0035;
-			}
 		j++;
 		texture_y -= i;
 	}
-}*/
+	return (win_y - j);
+}
 
 int		draw_sprite(t_ray *ray, t_wall *wall, int win_y, float distance)
 {
@@ -200,37 +187,9 @@ int		draw_sprite(t_ray *ray, t_wall *wall, int win_y, float distance)
 		}
 		j++;
 		texture_y -= i;
-
 	}
-	
-	/*int		x;
-	int		y;
-
-	wall->prev_y = wall->prev_y;
-	//ray->gfx->f = gfx->frame.ammo;
-	ray->gfx.y = 0;
-	y = (win_y * ray->gfx.scale);
-	x = ray->x;
-	while ((ray->gfx.y) < (64))
-	{
-		ray->gfx.x = 0;
-		while ((ray->gfx.x) < (38))
-		{
-			if (ray->gfx.texture[8].frame[0].pixels[ray->gfx.x + (ray->gfx.y * 38)])
-			{
-				if (pixel_put(&ray->gfx, x, y,
-						ray->gfx.texture[11].frame[0].pixels[ray->gfx.x + (ray->gfx.y * 38)]) == ERROR)
-					return (ERROR);
-			}
-			//x += ray->gfx.scale;
-			ray->gfx.x++;
-		}
-		y += ray->gfx.scale;
-		ray->gfx.y++;
-		x = ray->x;
-	}*/
 	return (win_y - j);
-}
+}	
 
 void	draw_floor(t_ray *ray, t_wall wall, int win_y)
 {
@@ -257,8 +216,8 @@ void	draw_floor(t_ray *ray, t_wall wall, int win_y)
 			ty *= -1;
 		if (win_y > 0)
 		{
-			color = ray->gfx.texture[0].frame[0].pixels[tx + (ty * 64)];	//"Clean" texture draw.
-			//color = fade_brightness(ray->gfx.texture[0].frame[0].pixels[tx + (ty * 64)], wall.distance / 100 * shade_multiplier);	//Draw shading tests.
+			//color = ray->gfx.texture[0].frame[0].pixels[tx + (ty * 64)];	//"Clean" texture draw.
+			color = fade_brightness(ray->gfx.texture[0].frame[0].pixels[tx + (ty * 64)], wall.distance / 100 * shade_multiplier);	//Draw shading tests.
 			if (win_y < ray->gfx.height && wall.lock[win_y] == '0')
 				pixel_put(&ray->gfx, ray->x, win_y, color);
 			shade_multiplier += 0.2;
@@ -370,9 +329,11 @@ void	draw_thread(t_ray *ray, float distance, t_wall *wall)
 		wall_layer = 3;
 	//	draw_texture2(ray, y, y_max, *wall, distance, scaled_y_max);
 	draw_texture(ray, y, y_max, *wall, distance, scaled_y_max, wall_layer);
-	if (ray->map.map[(int)roundf(wall->y / BITS)][(int)roundf(wall->x / BITS)][3] == 'I')
+	if (ray->map.map[(int)roundf(wall->y / BITS)][(int)roundf(wall->x / BITS)][3] == '$')
 		draw_sprite(ray, wall, y, distance);
-	if(height < ray->player.height && y < wall->prev_y && height != 0)
+	if (ray->map.map[(int)roundf(wall->y / BITS)][(int)roundf(wall->x / BITS)][3] == 'Z')
+		draw_goal_point(ray, wall, y, distance);
+	if (height < ray->player.height && y < wall->prev_y && height != 0)
 		wall->prev_y = draw_wall_top(ray, *wall, scaled_y_max, height, wall_height);
 	if (y < wall->prev_y)
 		wall->prev_y = y;

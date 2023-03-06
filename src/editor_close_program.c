@@ -3,20 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   editor_close_program.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tturto                                     +#+  +:+       +#+        */
+/*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: tturto                                   #+#    #+#             */
-/*   Updated: 2023/02/19 13:43:18 by aviholai         ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2023/02/28 18:17:06 by tturto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "drowning.h"
 
-void	close_program(t_gfx *gfx)
+void	close_program(t_gfx *gfx)	//send t_drown *data here instead of *gfx. (void)data. screen->NULL. free(map)
 {
-	//free map or map_temp
-	SDL_DestroyRenderer(gfx->renderer);
-	gfx->renderer = NULL;
 	SDL_DestroyWindow(gfx->window);
 	gfx->window = NULL;
 	(void)gfx;

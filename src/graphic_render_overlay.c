@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 11:08:33 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/27 16:43:34 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/03 16:15:37 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ static int	draw_right_arm(t_index *index, t_gfx *gfx, int s)
 		{
 			if (gfx->texture[5].frame[gfx->f].pixels[gfx->x + (gfx->y * 250)])
 				if (pixel_put(gfx, index->x, index->y,
-						gfx->texture[5].frame[gfx->f].pixels[gfx->x + (gfx->y * 250)]) == ERROR)
+						gfx->texture[5].frame[gfx->f].pixels
+						[gfx->x + (gfx->y * 250)]) == ERROR)
 					return (ERROR);
 			index->x += s;
 			gfx->x++;
@@ -38,8 +39,38 @@ static int	draw_right_arm(t_index *index, t_gfx *gfx, int s)
 	return (0);
 }
 
+static void	underwater_effect(t_drown *d, t_gfx *gfx, int scale, int i)
+{
+	uint32_t	*color;
+	int			toggle;
+
+	color = gfx->screen->pixels;
+	gfx->x = 0;
+	gfx->y = 0;
+	toggle = -TRUE;
+	i = d->system.time % 1000 / 500;
+	while (gfx->y < gfx->height)
+	{
+		while (gfx->x < gfx->width)
+		{
+			pixel_put(gfx, gfx->x, gfx->y,
+				color[(gfx->x + i * scale) + (gfx->y * gfx->width)]);
+			gfx->x += scale;
+		}
+		gfx->y += scale;
+		gfx->x = 0;
+		if ((toggle && !(gfx->y / 20 % 2)) || (!(toggle) && (gfx->y / 20) % 2))
+			i -= toggle;
+		if (i <= 0 || i >= 19)
+			toggle = -toggle;
+		if (i <= 0)
+			gfx->y += 20 * scale;
+	}
+}
+
 int	render_overlay(t_drown *d)
 {
+	underwater_effect(d, &d->gfx, d->gfx.scale, 0);
 	if (draw_right_arm(&d->index, &d->gfx, d->gfx.scale) == ERROR)
 		return (ERROR);
 	if (d->system.filters == TRUE)
