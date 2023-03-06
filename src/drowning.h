@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/06 16:54:16 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/06 16:58:55 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,11 @@ typedef struct s_system {
 	int				overlay_toggle;
 	int				filters;
 }	t_system;
+
+typedef struct s_vector {
+	int		x;
+	int		y;
+}	t_vector;
 
 typedef struct s_vectorf {
 	float	x;
