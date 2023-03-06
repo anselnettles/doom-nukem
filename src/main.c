@@ -6,7 +6,7 @@
 /*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 18:24:05 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/02 21:22:20 by tturto           ###   ########.fr       */
+/*   Updated: 2023/03/06 13:25:58 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ static int	initialize_menu(t_gfx *gfx, t_system *system, SDL_Event *event)
 	while (system->play_state == PLAY)
 	{
 		gfx_write(gfx, "PRESS 'Z' TO PLAY .. 'X' HARD MODE .. 'C' EDITOR");
-		// editor_pix_put(gfx, gfx->width / 2, gfx->height / 2, 0x00EEEEEE);
 		while (SDL_PollEvent(event))
 		{
 			if (event->type == SDL_QUIT)
@@ -62,7 +61,6 @@ static int	initialize_menu(t_gfx *gfx, t_system *system, SDL_Event *event)
 //	all the necessary variables for graphical rendering.
 static int	initialize_media(t_drown *d)
 {
-//	printf("hexvalue is: %d\n", d->gfx.animation.frames[0].pixels[]);
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS) > SDL_ERROR)
 	{
 		d->system.play_state = PLAY;
@@ -91,7 +89,6 @@ static int	initialize_media(t_drown *d)
 
 // Begin of program. Run the binary with no arguments to launch the software
 // and go into the process of initialization.
-
 int	main(void)
 {
 	t_drown	data;
@@ -102,10 +99,8 @@ int	main(void)
 	if (initialize_media(&data) == ERROR)
 		return (error(SDL_FAIL));
 	if (initialize_menu(&data.gfx, &data.system, &data.event) == RUN_EDITOR)
-	{
 		if (map_editor("maps/bluehole.dn", &data) == ERROR)
 			return (error(EDITOR_FAIL));
-	}
 	if (initialize_player(&data) == ERROR)
 		return (error(PLAYER_FAIL));
 	if (data.system.play_state == PLAY)
