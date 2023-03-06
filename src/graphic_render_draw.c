@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 10:03:55 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/03/06 16:05:04 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/06 16:25:47 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,12 +202,15 @@ void	draw_ceiling(t_ray *ray, t_wall wall, int win_y)
 int		draw_wall_top(t_ray *ray, t_wall wall, int win_y, int wall_height, int wall_screen_height)
 {
 	t_vector texture;
+	t_vector	start;
 	int tmp;
 	char	c;
 	float	dir;
 
 	c = ray->map.map[(int)roundf(wall.y / 64)][(int)roundf(wall.x / 64)][0];
 	tmp = win_y - wall_screen_height;
+	start.x = (int)(wall.x / 64.f);
+	start.y = (int)(wall.y / 64.f);
 	while (win_y - wall_screen_height > 0 && tmp > 0 && win_y - wall_screen_height < ray->gfx.height)
 	{
 		dir = atanf((float)(win_y - wall_screen_height - ray->height) / ray->gfx.proj_dist);
@@ -221,7 +224,7 @@ int		draw_wall_top(t_ray *ray, t_wall wall, int win_y, int wall_height, int wall
 			texture.x *= -1;
 		if (texture.y < 0)
 			texture.y *= -1;
-		if (wall.distance < 0 || wall.distance > 10000)
+		if (wall.distance < 0 || wall.distance > 10000)// || (int)wall.x / 64 != start.x || (int)wall.y / 64 != start.y)
 			break;
 		if ((int)roundf(wall.x / 64) < 28 && (int)roundf(wall.y / 64) < 20 && wall.y > 0 && wall.x > 0)
 		{
