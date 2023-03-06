@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 16:02:50 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/06 15:55:48 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/06 16:52:50 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	draw_timer_bubbles(t_index *index, t_gfx *gfx, int s, int bubbles)
 		while (gfx->y < BUBBLE_HEIGHT)
 		{
 			index->x = (gfx->width - ((TIMER_WIDTH + (MARGIN / 2)) * s)
-					+ (bubbles % 3 * 13 * s));
+					+ (bubbles % 3 * 12 * s));
 			gfx->x = 0;
 			while (gfx->x < BUBBLE_WIDTH)
 			{
