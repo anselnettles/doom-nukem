@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 12:34:59 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/03 22:30:51 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/06 12:29:24 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,17 @@ int	string_timeline(t_drown *d)
 			return (ERROR);
 	if (d->system.time > 23200 && d->system.time < 32800)
 		if (gfx_write(&d->gfx,
-					"IT'S DANGLING ABOVE! I NEED TO CATCH THE CHAIN!") == ERROR)
+				"IT'S DANGLING ABOVE! I NEED TO CATCH THE CHAIN!") == ERROR)
 			return (ERROR);
 	if (d->gfx.frame.bubble >= 13)
 		if (gfx_write(&d->gfx,
-					"GAME OVER.") == ERROR)
+				"GAME OVER.") == ERROR)
 			return (ERROR);
 	if (d->system.ending_state == REGULAR_ENDING)
 	{
 		SDL_FillRect(d->gfx.screen, NULL, 0);
 		if (gfx_write(&d->gfx, "CONGRATULATIONS! YOU ESCAPED!") == ERROR)
-				return (ERROR);
+			return (ERROR);
 	}
 	return (0);
 }
