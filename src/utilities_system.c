@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 17:50:06 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/03 19:21:27 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/06 12:36:02 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,6 @@ void		collect_airbottle(t_drown *d)
 	//play sound effect;
 	d->gfx.frame.right_arm = 3;
 	//overlay effect;
-}
-
-void	goal_point(t_drown *d)
-{
-	gfx_write(&d->gfx, "CONGRATULATIONS! YOU ESCAPED!");
 }
 
 void		scale_window(t_gfx *gfx)
@@ -58,7 +53,6 @@ static void	track_time(t_drown *d)
 			d->gfx.frame.bubble++;
 		}
 		d->system.frame_time = d->system.delta_time / 100.f;
-		//printf("frame_time = %f\n", d->system.frame_time);
 		animation_loop(d);
 }
 
@@ -131,8 +125,6 @@ void		sdl_loop(t_drown *d)
 	d->system.keyboard_state = SDL_GetKeyboardState(NULL);
 	while (d->system.play_state == PLAY)
 	{
-	//	d->map.map[4][15][3] = '$';
-	//	d->map.map[5][18][3] = 'Z';
 		/*crouch(d);
 		d->player.velocity.y -= GRAVITY;
 		d->player.height += d->player.velocity.y * d->system.frame_time;
