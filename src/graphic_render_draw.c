@@ -6,26 +6,11 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 10:03:55 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/03/06 15:56:49 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/06 16:05:04 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "drowning.h"
-
-int	get_texture_x2(t_ray *ray, t_wall wall)
-{
-	char	c;
-
-	return ((int) wall.x % BITS);
-	c = ray->map.map[(int)roundf(wall.y / BITS)][(int)roundf(wall.x / BITS)][0];
-	if (ray->map.map[(int)roundf(wall.y - 32) / BITS][(int)roundf(wall.x / BITS)][0] != c)
-		return (BITS - (int)wall.x % BITS);
-	if (ray->map.map[(int)roundf(wall.y / BITS)][(int)roundf(wall.x + 32) / BITS][0] != c)
-		return (BITS - (int)wall.y % BITS);
-	if (ray->map.map[(int)roundf(wall.y / BITS)][(int)roundf(wall.x - 32) / BITS][0] != c)
-		return ((int)wall.y % BITS);
-	return ((int)wall.x % BITS);
-}
 
 int		get_texture_x(t_ray *ray, t_wall wall)
 {
@@ -43,45 +28,6 @@ int		get_texture_x(t_ray *ray, t_wall wall)
 	}
 }
 
-/*
-int		get_texture_x(t_ray *ray, t_wall wall)
-{
-	char	c;
-
-	c = ray->map.map[(int)roundf(wall.y / BITS)][(int)roundf(wall.x / BITS)][0];
-	if (wall.dx < 0)
-	{
-		if (wall.dy > 0)
-		{
-			if (ray->map.map[(int)roundf(wall.y / BITS)][(int)roundf(wall.x - 64) / BITS][0] != c)
-				return ((int)wall.y % BITS);
-			return((int)wall.x % BITS);
-		}
-		if (wall.dy < 0)
-		{
-			if (ray->map.map[(int)roundf(wall.y / BITS)][(int)roundf(wall.x - 64) / BITS][0] != c)
-				return ((int)wall.y % BITS);
-			return(BITS - (int)wall.x % BITS);
-		}
-	}
-	if (wall.dx > 0)
-	{
-		if (wall.dy > 0)
-		{
-			if (ray->map.map[(int)roundf(wall.y / BITS)][(int)roundf(wall.x + 64) / BITS][0] != c)
-				return (BITS - (int)wall.y % BITS);
-			return((int)wall.x % BITS);
-		}
-		if (wall.dy < 0)
-		{
-			if (ray->map.map[(int)roundf(wall.y / BITS)][(int)roundf(wall.x + 64) / BITS][0] != c)
-				return (BITS - (int)wall.y % BITS);
-			return(BITS - (int)wall.x % BITS);
-		}
-	}
-	return(BITS - (int)wall.x % BITS);
-}
-*/
 void	draw_texture(t_ray *ray, int y, int y_max, t_wall wall, float distance, int scaled_y, int wall_layer)			//FIX ME
 {
 	float		texture_at_distance;
@@ -193,8 +139,7 @@ int		draw_sprite(t_ray *ray, t_wall *wall, int win_y, float distance)
 
 void	draw_floor(t_ray *ray, t_wall wall, int win_y)
 {
-	int			tx;
-	int			ty;
+	t_vector	texture;
 	float		dir;
 	uint32_t	color;
 	int			shade_multiplier = 3;
@@ -208,16 +153,16 @@ void	draw_floor(t_ray *ray, t_wall wall, int win_y)
 		wall.y = ray->player.y - wall.dy * wall.distance;
 		if (wall.distance < 0 || wall.distance > 10000)
 			break;
-		tx = (int)roundf(wall.y) % 64;
-		ty = (int)roundf(wall.x) % 64;
-		if (tx < 0)
-			tx *= -1;
-		if (ty < 0)
-			ty *= -1;
+		texture.x = (int)roundf(wall.y) % 64;
+		texture.y = (int)roundf(wall.x) % 64;
+		if (texture.x < 0)
+			texture.x *= -1;
+		if (texture.y < 0)
+			texture.y *= -1;
 		if (win_y > 0)
 		{
 			//color = ray->gfx.texture[0].frame[0].pixels[tx + (ty * 64)];	//"Clean" texture draw.
-			color = fade_brightness(ray->gfx.texture[0].frame[0].pixels[tx + (ty * 64)], wall.distance / 100 * shade_multiplier);	//Draw shading tests.
+			color = fade_brightness(ray->gfx.texture[0].frame[0].pixels[texture.x + (texture.y * 64)], wall.distance / 100 * shade_multiplier);	//Draw shading tests.
 			if (win_y < ray->gfx.height && wall.lock[win_y] == '0')
 				pixel_put(&ray->gfx, ray->x, win_y, color);
 			shade_multiplier += 0.2;
@@ -228,8 +173,7 @@ void	draw_floor(t_ray *ray, t_wall wall, int win_y)
 
 void	draw_ceiling(t_ray *ray, t_wall wall, int win_y)
 {
-	int		tx;
-	int		ty;
+	t_vector	texture;
 	float	player_height;
 	float	dir;
 
@@ -243,22 +187,21 @@ void	draw_ceiling(t_ray *ray, t_wall wall, int win_y)
 		wall.distance /= cosf(ray->player.dir - wall.dir);
 		wall.x = ray->player.x + wall.dx * wall.distance;
 		wall.y = ray->player.y + wall.dy * wall.distance;
-		tx = (int)roundf(wall.x) % 128;
-		ty = (int)roundf(wall.y) % 64;
-		if (tx < 0)
-			tx *= -1;
-		if (ty < 0)
-			ty *= -1;
+		texture.x = (int)roundf(wall.x) % 128;
+		texture.y = (int)roundf(wall.y) % 64;
+		if (texture.x < 0)
+			texture.x *= -1;
+		if (texture.y < 0)
+			texture.y *= -1;
 		if (win_y < ray->gfx.height && wall.lock[win_y] == '0')
-			pixel_put(&ray->gfx, ray->x, win_y, ray->gfx.texture[4].frame[0].pixels[tx + (ty * 128)]);
+			pixel_put(&ray->gfx, ray->x, win_y, ray->gfx.texture[4].frame[0].pixels[texture.x + (texture.y * 128)]);
 		win_y--;
 	}
 }
 
 int		draw_wall_top(t_ray *ray, t_wall wall, int win_y, int wall_height, int wall_screen_height)
 {
-	int tx;
-	int ty;
+	t_vector texture;
 	int tmp;
 	char	c;
 	float	dir;
@@ -272,12 +215,12 @@ int		draw_wall_top(t_ray *ray, t_wall wall, int win_y, int wall_height, int wall
 		wall.distance /= cosf(ray->player.dir - wall.dir);
 		wall.x = ray->player.x - wall.dx * wall.distance;
 		wall.y = ray->player.y - wall.dy * wall.distance;
-		tx = (int)roundf(wall.y) % 64;
-		ty = (int)roundf(wall.x) % 64;
-		if (tx < 0)
-			tx *= -1;
-		if (ty < 0)
-			ty *= -1;
+		texture.x = (int)roundf(wall.y) % 64;
+		texture.y = (int)roundf(wall.x) % 64;
+		if (texture.x < 0)
+			texture.x *= -1;
+		if (texture.y < 0)
+			texture.y *= -1;
 		if (wall.distance < 0 || wall.distance > 10000)
 			break;
 		if ((int)roundf(wall.x / 64) < 28 && (int)roundf(wall.y / 64) < 20 && wall.y > 0 && wall.x > 0)
@@ -285,7 +228,7 @@ int		draw_wall_top(t_ray *ray, t_wall wall, int win_y, int wall_height, int wall
 			if (ray->map.map[(int)roundf(wall.y / 64)][(int)roundf(wall.x /64)][0] == c && tmp > 0 && tmp < wall.prev_y)
 			{
 				if (wall.lock[tmp] == '0')
-					pixel_put(&ray->gfx, ray->x, tmp, ray->gfx.texture[1].frame[0].pixels[tx + (ty * 64)]);
+					pixel_put(&ray->gfx, ray->x, tmp, ray->gfx.texture[1].frame[0].pixels[texture.x + (texture.y * 64)]);
 				tmp--;
 			}
 		}
