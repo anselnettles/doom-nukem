@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 10:03:55 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/03/03 18:43:00 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/06 15:56:49 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	get_texture_x2(t_ray *ray, t_wall wall)
 
 int		get_texture_x(t_ray *ray, t_wall wall)
 {
-	if ((int)wall.x % BITS == 1 || (int)wall.x % BITS == 31 || (int)wall.x % BITS == 32)
+	if (wall.side == 0)
 	{
 		if (wall.dx < 0)
 			return(BITS - (int)wall.y % BITS);
@@ -37,7 +37,7 @@ int		get_texture_x(t_ray *ray, t_wall wall)
 	}
 	else
 	{
-		if (wall.dy < 0 && ray->map.map[(int)roundf(wall.y / BITS)][(int)roundf(wall.x / BITS)][2] != '.')
+		if (wall.dy < 0)// && ray->map.map[(int)roundf(wall.y / BITS)][(int)roundf(wall.x / BITS)][2] != '.')
 			return(BITS - (int)wall.x % BITS);
 		return((int)wall.x % BITS);
 	}
@@ -289,8 +289,8 @@ int		draw_wall_top(t_ray *ray, t_wall wall, int win_y, int wall_height, int wall
 				tmp--;
 			}
 		}
-		/*else
-			break;*/
+		else
+			break;
 		win_y--;
 	}
 	return(tmp);					
