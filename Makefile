@@ -6,7 +6,7 @@
 #    By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/16 17:04:55 by aviholai          #+#    #+#              #
-#    Updated: 2023/02/27 09:38:42 by aviholai         ###   ########.fr        #
+#    Updated: 2023/03/06 16:42:51 by aviholai         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,8 @@ NAME				=	doom-nukem
 
 CC					=	gcc
 FILES				=	\
+						animate_hud\
+						animate_right_arm\
 						controls_keyboard\
 						controls_mouse\
 						editor_choose_to_reset_map_or_exit\
@@ -45,7 +47,6 @@ FILES				=	\
 						editor_validate_outer_walls \
 						error_management \
 						graphic_render \
-						graphic_render_animations \
 						graphic_render_draw \
 						graphic_render_filters \
 						graphic_render_hud \
