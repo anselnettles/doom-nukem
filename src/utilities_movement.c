@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 14:16:37 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/06 22:10:44 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/07 13:04:25 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	delta_move_player(t_drown *data)
 	}
 	if (data->system.keyboard_state[SDL_SCANCODE_A]  && !data->system.keyboard_state[SDL_SCANCODE_D])
 	{
-//		dir = 0.f;
+		dir = 0.f;
 		dir -= 90.f * DEGREES;
 		if (data->system.keyboard_state[SDL_SCANCODE_W])
 		{
@@ -44,7 +44,7 @@ void	delta_move_player(t_drown *data)
 	}
 	if (data->system.keyboard_state[SDL_SCANCODE_D]  && !data->system.keyboard_state[SDL_SCANCODE_A])
 	{
-//		dir = 0.f;
+		dir = 0.f;
 		dir += 90.f * DEGREES;
 		if (data->system.keyboard_state[SDL_SCANCODE_W])
 			dir -= 45 * DEGREES;
