@@ -27,6 +27,7 @@
 //	Texture 'M', 12		Monster.		Placeholder.
 //	Texture 'N', 13		Algae texture.	Frames: 0 to 3.		Size: 64 x 64
 //	Texture 'O', 14:	Rope chain.		Frames: 0 to 2.		Size: 16 x 64
+//	Texture 'P', 15:	Transition.		Frames: 0 to 2.		Size: 642 x 48
 static void	memory_allocate_textures_fourth_batch(t_gfx *gfx)
 {
 	gfx->texture[11].frame[0].pixels
@@ -49,6 +50,12 @@ static void	memory_allocate_textures_fourth_batch(t_gfx *gfx)
 		= (uint32_t *)malloc(sizeof(uint32_t) * (16 * 64));
 	gfx->texture[14].frame[2].pixels
 		= (uint32_t *)malloc(sizeof(uint32_t) * (16 * 64));
+	gfx->texture[15].frame[0].pixels
+		= (uint32_t *)malloc(sizeof(uint32_t) * (642 * 48));
+	gfx->texture[15].frame[1].pixels
+		= (uint32_t *)malloc(sizeof(uint32_t) * (642 * 48));
+	gfx->texture[15].frame[2].pixels
+		= (uint32_t *)malloc(sizeof(uint32_t) * (642 * 48));
 }
 
 static void	memory_allocate_textures_third_batch(t_gfx *gfx)
@@ -114,6 +121,10 @@ static int	confirm_memory_allocation_second_batch(t_gfx *gfx, int t, int f)
 		f = 0;
 		while (f < 3)
 			if (gfx->texture[14].frame[f++].pixels == NULL)
+				return (ERROR);
+		f = 0;
+		while (f < 3)
+			if (gfx->texture[15].frame[f++].pixels == NULL)
 				return (ERROR);
 	return (0);
 }
