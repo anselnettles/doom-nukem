@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/07 16:31:32 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/07 17:28:50 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ typedef struct s_system {
 typedef struct s_audio {
 	Mix_Music	*main_menu;
 	Mix_Music	*bluehole;
-	//Mix_Chunk	*sound;
+	Mix_Chunk	*timer_hit;
 }	t_audio;
 
 typedef struct s_vector {
