@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 10:03:55 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/03/07 14:38:57 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/07 19:15:24 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	draw_texture(t_ray *ray, int y, int y_max, t_wall wall, float distance, int
 				color = ray->gfx.texture[1].frame[0].pixels[texture_x + ((int)texture_y * 64)];	//"Clean" texture draw.
 				if (wall_layer && ray->gfx.texture[13].frame[(wall_layer - 1) + ray->gfx.frame.algae].pixels[texture_x + ((int)texture_y * 64)])
 					color = ray->gfx.texture[13].frame[(wall_layer - 1) + ray->gfx.frame.algae].pixels[texture_x + ((int)texture_y * 64)];
-				color = fade_brightness(color, (int)((distance / 500) + (i / 4)) + shade_multiplier);	//Draw shading tests.
+				color = fade_brightness(&ray->gfx, color, (int)((distance / 500) + (i / 4)) + shade_multiplier);	//Draw shading tests.
 				pixel_put(&ray->gfx, ray->x, y_max - j, color);
 				shade_multiplier -= 0.004;
 			}
@@ -162,7 +162,7 @@ void	draw_floor(t_ray *ray, t_wall wall, int win_y)
 		if (win_y > 0)
 		{
 			color = ray->gfx.texture[0].frame[0].pixels[texture.x + (texture.y * 64)];	//"Clean" texture draw.
-			color = fade_brightness(ray->gfx.texture[0].frame[0].pixels[texture.x + (texture.y * 64)], wall.distance / 100 * shade_multiplier);	//Draw shading tests.
+			color = fade_brightness(&ray->gfx, ray->gfx.texture[0].frame[0].pixels[texture.x + (texture.y * 64)], wall.distance / 100 * shade_multiplier);	//Draw shading tests.
 			if (win_y < ray->gfx.height && wall.lock[win_y] == '0')
 				pixel_put(&ray->gfx, ray->x, win_y, color);
 			shade_multiplier += 0.2;
