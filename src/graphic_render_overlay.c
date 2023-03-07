@@ -68,6 +68,39 @@ static void	underwater_effect(t_drown *d, t_gfx *gfx, int scale, int i)
 	}
 }
 
+static int	draw_transition(t_index *index, t_gfx *gfx, int s, int f)
+{
+	gfx->y = 0;
+	index->y = 0;
+	while ((gfx->y) < (TRANSITION_HEIGHT))
+	{
+		index->x = 0;
+		gfx->x = 0;
+		while ((gfx->x) < (TRANSITION_WIDTH))
+		{
+			if (gfx->texture[TRANSITION].frame[f].pixels
+				[gfx->x + (gfx->y * TRANSITION_WIDTH)] && gfx->texture[TRANSITION].frame[f].pixels
+				[gfx->x + (gfx->y * TRANSITION_WIDTH)] != 65535)
+				pixel_put(gfx, index->x, index->y,
+						gfx->texture[TRANSITION].frame[f].pixels
+						[gfx->x + (gfx->y * TRANSITION_WIDTH)]);
+			else if (gfx->texture[TRANSITION].frame[f].pixels
+					[gfx->x + (gfx->y * TRANSITION_WIDTH)] == 65535)
+				pixel_put(gfx, index->x, index->y, 0x000000);
+			index->x += s;
+			gfx->x++;
+		}
+		index->y += s;
+		gfx->y++;
+	}
+
+//	if (finished)
+//	{
+//		return (EXIT);
+//	}
+	return (FALSE);
+}
+
 int	render_overlay(t_drown *d)
 {
 	underwater_effect(d, &d->gfx, d->gfx.scale, 0);
@@ -81,6 +114,9 @@ int	render_overlay(t_drown *d)
 		return (ERROR);
 	if (string_timeline(d) == ERROR)
 		return (ERROR);
+	if (d->system.transition == TRUE)
+		if (draw_transition(&d->index, &d->gfx, d->gfx.scale, d->gfx.frame.transition) == EXIT)
+			d->system.transition == FALSE;
 	if (d->system.filters == TRUE)
 		draw_scanlines(&d->gfx);
 	return (0);
