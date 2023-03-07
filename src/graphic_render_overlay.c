@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 11:08:33 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/07 12:21:46 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/07 12:48:46 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,9 @@ static int	draw_transition(t_index *index, t_gfx *gfx, int s, int f)
 
 	gfx->y = 0;
 	if (limit > 0)
-		limit -= (s * 8);
-	else if (limit <= 0 && gfx->y > 0)
-		gfx->y -= (s * 8);
+		limit -= (s * 12);
+	else if (limit <= 0)
+		gfx->y += (s * 12);
 
 	while ((gfx->y) < (TRANSITION_HEIGHT))
 	{
@@ -104,18 +104,15 @@ static int	draw_transition(t_index *index, t_gfx *gfx, int s, int f)
 						[gfx->x + (gfx->y * TRANSITION_WIDTH)]);
 			else if (gfx->texture[TRANSITION].frame[f].pixels
 					[gfx->x + (gfx->y * TRANSITION_WIDTH)] == 65535)
-				pixel_put(gfx, index->x, index->y, 0x000000);
+				pixel_put(gfx, index->x, index->y, 0);
 			index->x += s;
 			gfx->x++;
 		}
 		index->y += s;
 		gfx->y++;
 	}
-
-//	if (finished)
-//	{
-//		return (EXIT);
-//	}
+	if (limit <= 0 && gfx->y <= TRANSITION_HEIGHT)
+		return (EXIT);
 	return (TRUE);
 }
 
