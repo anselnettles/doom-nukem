@@ -456,7 +456,7 @@ int			error(int code);
 void		fill_gaps(char *line);
 void		*ft_raycast_thread(void  *args);
 int			gfx_write(t_gfx *gfx, char *str);
-uint32_t	fade_brightness(t_gfx *gfx, uint32_t color, int multiplier);
+uint32_t	fade_brightness(uint32_t color, int multiplier);
 void		img1_and_img2(t_drown *data); //rename
 int			img1_img2_is_mouse_in_grid(t_drown *data);
 int			img3_is_mouse_in_grid(t_drown *data);
