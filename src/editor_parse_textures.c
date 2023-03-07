@@ -91,6 +91,7 @@ static int	parse_textures(char identity, t_index *i, t_gfx *gfx, char *buf)
 //	Texture 'M', 12:	Monster.		Placeholder.
 //	Texture 'N', 13:	Algae texture.	Frames: 0 to 3.		Size: 64 x 64
 //	Texture 'O', 14:	Rope chain.		Frames: 0 to 2.		Size: 16 x 64
+//	Texture 'P', 15:	Transition.		Frames: 0 to 2.		Size: 642 x 48
 int	texture_allocation(char *buf, t_index *i, t_gfx *gfx)
 {
 	char	identity;
@@ -98,7 +99,7 @@ int	texture_allocation(char *buf, t_index *i, t_gfx *gfx)
 	if (memory_allocate_textures(gfx, 0) == ERROR)
 		return (error(MALLOC_FAIL));
 	identity = 'A';
-	while (identity <= 'O' )
+	while (identity <= 'P' )
 	{
 		if (parse_textures(identity, i, gfx, buf) == ERROR)
 			return (error(PARSE_FAIL));
