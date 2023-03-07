@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/07 14:46:22 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/07 15:51:01 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -487,6 +487,7 @@ float    	algo_dda(t_ray *ray, t_wall *wall, t_dda *dda);
 void		flow_adjustment(t_drown *d);
 void		overworld_sprite_loop(t_drown *d);
 void		hud_animation_loop(t_drown *d);
+void		init_thread(t_ray *ray, t_drown *data, int i);
 
 //dont remove before final build. it is used to test if map values are changed correctly
 void    	testing_print_map(t_drown *data, t_editor_images *images);
