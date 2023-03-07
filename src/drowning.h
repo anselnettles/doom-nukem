@@ -6,7 +6,11 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/03/06 17:12:33 by tpaaso           ###   ########.fr       */
+=======
+/*   Updated: 2023/03/07 14:21:56 by aviholai         ###   ########.fr       */
+>>>>>>> main
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +48,7 @@
 # define NEW_LINE 2					//Reference to file parser return value.
 # define SDL_ERROR -1				//Reference to SDL function's return.
 # define PI 3.1415927				//Topi's build.
-# define SPEED 10					//Topi's build.
+# define SPEED 1					//Topi's build.
 # define BITS 64					//Topi's build.
 # define MMWIDTH 210				//Topi's build.
 # define MMHEIGHT 100				//Topi's build.
@@ -53,8 +57,8 @@
 # define THREADRAY 142				//Topi's build.
 # define EXIT 0						//Topi's build.
 # define PLAY 1						//Topi's build.
-# define RUN_EDITOR 2
-# define GRAVITY 10.f
+# define RUN_EDITOR 2				//Reference for main function level editor.
+# define GRAVITY 6.f
 # define DEGREES 0.0174532
 # define BAD_ENDING 1				//Player dies.
 # define REGULAR_ENDING 2			//Player escapes.
@@ -68,61 +72,45 @@
 # define T_LGRAY "\033[0;37m"			//A light gray terminal type color.
 
 //	SPRITE DIMENSIONS DEFINITIONS
-# define FLOOR 0
-# define WALL_TEXTURE 1
-# define PILLAR_TEXTURE 2
-# define CRATE 3
-# define TEXTURE_HEIGHT 64
-# define TEXTURE_WIDTH 64
-# define SKYBOX 4
-# define SKYBOX_HEIGHT 480
-# define SKYBOX_WIDTH 720
-# define RIGHT_ARM 5
-# define RIGHT_ARM_HEIGHT 250
-# define RIGHT_ARM_WIDTH 238
-# define LETTERS 6
-# define LETTERS_HEIGHT 20
-# define LETTERS_WIDTH 728
+# define FLOOR 0						//Floor texture. AKA. texture 'A'.
+# define WALL_TEXTURE 1					//Wall texture. AKA. texture 'B'.
+# define PILLAR_TEXTURE 2				//Pillar texture. AKA. texture 'C'.
+# define CRATE 3						//Crate texture. AKA. texture 'D'.
+# define TEXTURE_HEIGHT 64				//Standard texture height.
+# define TEXTURE_WIDTH 64				//Standard texture width.
+# define SKYBOX 4						//Skybox texture. AKA. texture 'E'.
+# define SKYBOX_HEIGHT 480				//Skybox texture height.
+# define SKYBOX_WIDTH 720				//Skybox texture width.
+# define RIGHT_ARM 5					//Overlay right arm sprite. AKA. 'F'.
+# define RIGHT_ARM_HEIGHT 250			//Right arm sprite height.
+# define RIGHT_ARM_WIDTH 238			//Right arm sprite width.
+# define LETTERS 6						//Overlay text script sprite. AKA. 'G'.
+# define LETTERS_HEIGHT 20				//Text script sprite height.
+# define LETTERS_WIDTH 728				//Text script sprite width.
 # define LETTER_WIDTH 8					//Width of a single letter in sprite.
-# define HARPOON 7
-# define BOTTLE 8
-# define BOTTLE_WIDTH 38
-# define TIMER 9
-# define TIMER_HEIGHT 90
-# define TIMER_WIDTH 60
-# define BUBBLE 10
-# define BUBBLE_HEIGHT 12
-# define BUBBLE_WIDTH 12
-# define AMMO 11
-# define AMMO_HEIGHT 45
-# define AMMO_WIDTH 32
-# define MONSTER 12
-# define MONSTER_HEIGHT 128
-# define MONSTER_WIDTH 128
-# define ALGAE 13
-# define CHAIN 14
-# define CHAIN_WIDTH 12
+# define HARPOON 7						//Collectible harpoon sprite. AKA. 'H'.
+# define BOTTLE 8						//Collectible bottle sprite. AKA. 'I'.
+# define BOTTLE_WIDTH 38				//Bottle sprite width.
+# define TIMER 9						//HUD timer background sprite. AKA. 'J'.
+# define TIMER_HEIGHT 90				//HUD timer background sprite height.
+# define TIMER_WIDTH 60					//HUD timer background sprite width.
+# define BUBBLE 10						//HUD timer bubble sprite. AKA. 'K'.
+# define BUBBLE_HEIGHT 12				//HUD timer bubble sprite height.
+# define BUBBLE_WIDTH 12				//HUD timer bubble sprite width.
+# define AMMO 11						//HUD ammo sprite. AKA. texture 'L'.
+# define AMMO_HEIGHT 45					//HUD ammo sprite height.
+# define AMMO_WIDTH 32					//HUD ammo sprite width.
+# define MONSTER 12						//Monster sprites set. AKA. texture 'M'.
+# define MONSTER_HEIGHT 128				//Monster sprites height.
+# define MONSTER_WIDTH 128				//Monster spright width.
+# define ALGAE 13						//Algae texture layer. AKA. texture 'N'.
+# define CHAIN 14						//Goal point sprite. AKA. texture 'O'.
+# define CHAIN_WIDTH 12					//Goal point sprite width.
+# define TRANSITION 15					//Transition texture. AKA. texture 'P'.
+# define TRANSITION_HEIGHT 48			//Transition texture height.
+# define TRANSITION_WIDTH 642			//Transition texture width.
 
-//	Texture 'A', 0:		Floor texture.	Frames: 0.			Size: 64 x 64
-//	Texture 'B', 1:		Wall texture.	Frames: 0.			Size: 64 x 64
-//	Texture 'C', 2:		Pillar.			Frames: 0.			Size: 64 x 64
-//	Texture 'D', 3:		Crate texture.	Frames: 0.			Size: 64 x 64
-//	Texture 'E', 4:		Sky texture.	Frames: 0.			Size: 720 x 240
-//	Texture 'F', 5:		Right arm.		Frames: 0 to 4.		Size: 250 x 238
-//	Texture 'G', 6:		Letters.		Frames: 0.			Size: 728 x 20
-//	Texture 'H', 7:		Harpoon.		Frames: 0 to 6.		Size: 64 x 64
-//	Texture 'I', 8:		Bottle.			Frames: 0 to 3.		Size: 38 x 64
-//	Texture 'J', 9:		Timer.			Frames: 0 to 9.		Size: 60 x 90
-//	Texture 'K', 10:	Bubble.			Frames: 0.			Size: 12 x 12
-//	Texture 'L', 11:	Ammo.			Frames:	0 to 1.		Size: 32 x 45
-//	Texture 'M', 12		Monster.		Placeholder.
-//	Texture 'N', 13		Algae texture.	Frames: 0 to 3.		Size: 64 x 64
-//	Texture 'O', 14:	Rope chain.		Frames: 0 to 2.		Size: 16 x 64
-
-//Map Editor definitions
-// # define BUF_SIZE 6000000	/*remove*/
-# define SCREEN_W 1280
-# define SCREEN_H 800
+//	MAP EDITOR DEFINITIONS
 # define IMG1_CATHETUS 12
 # define IMG2_CATHETUS 80
 # define IMG3_CATHETUS 70
@@ -147,6 +135,7 @@ typedef struct s_system {
 	uint32_t		five_second;
 	int				overlay_toggle;
 	int				filters;
+	int				transition;
 }	t_system;
 
 typedef struct s_vector {
@@ -158,6 +147,7 @@ typedef struct s_vectorf {
 	float	x;
 	float	y;
 }	t_vectorf;
+
 
 typedef struct s_dda {
 	t_vectorf	delta_dist;
@@ -307,6 +297,7 @@ typedef struct s_animation {
 	uint32_t	ammo;
 	uint32_t	bottle;
 	uint32_t	algae;
+	uint32_t	transition;
 }	t_frame;
 
 typedef struct s_image {
@@ -335,13 +326,16 @@ typedef struct s_graphics {
 	int				y;
 	int				centre;
 	uint32_t		color;
+	uint32_t		red;
+	uint32_t		green;
+	uint32_t		blue;
 	int				scale;
 	float			shake_x;
 	float			shake_y;
 	int				shake_xtoggle;
 	int				shake_ytoggle;
 	int				flow_y_adjust;
-	t_texture		texture[15];
+	t_texture		texture[16];
 	t_frame			frame;
 	SDL_Event		event;
 }	t_gfx;
@@ -470,6 +464,7 @@ int			render_hud(t_index *index, t_gfx *gfx, int scale);
 int			render_overlay(t_drown *d);
 int			render(t_drown *d);
 void		render_thread(t_drown *data);
+void		right_arm_loop(t_drown *d);
 void		rotate_player(int key, t_player *player);
 void		scale_window(t_gfx *gfx);
 void		sdl_loop(t_drown *drown);
@@ -492,7 +487,10 @@ int			ft_diagonal_3(t_wall *wall, t_ray *ray);
 int			ft_diagonal_4(t_wall *wall, t_ray *ray);
 void		crouch(t_drown *data);
 void		init_dda(t_ray *ray, t_wall *wall, t_dda *dda);
-float    algo_dda(t_ray *ray, t_wall *wall, t_dda *dda);
+float    	algo_dda(t_ray *ray, t_wall *wall, t_dda *dda);
+void		flow_adjustment(t_drown *d);
+void		overworld_sprite_loop(t_drown *d);
+void		hud_animation_loop(t_drown *d);
 
 //dont remove before final build. it is used to test if map values are changed correctly
 void    	testing_print_map(t_drown *data, t_editor_images *images);

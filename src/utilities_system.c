@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 17:50:06 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/06 12:36:02 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/06 16:38:08 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,15 @@ void		scale_window(t_gfx *gfx)
 	SDL_SetWindowSize(gfx->window, gfx->width, gfx->height);
 	gfx->screen = SDL_GetWindowSurface(gfx->window);
 	gfx->centre = ((gfx->width / 2) / tan(30 * DEGREES));
+}
+
+int	animation_loop(t_drown *d)
+{
+	right_arm_loop(d);
+	hud_animation_loop(d);
+	overworld_sprite_loop(d);
+	flow_adjustment(d);
+	return (0);
 }
 
 static void	track_time(t_drown *d)

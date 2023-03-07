@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 11:08:33 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/03 16:15:37 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/07 12:48:46 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,54 @@ static void	underwater_effect(t_drown *d, t_gfx *gfx, int scale, int i)
 	}
 }
 
+static int	draw_transition(t_index *index, t_gfx *gfx, int s, int f)
+{
+	static int	limit = HEIGHT;
+	
+	index->y = 0;
+	while (index->y < (limit * s))
+	{
+		index->x = 0;
+		while (index->x < gfx->width)
+		{
+			pixel_put(gfx, index->x, index->y, 0);
+			index->x += s;
+		}
+		index->y += s;
+	}
+
+	gfx->y = 0;
+	if (limit > 0)
+		limit -= (s * 12);
+	else if (limit <= 0)
+		gfx->y += (s * 12);
+
+	while ((gfx->y) < (TRANSITION_HEIGHT))
+	{
+		index->x = 0;
+		gfx->x = 0;
+		while ((gfx->x) < (TRANSITION_WIDTH))
+		{
+			if (gfx->texture[TRANSITION].frame[f].pixels
+				[gfx->x + (gfx->y * TRANSITION_WIDTH)] && gfx->texture[TRANSITION].frame[f].pixels
+				[gfx->x + (gfx->y * TRANSITION_WIDTH)] != 65535)
+				pixel_put(gfx, index->x, index->y,
+						gfx->texture[TRANSITION].frame[f].pixels
+						[gfx->x + (gfx->y * TRANSITION_WIDTH)]);
+			else if (gfx->texture[TRANSITION].frame[f].pixels
+					[gfx->x + (gfx->y * TRANSITION_WIDTH)] == 65535)
+				pixel_put(gfx, index->x, index->y, 0);
+			index->x += s;
+			gfx->x++;
+		}
+		index->y += s;
+		gfx->y++;
+	}
+	if (limit <= 0 && gfx->y <= TRANSITION_HEIGHT)
+		return (EXIT);
+	return (TRUE);
+}
+
 int	render_overlay(t_drown *d)
 {
 	underwater_effect(d, &d->gfx, d->gfx.scale, 0);
@@ -81,6 +129,9 @@ int	render_overlay(t_drown *d)
 		return (ERROR);
 	if (string_timeline(d) == ERROR)
 		return (ERROR);
+	if (d->system.transition == TRUE)
+		if (draw_transition(&d->index, &d->gfx, d->gfx.scale, d->gfx.frame.transition) == EXIT)
+			d->system.transition = FALSE;
 	if (d->system.filters == TRUE)
 		draw_scanlines(&d->gfx);
 	return (0);
