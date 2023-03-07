@@ -71,6 +71,7 @@ static int	initialize_media(t_drown *d)
 		d->gfx.centre = (d->gfx.height / 2);
 		d->system.overlay_toggle = TRUE;
 		d->system.filters = TRUE;
+		d->system.transition = TRUE;
 		d->system.keyboard_state = SDL_GetKeyboardState(NULL);
 		d->gfx.window = SDL_CreateWindow(TITLE, SDL_WINDOWPOS_UNDEFINED,
 				SDL_WINDOWPOS_UNDEFINED, d->gfx.width, d->gfx.height, SDL_WINDOW_SHOWN);

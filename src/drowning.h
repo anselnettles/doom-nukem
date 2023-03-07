@@ -102,6 +102,9 @@
 # define ALGAE 13						//Algae texture layer. AKA. texture 'N'.
 # define CHAIN 14						//Goal point sprite. AKA. texture 'O'.
 # define CHAIN_WIDTH 12					//Goal point sprite width.
+# define TRANSITION 15					//Transition texture. AKA. texture 'P'.
+# define TRANSITION_HEIGHT 48			//Transition texture height.
+# define TRANSITION_WIDTH 642			//Transition texture width.
 
 //	MAP EDITOR DEFINITIONS
 # define IMG1_CATHETUS 12
@@ -128,6 +131,7 @@ typedef struct s_system {
 	uint32_t		five_second;
 	int				overlay_toggle;
 	int				filters;
+	int				transition;
 }	t_system;
 
 typedef struct s_vector {
@@ -289,6 +293,7 @@ typedef struct s_animation {
 	uint32_t	ammo;
 	uint32_t	bottle;
 	uint32_t	algae;
+	uint32_t	transition;
 }	t_frame;
 
 typedef struct s_image {
@@ -323,7 +328,7 @@ typedef struct s_graphics {
 	int				shake_xtoggle;
 	int				shake_ytoggle;
 	int				flow_y_adjust;
-	t_texture		texture[15];
+	t_texture		texture[16];
 	t_frame			frame;
 	SDL_Event		event;
 }	t_gfx;
@@ -479,7 +484,6 @@ void   		algo_dda(t_ray *ray, t_wall *wall, t_dda *dda);
 void		flow_adjustment(t_drown *d);
 void		overworld_sprite_loop(t_drown *d);
 void		hud_animation_loop(t_drown *d);
-
 
 //dont remove before final build. it is used to test if map values are changed correctly
 void    	testing_print_map(t_drown *data, t_editor_images *images);
