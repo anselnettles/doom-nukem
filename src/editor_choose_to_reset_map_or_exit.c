@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/03/02 20:35:46 by tturto           ###   ########.fr       */
+/*   Created: 2023/03/03 16:14:40 by tturto            #+#    #+#             */
+/*   Updated: 2023/03/03 16:14:56 by tturto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	choose_to_reset_map_or_exit(t_drown *data)
 	}
 	if (data->gfx.event.type == SDL_KEYDOWN)
 	{
-		// testing_print_map(data, &data->editor.images);
 		if (data->gfx.event.key.keysym.sym == SDLK_ESCAPE)
 			close_program(&data->gfx);
 	}

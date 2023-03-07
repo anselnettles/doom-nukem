@@ -6,7 +6,7 @@
 /*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 18:24:05 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/07 17:28:35 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/07 20:08:19 by tturto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	initialize_menu(t_gfx *gfx, t_system *system, SDL_Event *event)
 {
 	while (system->play_state == PLAY)
 	{
-		gfx_write(gfx, "PRESS 'Z' TO PLAY .. 'X' HARD MODE .. 'C' EDITOR");
+		editor_test_write(gfx, "PRESS 'Z' TO PLAY .. 'X' HARD MODE .. 'C' EDITOR", gfx->width / 6, ((gfx->height / 4) * 3));
 		while (SDL_PollEvent(event))
 		{
 			if (event->type == SDL_QUIT)
