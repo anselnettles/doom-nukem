@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 17:40:31 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/01 23:37:04 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/07 19:13:13 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ void	draw_color_filter(t_gfx *gfx, uint32_t *pix, uint32_t color)
 			gfx->red /= 1.5;
 			gfx->green /= 1.6;
 			gfx->blue /= 1.05;
-			color = ((gfx->red&0xFF) << 16)
-				| ((gfx->green&0xff) << 8) | (gfx->blue&0xFF);
+			color = ((gfx->red & 0xFF) << 16)
+				| ((gfx->green & 0xff) << 8) | (gfx->blue & 0xFF);
 			pix[gfx->x + (gfx->y * gfx->width)] = color;
 			gfx->x++;
 		}
@@ -40,29 +40,26 @@ void	draw_color_filter(t_gfx *gfx, uint32_t *pix, uint32_t color)
 	}
 }
 
-uint32_t	fade_brightness(uint32_t color, int multiplier)
+uint32_t	fade_brightness(t_gfx *gfx, uint32_t color, int multiplier)
 {
-	uint32_t	red;
-	uint32_t	green;
-	uint32_t	blue;
 	float		redf;
 	float		greenf;
 	float		bluef;
 
-	red = color >> 16;
-	green = color >> 8;
-	green = green << 24;
-	green = green >> 24;
-	blue = color << 24;
-	blue = blue >> 24;
-	redf = red;
+	gfx->red = color >> 16;
+	gfx->green = color >> 8;
+	gfx->green = gfx->green << 24;
+	gfx->green = gfx->green >> 24;
+	gfx->blue = color << 24;
+	gfx->blue = gfx->blue >> 24;
+	redf = gfx->red;
 	redf /= (float)(multiplier);
-	greenf = green;
+	greenf = gfx->green;
 	greenf /= (float)(multiplier);
-	bluef = blue;
+	bluef = gfx->blue;
 	bluef /= (float)(multiplier);
-	color = (((uint32_t)redf&0xFF) << 16)
-		| (((uint32_t)greenf&0xff) << 8) | ((uint32_t)bluef&0xFF);
+	gfx->color = (((uint32_t)redf & 0xFF) << 16)
+		| (((uint32_t)greenf & 0xff) << 8) | ((uint32_t)bluef & 0xFF);
 	return (color);
 }
 
@@ -85,8 +82,8 @@ void	draw_scanlines(t_gfx *gfx, uint32_t *pix, uint32_t color)
 			gfx->red /= 1.5;
 			gfx->green /= 1.5;
 			gfx->blue /= 1.4;
-			color = ((gfx->red&0xFF) << 16)
-				| ((gfx->green&0xff) << 8) | (gfx->blue&0xFF);
+			color = ((gfx->red & 0xFF) << 16)
+				| ((gfx->green & 0xff) << 8) | (gfx->blue & 0xFF);
 			pix[gfx->x + (gfx->y * gfx->width)] = color;
 			gfx->x++;
 		}
