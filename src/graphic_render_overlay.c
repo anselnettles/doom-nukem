@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 11:08:33 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/03 16:15:37 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/07 12:21:46 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,6 @@ static int	draw_transition(t_index *index, t_gfx *gfx, int s, int f)
 	else if (limit <= 0 && gfx->y > 0)
 		gfx->y -= (s * 8);
 
-
-
 	while ((gfx->y) < (TRANSITION_HEIGHT))
 	{
 		index->x = 0;
@@ -118,7 +116,7 @@ static int	draw_transition(t_index *index, t_gfx *gfx, int s, int f)
 //	{
 //		return (EXIT);
 //	}
-	return (FALSE);
+	return (TRUE);
 }
 
 int	render_overlay(t_drown *d)
@@ -136,7 +134,7 @@ int	render_overlay(t_drown *d)
 		return (ERROR);
 	if (d->system.transition == TRUE)
 		if (draw_transition(&d->index, &d->gfx, d->gfx.scale, d->gfx.frame.transition) == EXIT)
-			d->system.transition == FALSE;
+			d->system.transition = FALSE;
 	if (d->system.filters == TRUE)
 		draw_scanlines(&d->gfx);
 	return (0);
