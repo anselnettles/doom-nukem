@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   drowning.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/07 19:13:51 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/07 20:26:10 by tturto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@
 # define BAD_ENDING 1				//Player dies.
 # define REGULAR_ENDING 2			//Player escapes.
 # define GOOD_ENDING 3				//Player escapes and defeats the monster.
+# define LETTER_WIDTH 8				//Width of a letter in sprite.
+# define LETTER_HEIGHT 20			//Height of a letter in sprite.
 
 //	TERMINAL OUTPUT COLOR DEFINITIONS
 # define T_NUL "\033[0m"				//Default terminal type color.
@@ -160,6 +162,12 @@ typedef struct s_dda {
 	int			side;
 }	t_dda;
 
+typedef struct s_utilities
+{
+	short int	quit;
+	short int	acceptable;
+}	t_utilities; //rules
+
 typedef struct s_editor_images
 {
     unsigned short int  img1_x_min;
@@ -213,8 +221,6 @@ typedef struct  s_character
     char    param3_choice3;
     char    param3_choice4;
     char    param3_choice5;
-    char    param3_choice6;
-    char    param3_choice7;
     //param4: secret
     char    param4_choice0;
     char    param4_choice1;
@@ -244,6 +250,7 @@ typedef struct s_editor
     t_character     chars;
 	t_xy_start_end	interval;
 	t_mouse			mouse;
+	t_utilities		rules;
 }	t_editor;
 
 //	Index-wise variables used for counts. Index 'i' is used for the level
@@ -427,6 +434,7 @@ void		choose_to_reset_map_or_exit(t_drown *data);
 void    	clear_surface(t_drown *data);
 void		close_program(t_gfx *gfx);
 void		collect_airbottle(t_drown *d);
+uint32_t	colouring_img2_img3(t_map *map, int row_now, int col_now, int image_switch);
 char		*copy_line(char *line, t_map *data);
 void		deal_key(int key, t_drown *data);
 void		deal_mouse(t_drown *data);
@@ -459,6 +467,7 @@ int			is_element_bloated(t_map *map, t_editor_images *images);
 int			map_editor(char *map_file, t_drown *data);
 void		map_len(char *file, t_map *data);
 int			memory_allocate_textures(t_gfx *gfx, int f);
+void		memory_allocate_textures_second_batch(t_gfx *gfx);
 void		move_forward_back(t_drown *data);
 void		move_strafe(t_drown *data);
 void		param_to_modify(t_map *map);
@@ -479,9 +488,11 @@ int			string_timeline(t_drown *d);
 uint32_t	swap_red_with_blue(uint32_t hex_value);
 int			texture_allocation(char *buf, t_index *i, t_gfx *gfx);
 void		tt_errors(char *error_msg);
+int			validate(char *buf, t_editor_images *images, unsigned short int index_buf_column, unsigned short int index_buf_row);
 int			validate_buffer_format(char *buf, t_editor_images *images);
 int			validate_map(t_drown *data);
 int			validate_outer_walls(t_map *map, t_editor_images *images);
+void		value_of_parameter_0(t_map *map, t_character *chars);
 void		x_right_arm_flail(t_gfx *gfx);
 void		y_right_arm_flail(t_gfx *gfx);
 int			ft_calc_diagonal(t_wall *wall, t_ray *ray);
@@ -499,4 +510,5 @@ void		init_thread(t_ray *ray, t_drown *data, int i);
 
 //dont remove before final build. it is used to test if map values are changed correctly
 void    	testing_print_map(t_drown *data, t_editor_images *images);
+int 		editor_test_write(t_gfx *gfx, char *s, int x_start, int y_start);
 #endif

@@ -5,14 +5,18 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/28 18:17:06 by tturto           ###   ########.fr       */
+/*   Created: 2023/03/03 16:24:58 by tturto            #+#    #+#             */
+/*   Updated: 2023/03/03 16:25:48 by tturto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "drowning.h"
 
-void	close_program(t_gfx *gfx)	//send t_drown *data here instead of *gfx. (void)data. screen->NULL. free(map)
+/*
+	!!! To enhance:	
+		send t_drown *data here,not *gfx. (void)data. screen->NULL. free(map)
+*/
+void	close_program(t_gfx *gfx)
 {
 	SDL_DestroyWindow(gfx->window);
 	gfx->window = NULL;
