@@ -40,25 +40,22 @@ void	draw_color_filter(t_gfx *gfx, uint32_t *pix, uint32_t color)
 	}
 }
 
-uint32_t	fade_brightness(t_gfx *gfx, uint32_t color, int multiplier)
+uint32_t	fade_brightness(uint32_t color, int multiplier)
 {
 	float		redf;
 	float		greenf;
 	float		bluef;
 
-	gfx->red = color >> 16;
-	gfx->green = color >> 8;
-	gfx->green = gfx->green << 24;
-	gfx->green = gfx->green >> 24;
-	gfx->blue = color << 24;
-	gfx->blue = gfx->blue >> 24;
-	redf = gfx->red;
+	redf = (uint32_t)color >> 16;
+	greenf = (uint32_t)color >> 8;
+	greenf = (uint32_t)greenf << 24;
+	greenf = (uint32_t)greenf >> 24;
+	bluef = (uint32_t)color << 24;
+	bluef = (uint32_t)bluef >> 24;
 	redf /= (float)(multiplier);
-	greenf = gfx->green;
 	greenf /= (float)(multiplier);
-	bluef = gfx->blue;
 	bluef /= (float)(multiplier);
-	gfx->color = (((uint32_t)redf & 0xFF) << 16)
+	color = (((uint32_t)redf & 0xFF) << 16)
 		| (((uint32_t)greenf & 0xff) << 8) | ((uint32_t)bluef & 0xFF);
 	return (color);
 }
