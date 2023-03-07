@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/06 22:01:19 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/07 14:21:56 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -322,6 +322,9 @@ typedef struct s_graphics {
 	int				y;
 	int				centre;
 	uint32_t		color;
+	uint32_t		red;
+	uint32_t		green;
+	uint32_t		blue;
 	int				scale;
 	float			shake_x;
 	float			shake_y;
