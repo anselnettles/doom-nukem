@@ -122,7 +122,7 @@ int	render_overlay(t_drown *d)
 	if (draw_right_arm(&d->index, &d->gfx, d->gfx.scale) == ERROR)
 		return (ERROR);
 	if (d->system.filters == TRUE)
-		draw_color_filter(&d->gfx);
+		draw_color_filter(&d->gfx, 0, 0);
 	if (d->gfx.frame.bubble >= 13)
 		SDL_FillRect(d->gfx.screen, NULL, 0);
 	if (render_hud(&d->index, &d->gfx, d->gfx.scale) == ERROR)
@@ -133,6 +133,6 @@ int	render_overlay(t_drown *d)
 		if (draw_transition(&d->index, &d->gfx, d->gfx.scale, d->gfx.frame.transition) == EXIT)
 			d->system.transition = FALSE;
 	if (d->system.filters == TRUE)
-		draw_scanlines(&d->gfx);
+		draw_scanlines(&d->gfx, 0, 0);
 	return (0);
 }
