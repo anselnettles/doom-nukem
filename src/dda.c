@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 00:24:32 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/03/06 16:33:25 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/07 14:42:13 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,11 @@ float   absf(float value)
     return(value);
 }
 
-void    algo_dda(t_ray *ray, t_wall *wall, t_dda *dda)
+float    algo_dda(t_ray *ray, t_wall *wall, t_dda *dda)
 {
     int     collx;
     int     colly;
+    float   distance;
 
     collx = 32;
     colly = 32;
@@ -32,6 +33,7 @@ void    algo_dda(t_ray *ray, t_wall *wall, t_dda *dda)
         colly = 31;
     dda->hit = 0;
     wall->side = 0;
+    distance = 0;
     while(dda->hit == 0 && wall->x > 0 && wall->y > 0 && wall->x < 28 * 64 && wall->y < 28 * 64)
     {
         if (dda->side_dist.x < dda->side_dist.y)
@@ -52,9 +54,10 @@ void    algo_dda(t_ray *ray, t_wall *wall, t_dda *dda)
              dda->hit = 1;
     }
     if (wall->side == 0)
-        wall->distance = (dda->side_dist.x - dda->delta_dist.x);
+        distance = (dda->side_dist.x - dda->delta_dist.x);
     else
-        wall->distance = (dda->side_dist.y - dda->delta_dist.y);
+        distance = (dda->side_dist.y - dda->delta_dist.y);
+    return(distance);
 }
 
 void     init_dda(t_ray *ray, t_wall *wall, t_dda *dda)

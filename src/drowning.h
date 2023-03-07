@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/06 16:00:47 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/06 17:12:33 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -492,7 +492,7 @@ int			ft_diagonal_3(t_wall *wall, t_ray *ray);
 int			ft_diagonal_4(t_wall *wall, t_ray *ray);
 void		crouch(t_drown *data);
 void		init_dda(t_ray *ray, t_wall *wall, t_dda *dda);
-void   		algo_dda(t_ray *ray, t_wall *wall, t_dda *dda);
+float    algo_dda(t_ray *ray, t_wall *wall, t_dda *dda);
 
 //dont remove before final build. it is used to test if map values are changed correctly
 void    	testing_print_map(t_drown *data, t_editor_images *images);
