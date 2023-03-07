@@ -6,7 +6,7 @@
 /*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 18:24:05 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/07 12:57:02 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/07 16:28:55 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,19 @@ static int	initialize_menu(t_gfx *gfx, t_system *system, SDL_Event *event)
 	return (0);
 }
 
+static void	initialize_audio(t_drown *d)
+{
+	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024);
+	d->audio.main_menu = Mix_LoadMUS("src/audio/bgm_grave_menu.ogg");
+	d->audio.bluehole = Mix_LoadMUS("src/audio/bgm_grave_menu.ogg");
+	Mix_PlayMusic(d->audio.main_menu, 0);
+}
+
 //	Initializes the SDL (Simple DirectMedia Layer) library functions and sets
 //	all the necessary variables for graphical rendering.
 static int	initialize_media(t_drown *d)
 {
-	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS) > SDL_ERROR)
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS | SDL_INIT_AUDIO) > SDL_ERROR)
 	{
 		d->system.play_state = PLAY;
 		d->gfx.scale = 2;
@@ -99,6 +107,7 @@ int	main(void)
 		return (ERROR);
 	if (initialize_media(&data) == ERROR)
 		return (error(SDL_FAIL));
+	initialize_audio(&data);
 	if (initialize_menu(&data.gfx, &data.system, &data.event) == RUN_EDITOR)
 		if (map_editor("maps/bluehole.dn", &data) == ERROR)
 			return (error(EDITOR_FAIL));
