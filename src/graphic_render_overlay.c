@@ -70,8 +70,28 @@ static void	underwater_effect(t_drown *d, t_gfx *gfx, int scale, int i)
 
 static int	draw_transition(t_index *index, t_gfx *gfx, int s, int f)
 {
-	gfx->y = 0;
+	static int	limit = HEIGHT;
+	
 	index->y = 0;
+	while (index->y < (limit * s))
+	{
+		index->x = 0;
+		while (index->x < gfx->width)
+		{
+			pixel_put(gfx, index->x, index->y, 0);
+			index->x += s;
+		}
+		index->y += s;
+	}
+
+	gfx->y = 0;
+	if (limit > 0)
+		limit -= (s * 8);
+	else if (limit <= 0 && gfx->y > 0)
+		gfx->y -= (s * 8);
+
+
+
 	while ((gfx->y) < (TRANSITION_HEIGHT))
 	{
 		index->x = 0;
