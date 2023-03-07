@@ -6,7 +6,7 @@
 /*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 18:24:05 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/06 13:25:58 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/07 12:57:02 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	initialize_player(t_drown *d)
 	d->player.y = BITS * 2;
 	d->player.dx = cosf(PI);
 	d->player.dy = sinf(PI);
-	d->player.height = 32;
+	d->player.height = 512;
 	d->player.altitude = 0;
 	return (0);
 }
