@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/07 17:28:50 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/07 19:13:51 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -448,7 +448,7 @@ int			error(int code);
 void		fill_gaps(char *line);
 void		*ft_raycast_thread(void  *args);
 int			gfx_write(t_gfx *gfx, char *str);
-uint32_t	fade_brightness(uint32_t color, int multiplier);
+uint32_t	fade_brightness(t_gfx *gfx, uint32_t color, int multiplier);
 void		img1_and_img2(t_drown *data); //rename
 int			img1_img2_is_mouse_in_grid(t_drown *data);
 int			img3_is_mouse_in_grid(t_drown *data);
