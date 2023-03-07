@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/07 14:21:56 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/07 14:46:22 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -483,7 +483,7 @@ int			ft_diagonal_3(t_wall *wall, t_ray *ray);
 int			ft_diagonal_4(t_wall *wall, t_ray *ray);
 void		crouch(t_drown *data);
 void		init_dda(t_ray *ray, t_wall *wall, t_dda *dda);
-void   		algo_dda(t_ray *ray, t_wall *wall, t_dda *dda);
+float    	algo_dda(t_ray *ray, t_wall *wall, t_dda *dda);
 void		flow_adjustment(t_drown *d);
 void		overworld_sprite_loop(t_drown *d);
 void		hud_animation_loop(t_drown *d);

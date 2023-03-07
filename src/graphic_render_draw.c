@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 10:03:55 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/03/06 16:05:04 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/07 14:38:57 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,7 +161,7 @@ void	draw_floor(t_ray *ray, t_wall wall, int win_y)
 			texture.y *= -1;
 		if (win_y > 0)
 		{
-			//color = ray->gfx.texture[0].frame[0].pixels[tx + (ty * 64)];	//"Clean" texture draw.
+			color = ray->gfx.texture[0].frame[0].pixels[texture.x + (texture.y * 64)];	//"Clean" texture draw.
 			color = fade_brightness(ray->gfx.texture[0].frame[0].pixels[texture.x + (texture.y * 64)], wall.distance / 100 * shade_multiplier);	//Draw shading tests.
 			if (win_y < ray->gfx.height && wall.lock[win_y] == '0')
 				pixel_put(&ray->gfx, ray->x, win_y, color);
@@ -199,16 +199,36 @@ void	draw_ceiling(t_ray *ray, t_wall wall, int win_y)
 	}
 }
 
+float	calc_limit(t_wall wall, t_ray *ray)
+{
+	float	limit;
+	t_dda dda;
+
+	init_dda(ray, &wall, &dda);
+	limit = algo_dda(ray, &wall, &dda);
+	return(limit);
+}
+
 int		draw_wall_top(t_ray *ray, t_wall wall, int win_y, int wall_height, int wall_screen_height)
 {
 	t_vector texture;
+	float		limit;
 	int tmp;
 	char	c;
 	float	dir;
 
 	c = ray->map.map[(int)roundf(wall.y / 64)][(int)roundf(wall.x / 64)][0];
 	tmp = win_y - wall_screen_height;
-	while (win_y - wall_screen_height > 0 && tmp > 0 && win_y - wall_screen_height < ray->gfx.height)
+	/*dir = atanf((float)(win_y - wall_screen_height - ray->height) / ray->gfx.proj_dist);
+		wall.distance = (ray->player.height - (float)wall_height * 8.f) / dir;
+		wall.distance /= cosf(ray->player.dir - wall.dir);
+		wall.x = ray->player.x - wall.dx * wall.distance;
+		wall.y = ray->player.y - wall.dy * wall.distance;*/
+	limit = calc_limit(wall, ray);
+	while (win_y - wall_screen_height > ray->gfx.height)
+			win_y--;
+	tmp = win_y - wall_screen_height;
+	while (win_y - wall_screen_height > 0 && tmp > 0)// && win_y - wall_screen_height < ray->gfx.height)
 	{
 		dir = atanf((float)(win_y - wall_screen_height - ray->height) / ray->gfx.proj_dist);
 		wall.distance = (ray->player.height - (float)wall_height * 8.f) / dir;
@@ -221,13 +241,13 @@ int		draw_wall_top(t_ray *ray, t_wall wall, int win_y, int wall_height, int wall
 			texture.x *= -1;
 		if (texture.y < 0)
 			texture.y *= -1;
-		if (wall.distance < 0 || wall.distance > 10000)
+		if (wall.distance <= 0 || wall.distance > limit)
 			break;
 		if ((int)roundf(wall.x / 64) < 28 && (int)roundf(wall.y / 64) < 20 && wall.y > 0 && wall.x > 0)
 		{
-			if (ray->map.map[(int)roundf(wall.y / 64)][(int)roundf(wall.x /64)][0] == c && tmp > 0 && tmp < wall.prev_y)
+			if (/*ray->map.map[(int)roundf(wall.y / 64)][(int)roundf(wall.x /64)][0] == c &&*/ tmp > 0)
 			{
-				if (wall.lock[tmp] == '0')
+				if (wall.lock[tmp] == '0' && tmp < wall.prev_y)
 					pixel_put(&ray->gfx, ray->x, tmp, ray->gfx.texture[1].frame[0].pixels[texture.x + (texture.y * 64)]);
 				tmp--;
 			}
@@ -236,7 +256,9 @@ int		draw_wall_top(t_ray *ray, t_wall wall, int win_y, int wall_height, int wall
 			break;
 		win_y--;
 	}
-	return(tmp);					
+	if (tmp < wall.prev_y)
+		return(tmp);
+	return(wall.prev_y);
 }
 
 void	draw_thread(t_ray *ray, float distance, t_wall *wall)
@@ -270,17 +292,20 @@ void	draw_thread(t_ray *ray, float distance, t_wall *wall)
 		wall_layer = 1;
 	else if (ray->map.map[(int)roundf(wall->y / BITS)][(int)roundf(wall->x / BITS)][4] == '"')
 		wall_layer = 3;
-	//	draw_texture2(ray, y, y_max, *wall, distance, scaled_y_max);
 	draw_texture(ray, y, y_max, *wall, distance, scaled_y_max, wall_layer);
 	if (ray->map.map[(int)roundf(wall->y / BITS)][(int)roundf(wall->x / BITS)][3] == '$')
 		draw_sprite(ray, wall, y, distance);
 	if (ray->map.map[(int)roundf(wall->y / BITS)][(int)roundf(wall->x / BITS)][3] == 'Z')
 		draw_goal_point(ray, wall, y, distance);
-	if (height < ray->player.height && y < wall->prev_y && height != 0)
+	/*if (height * 8 < ray->player.height && height != 0)
+		wall->prev_y = draw_wall_top(ray, *wall, scaled_y_max, height, wall_height);
+	if (y < wall->prev_y)
+		wall->prev_y = y;*/
+	}
+	if (height * 8 < ray->player.height && height != 0)
 		wall->prev_y = draw_wall_top(ray, *wall, scaled_y_max, height, wall_height);
 	if (y < wall->prev_y)
 		wall->prev_y = y;
-	}
 //	if (ray->map.map[(int)roundf(wall->y / BITS)][(int)roundf(wall->x / BITS)][3] == 'I')
 //		draw_sprite(ray, wall, y, distance);
 }

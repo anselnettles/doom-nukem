@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 15:49:19 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/06 15:43:59 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/07 14:31:17 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,17 +174,18 @@ void	*ft_raycast_thread(void  *args)				//NEEDS FIXING, ADD DDA-ALGO	&& RM 'reme
 	{
 		init_new_wall(ray, &wall);
 		//init_dda(ray, &wall, &dda);
-		while (ray->map.map[(int)roundf(wall.y / BITS)][(int)roundf(wall.x / BITS)][0] != '#')
+		while (ray->map.map[(int)roundf(wall.y / BITS)][(int)roundf(wall.x / BITS)][0] != '#' && wall.prev_y > 0)
 		//while (wall.x > 64.f && wall.y > 64.f && wall.x < 19.f * 64.f && wall.y < 19.f * 64.f)
 		{
 			init_dda(ray, &wall, &dda);
-			algo_dda(ray, &wall, &dda);
+			wall.distance = algo_dda(ray, &wall, &dda);
 			//distance = sqrtf(((wall.x - ray->player.x) * (wall.x - ray->player.x))
 			//	+ ((wall.y - ray->player.y) * (wall.y - ray->player.y)));
 			wall.distance *= cosf(ray->player.dir - wall.dir);
-			distance = wall.distance;
+			distance = wall.distance;// * cosf(ray->player.dir - wall.dir);
 			draw_thread(ray, distance, &wall);
 		}
+		//printf("wall.x == %f, wall.y == %f\n", wall.x, wall.y);
 		ft_bzero2(wall.lock, ray->gfx.height);
 		wall.dir += (60 * DEGREES) / ray->gfx.width;
 		ray->x++;
