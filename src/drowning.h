@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/07 15:51:01 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/07 16:31:32 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,13 @@
 # include <pthread.h>
 # include <SDL2/SDL.h>						//Simple DirectMedia Layer.
 # include "../libft/libft.h"
+# include "../frameworks/SDL2/SDL_mixer.h"
 
-# ifdef __APPLE__
-#  include "SDL_image.h"
-# elif __linux__
-#  include <SDL2/SDL_image.h>
-# endif
+//# ifdef __APPLE__
+//#  include "SDL_image.h"
+//# elif __linux__
+//#  include <SDL2/SDL_image.h>
+//# endif
 
 //	GRAPHIC GLOBAL DEFINITIONS
 # define TITLE "Project Drowning | github.com/AnselNettles/doom-nukem"
@@ -133,6 +134,12 @@ typedef struct s_system {
 	int				filters;
 	int				transition;
 }	t_system;
+
+typedef struct s_audio {
+	Mix_Music	*main_menu;
+	Mix_Music	*bluehole;
+	//Mix_Chunk	*sound;
+}	t_audio;
 
 typedef struct s_vector {
 	int		x;
@@ -388,6 +395,7 @@ typedef struct s_project_drowning {
 	SDL_Event				event;
 	t_map					map;
 	float					delta_time;
+	t_audio					audio;
 }	t_drown;
 
 //	Listed error types. See 'error_management.c' for their output.
