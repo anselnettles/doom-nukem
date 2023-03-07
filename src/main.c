@@ -6,7 +6,7 @@
 /*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 18:24:05 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/07 16:57:04 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/07 17:28:35 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ static void	initialize_audio(t_drown *d)
 	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024);
 	d->audio.main_menu = Mix_LoadMUS("src/audio/bgm_grave_menu.ogg");
 	d->audio.bluehole = Mix_LoadMUS("src/audio/bgm_grave_theme.ogg");
+	d->audio.timer_hit = Mix_LoadWAV("src/audio/se_timer_hit.ogg");
 	Mix_PlayMusic(d->audio.main_menu, 0);
 }
 
