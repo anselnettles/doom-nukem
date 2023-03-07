@@ -63,4 +63,10 @@ void	flow_adjustment(t_drown *d)
 {
 	if (d->system.time % 2400 > 0 && d->system.time % 2400 < 600)
 			d->gfx.flow_y_adjust = (d->system.time % 200 / 60);
+	if (d->system.time % 600 >= 0 && d->system.time % 600 < 200)
+		d->gfx.frame.transition = 0;
+	else if (d->system.time % 600 >= 200 && d->system.time % 600 < 400)
+		d->gfx.frame.transition = 1;
+	else if (d->system.time % 600 >= 400 && d->system.time % 600 <= 600)
+		d->gfx.frame.transition = 2;
 }
