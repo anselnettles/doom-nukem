@@ -6,7 +6,7 @@
 /*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/07 20:26:10 by tturto           ###   ########.fr       */
+/*   Updated: 2023/03/08 16:34:35 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,9 @@
 # define T_ORANGES "\033[0;33m"			//A slim orange terminal type color.
 # define T_RED "\033[0;31m"				//A red terminal type color.
 # define T_LGRAY "\033[0;37m"			//A light gray terminal type color.
+
+# define RED 65535						//Integer value for red pixels.
+# define BLACK 0						//Integer value for black pixels.
 
 //	SPRITE DIMENSIONS DEFINITIONS
 # define FLOOR 0						//Floor texture. AKA. texture 'A'.
