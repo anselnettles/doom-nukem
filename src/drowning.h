@@ -6,7 +6,7 @@
 /*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/08 16:34:35 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/08 17:34:06 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@
 # define MARGIN 20			//Margin difference for the UI.
 # define MAP_WIDTH 28		//Map grid width length.
 # define MAP_HEIGHT 20		//Map grid height length.
+# define TXT_X 106			//Graphic text string X point.
+# define TXT_Y 360			//Graphic text string Y point.
 
 //	SYSTEM MECHANICS GLOBAL DEFINITIONS
 # define TRUE 1						//Set to true.
