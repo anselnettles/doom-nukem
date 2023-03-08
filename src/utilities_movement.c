@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 14:16:37 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/08 17:16:36 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/08 17:23:06 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	delta_move_player(t_drown *data)
 		|| data->system.keyboard_state[SDL_SCANCODE_D] ||data->system.keyboard_state[SDL_SCANCODE_S])
 	{
 		dir = 0.f;
-		if (data->player.velocity.x < 14)
+		if (data->player.velocity.x < 10)
 			data->player.velocity.x += 2.f;
 	}
 	if (data->system.keyboard_state[SDL_SCANCODE_S]  && !data->system.keyboard_state[SDL_SCANCODE_W])
