@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 11:08:33 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/08 16:33:10 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/08 18:31:09 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ int	render_overlay(t_drown *d)
 		SDL_FillRect(d->gfx.screen, NULL, 0);
 	if (render_hud(&d->index, &d->gfx, d->gfx.scale) == ERROR)
 		return (ERROR);
-	if (string_timeline(d) == ERROR)
+	if (string_timeline(d, d->gfx.scale) == ERROR)
 		return (ERROR);
 	if (d->system.transition == TRUE)
 		draw_transition(d, d->gfx.scale, d->gfx.frame.transition);
