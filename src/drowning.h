@@ -6,7 +6,7 @@
 /*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/08 17:34:06 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/08 18:35:53 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -460,7 +460,7 @@ uint32_t   	element_colour(t_map *map, int row_now, int col_now, int image_switc
 int			error(int code);
 void		fill_gaps(char *line);
 void		*ft_raycast_thread(void  *args);
-int			gfx_write(t_gfx *gfx, char *str);
+int			gfx_write(int x_start, int y_start, t_gfx *gfx, char *s);
 uint32_t	fade_brightness(uint32_t color, int multiplier);
 void		img1_and_img2(t_drown *data); //rename
 int			img1_img2_is_mouse_in_grid(t_drown *data);
@@ -489,7 +489,7 @@ void		sdl_loop(t_drown *drown);
 void		select_new_param_value(t_drown *data);
 void		set_image_limits(t_drown *data);
 void		set_values_for_parameters(t_character *chars);
-int			string_timeline(t_drown *d);
+int			string_timeline(t_drown *d, int s);
 uint32_t	swap_red_with_blue(uint32_t hex_value);
 int			texture_allocation(char *buf, t_index *i, t_gfx *gfx);
 void		tt_errors(char *error_msg);
