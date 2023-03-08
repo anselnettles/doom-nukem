@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 00:24:32 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/03/07 14:42:13 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/08 14:02:29 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,24 @@ float   absf(float value)
     if (value < 0)
         return (-value);
     return(value);
+}
+
+int     diagonal_dda(t_ray *ray, t_wall *wall, t_dda *dda)
+{
+    char c;
+
+    c =  ray->map.map[(int)wall->y / 64][(int)wall->x / 64][2];
+    if (wall->side == 0)
+    {
+        if ((wall->dx < 0 && c == '\\') || (wall->dx < 0 && c == '>')|| (wall->dx > 0 && c == '/') || (wall->dx > 0 && c == '<'))
+            return(0);
+    }
+    else
+    {
+        if ((wall->dy > 0 && c == '\\') || (wall->dy < 0 && c == '>')|| (wall->dy > 0 && c == '/') || (wall->dy < 0 && c == '<'))
+            return(0);
+    }
+    return(1);
 }
 
 float    algo_dda(t_ray *ray, t_wall *wall, t_dda *dda)
@@ -52,6 +70,8 @@ float    algo_dda(t_ray *ray, t_wall *wall, t_dda *dda)
         if (wall->x > 0 && wall->y > 0 && wall->x < 28 * 64 && wall->y < 28 * 64)
             if ((int)wall->x % 64 == collx || (int)wall->y % 64 == colly)// || (int)wall->x % 64 == 31 || (int)wall->y % 64 == 31)// && (ray->map.map[(int)wall->y / 64][(int)wall->x / 64][0] != '#'))
              dda->hit = 1;
+        if (ray->map.map[(int)wall->y / 64][(int)wall->x / 64][2] != '.')
+            diagonal_dda(ray, wall, dda);
     }
     if (wall->side == 0)
         distance = (dda->side_dist.x - dda->delta_dist.x);
