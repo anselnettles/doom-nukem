@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utilities_graphic.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 13:35:22 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/06 13:18:04 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/08 17:51:30 by tturto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,17 @@ int	pixel_put(t_gfx *gfx, int x, int y, uint32_t color)
 	return (0);
 }
 
-int	draw_letter(t_gfx *gfx, int start_x, int start_gfx_x, int goal_x)
+static int	draw_letter(t_gfx *gfx, int x_start, int y_start, int start_gfx_x)
 {
 	int	y;
 	int	x;
 
-	x = start_x;
-	y = ((gfx->height / 4) * 3);
-	while (gfx->y < LETTERS_HEIGHT)
+	int goal_x;                             //was moved here from function arguments
+	goal_x = start_gfx_x + LETTER_WIDTH;    //goal_x formerly called as (gfx->x + LETTER_WIDTH) | note that start_gfx_x = gfx->x  
+
+	x = x_start;
+	y = y_start;
+	while (gfx->y < LETTER_HEIGHT)
 	{
 		while (gfx->x < (goal_x))
 		{
@@ -61,19 +64,25 @@ int	draw_letter(t_gfx *gfx, int start_x, int start_gfx_x, int goal_x)
 		}
 		y += (gfx->scale);
 		gfx->y++;
-		x = start_x;
+		x = x_start;
 		gfx->x = start_gfx_x;
 	}
 	return (0);
 }
 
-int	gfx_write(t_gfx *gfx, char *s)
+/*
+	This is a modified versions to ami's gfx_write(), to include start
+		coordinates (x, y) of a string to be written.
+*/
+int gfx_write(int x_start, int y_start, t_gfx *gfx, char *s)
 {
 	int	i;
 	int	x;
+	int y;
 
 	i = 0;
-	x = gfx->width / 6;
+	x = x_start;
+	y = y_start;
 	while (s[i] != '\0')
 	{
 		if ((s[i] >= ',' && s[i] <= '.') || (s[i] >= 'A' && s[i] <= 'Z')
@@ -81,7 +90,7 @@ int	gfx_write(t_gfx *gfx, char *s)
 		{
 			gfx->x = s[i] * LETTER_WIDTH;
 			gfx->y = 0;
-			if (draw_letter(gfx, x, gfx->x, (gfx->x + LETTER_WIDTH)) == ERROR)
+			if (draw_letter(gfx, x, y, gfx->x) == ERROR)
 				return (error(GFX_WRITE_ERROR));
 		}
 		else if (s[i] == ' ')
