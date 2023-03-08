@@ -57,7 +57,13 @@ FILES				=	\
 						utilities_graphic \
 						utilities_movement \
 						utilities_system\
-						dda
+						dda \
+						editor_colouring_img2_img3 \
+						editor_parse_textures_malloc_batches \
+						editor_test_write \
+						editor_validate \
+						editor_value_of_parameter_0 
+						
 
 SRC					=	$(addprefix src/, $(addsuffix .c, $(FILES)))
 OBJ					=	$(addprefix obj/, $(addsuffix .o, $(FILES)))

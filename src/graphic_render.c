@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 10:05:39 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/25 12:07:57 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/07 19:17:44 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 int	render(t_drown *data)
 {
 	render_thread(data);
-		//add error checks;
 	if (data->system.overlay_toggle == TRUE)
 		if (render_overlay(data) == ERROR)
 			return (error(OVERLAY_ERROR));

@@ -6,7 +6,7 @@
 /*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 17:27:03 by tturto            #+#    #+#             */
-/*   Updated: 2023/03/02 22:27:48 by tturto           ###   ########.fr       */
+/*   Updated: 2023/03/07 18:51:30 by tturto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,7 @@ static int  i0_checker(t_drown *data, t_index *i, int i0)
     {
         if (data->map.map[i->i2][i->i1][i0] != data->editor.chars.param3_choice0 && data->map.map[i->i2][i->i1][i0] != data->editor.chars.param3_choice1
             && data->map.map[i->i2][i->i1][i0] != data->editor.chars.param3_choice2 && data->map.map[i->i2][i->i1][i0] != data->editor.chars.param3_choice3
-            && data->map.map[i->i2][i->i1][i0] != data->editor.chars.param3_choice4 && data->map.map[i->i2][i->i1][i0] != data->editor.chars.param3_choice5
-            && data->map.map[i->i2][i->i1][i0] != data->editor.chars.param3_choice6 && data->map.map[i->i2][i->i1][i0] != data->editor.chars.param3_choice7)
+            && data->map.map[i->i2][i->i1][i0] != data->editor.chars.param3_choice4 && data->map.map[i->i2][i->i1][i0] != data->editor.chars.param3_choice5)
             {
                 printf("i0_check fail i == 3 | i->i2 %d, i->i1 %d\n", i->i2, i->i1);
                 return (0);

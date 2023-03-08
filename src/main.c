@@ -6,7 +6,7 @@
 /*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 18:24:05 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/07 16:28:55 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/07 20:08:19 by tturto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	initialize_menu(t_gfx *gfx, t_system *system, SDL_Event *event)
 {
 	while (system->play_state == PLAY)
 	{
-		gfx_write(gfx, "PRESS 'Z' TO PLAY .. 'X' HARD MODE .. 'C' EDITOR");
+		editor_test_write(gfx, "PRESS 'Z' TO PLAY .. 'X' HARD MODE .. 'C' EDITOR", gfx->width / 6, ((gfx->height / 4) * 3));
 		while (SDL_PollEvent(event))
 		{
 			if (event->type == SDL_QUIT)
@@ -61,7 +61,8 @@ static void	initialize_audio(t_drown *d)
 {
 	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024);
 	d->audio.main_menu = Mix_LoadMUS("src/audio/bgm_grave_menu.ogg");
-	d->audio.bluehole = Mix_LoadMUS("src/audio/bgm_grave_menu.ogg");
+	d->audio.bluehole = Mix_LoadMUS("src/audio/bgm_grave_theme.ogg");
+	d->audio.timer_hit = Mix_LoadWAV("src/audio/se_timer_hit.ogg");
 	Mix_PlayMusic(d->audio.main_menu, 0);
 }
 
@@ -82,7 +83,7 @@ static int	initialize_media(t_drown *d)
 		d->system.transition = TRUE;
 		d->system.keyboard_state = SDL_GetKeyboardState(NULL);
 		d->gfx.window = SDL_CreateWindow(TITLE, SDL_WINDOWPOS_UNDEFINED,
-				SDL_WINDOWPOS_UNDEFINED, d->gfx.width, d->gfx.height, SDL_WINDOW_SHOWN);
+				0, d->gfx.width, d->gfx.height, SDL_WINDOW_SHOWN);
 		d->gfx.screen = SDL_GetWindowSurface(d->gfx.window);
 		if (d->gfx.window && d->gfx.screen != NULL)
 			return (0);
@@ -114,8 +115,12 @@ int	main(void)
 	if (initialize_player(&data) == ERROR)
 		return (error(PLAYER_FAIL));
 	if (data.system.play_state == PLAY)
+	{
+		Mix_PlayMusic(data.audio.bluehole, -1);
+		Mix_VolumeMusic(50);
 		if (render(&data) == ERROR)
 			return (error(RENDER_FAIL));
+	}
 	SDL_SetRelativeMouseMode(SDL_TRUE);
 	sdl_loop(&data);
 	return (0);
