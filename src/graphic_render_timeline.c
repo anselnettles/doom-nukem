@@ -6,11 +6,21 @@
 /*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 12:34:59 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/08 18:37:44 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/09 19:36:25 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "drowning.h"
+
+static int	ending_string(t_drown *d, int s)
+{
+	clear_surface(d);
+	if (gfx_write(TXT_X * s, TXT_Y * s, &d->gfx,
+			"CONGRATULATIONS! YOU ESCAPED!") == ERROR)
+		return (ERROR);
+	else
+		return (0);
+}
 
 int	string_timeline(t_drown *d, int s)
 {
@@ -34,11 +44,7 @@ int	string_timeline(t_drown *d, int s)
 		if (gfx_write(TXT_X * s, TXT_Y * s, &d->gfx, "GAME OVER.") == ERROR)
 			return (ERROR);
 	if (d->system.ending_state == REGULAR_ENDING)
-	{
-		clear_surface(d);
-		if (gfx_write(TXT_X * s, TXT_Y * s, &d->gfx,
-				"CONGRATULATIONS! YOU ESCAPED!") == ERROR)
+		if (ending_string(d, s) == ERROR)
 			return (ERROR);
-	}
 	return (0);
 }
