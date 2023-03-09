@@ -6,11 +6,18 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 17:50:06 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/07 17:29:56 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/09 16:56:17 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "drowning.h"
+
+int		get_value(t_map map, float x, float y, int z)
+{
+	if (map.map[(int)roundf(y / BITS)][(int)roundf(x / BITS)][z] == '.')
+		return(0);
+	return(map.map[(int)roundf(y / BITS)][(int)roundf(x / BITS)][z]);
+}
 
 void		collect_airbottle(t_drown *d)
 {
