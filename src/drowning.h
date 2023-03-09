@@ -6,7 +6,7 @@
 /*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/07 20:26:10 by tturto           ###   ########.fr       */
+/*   Updated: 2023/03/08 18:35:53 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@
 # define MARGIN 20			//Margin difference for the UI.
 # define MAP_WIDTH 28		//Map grid width length.
 # define MAP_HEIGHT 20		//Map grid height length.
+# define TXT_X 106			//Graphic text string X point.
+# define TXT_Y 360			//Graphic text string Y point.
 
 //	SYSTEM MECHANICS GLOBAL DEFINITIONS
 # define TRUE 1						//Set to true.
@@ -69,6 +71,9 @@
 # define T_ORANGES "\033[0;33m"			//A slim orange terminal type color.
 # define T_RED "\033[0;31m"				//A red terminal type color.
 # define T_LGRAY "\033[0;37m"			//A light gray terminal type color.
+
+# define RED 65535						//Integer value for red pixels.
+# define BLACK 0						//Integer value for black pixels.
 
 //	SPRITE DIMENSIONS DEFINITIONS
 # define FLOOR 0						//Floor texture. AKA. texture 'A'.
@@ -455,7 +460,7 @@ uint32_t   	element_colour(t_map *map, int row_now, int col_now, int image_switc
 int			error(int code);
 void		fill_gaps(char *line);
 void		*ft_raycast_thread(void  *args);
-int			gfx_write(t_gfx *gfx, char *str);
+int			gfx_write(int x_start, int y_start, t_gfx *gfx, char *s);
 uint32_t	fade_brightness(uint32_t color, int multiplier);
 void		img1_and_img2(t_drown *data); //rename
 int			img1_img2_is_mouse_in_grid(t_drown *data);
@@ -484,7 +489,7 @@ void		sdl_loop(t_drown *drown);
 void		select_new_param_value(t_drown *data);
 void		set_image_limits(t_drown *data);
 void		set_values_for_parameters(t_character *chars);
-int			string_timeline(t_drown *d);
+int			string_timeline(t_drown *d, int s);
 uint32_t	swap_red_with_blue(uint32_t hex_value);
 int			texture_allocation(char *buf, t_index *i, t_gfx *gfx);
 void		tt_errors(char *error_msg);

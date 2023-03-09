@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 11:08:33 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/07 12:48:46 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/08 18:31:09 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,8 @@ static void	underwater_effect(t_drown *d, t_gfx *gfx, int scale, int i)
 	}
 }
 
-static int	draw_transition(t_index *index, t_gfx *gfx, int s, int f)
+static int	transition_wipe_black(t_index *index, t_gfx *gfx, int s, int limit)
 {
-	static int	limit = HEIGHT;
-	
 	index->y = 0;
 	while (index->y < (limit * s))
 	{
@@ -83,37 +81,40 @@ static int	draw_transition(t_index *index, t_gfx *gfx, int s, int f)
 		}
 		index->y += s;
 	}
-
 	gfx->y = 0;
 	if (limit > 0)
 		limit -= (s * 12);
 	else if (limit <= 0)
 		gfx->y += (s * 12);
+	return (limit);
+}
 
-	while ((gfx->y) < (TRANSITION_HEIGHT))
+static void	draw_transition(t_drown *d, int s, int f)
+{
+	static int	limit = HEIGHT;
+	uint32_t	*pixels;
+
+	limit = transition_wipe_black(&d->index, &d->gfx, s, limit);
+	pixels = d->gfx.texture[TRANSITION].frame[f].pixels;
+	while ((d->gfx.y) < (TRANSITION_HEIGHT))
 	{
-		index->x = 0;
-		gfx->x = 0;
-		while ((gfx->x) < (TRANSITION_WIDTH))
+		d->index.x = 0;
+		d->gfx.x = 0;
+		while ((d->gfx.x) < (TRANSITION_WIDTH))
 		{
-			if (gfx->texture[TRANSITION].frame[f].pixels
-				[gfx->x + (gfx->y * TRANSITION_WIDTH)] && gfx->texture[TRANSITION].frame[f].pixels
-				[gfx->x + (gfx->y * TRANSITION_WIDTH)] != 65535)
-				pixel_put(gfx, index->x, index->y,
-						gfx->texture[TRANSITION].frame[f].pixels
-						[gfx->x + (gfx->y * TRANSITION_WIDTH)]);
-			else if (gfx->texture[TRANSITION].frame[f].pixels
-					[gfx->x + (gfx->y * TRANSITION_WIDTH)] == 65535)
-				pixel_put(gfx, index->x, index->y, 0);
-			index->x += s;
-			gfx->x++;
+			if (pixels[d->gfx.x + (d->gfx.y * TRANSITION_WIDTH)]
+				&& pixels[d->gfx.x + (d->gfx.y * TRANSITION_WIDTH)] != RED)
+				pixel_put(&d->gfx, d->index.x, d->index.y,
+					pixels[d->gfx.x + (d->gfx.y * TRANSITION_WIDTH)]);
+			else if (pixels[d->gfx.x + (d->gfx.y * TRANSITION_WIDTH)] == RED)
+				pixel_put(&d->gfx, d->index.x, d->index.y, BLACK);
+			d->index.x += s;
+			d->gfx.x++;
 		}
-		index->y += s;
-		gfx->y++;
+		d->index.y += s;
+		d->gfx.y++;
 	}
-	if (limit <= 0 && gfx->y <= TRANSITION_HEIGHT)
-		return (EXIT);
-	return (TRUE);
+	d->system.transition = !(limit <= 0 && d->gfx.y <= TRANSITION_HEIGHT);
 }
 
 int	render_overlay(t_drown *d)
@@ -127,11 +128,10 @@ int	render_overlay(t_drown *d)
 		SDL_FillRect(d->gfx.screen, NULL, 0);
 	if (render_hud(&d->index, &d->gfx, d->gfx.scale) == ERROR)
 		return (ERROR);
-	if (string_timeline(d) == ERROR)
+	if (string_timeline(d, d->gfx.scale) == ERROR)
 		return (ERROR);
 	if (d->system.transition == TRUE)
-		if (draw_transition(&d->index, &d->gfx, d->gfx.scale, d->gfx.frame.transition) == EXIT)
-			d->system.transition = FALSE;
+		draw_transition(d, d->gfx.scale, d->gfx.frame.transition);
 	if (d->system.filters == TRUE)
 		draw_scanlines(&d->gfx, 0, 0);
 	return (0);
