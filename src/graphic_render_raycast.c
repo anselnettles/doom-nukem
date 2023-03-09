@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 15:49:19 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/08 12:32:11 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/09 12:54:59 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,13 @@ void	*ft_raycast_thread(void  *args)
 		//while (wall.x > 64.f && wall.y > 64.f && wall.x < 19.f * 64.f && wall.y < 19.f * 64.f)
 		{
 			// init_dda(ray, &wall, &dda);
+			init_dda(ray, &wall, &dda);
 			wall.distance = algo_dda(ray, &wall, &dda);
+			/*wall.x = ray->player.x - wall.dx * wall.distance;
+			wall.y = ray->player.y - wall.dy * wall.distance;*/
+			/*if (ray->map.map[(int)roundf(wall.y / BITS)][(int)roundf(wall.x / BITS)][2] != '.')
+				ft_calc_diagonal(&wall, ray);*/
+			//distance = sqrtf((wall.x - ray->player.x) * (wall.x - ray->player.x) + (wall.y - ray->player.y) * (wall.y - ray->player.y));
 			wall.distance *= cosf(ray->player.dir - wall.dir);
 			distance = wall.distance;
 			draw_thread(ray, distance, &wall);
