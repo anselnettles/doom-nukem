@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 10:03:55 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/03/09 16:57:29 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/09 17:13:05 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int		draw_goal_point(t_ray *ray, t_wall *wall, int win_y, float distance)
 	//win_y -= (int)texture_at_distance / 5;
 	texture_x = get_texture_x(ray, *wall);
 	if (texture_x > 16)
-		texture_x -= 16;
+		return(0);//texture_x -= 16;
 	texture_y = 62;
 	while (texture_y >= 0 && win_y - j > 0 && j <= texture_at_distance)
 	{
@@ -122,7 +122,6 @@ int		draw_sprite(t_ray *ray, t_wall *wall, int win_y, float distance)
 	i = 64 / texture_at_distance;			//63 == sprite_height - 1
 	j = 0;
 	f = ray->gfx.frame.bottle;
-	//win_y -= (int)texture_at_distance / 5;
 	texture_x = get_texture_x(ray, *wall);
 	if (texture_x > 38)
 		texture_x -= 38;
