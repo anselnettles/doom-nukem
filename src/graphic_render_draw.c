@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 10:03:55 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/03/09 14:20:47 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/09 16:45:14 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ int		draw_goal_point(t_ray *ray, t_wall *wall, int win_y, float distance)
 	int			texture_x;
 	float		texture_y;
 
+	if (get_value(ray->map, wall->x, wall->y,3) != 'Z')
+		return(0);
 	texture_at_distance = 64 / distance * ray->gfx.proj_dist;		//replace 64 with sprite_height
 	i = 64 / texture_at_distance;			//63 == sprite_height - 1
 	j = 0;
@@ -114,6 +116,8 @@ int		draw_sprite(t_ray *ray, t_wall *wall, int win_y, float distance)
 	int			texture_x;
 	float		texture_y;
 
+	if (get_value(ray->map, wall->x, wall->y,3) != '$')
+		return(0);
 	texture_at_distance = 64 / distance * ray->gfx.proj_dist;		//replace 64 with sprite_height
 	i = 64 / texture_at_distance;			//63 == sprite_height - 1
 	j = 0;
@@ -231,6 +235,15 @@ int		draw_wall_top(t_ray *ray, t_wall wall, int win_y, int wall_height)
 	return(wall.prev_y);
 }
 
+int			get_wall_layer(int	c)
+{
+	if (c == '\'')
+		return(1);
+	if (c == '"')
+		return(3);
+	return(0);
+}
+
 void	draw_thread(t_ray *ray, float distance, t_wall *wall)
 {
 	int		y;
@@ -243,8 +256,8 @@ void	draw_thread(t_ray *ray, float distance, t_wall *wall)
 	if (distance < 5)
 		distance = 5;
 	height = 64;
-	if (ray->map.map[(int)roundf(wall->y / BITS)][(int)roundf(wall->x / BITS)][0] != '#')
-		height = ray->map.map[(int)roundf(wall->y / BITS)][(int)roundf(wall->x / BITS)][0] - '0';
+	if (get_value(ray->map, wall->x, wall->y, 0) != '#')
+		height = get_value(ray->map, wall->x, wall->y, 0) - '0';
 	wall_height = ((BITS / 8) / distance * ray->gfx.proj_dist) * height;
 	y_max = ray->height + (((BITS) / distance * ray->gfx.proj_dist) / 2);
 	y_max += ((ray->player.height - ray->player.base_height) / distance * ray->gfx.proj_dist);
@@ -254,28 +267,14 @@ void	draw_thread(t_ray *ray, float distance, t_wall *wall)
 	{
 	if (y_max > wall->prev_y || y > wall->prev_y)
 		y_max = wall->prev_y;
-	/*if (y <= wall->prev_y || y > ray->gfx.height)
-		draw_ceiling(ray, *wall, wall->prev_y);*/
 	draw_floor(ray, *wall, y_max);
-	wall_layer = 0;
-	if (ray->map.map[(int)roundf(wall->y / BITS)][(int)roundf(wall->x / BITS)][4] == '\'')
-		wall_layer = 1;
-	else if (ray->map.map[(int)roundf(wall->y / BITS)][(int)roundf(wall->x / BITS)][4] == '"')
-		wall_layer = 3;
+	wall_layer = get_wall_layer(get_value(ray->map, wall->x, wall->y, 4));
 	draw_texture(ray, y, y_max, *wall, distance, scaled_y_max, wall_layer);
 	}
-	if (ray->map.map[(int)roundf(wall->y / BITS)][(int)roundf(wall->x / BITS)][3] == '$')
-		draw_sprite(ray, wall, y, distance);
-	if (ray->map.map[(int)roundf(wall->y / BITS)][(int)roundf(wall->x / BITS)][3] == 'Z')
-		draw_goal_point(ray, wall, y, distance);
-	/*if (height * 8 < ray->player.height && height != 0)
-		wall->prev_y = draw_wall_top(ray, *wall, scaled_y_max, height, wall_height);
-	if (y < wall->prev_y)
-		wall->prev_y = y;*/
+	draw_sprite(ray, wall, y, distance);
+	draw_goal_point(ray, wall, y, distance);
 	if (height * 8 < ray->player.height && height != 0)
 		wall->prev_y = draw_wall_top(ray, *wall, scaled_y_max - wall_height, height);
 	if (y < wall->prev_y)
 		wall->prev_y = y;
-//	if (ray->map.map[(int)roundf(wall->y / BITS)][(int)roundf(wall->x / BITS)][3] == 'I')
-//		draw_sprite(ray, wall, y, distance);
 }

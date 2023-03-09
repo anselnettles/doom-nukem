@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   drowning.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/08 18:35:53 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/09 15:31:03 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -512,6 +512,7 @@ void		flow_adjustment(t_drown *d);
 void		overworld_sprite_loop(t_drown *d);
 void		hud_animation_loop(t_drown *d);
 void		init_thread(t_ray *ray, t_drown *data, int i);
+int			get_value(t_map map, float x, float y, int z);
 
 //dont remove before final build. it is used to test if map values are changed correctly
 void    	testing_print_map(t_drown *data, t_editor_images *images);
