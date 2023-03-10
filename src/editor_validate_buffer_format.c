@@ -6,7 +6,7 @@
 /*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 20:13:47 by tturto            #+#    #+#             */
-/*   Updated: 2023/03/06 18:23:19 by tturto           ###   ########.fr       */
+/*   Updated: 2023/03/10 18:41:04 by tturto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,52 +120,3 @@ int	validate_buffer_format(char *buf, t_editor_images *images)
 		return (0);
 	return (1);
 }
-
-
-/* Before Norminette. Functional validate()
-
-int	validate(char *buf, t_editor_images *images)
-{
-	unsigned short int	set_count;
-	unsigned short int	index_buffer_column;
-	unsigned short int	index_buf_row;
-
-	set_count = 0;
-	index_buf_row = 0;
-	while (index_buf_row < images->buffer_rows)
-	{
-		index_buffer_column = 0;
-		while (index_buffer_column < images->buffer_columns)
-		{
-			set_count = 0;
-			while (set_count < PARAM_COUNT)
-			{
-				if (*buf >= ASCII_MIN && *buf <= ASCII_MAX && *buf != ' '
-					&& *buf != '\n' && *buf != 'A')
-					set_count++;
-				else
-				{
-					tt_errors("Invalid buffer: Format of one set.");
-					return (0);
-				}
-				buf++;
-			}
-			if (*buf == ' ' || (index_buffer_column == images->buffer_columns - 1))
-				index_buffer_column++;
-			else if (*buf == '\n')
-				index_buf_row++;
-			else if (*buf == 'A')
-				break ;
-			else if (*buf < ASCII_MIN && *buf > ASCII_MAX)
-			{
-				tt_errors("Buffer characters must be ASCII.");
-				return (0);
-			}
-			buf++;
-		}
-		if (*buf == 'A')
-			break ;
-	}
-	return (1);
-}
-*/

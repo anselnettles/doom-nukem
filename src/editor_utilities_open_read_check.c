@@ -1,34 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   editor_tt_errors.c                                 :+:      :+:    :+:   */
+/*   editor_utilities_read.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/03 18:18:42 by tturto            #+#    #+#             */
-/*   Updated: 2023/03/10 18:44:12 by tturto           ###   ########.fr       */
+/*   Created: 2023/03/10 17:25:51 by tturto            #+#    #+#             */
+/*   Updated: 2023/03/10 17:31:02 by tturto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "drowning.h"
 
-void	tt_errors(char *error_msg)
+/*
+	These functions are only called by read_map().
+*/
+void	open_check(int *fd, char *map_file)
 {
-	while (*error_msg != '\0')
+	*fd = open(map_file, O_RDONLY);
+	if (*fd < 0)
 	{
-		write(1, error_msg, 1);
-		error_msg++;
+		tt_errors("read_map: open() fail.");
+		exit(-1);
 	}
-	write(1, "\n", 1);
 }
 
-void	tt_errors_exit(char *error_msg)
+void	read_check(int fd, int *ret, char *buf, int size)
 {
-	while (*error_msg != '\0')
+	*ret = read(fd, buf, size);
+	if (*ret <= 0)
 	{
-		write(1, error_msg, 1);
-		error_msg++;
+		tt_errors("read_map: read() fail.");
+		exit(-1);
 	}
-	write(1, "\n", 1);
-	exit (-1);
 }

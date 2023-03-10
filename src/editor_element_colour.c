@@ -6,7 +6,7 @@
 /*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 16:27:29 by tturto            #+#    #+#             */
-/*   Updated: 2023/03/07 16:52:40 by tturto           ###   ########.fr       */
+/*   Updated: 2023/03/10 18:35:46 by tturto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,16 +98,13 @@ static uint32_t	img1_colouring(t_map *map, int row_now, int col_now)
 		if (map->map[row_now][col_now][0] != '.')
 			colour = colour_wall(map, row_now, col_now);
 		else
-		{
-			printf("no walls, no entity\n");
-			//param 2 = "45 degree", param4 = secret, specials
-			colour = 0x00FFFFFF;
-		}
+			colour = 0x00000000;
 	}
 	return (colour);
 }
 
-uint32_t	element_colour(t_map *map, int row_now, int col_now, int image_switch)
+uint32_t	element_colour(t_map *map, int row_now, int col_now,
+	int image_switch)
 {
 	uint32_t	colour;
 

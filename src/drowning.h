@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   drowning.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/10 15:44:22 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/10 18:29:48 by tturto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,8 +116,8 @@
 
 //	MAP EDITOR DEFINITIONS
 # define IMG1_CATHETUS 12
-# define IMG2_CATHETUS 80
-# define IMG3_CATHETUS 70
+# define IMG2_CATHETUS 100
+# define IMG3_CATHETUS 75
 # define IMG2_PARAM_COL 1
 # define IMG2_PARAM_ROW 5
 # define IMG3_PARAM_COL 1
@@ -184,7 +184,7 @@ typedef struct s_dda {
 typedef struct s_utilities
 {
 	short int	quit;
-	short int	acceptable;
+	short int	valid;
 }	t_utilities; //rules
 
 typedef struct s_editor_images
@@ -253,6 +253,14 @@ typedef struct s_mouse
     int x;
     int y;
 }   t_mouse;
+
+typedef struct s_row_col
+{
+	int	row_now;
+	int	col_now;
+	int	row_max;
+	int	col_max;
+}	t_row_col;
 
 typedef struct s_xy_start_end
 {
@@ -390,15 +398,6 @@ typedef struct s_map
     unsigned short int  selection_index;
 }	t_map;
 
-typedef struct s_map_grid	//remove if not needed in final GUI, was part of render functions
-{
-    int x1;
-    int x2;
-    int y1;
-    int y2;
-}   t_map_grid;
-
-
 typedef struct s_ray
 {
 	t_gfx		gfx;
@@ -478,13 +477,12 @@ void		fill_gaps(char *line);
 void		*ft_raycast_thread(void  *args);
 int			gfx_write(int x_start, int y_start, t_gfx *gfx, char *s);
 uint32_t	fade_brightness(uint32_t color, int multiplier);
-void		img1_and_img2(t_drown *data); //rename
+void		img1_img2_img3(t_drown *data);
 int			img1_img2_is_mouse_in_grid(t_drown *data);
 int			img3_is_mouse_in_grid(t_drown *data);
 void		init_player(t_player *player);
 int			init_sdl(SDL_Window *window, SDL_Surface *screen);
 int			init(t_gfx *gfx);
-int			is_element_bloated(t_map *map, t_editor_images *images);
 int			map_editor(char *map_file, t_drown *data);
 void		map_len(char *file, t_map *data);
 int			memory_allocate_textures(t_gfx *gfx, int f);
@@ -509,10 +507,10 @@ int			string_timeline(t_drown *d, int s);
 uint32_t	swap_red_with_blue(uint32_t hex_value);
 int			texture_allocation(char *buf, t_index *i, t_gfx *gfx);
 void		tt_errors(char *error_msg);
+void		tt_errors_exit(char *error_msg);
 int			validate(char *buf, t_editor_images *images, unsigned short int index_buf_column, unsigned short int index_buf_row);
 int			validate_buffer_format(char *buf, t_editor_images *images);
 int			validate_map(t_drown *data);
-int			validate_outer_walls(t_map *map, t_editor_images *images);
 void		value_of_parameter_0(t_map *map, t_character *chars);
 void		x_right_arm_flail(t_gfx *gfx);
 void		y_right_arm_flail(t_gfx *gfx);
@@ -532,8 +530,20 @@ int			get_value(t_map map, float x, float y, int z);
 float		calc_limit(t_wall wall, t_ray *ray);
 void		init_new_wall(t_ray *ray, t_wall *wall);
 void		ft_bzero2(void *dst, size_t n);
+void		img2_texts(t_drown *data);
+void		img3_texts(t_drown *data, int param_to_modify);
+int		 	is_new_map_valid(t_map *map, t_editor_images *images);
+void		text_param_selection_0(int x, int y, t_drown *data);
+void		text_param_selection_1(int x, int y, t_drown *data);
+void		text_param_selection_2(int x, int y, t_drown *data);
+void		text_param_selection_3(int x, int y, t_drown *data);
+void		text_param_selection_4(int x, int y, t_drown *data);
+int			i0_is_0(t_drown *data, t_index *i, int i0);
+int			i0_is_1(t_drown *data, t_index *i, int i0);
+int			i0_is_2(t_drown *data, t_index *i, int i0);
+int			i0_is_3(t_drown *data, t_index *i, int i0);
+int			i0_is_4(t_drown *data, t_index *i, int i0);
+void		read_check(int fd, int *ret, char *buf, int size);
+void		open_check(int *fd, char *map_file);
 
-//dont remove before final build. it is used to test if map values are changed correctly
-void    	testing_print_map(t_drown *data, t_editor_images *images);
-int 		editor_test_write(t_gfx *gfx, char *s, int x_start, int y_start);
 #endif
