@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 15:49:19 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/09 15:34:45 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/10 14:02:27 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,12 @@ void	*ft_raycast_thread(void *args)
 		while (get_value(ray->map, wall.x, wall.y, 0) != '#' && wall.prev_y)
 		{
 			init_dda(ray, &wall, &dda);//wall.distance = algo_dda(ray, &wall, &dda) * cosf(ray->player.dir - wall.dir);
-			draw_thread(ray, algo_dda(ray, &wall, &dda)
-				* cosf(ray->player.dir - wall.dir), &wall);
+			wall.distance = algo_dda(ray, &wall, &dda)
+				* cosf(ray->player.dir - wall.dir);
+			if (wall.distance < ray->nearest && ray->x < ray->gfx.width / 3
+				&& (get_value(ray->map, wall.x, wall.y, 0) - '0') * 8 > ray->player.altitude)
+				ray->nearest = wall.distance;
+			draw_thread(ray, wall.distance, &wall);
 		}
 		wall.dir += (60 * DEGREES) / ray->gfx.width;
 		ray->x++;
@@ -85,6 +89,7 @@ void	init_thread(t_ray *ray, t_drown *data, int i)
 	ray->gfx = data->gfx;
 	ray->player = data->player;
 	ray->map = data->map;
+	ray->nearest = 6000;
 }
 
 void	render_thread(t_drown *data)
@@ -107,4 +112,7 @@ void	render_thread(t_drown *data)
 		rc = pthread_join(threads[i], NULL);
 		i++;
 	}
+	data->nearest = ray[0].nearest;
+	if (ray[1].nearest < ray[0].nearest)
+		data->nearest = ray[1].nearest;
 }
