@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 15:49:19 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/10 14:27:44 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/10 14:30:18 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	*ft_raycast_thread(void *args)
 			init_dda(ray, &wall, &dda);//wall.distance = algo_dda(ray, &wall, &dda) * cosf(ray->player.dir - wall.dir);
 			wall.distance = algo_dda(ray, &wall, &dda)
 				* cosf(ray->player.dir - wall.dir);
-			ray->nearest = wall.distance;
+			ray->nearest = check_nearest(ray, wall);
 			draw_thread(ray, wall.distance, &wall);
 		}
 		wall.dir += (60 * DEGREES) / ray->gfx.width;
