@@ -6,7 +6,7 @@
 /*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 16:39:55 by tturto            #+#    #+#             */
-/*   Updated: 2023/03/07 18:46:59 by tturto           ###   ########.fr       */
+/*   Updated: 2023/03/10 18:39:10 by tturto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,8 @@ static void	param2_special_walls(t_character *chars)
 	'X' = player_start
 	'Z' = goal
 	'@' = monster1
-	'N' = monster2	//remove
 	'$' = item1		//air bottle
 	'J' = item2		//harpoon
-	'K' = item3		//remove
 	'R' = secret
 	'*' = special_element0
 	''' = special_element1
@@ -69,10 +67,8 @@ static void	param3_and_4_entity_secret(t_character *chars)
 	chars->param3_choice1 = 'X';
 	chars->param3_choice2 = 'Z';
 	chars->param3_choice3 = '@';
-	// chars->param3_choice4 = 'N';
-	chars->param3_choice4 = '$';	//former 5
-	chars->param3_choice5 = 'J';	//former 6
-	// chars->param3_choice7 = 'K';
+	chars->param3_choice4 = '$';
+	chars->param3_choice5 = 'J';
 	chars->param4_choice0 = '.';
 	chars->param4_choice1 = 'R';
 	chars->param4_choice2 = '*';
