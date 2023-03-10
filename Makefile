@@ -26,10 +26,9 @@ FILES				=	\
 						editor_draw_grid_of_squares \
 						editor_draw_one_square \
 						editor_element_colour \
-						editor_img1_and_img2 \
+						editor_img1_img2_img3 \
 						editor_img1_img2_is_mouse_in_grid \
 						editor_img3_is_mouse_in_grid \
-						editor_is_element_bloated \
 						editor_map_editor \
 						editor_param_to_modify \
 						editor_parse_textures \
@@ -41,10 +40,8 @@ FILES				=	\
 						editor_set_values_for_parameters \
 						editor_swap_red_with_blue \
 						editor_tt_errors \
-						editor_testing_print_map \
 						editor_validate_buffer_format \
 						editor_validate_map \
-						editor_validate_outer_walls \
 						error_management \
 						graphic_render \
 						graphic_render_draw \
@@ -60,9 +57,14 @@ FILES				=	\
 						dda \
 						editor_colouring_img2_img3 \
 						editor_parse_textures_malloc_batches \
-						editor_test_write \
 						editor_validate \
-						editor_value_of_parameter_0 
+						editor_value_of_parameter_0 \
+						editor_img2_texts \
+						editor_img3_texts \
+						editor_is_new_map_valid \
+						editor_utilities_img3_texts \
+						editor_utilities_param_check \
+						editor_utilities_open_read_check
 						
 
 SRC					=	$(addprefix src/, $(addsuffix .c, $(FILES)))

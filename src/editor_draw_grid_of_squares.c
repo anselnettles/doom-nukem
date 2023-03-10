@@ -6,7 +6,7 @@
 /*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 19:13:30 by tturto            #+#    #+#             */
-/*   Updated: 2023/03/07 18:50:12 by tturto           ###   ########.fr       */
+/*   Updated: 2023/03/10 18:34:39 by tturto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,27 +72,28 @@ static void	one_square_data(t_drown *data, int *row_now, int *col_now,
 */
 static void	draw_grid_of_squares_mod(t_drown *data, int cat, int img_x_min)
 {
-	int	row_now;
-	int	col_now;
-	int	row_max;
-	int	col_max;
+	t_row_col	rc;
 
-	row_max = 0;
-	col_max = 0;
+	rc = (t_row_col){.row_now = 0, .col_now = 0, .row_max = 0, .col_max = 0};
 	if (data->editor.images.img_switch == 3)
 		get_param_row3(&data->editor.images, &data->map);
-	get_col_row_max(data, &row_max, &col_max, data->editor.images.img_switch);
+	get_col_row_max(data, &rc.row_max, &rc.col_max,
+		data->editor.images.img_switch);
 	data->editor.interval.y_start = data->editor.images.img_y_min;
 	data->editor.interval.y_end = data->editor.interval.y_start + cat;
-	row_now = 0;
-	while (row_now < row_max)
+	while (rc.row_now < rc.row_max)
 	{
-		col_now = 0;
+		rc.col_now = 0;
 		data->editor.interval.x_start = img_x_min;
-		data->editor.interval.x_end = data->editor.interval.x_start + (cat - 1);
-		while (col_now < col_max)
-			one_square_data(data, &row_now, &col_now, cat);
-		row_now++;
+		if (data->editor.images.img_switch == 3)
+			data->editor.interval.x_end = data->editor.interval.x_start
+				+ (2 * cat - 1);
+		else
+			data->editor.interval.x_end = data->editor.interval.x_start
+				+ (cat - 1);
+		while (rc.col_now < rc.col_max)
+			one_square_data(data, &rc.row_now, &rc.col_now, cat);
+		rc.row_now++;
 		data->editor.interval.y_start = data->editor.interval.y_end + 2;
 		data->editor.interval.y_end = data->editor.interval.y_start + (cat - 1);
 	}
