@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/10 14:27:26 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/10 15:44:22 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -472,7 +472,7 @@ void    	draw_grid_of_squares(t_drown *data);
 void		draw_map(t_drown *data);
 void		draw_one_square(t_gfx *gfx, t_xy_start_end *interval);
 void		draw_scanlines(t_gfx *gfx, uint32_t *pix, uint32_t color);
-void		draw_texture(t_ray *ray, t_minmax y, t_wall wall, int scaled_y, int wall_layer);
+void		draw_texture(t_ray *ray, t_minmax y, t_wall wall, int scaled_y);
 void		draw_thread(t_ray *ray, float distance, t_wall *wall);
 int			editor_pix_put(t_gfx *gfx, int x, int y, uint32_t colour);
 uint32_t   	element_colour(t_map *map, int row_now, int col_now, int image_switch);
