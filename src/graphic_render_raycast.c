@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 15:49:19 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/10 14:02:27 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/10 14:27:44 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,16 @@ void	init_new_wall(t_ray *ray, t_wall *wall)
 	ft_bzero2(wall->lock, ray->gfx.height);
 }
 
+float	check_nearest(t_ray *ray, t_wall wall)
+{
+	if (ray->x > ray->gfx.width / 3)
+		return (0);
+	if (wall.distance < ray->nearest && (get_value(ray->map, wall.x, wall.y, 0)
+		- '0') * 8 > ray->player.altitude)
+		return (wall.distance);
+	return (ray->nearest);
+}
+
 void	*ft_raycast_thread(void *args)
 {
 	t_ray		*ray;
@@ -59,9 +69,7 @@ void	*ft_raycast_thread(void *args)
 			init_dda(ray, &wall, &dda);//wall.distance = algo_dda(ray, &wall, &dda) * cosf(ray->player.dir - wall.dir);
 			wall.distance = algo_dda(ray, &wall, &dda)
 				* cosf(ray->player.dir - wall.dir);
-			if (wall.distance < ray->nearest && ray->x < ray->gfx.width / 3
-				&& (get_value(ray->map, wall.x, wall.y, 0) - '0') * 8 > ray->player.altitude)
-				ray->nearest = wall.distance;
+			ray->nearest = wall.distance;
 			draw_thread(ray, wall.distance, &wall);
 		}
 		wall.dir += (60 * DEGREES) / ray->gfx.width;
@@ -112,7 +120,7 @@ void	render_thread(t_drown *data)
 		rc = pthread_join(threads[i], NULL);
 		i++;
 	}
-	data->nearest = ray[0].nearest;
+	data->gfx.nearest = ray[0].nearest;
 	if (ray[1].nearest < ray[0].nearest)
-		data->nearest = ray[1].nearest;
+		data->gfx.nearest = ray[1].nearest;
 }

@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/10 13:43:01 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/10 14:27:26 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,6 +167,11 @@ typedef struct s_minmax {
 	int		min;
 	int		max;
 }	t_minmax;
+
+typedef struct s_minmaxf {
+	int		min;
+	int		max;
+}	t_minmaxf;
 
 typedef struct s_dda {
 	t_vectorf	delta_dist;
@@ -362,6 +367,7 @@ typedef struct s_graphics {
 	t_texture		texture[16];
 	t_frame			frame;
 	SDL_Event		event;
+	float			nearest;
 }	t_gfx;
 
 typedef struct s_map
@@ -418,7 +424,6 @@ typedef struct s_project_drowning {
 	t_map					map;
 	float					delta_time;
 	t_audio					audio;
-	float					nearest;
 }	t_drown;
 
 //	Listed error types. See 'error_management.c' for their output.
