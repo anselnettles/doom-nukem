@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/09 15:31:03 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/10 10:51:05 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,6 +158,15 @@ typedef struct s_vectorf {
 	float	y;
 }	t_vectorf;
 
+typedef struct s_vectorif {
+	int		x;
+	float	y;
+}	t_vectorif;
+
+typedef struct s_minmax {
+	int		min;
+	int		max;
+}	t_minmax;
 
 typedef struct s_dda {
 	t_vectorf	delta_dist;
