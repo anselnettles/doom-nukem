@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/10 11:26:25 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/10 13:43:01 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -406,6 +406,7 @@ typedef struct s_ray
 	int			x;
 	int			count;
 	int			height;
+	float		nearest;
 }	t_ray;
 
 //	Mother structure.
@@ -420,6 +421,7 @@ typedef struct s_project_drowning {
 	t_map					map;
 	float					delta_time;
 	t_audio					audio;
+	float					nearest;
 }	t_drown;
 
 //	Listed error types. See 'error_management.c' for their output.
@@ -525,6 +527,9 @@ void		overworld_sprite_loop(t_drown *d);
 void		hud_animation_loop(t_drown *d);
 void		init_thread(t_ray *ray, t_drown *data, int i);
 int			get_value(t_map map, float x, float y, int z);
+float		calc_limit(t_wall wall, t_ray *ray);
+void		init_new_wall(t_ray *ray, t_wall *wall);
+void		ft_bzero2(void *dst, size_t n);
 
 //dont remove before final build. it is used to test if map values are changed correctly
 void    	testing_print_map(t_drown *data, t_editor_images *images);
