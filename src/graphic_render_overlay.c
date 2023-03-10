@@ -57,7 +57,7 @@ static int	draw_left_arm(t_index *index, t_gfx *gfx, int f, int s)
 	{
 		variable -= gfx->nearest;
 //		printf("variable: %f \n", variable);
-		if (variable > 0)
+		if (variable >= 0)
 		{
 			space = LEFT_ARM_WIDTH / variable;
 		}
@@ -69,25 +69,21 @@ static int	draw_left_arm(t_index *index, t_gfx *gfx, int f, int s)
 		while ((gfx->x) < (LEFT_ARM_WIDTH))
 		{
 			if ((pixels[gfx->x + (gfx->y * LEFT_ARM_WIDTH)]) && (pixels[gfx->x + (gfx->y * LEFT_ARM_WIDTH)] != 0xffff00))
-			{
 				if (pixel_put(gfx, index->x, index->y, pixels[gfx->x + (gfx->y * LEFT_ARM_WIDTH)]) == ERROR)
 					return (ERROR);
-			}
 			else if (pixels[gfx->x + (gfx->y * LEFT_ARM_WIDTH)] == 0xffff00)
 				pixel_put(gfx, index->x, index->y, 0x373030);
-			if ((variable < 70 && !(gfx->x % space)))
-			{
+			if ((variable < 70 && variable >= 0 && !(gfx->x % space)))
+				pixel_put(gfx, index->x + s, index->y, pixels[(gfx->x + 1) + (gfx->y * LEFT_ARM_WIDTH)]);
+			if ((variable < 70 && variable >= 0 && !(gfx->y % space)))
+				pixel_put(gfx, index->x, index->y + s, pixels[gfx->x + ((gfx->y) * LEFT_ARM_WIDTH)]);
+			if ((variable < 70 && variable >= 0 && !(gfx->x % space)))
 				index->x += s;
-				pixel_put(gfx, index->x, index->y, pixels[gfx->x + (gfx->y * LEFT_ARM_WIDTH)]);
-			}
 			index->x += s;
 			gfx->x++;
 		}
-			if ((variable < 70 && !(gfx->y % space)))
-			{
-				index->y += s;
-				pixel_put(gfx, index->x, index->y, pixels[gfx->x + (gfx->y * LEFT_ARM_WIDTH)]);
-			}
+		if ((variable < 70 && variable >= 0 && !(gfx->y % space)))
+			index->y += s;
 		index->y += s;
 		gfx->y++;
 		index->x = 0;
