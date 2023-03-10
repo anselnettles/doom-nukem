@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 10:03:55 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/03/10 13:17:49 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/10 14:16:23 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,13 @@ int		get_texture_x(t_ray *ray, t_wall wall)
 
 void	draw_texture(t_ray *ray, t_minmax y, t_wall wall, int scaled_y, int wall_layer)			//FIX ME
 {
-	float		texture_at_distance;
 	t_vectorif	texture;
 	float		j;
 	uint32_t	color;
-	float		shade_multiplier = 5;
+	float		shade_multiplier;
 
-	texture_at_distance = BITS / wall.distance * ray->gfx.proj_dist;
-	j = 64.f / texture_at_distance;
+	shade_multiplier = 5;
+	j = 64.f / (BITS / wall.distance * ray->gfx.proj_dist);
 	texture.y = 63.f;
 	texture.x = get_texture_x(ray, wall);
 	while (scaled_y >= y.max)
@@ -140,7 +139,7 @@ void	draw_floor(t_ray *ray, t_wall wall, int win_y)
 	{
 		dir = atanf((float)(win_y - ray->height) / ray->gfx.proj_dist);
 		wall.distance = (ray->player.height) / dir;
-		//wall.distance /= cosf(ray->player.dir - wall.dir);
+		wall.distance /= cosf(ray->player.dir - wall.dir);
 		wall.x = ray->player.x - wall.dx * wall.distance;
 		wall.y = ray->player.y - wall.dy * wall.distance;
 		if (wall.distance < 0 || wall.distance > 10000)
@@ -195,14 +194,14 @@ int		draw_wall_top(t_ray *ray, t_wall wall, int win_y, int wall_height)
 	t_vector texture;
 	float		limit;
 	float	dir;
-	
+
 	limit = calc_limit(wall, ray);
 	while (win_y > ray->gfx.height)
 			win_y--;
 	while (win_y > 0)
 	{
 		dir = atanf((float)(win_y - ray->height) / ray->gfx.proj_dist);
-		wall.distance = (ray->player.height - (float)wall_height * 8) / dir;
+		wall.distance = (ray->player.height - (float)wall_height * 8.f) / dir;
 		wall.distance /= cosf(ray->player.dir - wall.dir);
 		wall.x = ray->player.x - wall.dx * wall.distance;
 		wall.y = ray->player.y - wall.dy * wall.distance;
