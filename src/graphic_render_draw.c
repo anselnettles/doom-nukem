@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 10:03:55 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/03/10 16:32:08 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/10 16:46:44 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,30 +93,25 @@ int	draw_goal_point(t_ray *ray, t_wall *wall, int win_y, float distance)
 	float		texture_at_distance;
 	float		j;
 	int			f;
-	t_vectorif	texture;
+	t_vectorif	txtr;
 
-	if (get_value(ray->map, wall->x, wall->y, 3) != 'Z')
-		return (0);
-	texture_at_distance = 64 / distance * ray->gfx.proj_dist;//replace 64 with sprite_height
-	j = init_texture(ray, *wall, &texture, 0);
-	//j = 64 / texture_at_distance;//63 == sprite_height - 1
+	texture_at_distance = 64 / distance * ray->gfx.proj_dist;
+	j = init_texture(ray, *wall, &txtr, 0);
 	f = ray->gfx.frame.bottle;
-	//texture.x = get_texture_x(ray, *wall);
-	if (texture.x >= 16)
-		return (0);//texture_x -= 16;
-	//texture.y = 62;
-	while (win_y >= 0)// && j <= texture_at_distance)
+	while (win_y >= 0 && txtr.x < 16)
 	{
-		while (texture.y < 0)
-			texture.y += 64;
-		if (ray->gfx.texture[14].frame[f].pixels[texture.x + ((int)texture.y * 16)] && win_y < ray->gfx.height && win_y < wall->prev_y)
+		while (txtr.y < 0)
+			txtr.y += 64;
+		if (ray->gfx.texture[14].frame[f].pixels[txtr.x + ((int)txtr.y * 16)]
+			&& win_y < ray->gfx.height && win_y < wall->prev_y)
 		{
 			pixel_put(&ray->gfx, ray->x, win_y,
-				ray->gfx.texture[14].frame[f].pixels[texture.x + ((int)texture.y * 16)]);
+				ray->gfx.texture[14].frame[f].pixels[txtr.x
+				+ ((int)txtr.y * 16)]);
 			wall->lock[win_y] = '1';
 		}
 		win_y--;
-		texture.y -= j;
+		txtr.y -= j;
 	}
 	return (win_y);
 }
@@ -288,7 +283,8 @@ void	draw_thread(t_ray *ray, float distance, t_wall *wall)
 		draw_floor(ray, *wall, y.max);
 	}
 	draw_sprite(ray, wall, y.min, distance);
-	draw_goal_point(ray, wall, y.min, distance);
+	if (get_value(ray->map, wall->x, wall->y, 3) == 'Z')
+		draw_goal_point(ray, wall, y.min, distance);
 	if (h.min * 8 < ray->player.height && h.min != 0)
 		wall->prev_y = draw_wall_top(ray, *wall, scaled_y_max - h.max, h.min);
 	if (y.min < wall->prev_y)
