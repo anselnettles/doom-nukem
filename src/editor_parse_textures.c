@@ -48,9 +48,7 @@ static void	store_graphic(char identity, char *str, t_index *i, t_gfx *gfx)
 	hex_value = (uint32_t)strtol(str, NULL, 16);
 	hex_value = swap_red_with_blue(hex_value);
 	gfx->texture[identity - 65].frame[i->f].pixels[i->hex_count] = hex_value;
-	// printf("ID: %d. Frame: %d. Index: %d HEX: %d\n", (identity - 65),
-	// 	i->f, i->hex_count,
-	// 	gfx->texture[identity - 65].frame[i->f].pixels[i->hex_count]);
+	//printf("ID: %d. Frame: %d. Index: %d HEX: %d\n", (identity - 65), i->f, i->hex_count, gfx->texture[identity - 65].frame[i->f].pixels[i->hex_count]);
 }
 
 //	Parses through the map file's textures' HEX color values. Saves them in
@@ -97,8 +95,11 @@ static int	parse_textures(char identity, t_index *i, t_gfx *gfx, char *buf)
 //	Texture 'J', 9:		Timer.			Frames: 0 to 9.		Size: 60 x 90
 //	Texture 'K', 10:	Bubble.			Frames: 0.			Size: 12 x 12
 //	Texture 'L', 11:	Ammo.			Frames:	0 to 1.		Size: 32 x 45
-//	Texture 'M', 12:	Monster.		Placeholder.
-//	Texture 'P', 13:	Algae texture.	Frames: 0 to 3.		Size: 64 x 64
+//	Texture 'M', 12		Monster.		Placeholder.
+//	Texture 'N', 13:	Algae texture.	Frames: 0 to 3.		Size: 64 x 64
+//	Texture 'O', 14:	Rope chain.		Frames: 0 to 2.		Size: 16 x 64
+//	Texture 'P', 15:	Transition.		Frames: 0 to 2.		Size: 642 x 48
+//	Texture 'Q', 16:	Left arm.		Frames: 0 to 2.		Size: 182 x 492
 int	texture_allocation(char *buf, t_index *i, t_gfx *gfx)
 {
 	char	identity;
@@ -106,7 +107,7 @@ int	texture_allocation(char *buf, t_index *i, t_gfx *gfx)
 	if (memory_allocate_textures(gfx, 0) == ERROR)
 		return (error(MALLOC_FAIL));
 	identity = 'A';
-	while (identity <= 'P' )	//This used to be 'N'. 
+	while (identity <= 'Q' )	//This used to be 'N'. 
 	{
 		i->i = 0;	//ami: due to norminette, moved here from parse_textures()
 		i->f = 0;	//ami: due to norminette, moved here from parse_textures()
