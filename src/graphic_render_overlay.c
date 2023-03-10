@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 11:08:33 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/10 14:15:34 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/10 16:37:53 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,28 @@ static int	draw_right_arm(t_index *index, t_gfx *gfx, int s)
 static int	draw_left_arm(t_index *index, t_gfx *gfx, int f, int s)
 {
 	uint32_t	*pixels;
+	float			variable = 70;
+	int				space = -1;
 
+//	printf("distance: %f \n", gfx->nearest);
 	pixels = gfx->texture[LEFT_ARM].frame[f].pixels;
 	gfx->x = MARGIN;//gfx->shake_x;
 	gfx->y = 0;//gfx->shake_y;
 	index->y = MARGIN * s * 3;//((gfx->height - (238 * s) + MARGIN * s) + gfx->shake_y * s);
 	index->x = 0;//((gfx->width - (250 * s) + MARGIN * s) + gfx->shake_x * s);
+	
+
+	if (gfx->nearest < 70)
+	{
+		variable -= gfx->nearest;
+//		printf("variable: %f \n", variable);
+		if (variable > 0)
+		{
+			space = LEFT_ARM_WIDTH / variable;
+		}
+//		printf("space: %d \n", space);
+	}
+		
 	while ((gfx->y) < (LEFT_ARM_HEIGHT) && (index->y) < (gfx->height))
 	{
 		while ((gfx->x) < (LEFT_ARM_WIDTH))
@@ -59,6 +75,18 @@ static int	draw_left_arm(t_index *index, t_gfx *gfx, int f, int s)
 			}
 			else if (pixels[gfx->x + (gfx->y * LEFT_ARM_WIDTH)] == 0xffff00)
 				pixel_put(gfx, index->x, index->y, 0x373030);
+			if ((variable < 70 && !(gfx->x % space)))
+			{
+				index->x += s;
+				index->y += s;
+				pixel_put(gfx, index->x, index->y, pixels[gfx->x + (gfx->y * LEFT_ARM_WIDTH)]);
+				index->y += s;
+				index->x += s;
+				pixel_put(gfx, index->x, index->y, pixels[gfx->x + (gfx->y * LEFT_ARM_WIDTH)]);
+				index->y += s;
+				index->x += s;
+				pixel_put(gfx, index->x, index->y, pixels[gfx->x + (gfx->y * LEFT_ARM_WIDTH)]);
+			}
 			index->x += s;
 			gfx->x++;
 		}
