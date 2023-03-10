@@ -25,7 +25,10 @@
 //	Texture 'K', 10:	Bubble.			Frames: 0.			Size: 12 x 12
 //	Texture 'L', 11:	Ammo.			Frames:	0 to 1.		Size: 32 x 45
 //	Texture 'M', 12		Monster.		Placeholder.
-//	Texture 'N', 13		Algae texture.	Frames: 0 to 3.		Size: 64 x 64
+//	Texture 'N', 13:	Algae texture.	Frames: 0 to 3.		Size: 64 x 64
+//	Texture 'O', 14:	Rope chain.		Frames: 0 to 2.		Size: 16 x 64
+//	Texture 'P', 15:	Transition.		Frames: 0 to 2.		Size: 642 x 48
+//	Texture 'Q', 16:	Left arm.		Frames: 0 to 2.		Size: 182 x 492
 
 static int	confirm_memory_allocation_second_batch(t_gfx *gfx, int t, int f)
 {
@@ -40,6 +43,10 @@ static int	confirm_memory_allocation_second_batch(t_gfx *gfx, int t, int f)
 		f = 0;
 		while (f < 3)
 			if (gfx->texture[15].frame[f++].pixels == NULL)
+				return (ERROR);
+		f = 0;
+		while (f < 3)
+			if (gfx->texture[16].frame[f++].pixels == NULL)
 				return (ERROR);
 	return (0);
 }
