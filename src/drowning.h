@@ -86,8 +86,8 @@
 # define SKYBOX_HEIGHT 480				//Skybox texture height.
 # define SKYBOX_WIDTH 720				//Skybox texture width.
 # define RIGHT_ARM 5					//Overlay right arm sprite. AKA. 'F'.
-# define RIGHT_ARM_HEIGHT 250			//Right arm sprite height.
-# define RIGHT_ARM_WIDTH 238			//Right arm sprite width.
+# define RIGHT_ARM_HEIGHT 238			//Right arm sprite height.
+# define RIGHT_ARM_WIDTH 250			//Right arm sprite width.
 # define LETTERS 6						//Overlay text script sprite. AKA. 'G'.
 # define LETTERS_HEIGHT 20				//Text script sprite height.
 # define LETTERS_WIDTH 728				//Text script sprite width.
@@ -113,6 +113,9 @@
 # define TRANSITION 15					//Transition texture. AKA. texture 'P'.
 # define TRANSITION_HEIGHT 48			//Transition texture height.
 # define TRANSITION_WIDTH 642			//Transition texture width.
+# define LEFT_ARM 16					//Overlay left arm sprite. AKA. 'Q'.
+# define LEFT_ARM_HEIGHT 492			//Left arm's sprite height.
+# define LEFT_ARM_WIDTH 182				//Left arm's sprite width.
 
 //	MAP EDITOR DEFINITIONS
 # define IMG1_CATHETUS 12
@@ -350,7 +353,7 @@ typedef struct s_graphics {
 	int				shake_xtoggle;
 	int				shake_ytoggle;
 	int				flow_y_adjust;
-	t_texture		texture[16];
+	t_texture		texture[17];
 	t_frame			frame;
 	SDL_Event		event;
 }	t_gfx;
