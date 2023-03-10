@@ -6,13 +6,13 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 10:03:55 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/03/10 14:16:23 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/10 15:38:51 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "drowning.h"
 
-int		get_texture_x(t_ray *ray, t_wall wall)
+int	get_texture_x(t_ray *ray, t_wall wall)
 {
 	if (wall.side == 0)
 	{
@@ -22,7 +22,7 @@ int		get_texture_x(t_ray *ray, t_wall wall)
 	}
 	else
 	{
-		if (wall.dy < 0)// && ray->map.map[(int)roundf(wall.y / BITS)][(int)roundf(wall.x / BITS)][2] != '.')
+		if (wall.dy < 0)
 			return (BITS - (int)wall.x % BITS);
 		return ((int)wall.x % BITS);
 	}
@@ -128,26 +128,37 @@ int		draw_sprite(t_ray *ray, t_wall *wall, int win_y, float distance)
 	return (win_y - j);
 }	
 
+t_vector	cast_floor(t_ray *ray, t_wall *wall, int win_y, float height)
+{
+	float		dir;
+	t_vector	texture;
+
+	dir = atanf((float)(win_y - ray->height) / ray->gfx.proj_dist);
+	wall->distance = (height) / dir;
+	wall->distance /= cosf(ray->player.dir - wall->dir);
+	wall->x = ray->player.x - wall->dx * wall->distance;
+	wall->y = ray->player.y - wall->dy * wall->distance;
+	texture.x = (int)roundf(wall->y) % 64;
+	texture.y = (int)roundf(wall->x) % 64;
+	return (texture);
+}
+
 void	draw_floor(t_ray *ray, t_wall wall, int win_y)
 {
-	t_vector	texture;
+	t_vector	txtr;
 	float		dir;
 	uint32_t	color;
-	int			shade_multiplier = 3;
+	int			shade_multiplier;
 
+	shade_multiplier = 3;
 	while (win_y < wall.prev_y && win_y < ray->gfx.height && win_y > 0)
 	{
-		dir = atanf((float)(win_y - ray->height) / ray->gfx.proj_dist);
-		wall.distance = (ray->player.height) / dir;
-		wall.distance /= cosf(ray->player.dir - wall.dir);
-		wall.x = ray->player.x - wall.dx * wall.distance;
-		wall.y = ray->player.y - wall.dy * wall.distance;
+		txtr = cast_floor(ray, &wall, win_y, ray->player.height);
 		if (wall.distance < 0 || wall.distance > 10000)
-			break;
-		texture.x = (int)roundf(wall.y) % 64;
-		texture.y = (int)roundf(wall.x) % 64;
-		color = ray->gfx.texture[0].frame[0].pixels[texture.x + (texture.y * 64)];	//"Clean" texture draw.
-		color = fade_brightness(ray->gfx.texture[0].frame[0].pixels[texture.x + (texture.y * 64)], wall.distance / 100 * shade_multiplier);	//Draw shading tests.
+			break ;
+		color = ray->gfx.texture[0].frame[0].pixels[txtr.x + (txtr.y * 64)];
+		color = fade_brightness(ray->gfx.texture[0].frame[0].pixels[txtr.x
+				+ (txtr.y * 64)], wall.distance / 100 * shade_multiplier);
 		if (win_y < ray->gfx.height && wall.lock[win_y] == '0')
 			pixel_put(&ray->gfx, ray->x, win_y, color);
 		shade_multiplier += 0.2;
@@ -157,13 +168,9 @@ void	draw_floor(t_ray *ray, t_wall wall, int win_y)
 
 void	draw_ceiling(t_ray *ray, t_wall wall, int win_y)
 {
-	t_vector	texture;
-	float	player_height;
-	float	dir;
+	t_vector	txtr;
+	float		dir;
 
-	player_height = - ray->player.height;
-	if (player_height < 8)
-		player_height = 4;
 	while (win_y >= 0)
 	{
 		dir = atanf((float)(win_y - ray->height) / ray->gfx.proj_dist);
@@ -171,10 +178,11 @@ void	draw_ceiling(t_ray *ray, t_wall wall, int win_y)
 		wall.distance /= cosf(ray->player.dir - wall.dir);
 		wall.x = ray->player.x + wall.dx * wall.distance;
 		wall.y = ray->player.y + wall.dy * wall.distance;
-		texture.x = (int)roundf(wall.x) % 128;
-		texture.y = (int)roundf(wall.y) % 64;
+		txtr.x = (int)roundf(wall.x) % 128;
+		txtr.y = (int)roundf(wall.y) % 64;
 		if (win_y < ray->gfx.height && wall.lock[win_y] == '0')
-			pixel_put(&ray->gfx, ray->x, win_y, ray->gfx.texture[4].frame[0].pixels[texture.x + (texture.y * 128)]);
+			pixel_put(&ray->gfx, ray->x, win_y,
+				ray->gfx.texture[4].frame[0].pixels[txtr.x + (txtr.y * 128)]);
 		win_y--;
 	}
 }
@@ -182,36 +190,41 @@ void	draw_ceiling(t_ray *ray, t_wall wall, int win_y)
 float	calc_limit(t_wall wall, t_ray *ray)
 {
 	float	limit;
-	t_dda dda;
+	t_dda	dda;
 
 	init_dda(ray, &wall, &dda);
 	limit = algo_dda(ray, &wall, &dda);
 	return (limit);
 }
 
-int		draw_wall_top(t_ray *ray, t_wall wall, int win_y, int wall_height)
+int	check_boundary(t_wall wall, int win_y)
 {
-	t_vector texture;
+	if ((int)roundf(wall.x / 64) >= 28 || (int)roundf(wall.y / 64) >= 20
+		|| wall.y <= 0 || wall.x <= 0)
+		return (0);
+	if (win_y < 0 || wall.lock[win_y] != '0' || win_y >= wall.prev_y)
+		return (0);
+	return (1);
+}
+
+int	draw_wall_top(t_ray *ray, t_wall wall, int win_y, int wall_height)
+{
+	t_vector	txtr;
 	float		limit;
-	float	dir;
+	float		dir;
 
 	limit = calc_limit(wall, ray);
 	while (win_y > ray->gfx.height)
 			win_y--;
-	while (win_y > 0)
+	while (win_y >= 0)
 	{
-		dir = atanf((float)(win_y - ray->height) / ray->gfx.proj_dist);
-		wall.distance = (ray->player.height - (float)wall_height * 8.f) / dir;
-		wall.distance /= cosf(ray->player.dir - wall.dir);
-		wall.x = ray->player.x - wall.dx * wall.distance;
-		wall.y = ray->player.y - wall.dy * wall.distance;
-		texture.x = (int)roundf(wall.y) % 64;
-		texture.y = (int)roundf(wall.x) % 64;
+		txtr = cast_floor(ray, &wall, win_y,
+				ray->player.height - (float)wall_height * 8.f);
 		if (wall.distance <= 0 || wall.distance > limit)
-			break;
-		if ((int)roundf(wall.x / 64) < 28 && (int)roundf(wall.y / 64) < 20 && wall.y > 0
-			&& wall.x > 0 && win_y > 0 && wall.lock[win_y] == '0' && win_y < wall.prev_y)
-			pixel_put(&ray->gfx, ray->x, win_y, ray->gfx.texture[1].frame[0].pixels[texture.x + (texture.y * 64)]);
+			break ;
+		if (check_boundary(wall, win_y))
+			pixel_put(&ray->gfx, ray->x, win_y,
+				ray->gfx.texture[1].frame[0].pixels[txtr.x + (txtr.y * 64)]);
 		win_y--;
 	}
 	if (win_y < wall.prev_y)
