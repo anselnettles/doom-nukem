@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 11:08:33 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/10 16:37:53 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/10 18:53:30 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,18 +78,16 @@ static int	draw_left_arm(t_index *index, t_gfx *gfx, int f, int s)
 			if ((variable < 70 && !(gfx->x % space)))
 			{
 				index->x += s;
-				index->y += s;
-				pixel_put(gfx, index->x, index->y, pixels[gfx->x + (gfx->y * LEFT_ARM_WIDTH)]);
-				index->y += s;
-				index->x += s;
-				pixel_put(gfx, index->x, index->y, pixels[gfx->x + (gfx->y * LEFT_ARM_WIDTH)]);
-				index->y += s;
-				index->x += s;
 				pixel_put(gfx, index->x, index->y, pixels[gfx->x + (gfx->y * LEFT_ARM_WIDTH)]);
 			}
 			index->x += s;
 			gfx->x++;
 		}
+			if ((variable < 70 && !(gfx->y % space)))
+			{
+				index->y += s;
+				pixel_put(gfx, index->x, index->y, pixels[gfx->x + (gfx->y * LEFT_ARM_WIDTH)]);
+			}
 		index->y += s;
 		gfx->y++;
 		index->x = 0;
