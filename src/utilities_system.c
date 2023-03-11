@@ -12,13 +12,6 @@
 
 #include "drowning.h"
 
-int		get_value(t_map map, float x, float y, int z)
-{
-	if (map.map[(int)roundf(y / BITS)][(int)roundf(x / BITS)][z] == '.')
-		return(0);
-	return(map.map[(int)roundf(y / BITS)][(int)roundf(x / BITS)][z]);
-}
-
 void		collect_airbottle(t_drown *d)
 {
 	//called by draw thread() when player collides to item 'I'(?)
@@ -33,6 +26,31 @@ void		collect_airbottle(t_drown *d)
 	d->gfx.frame.right_arm = 3;
 	//overlay effect;
 }
+
+int		player_object_collision(t_drown *d, int s)
+{
+	if (d->map.map[(int)roundf(d->player.y / 64)][(int)roundf(d->player.x / 64)][3] == 'Z') //&& d->player.height - d->player.base_height != d->player.altitude)
+		d->system.ending_state = REGULAR_ENDING;
+	gfx_write(TXT_X * d->gfx.scale, (TXT_Y - MARGIN) * d->gfx.scale, &d->gfx, "PRESS E TO COLLECT");
+	if (d->map.map[(int)roundf(d->player.y / 64)][(int)roundf(d->player.x / 64)][3] == '$')
+	{
+		if (d->system.keyboard_state[SDL_SCANCODE_E])
+		{
+			d->map.map[(int)roundf(d->player.y / 64)][(int)roundf(d->player.x / 64)][3] = '.';
+			collect_airbottle(d);
+		}
+	}
+
+		return (0);
+}
+
+int		get_value(t_map map, float x, float y, int z)
+{
+	if (map.map[(int)roundf(y / BITS)][(int)roundf(x / BITS)][z] == '.')
+		return(0);
+	return(map.map[(int)roundf(y / BITS)][(int)roundf(x / BITS)][z]);
+}
+
 
 void		scale_window(t_gfx *gfx)
 {
@@ -171,11 +189,7 @@ void		sdl_loop(t_drown *d)
 			delta_time_move(d);*/
 		delta_move_player(d);
 		delta_time_move(d);
-		//strife(d);
-		
-
-		if (d->map.map[(int)roundf(d->player.y / 64)][(int)roundf(d->player.x / 64)][3] == 'Z') //&& d->player.height - d->player.base_height != d->player.altitude)
-			d->system.ending_state = REGULAR_ENDING;
+		player_object_collision(d, d->gfx.scale);
 
 		if (d->system.frame_time < 16.6666f)			//OPTIMOI MINUT
 		{
