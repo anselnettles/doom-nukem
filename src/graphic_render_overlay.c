@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 11:08:33 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/08 18:31:09 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/10 18:53:30 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,27 +17,81 @@ static int	draw_right_arm(t_index *index, t_gfx *gfx, int s)
 	gfx->f = gfx->frame.right_arm;
 	gfx->x = 0;
 	gfx->y = 0;
-	index->y = ((gfx->height - (238 * s) + MARGIN * s) + gfx->shake_y * s);
-	index->x = ((gfx->width - (250 * s) + MARGIN * s) + gfx->shake_x * s);
+	index->y = ((gfx->height - (RIGHT_ARM_HEIGHT * s) + MARGIN * s) + gfx->shake_y * s);
+	index->x = ((gfx->width - (RIGHT_ARM_WIDTH * s) + MARGIN * s) + gfx->shake_x * s);
 	while ((index->y) < (gfx->height))
 	{
 		while ((index->x) < (gfx->width))
 		{
-			if (gfx->texture[5].frame[gfx->f].pixels[gfx->x + (gfx->y * 250)])
+			if (gfx->texture[RIGHT_ARM].frame[gfx->f].pixels[gfx->x + (gfx->y * RIGHT_ARM_WIDTH)])
 				if (pixel_put(gfx, index->x, index->y,
-						gfx->texture[5].frame[gfx->f].pixels
-						[gfx->x + (gfx->y * 250)]) == ERROR)
+						gfx->texture[RIGHT_ARM].frame[gfx->f].pixels
+						[gfx->x + (gfx->y * RIGHT_ARM_WIDTH)]) == ERROR)
 					return (ERROR);
 			index->x += s;
 			gfx->x++;
 		}
 		index->y += s;
 		gfx->y++;
-		index->x = ((gfx->width - (250 * s) + MARGIN * s) + gfx->shake_x * s);
+		index->x = ((gfx->width - (RIGHT_ARM_WIDTH * s) + MARGIN * s) + gfx->shake_x * s);
 		gfx->x = 0;
 	}
 	return (0);
 }
+
+static int	draw_left_arm(t_index *index, t_gfx *gfx, int f, int s)
+{
+	uint32_t	*pixels;
+	float			variable = 70;
+	int				space = -1;
+
+//	printf("distance: %f \n", gfx->nearest);
+	pixels = gfx->texture[LEFT_ARM].frame[f].pixels;
+	gfx->x = MARGIN;//gfx->shake_x;
+	gfx->y = 0;//gfx->shake_y;
+	index->y = MARGIN * s * 3;//((gfx->height - (238 * s) + MARGIN * s) + gfx->shake_y * s);
+	index->x = 0;//((gfx->width - (250 * s) + MARGIN * s) + gfx->shake_x * s);
+	
+
+	if (gfx->nearest < 70)
+	{
+		variable -= gfx->nearest;
+//		printf("variable: %f \n", variable);
+		if (variable >= 0)
+		{
+			space = LEFT_ARM_WIDTH / variable;
+		}
+//		printf("space: %d \n", space);
+	}
+		
+	while ((gfx->y) < (LEFT_ARM_HEIGHT) && (index->y) < (gfx->height))
+	{
+		while ((gfx->x) < (LEFT_ARM_WIDTH))
+		{
+			if ((pixels[gfx->x + (gfx->y * LEFT_ARM_WIDTH)]) && (pixels[gfx->x + (gfx->y * LEFT_ARM_WIDTH)] != 0xffff00))
+				if (pixel_put(gfx, index->x, index->y, pixels[gfx->x + (gfx->y * LEFT_ARM_WIDTH)]) == ERROR)
+					return (ERROR);
+			else if (pixels[gfx->x + (gfx->y * LEFT_ARM_WIDTH)] == 0xffff00)
+				pixel_put(gfx, index->x, index->y, 0x373030);
+			if ((variable < 70 && variable >= 0 && !(gfx->x % space)))
+				pixel_put(gfx, index->x + s, index->y, pixels[(gfx->x + 1) + (gfx->y * LEFT_ARM_WIDTH)]);
+			if ((variable < 70 && variable >= 0 && !(gfx->y % space)))
+				pixel_put(gfx, index->x, index->y + s, pixels[gfx->x + ((gfx->y) * LEFT_ARM_WIDTH)]);
+			if ((variable < 70 && variable >= 0 && !(gfx->x % space)))
+				index->x += s;
+			index->x += s;
+			gfx->x++;
+		}
+		if ((variable < 70 && variable >= 0 && !(gfx->y % space)))
+			index->y += s;
+		index->y += s;
+		gfx->y++;
+		index->x = 0;
+		gfx->x = MARGIN;//gfx->shake_x;
+	}
+	return (0);
+}
+
 
 static void	underwater_effect(t_drown *d, t_gfx *gfx, int scale, int i)
 {
@@ -121,6 +175,8 @@ int	render_overlay(t_drown *d)
 {
 	underwater_effect(d, &d->gfx, d->gfx.scale, 0);
 	if (draw_right_arm(&d->index, &d->gfx, d->gfx.scale) == ERROR)
+		return (ERROR);
+	if (draw_left_arm(&d->index, &d->gfx, d->gfx.frame.bottle, d->gfx.scale) == ERROR)
 		return (ERROR);
 	if (d->system.filters == TRUE)
 		draw_color_filter(&d->gfx, 0, 0);
