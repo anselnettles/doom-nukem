@@ -32,9 +32,7 @@ static int	initialize_menu(t_gfx *gfx, t_system *system, SDL_Event *event)
 {
 	while (system->play_state == PLAY)
 	{
-		gfx_write(TXT_X * gfx->scale, gfx->height / 4, gfx, "D R O W N I N G");
-		gfx_write(TXT_X * gfx->scale, TXT_Y * gfx->scale, gfx,
-			"PRESS 'Z' TO PLAY .. 'X' HARD MODE .. 'C' EDITOR");
+		menu_string(gfx, gfx->scale);
 		while (SDL_PollEvent(event))
 		{
 			if (event->type == SDL_QUIT)
