@@ -6,7 +6,7 @@
 /*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/10 18:29:48 by tturto           ###   ########.fr       */
+/*   Updated: 2023/03/12 17:06:44 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,6 @@
 # include <SDL2/SDL.h>						//Simple DirectMedia Layer.
 # include "../libft/libft.h"
 # include "../frameworks/SDL2/SDL_mixer.h"
-
-//# ifdef __APPLE__
-//#  include "SDL_image.h"
-//# elif __linux__
-//#  include <SDL2/SDL_image.h>
-//# endif
 
 //	GRAPHIC GLOBAL DEFINITIONS
 # define TITLE "Project Drowning | github.com/AnselNettles/doom-nukem"
@@ -73,6 +67,8 @@
 # define T_LGRAY "\033[0;37m"			//A light gray terminal type color.
 
 # define RED 65535						//Integer value for red pixels.
+# define YELLOW 0xffff00				//HEX value for yellow pixels.
+# define GRAY 0x373030					//HEX value for gray pixels.
 # define BLACK 0						//Integer value for black pixels.
 
 //	SPRITE DIMENSIONS DEFINITIONS
@@ -470,6 +466,7 @@ void		draw_floor(t_ray *ray, t_wall wall, int win_y);
 void    	draw_grid_of_squares(t_drown *data);
 void		draw_map(t_drown *data);
 void		draw_one_square(t_gfx *gfx, t_xy_start_end *interval);
+int			draw_player(t_index *index, t_gfx *gfx);
 void		draw_scanlines(t_gfx *gfx, uint32_t *pix, uint32_t color);
 void		draw_texture(t_ray *ray, t_minmax y, t_wall wall, int scaled_y);
 void		draw_thread(t_ray *ray, float distance, t_wall *wall);
