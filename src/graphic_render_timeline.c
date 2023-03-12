@@ -12,6 +12,16 @@
 
 #include "drowning.h"
 
+int	menu_string(t_gfx *gfx, int s)
+{
+	if (gfx_write(TXT_X * s, gfx->height / 4, gfx, "D R O W N I N G"))
+		return (ERROR);
+	if (gfx_write(TXT_X * s, TXT_Y * s, gfx, 
+				"PRESS 'Z' TO PLAY .. 'X' HARD MODE .. 'C' EDITOR"))
+		return (ERROR);
+	return (0);
+}
+
 static int	event_string(t_drown *d, int s)
 {
 	if (d->map.map[(int)roundf(d->player.y / 64)]
