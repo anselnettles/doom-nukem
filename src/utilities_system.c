@@ -14,8 +14,6 @@
 
 void		collect_airbottle(t_drown *d)
 {
-	//called by draw thread() when player collides to item 'I'(?)
-	//remove item from map/draw;
 	if (d->gfx.frame.bubble > 0)
 		d->gfx.frame.bubble--;
 	if (d->gfx.frame.bubble > 0)
@@ -24,14 +22,12 @@ void		collect_airbottle(t_drown *d)
 		d->gfx.frame.bubble--;
 	//play sound effect;
 	d->gfx.frame.right_arm = 3;
-	//overlay effect;
 }
 
 int		player_object_collision(t_drown *d, int s)
 {
 	if (d->map.map[(int)roundf(d->player.y / 64)][(int)roundf(d->player.x / 64)][3] == 'Z') //&& d->player.height - d->player.base_height != d->player.altitude)
 		d->system.ending_state = REGULAR_ENDING;
-	gfx_write(TXT_X * d->gfx.scale, (TXT_Y - MARGIN) * d->gfx.scale, &d->gfx, "PRESS E TO COLLECT");
 	if (d->map.map[(int)roundf(d->player.y / 64)][(int)roundf(d->player.x / 64)][3] == '$')
 	{
 		if (d->system.keyboard_state[SDL_SCANCODE_E])
@@ -40,7 +36,6 @@ int		player_object_collision(t_drown *d, int s)
 			collect_airbottle(d);
 		}
 	}
-
 		return (0);
 }
 
@@ -151,7 +146,6 @@ void	draw_skybox(t_drown *data)
 	}
 }
 
-
 //	Sdl_loop() keeps Simple Direct MediaLayer's PollEvent constantly
 //	running and checks for control calls while rerendering the graphical
 //	view.
@@ -198,6 +192,5 @@ void		sdl_loop(t_drown *d)
 			draw_skybox(d);
 			render(d);
 			d->system.last_time = d->system.time;
-		
 	}
 }
