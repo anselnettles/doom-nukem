@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 11:08:33 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/12 12:43:32 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/12 16:36:14 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void	left_arm_pix(t_gfx *gfx, t_index *index, int x, int y)
 
 	pixels = gfx->texture[LEFT_ARM].frame[gfx->frame.bottle].pixels;
 	if ((pixels[(gfx->x + x) + ((gfx->y + y) * LEFT_ARM_WIDTH)]) && (pixels[(gfx->x + x) + ((gfx->y + y) * LEFT_ARM_WIDTH)] != 0xffff00))
-		pixel_put(gfx, (index->x + x), (index->y + y), pixels[(gfx->x + x) + ((gfx->y + y) * LEFT_ARM_WIDTH)]);
+		pixel_put(gfx, (index->x + (x * gfx->scale)), (index->y + (y * gfx->scale)), pixels[(gfx->x + x) + ((gfx->y + y) * LEFT_ARM_WIDTH)]);
 	else if (pixels[(gfx->x + x) + ((gfx->y + y) * LEFT_ARM_WIDTH)] == 0xffff00)
 		pixel_put(gfx, (index->x + x), (index->y + y), 0x373030);
 }
@@ -78,12 +78,17 @@ static int	draw_left_arm(t_index *index, t_gfx *gfx, int f, int s)
 			if ((variable < 70 && variable >= 0 && !(gfx->y % space)))
 				left_arm_pix(gfx, index, 0, 1);
 			if ((variable < 70 && variable >= 0 && !(gfx->x % space)))
+			{
 				index->x += s;
+				left_arm_pix(gfx, index, 0, -1);
+			}
 			index->x += s;
 			gfx->x++;
 		}
 		if ((variable < 70 && variable >= 0 && !(gfx->y % space)))
+		{
 			index->y += s;
+		}
 		index->y += s;
 		gfx->y++;
 		index->x = 0;
