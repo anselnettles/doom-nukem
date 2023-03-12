@@ -6,7 +6,7 @@
 /*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 19:04:35 by tturto            #+#    #+#             */
-/*   Updated: 2023/03/10 18:37:47 by tturto           ###   ########.fr       */
+/*   Updated: 2023/03/12 17:15:09 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,5 @@ int	read_map(char *map_file, t_drown *data)
 	count_map_data(buf, &data->editor.images);
 	malloc_3d_map_array(&data->map, &data->editor.images);
 	buffer_to_3d_map_array(buf, &data->map);
-	data->map.x_max = data->editor.images.row1;
-	data->map.y_max = data->editor.images.column1;
 	return (0);
 }
