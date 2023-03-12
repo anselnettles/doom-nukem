@@ -12,28 +12,30 @@
 
 #include "drowning.h"
 
-static int	draw_right_arm(t_index *index, t_gfx *gfx, int s)
+static int	draw_right_arm(t_index *i, t_gfx *gfx, int s)
 {
+	uint32_t *pixels;
+
 	gfx->f = gfx->frame.right_arm;
+	pixels = gfx->texture[RIGHT_ARM].frame[gfx->f].pixels;
 	gfx->x = 0;
 	gfx->y = 0;
-	index->y = ((gfx->height - (RIGHT_ARM_HEIGHT * s) + MARGIN * s) + gfx->shake_y * s);
-	index->x = ((gfx->width - (RIGHT_ARM_WIDTH * s) + MARGIN * s) + gfx->shake_x * s);
-	while ((index->y) < (gfx->height))
+	i->y = ((gfx->height - (RARM_HT * s) + MARGIN * s) + gfx->shake_y * s);
+	i->x = ((gfx->width - (RARM_WTH * s) + MARGIN * s) + gfx->shake_x * s);
+	while ((i->y) < (gfx->height))
 	{
-		while ((index->x) < (gfx->width))
+		while ((i->x) < (gfx->width))
 		{
-			if (gfx->texture[RIGHT_ARM].frame[gfx->f].pixels[gfx->x + (gfx->y * RIGHT_ARM_WIDTH)])
-				if (pixel_put(gfx, index->x, index->y,
-						gfx->texture[RIGHT_ARM].frame[gfx->f].pixels
-						[gfx->x + (gfx->y * RIGHT_ARM_WIDTH)]) == ERROR)
+			if (pixels[gfx->x + (gfx->y * RARM_WTH)])
+				if (pixel_put(gfx, i->x, i->y,
+						pixels[gfx->x + (gfx->y * RARM_WTH)]) == ERROR)
 					return (ERROR);
-			index->x += s;
+			i->x += s;
 			gfx->x++;
 		}
-		index->y += s;
+		i->y += s;
 		gfx->y++;
-		index->x = ((gfx->width - (RIGHT_ARM_WIDTH * s) + MARGIN * s) + gfx->shake_x * s);
+		i->x = ((gfx->width - (RARM_WTH * s) + MARGIN * s) + gfx->shake_x * s);
 		gfx->x = 0;
 	}
 	return (0);
@@ -44,56 +46,58 @@ static void	left_arm_pix(t_gfx *gfx, t_index *index, int x, int y)
 	uint32_t	*pixels;
 
 	pixels = gfx->texture[LEFT_ARM].frame[gfx->frame.bottle].pixels;
-	if ((pixels[(gfx->x + x) + ((gfx->y + y) * LEFT_ARM_WIDTH)]) && (pixels[(gfx->x + x) + ((gfx->y + y) * LEFT_ARM_WIDTH)] != YELLOW))
-		pixel_put(gfx, (index->x + (x * gfx->scale)), (index->y + (y * gfx->scale)), pixels[(gfx->x + x) + ((gfx->y + y) * LEFT_ARM_WIDTH)]);
-	else if (pixels[(gfx->x + x) + ((gfx->y + y) * LEFT_ARM_WIDTH)] == YELLOW)
+	if ((pixels[(gfx->x + x) + ((gfx->y + y) * LARM_WTH)])
+		&& (pixels[(gfx->x + x) + ((gfx->y + y) * LARM_WTH)] != YELLOW))
+		pixel_put(gfx, (index->x + (x * gfx->scale)),
+				(index->y + (y * gfx->scale)),
+				pixels[(gfx->x + x) + ((gfx->y + y) * LARM_WTH)]);
+	else if (pixels[(gfx->x + x) + ((gfx->y + y) * LARM_WTH)] == YELLOW)
 		pixel_put(gfx, (index->x + x), (index->y + y), GRAY);
+}
+
+static void	left_arm_loop(t_index *index, t_gfx *gfx, float distance, int div)
+{
+	while ((gfx->y) < (LARM_HT) && (index->y) < (gfx->height))
+	{
+		index->x = 0;
+		gfx->x = MARGIN;
+		while ((gfx->x) < (LARM_WTH))
+		{
+			left_arm_pix(gfx, index, 0, 0);
+			if ((distance < 70 && distance >= 0 && !(gfx->x % div)))
+			{
+				left_arm_pix(gfx, index, 1, 0);
+				index->x += gfx->scale;
+				left_arm_pix(gfx, index, 0, -1);
+			}
+			if ((distance < 70 && distance >= 0 && !(gfx->y % div)))
+				left_arm_pix(gfx, index, 0, 1);
+			index->x += gfx->scale;
+			gfx->x++;
+		}
+		if ((distance < 70 && distance >= 0 && !(gfx->y % div)))
+			index->y += gfx->scale;
+		index->y += gfx->scale;
+		gfx->y++;
+	}
 }
 
 static int	draw_left_arm(t_index *index, t_gfx *gfx, int f, int s)
 {
-	uint32_t	*pixels;
-	float			variable = 70;
-	int				space = -1;
+	float	distance;
+	int		div;
 
-	pixels = gfx->texture[LEFT_ARM].frame[f].pixels;
-	gfx->x = MARGIN;//gfx->shake_x;
-	gfx->y = 0;//gfx->shake_y;
-	index->y = MARGIN * s * 3;//((gfx->height - (238 * s) + MARGIN * s) + gfx->shake_y * s);
-	index->x = 0;//((gfx->width - (250 * s) + MARGIN * s) + gfx->shake_x * s);
-
+	gfx->y = 0;
+	index->y = MARGIN * s * 3;
+	distance = 70;
+	div = -1;
 	if (gfx->nearest < 70)
 	{
-		variable -= gfx->nearest;
-		if (variable >= 0)
-			space = LEFT_ARM_WIDTH / variable;
+		distance -= (gfx->nearest);
+		if (distance >= 0)
+			div = LARM_WTH / distance;
 	}
-	while ((gfx->y) < (LEFT_ARM_HEIGHT) && (index->y) < (gfx->height))
-	{
-		while ((gfx->x) < (LEFT_ARM_WIDTH))
-		{
-			left_arm_pix(gfx, index, 0, 0);
-			if ((variable < 70 && variable >= 0 && !(gfx->x % space)))
-				left_arm_pix(gfx, index, 1, 0);
-			if ((variable < 70 && variable >= 0 && !(gfx->y % space)))
-				left_arm_pix(gfx, index, 0, 1);
-			if ((variable < 70 && variable >= 0 && !(gfx->x % space)))
-			{
-				index->x += s;
-				left_arm_pix(gfx, index, 0, -1);
-			}
-			index->x += s;
-			gfx->x++;
-		}
-		if ((variable < 70 && variable >= 0 && !(gfx->y % space)))
-		{
-			index->y += s;
-		}
-		index->y += s;
-		gfx->y++;
-		index->x = 0;
-		gfx->x = MARGIN;//gfx->shake_x;
-	}
+	left_arm_loop(index, gfx, distance, div);
 	return (0);
 }
 
