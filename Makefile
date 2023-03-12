@@ -6,7 +6,7 @@
 #    By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/16 17:04:55 by aviholai          #+#    #+#              #
-#    Updated: 2023/03/06 16:42:51 by aviholai         ###   ########.fr        #
+#    Updated: 2023/03/12 17:07:06 by aviholai         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,6 +48,7 @@ FILES				=	\
 						graphic_render_filters \
 						graphic_render_hud \
 						graphic_render_overlay \
+						graphic_render_player \
 						graphic_render_raycast \
 						graphic_render_timeline \
 						main \
