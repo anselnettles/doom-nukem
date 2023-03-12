@@ -6,7 +6,7 @@
 /*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 12:34:59 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/09 19:36:25 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/12 17:10:19 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int	event_string(t_drown *d, int s)
 {
 	if (d->map.map[(int)roundf(d->player.y / 64)]
-			[(int)roundf(d->player.x / 64)][3] == '$')
+		[(int)roundf(d->player.x / 64)][3] == '$')
 		if (gfx_write((d->gfx.width / 3), (d->gfx.height / 2), &d->gfx,
 				"PRESS 'E' TO COLLECT") == ERROR)
 			return (ERROR);
