@@ -82,8 +82,8 @@
 # define SKYBOX_HEIGHT 480				//Skybox texture height.
 # define SKYBOX_WIDTH 720				//Skybox texture width.
 # define RIGHT_ARM 5					//Overlay right arm sprite. AKA. 'F'.
-# define RIGHT_ARM_HEIGHT 238			//Right arm sprite height.
-# define RIGHT_ARM_WIDTH 250			//Right arm sprite width.
+# define RARM_HT 238					//Right arm sprite height.
+# define RARM_WTH 250					//Right arm sprite width.
 # define LETTERS 6						//Overlay text script sprite. AKA. 'G'.
 # define LETTERS_HEIGHT 20				//Text script sprite height.
 # define LETTERS_WIDTH 728				//Text script sprite width.
@@ -110,8 +110,8 @@
 # define TRANSITION_HEIGHT 48			//Transition texture height.
 # define TRANSITION_WIDTH 642			//Transition texture width.
 # define LEFT_ARM 16					//Overlay left arm sprite. AKA. 'Q'.
-# define LEFT_ARM_HEIGHT 492			//Left arm's sprite height.
-# define LEFT_ARM_WIDTH 182				//Left arm's sprite width.
+# define LARM_HT 492					//Left arm's sprite height.
+# define LARM_WTH 182					//Left arm's sprite width.
 
 //	MAP EDITOR DEFINITIONS
 # define IMG1_CATHETUS 12
@@ -455,6 +455,7 @@ void		draw_grid_of_squares(t_drown *data);
 void		draw_map(t_drown *data);
 void		draw_one_square(t_gfx *gfx, t_xy_start_end *interval);
 int			draw_player(t_index *index, t_gfx *gfx);
+void		draw_skybox(t_drown *data);
 void		draw_scanlines(t_gfx *gfx, uint32_t *pix, uint32_t color);
 void		draw_texture(t_ray *ray, t_minmax y, t_wall wall, int scaled_y);
 void		draw_thread(t_ray *ray, float distance, t_wall *wall);
@@ -476,6 +477,7 @@ int			map_editor(char *map_file, t_drown *data);
 void		map_len(char *file, t_map *data);
 int			memory_allocate_textures(t_gfx *gfx, int f);
 void		memory_allocate_textures_second_batch(t_gfx *gfx);
+int			menu_string(t_gfx *gfx, int s);
 void		move_forward_back(t_drown *data);
 void		move_strafe(t_drown *data);
 void		param_to_modify(t_map *map);

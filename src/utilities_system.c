@@ -26,13 +26,16 @@ void		collect_airbottle(t_drown *d)
 
 int		player_object_collision(t_drown *d, int s)
 {
-	if (d->map.map[(int)roundf(d->player.y / 64)][(int)roundf(d->player.x / 64)][3] == 'Z') //&& d->player.height - d->player.base_height != d->player.altitude)
+	if (d->map.map[(int)roundf(d->player.y / 64)]
+		[(int)roundf(d->player.x / 64)][3] == 'Z')
 		d->system.ending_state = REGULAR_ENDING;
-	if (d->map.map[(int)roundf(d->player.y / 64)][(int)roundf(d->player.x / 64)][3] == '$')
+	if (d->map.map[(int)roundf(d->player.y / 64)]
+		[(int)roundf(d->player.x / 64)][3] == '$')
 	{
 		if (d->system.keyboard_state[SDL_SCANCODE_E])
 		{
-			d->map.map[(int)roundf(d->player.y / 64)][(int)roundf(d->player.x / 64)][3] = '.';
+			d->map.map[(int)roundf(d->player.y / 64)]
+			[(int)roundf(d->player.x / 64)][3] = '.';
 			collect_airbottle(d);
 		}
 	}
@@ -94,58 +97,6 @@ void	crouch(t_drown *data)
 		data->player.base_height = 32;
 }
 
-void	draw_skybox_collumn(t_drown *data, int x, int tx)
-{
-	int		y;
-	int		ty;
-	int		i;
-	int		stretch;
-
-	y = 0;
-	ty = 0;// data->gfx.centre;
-	/*while (ty > 240)
-		ty -= 240;*/
-	stretch = (data->gfx.height) / 240;
-	while (y < data->gfx.height)
-	{
-		i = 0;
-		while(i < stretch && tx < 720)
-		{
-			pixel_put(&data->gfx, x, y + i, data->gfx.texture[4].frame[0].pixels[tx + ty * 720]);
-			i ++;//  data->gfx.scale;
-		}
-		y += i;
-		ty++;
-	}
-}
-
-void	draw_skybox(t_drown *data)
-{
-	int		x;
-	int		tx;
-	int		stretch;
-	int		i;
-
-	x = 0;
-	tx = (int)roundf((720.f / (360.f * (float)DEGREES)) * data->player.dir);
-	stretch = (data->gfx.width * data->gfx.scale) / 320;
-	if (tx < 0)
-		tx *= -1;
-	while (x < data->gfx.width)
-	{
-		if (tx >= 720)
-		tx -= 720;
-		i = 0;
-		while (i < stretch)
-		{
-			draw_skybox_collumn(data, x + i, tx);
-			i++;
-		}
-		x += i;
-		tx++;
-	}
-}
-
 //	Sdl_loop() keeps Simple Direct MediaLayer's PollEvent constantly
 //	running and checks for control calls while rerendering the graphical
 //	view.
@@ -154,19 +105,6 @@ void		sdl_loop(t_drown *d)
 	d->system.keyboard_state = SDL_GetKeyboardState(NULL);
 	while (d->system.play_state == PLAY)
 	{
-		/*crouch(d);
-		d->player.velocity.y -= GRAVITY;
-		d->player.height += d->player.velocity.y * d->system.frame_time;
-		if (d->player.height <= d->player.base_height + (d->map.map[(int)roundf(d->player.y / BITS)]
-			[(int)roundf(d->player.x / BITS)][0] - '0') * 8)
-		{
-			d->player.height = d->player.base_height + (d->map.map[(int)roundf(d->player.y / BITS)]
-			[(int)roundf(d->player.x / BITS)][0] - '0') * 8;
-			d->player.velocity.y = 0;
-			d->player.in_air = 0;
-		}
-		if (d->player.height > 514)
-			d->player.height = 514;*/
 		track_time(d);
 		while (SDL_PollEvent(&d->event) != 0)
 		{
@@ -179,18 +117,13 @@ void		sdl_loop(t_drown *d)
 			if (d->event.type == SDL_KEYDOWN || d->event.type == SDL_MOUSEMOTION)
 				x_right_arm_flail(&d->gfx);
 		}
-		/*if (d->system.keyboard_state[SDL_SCANCODE_W])
-			delta_time_move(d);*/
 		delta_move_player(d);
 		delta_time_move(d);
 		player_object_collision(d, d->gfx.scale);
-
-		if (d->system.frame_time < 16.6666f)			//OPTIMOI MINUT
-		{
+		if (d->system.frame_time < 16.6666f)
 			SDL_Delay(16.6666f - d->system.frame_time);
-		}
-			draw_skybox(d);
-			render(d);
-			d->system.last_time = d->system.time;
+		draw_skybox(d);
+		render(d);
+		d->system.last_time = d->system.time;
 	}
 }
