@@ -63,6 +63,7 @@ static void	initialize_audio(t_drown *d)
 	d->audio.main_menu = Mix_LoadMUS("src/audio/bgm_grave_menu.ogg");
 	d->audio.bluehole = Mix_LoadMUS("src/audio/bgm_grave_theme.ogg");
 	d->audio.timer_hit = Mix_LoadWAV("src/audio/se_timer_hit.ogg");
+	d->audio.inhale = Mix_LoadWAV("src/audio/se_inhale.ogg");
 	Mix_PlayMusic(d->audio.main_menu, 0);
 }
 
