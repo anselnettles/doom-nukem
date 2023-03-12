@@ -6,7 +6,7 @@
 /*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/12 17:06:44 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/12 17:22:47 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,7 +184,7 @@ typedef struct s_utilities
 {
 	short int	quit;
 	short int	valid;
-}	t_utilities; //rules
+}	t_utilities;
 
 typedef struct s_editor_images
 {
@@ -197,12 +197,12 @@ typedef struct s_editor_images
     unsigned short int  img_y_min;
     unsigned short int  img_y_max;
     unsigned short int  img_switch;
-    unsigned short int  row1;           //change names. row1 -->> img1_rows, column2 -->> img2_columns, ...
+    unsigned short int  row1;
     unsigned short int  column1;
     unsigned short int  row2;
     unsigned short int  column2;
     unsigned short int  row3;
-    unsigned short int  column3;        //keep this despite not used (grid3 is pre-defined as a column, x == 0)
+    unsigned short int  column3;
     unsigned short int	buffer_rows;
 	unsigned short int	buffer_columns;
 }   t_editor_images;
@@ -221,25 +221,21 @@ typedef struct  s_character
     char    param0_choice9;
     char    param0_choice10;
     char    param0_choice11;
-    //param1: texture
     char    param1_choice0;
     char    param1_choice1;
     char    param1_choice2;
     char    param1_choice3;
-    //param2: 45 degree, x - y
     char    param2_choice0;
     char    param2_choice1;
     char    param2_choice2;
     char    param2_choice3;
     char    param2_choice4;
-    //param3: entity
     char    param3_choice0;
     char    param3_choice1;
     char    param3_choice2;
     char    param3_choice3;
     char    param3_choice4;
     char    param3_choice5;
-    //param4: secret
     char    param4_choice0;
     char    param4_choice1;
     char    param4_choice2;
@@ -268,7 +264,7 @@ typedef struct s_xy_start_end
     int         y_start;
     int         y_end;
     uint32_t    colour;
-}   t_xy_start_end; //interval
+}   t_xy_start_end;
 
 typedef struct s_editor
 {
@@ -287,12 +283,11 @@ typedef struct s_index {
 	int				i;
 	int				x;
 	int				y;
-	int				p; //[y][x][p]
+	int				p;
 	int				f;
 	int				width;
 	int				hex_count;
 	int				hex_step;
-	//from map editor s_index
 	unsigned short int  i0;
     unsigned short int  i1;
     unsigned short int  i2;
@@ -379,21 +374,14 @@ typedef struct s_graphics {
 
 typedef struct s_map
 {
-	int					y_max;				//remove if topi does not use these
-	int					x_max;				//remove if topi does not use these
     char                ***map;
-    //map coordinates referring x and y
     unsigned short int  map_x;
     unsigned short int  map_y;
-    //img2: these convert into param_to_modify
     unsigned short int  param_x_to_modify;
     unsigned short int  param_y_to_modify;
-    //img2: selected parameter type
     unsigned short int  param_to_modify;
-    //img3: these convert into selection_index
     unsigned short int  selection_x;
     unsigned short int  selection_y; 
-    //img3: selected index of a chosen parameter type
     unsigned short int  selection_index;
 }	t_map;
 
@@ -446,14 +434,14 @@ typedef enum e_error
 	GFX_WRITE_ERROR,
 }	t_error;
 
-
 //	Non-static functions.
 int			animation_loop(t_drown *d);
 void		choose_to_reset_map_or_exit(t_drown *data);
-void    	clear_surface(t_drown *data);
+void		clear_surface(t_drown *data);
 void		close_program(t_gfx *gfx);
 void		collect_airbottle(t_drown *d);
-uint32_t	colouring_img2_img3(t_map *map, int row_now, int col_now, int image_switch);
+uint32_t	colouring_img2_img3(t_map *map,
+				int row_now, int col_now, int image_switch);
 char		*copy_line(char *line, t_map *data);
 void		deal_key(int key, t_drown *data);
 void		deal_mouse(t_drown *data);
@@ -463,7 +451,7 @@ void		draw_ceiling(t_ray *ray, t_wall wall, int win_y);
 void		draw_collumn(t_ray *ray, int y, int y_max, Uint32 color);
 void		draw_color_filter(t_gfx *gfx, uint32_t *pix, uint32_t color);
 void		draw_floor(t_ray *ray, t_wall wall, int win_y);
-void    	draw_grid_of_squares(t_drown *data);
+void		draw_grid_of_squares(t_drown *data);
 void		draw_map(t_drown *data);
 void		draw_one_square(t_gfx *gfx, t_xy_start_end *interval);
 int			draw_player(t_index *index, t_gfx *gfx);
@@ -471,10 +459,11 @@ void		draw_scanlines(t_gfx *gfx, uint32_t *pix, uint32_t color);
 void		draw_texture(t_ray *ray, t_minmax y, t_wall wall, int scaled_y);
 void		draw_thread(t_ray *ray, float distance, t_wall *wall);
 int			editor_pix_put(t_gfx *gfx, int x, int y, uint32_t colour);
-uint32_t   	element_colour(t_map *map, int row_now, int col_now, int image_switch);
+uint32_t	element_colour(t_map *map,
+				int row_now, int col_now, int image_switch);
 int			error(int code);
 void		fill_gaps(char *line);
-void		*ft_raycast_thread(void  *args);
+void		*ft_raycast_thread(void *args);
 int			gfx_write(int x_start, int y_start, t_gfx *gfx, char *s);
 uint32_t	fade_brightness(uint32_t color, int multiplier);
 void		img1_img2_img3(t_drown *data);
@@ -508,7 +497,9 @@ uint32_t	swap_red_with_blue(uint32_t hex_value);
 int			texture_allocation(char *buf, t_index *i, t_gfx *gfx);
 void		tt_errors(char *error_msg);
 void		tt_errors_exit(char *error_msg);
-int			validate(char *buf, t_editor_images *images, unsigned short int index_buf_column, unsigned short int index_buf_row);
+int			validate(char *buf, t_editor_images *images,
+				unsigned short int index_buf_column,
+				unsigned short int index_buf_row);
 int			validate_buffer_format(char *buf, t_editor_images *images);
 int			validate_map(t_drown *data);
 void		value_of_parameter_0(t_map *map, t_character *chars);
@@ -521,7 +512,7 @@ int			ft_diagonal_3(t_wall *wall, t_ray *ray);
 int			ft_diagonal_4(t_wall *wall, t_ray *ray);
 void		crouch(t_drown *data);
 void		init_dda(t_ray *ray, t_wall *wall, t_dda *dda);
-float    	algo_dda(t_ray *ray, t_wall *wall, t_dda *dda);
+float		algo_dda(t_ray *ray, t_wall *wall, t_dda *dda);
 void		flow_adjustment(t_drown *d);
 void		overworld_sprite_loop(t_drown *d);
 void		hud_animation_loop(t_drown *d);
@@ -532,7 +523,7 @@ void		init_new_wall(t_ray *ray, t_wall *wall);
 void		ft_bzero2(void *dst, size_t n);
 void		img2_texts(t_drown *data);
 void		img3_texts(t_drown *data, int param_to_modify);
-int		 	is_new_map_valid(t_map *map, t_editor_images *images);
+int			is_new_map_valid(t_map *map, t_editor_images *images);
 void		text_param_selection_0(int x, int y, t_drown *data);
 void		text_param_selection_1(int x, int y, t_drown *data);
 void		text_param_selection_2(int x, int y, t_drown *data);
