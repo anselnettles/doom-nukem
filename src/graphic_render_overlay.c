@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 11:08:33 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/10 18:53:30 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/12 12:43:32 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,44 +39,44 @@ static int	draw_right_arm(t_index *index, t_gfx *gfx, int s)
 	return (0);
 }
 
+static void	left_arm_pix(t_gfx *gfx, t_index *index, int x, int y)
+{
+	uint32_t	*pixels;
+
+	pixels = gfx->texture[LEFT_ARM].frame[gfx->frame.bottle].pixels;
+	if ((pixels[(gfx->x + x) + ((gfx->y + y) * LEFT_ARM_WIDTH)]) && (pixels[(gfx->x + x) + ((gfx->y + y) * LEFT_ARM_WIDTH)] != 0xffff00))
+		pixel_put(gfx, (index->x + x), (index->y + y), pixels[(gfx->x + x) + ((gfx->y + y) * LEFT_ARM_WIDTH)]);
+	else if (pixels[(gfx->x + x) + ((gfx->y + y) * LEFT_ARM_WIDTH)] == 0xffff00)
+		pixel_put(gfx, (index->x + x), (index->y + y), 0x373030);
+}
+
 static int	draw_left_arm(t_index *index, t_gfx *gfx, int f, int s)
 {
 	uint32_t	*pixels;
 	float			variable = 70;
 	int				space = -1;
 
-//	printf("distance: %f \n", gfx->nearest);
 	pixels = gfx->texture[LEFT_ARM].frame[f].pixels;
 	gfx->x = MARGIN;//gfx->shake_x;
 	gfx->y = 0;//gfx->shake_y;
 	index->y = MARGIN * s * 3;//((gfx->height - (238 * s) + MARGIN * s) + gfx->shake_y * s);
 	index->x = 0;//((gfx->width - (250 * s) + MARGIN * s) + gfx->shake_x * s);
-	
 
 	if (gfx->nearest < 70)
 	{
 		variable -= gfx->nearest;
-//		printf("variable: %f \n", variable);
 		if (variable >= 0)
-		{
 			space = LEFT_ARM_WIDTH / variable;
-		}
-//		printf("space: %d \n", space);
 	}
-		
 	while ((gfx->y) < (LEFT_ARM_HEIGHT) && (index->y) < (gfx->height))
 	{
 		while ((gfx->x) < (LEFT_ARM_WIDTH))
 		{
-			if ((pixels[gfx->x + (gfx->y * LEFT_ARM_WIDTH)]) && (pixels[gfx->x + (gfx->y * LEFT_ARM_WIDTH)] != 0xffff00))
-				if (pixel_put(gfx, index->x, index->y, pixels[gfx->x + (gfx->y * LEFT_ARM_WIDTH)]) == ERROR)
-					return (ERROR);
-			else if (pixels[gfx->x + (gfx->y * LEFT_ARM_WIDTH)] == 0xffff00)
-				pixel_put(gfx, index->x, index->y, 0x373030);
+			left_arm_pix(gfx, index, 0, 0);
 			if ((variable < 70 && variable >= 0 && !(gfx->x % space)))
-				pixel_put(gfx, index->x + s, index->y, pixels[(gfx->x + 1) + (gfx->y * LEFT_ARM_WIDTH)]);
+				left_arm_pix(gfx, index, 1, 0);
 			if ((variable < 70 && variable >= 0 && !(gfx->y % space)))
-				pixel_put(gfx, index->x, index->y + s, pixels[gfx->x + ((gfx->y) * LEFT_ARM_WIDTH)]);
+				left_arm_pix(gfx, index, 0, 1);
 			if ((variable < 70 && variable >= 0 && !(gfx->x % space)))
 				index->x += s;
 			index->x += s;
