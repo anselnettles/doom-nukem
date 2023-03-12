@@ -67,11 +67,14 @@ static void	left_arm_loop(t_index *index, t_gfx *gfx, float distance, int div)
 			if ((distance < 70 && distance >= 0 && !(gfx->x % div)))
 			{
 				left_arm_pix(gfx, index, 1, 0);
-				index->x += gfx->scale;
-				left_arm_pix(gfx, index, 0, -1);
 			}
 			if ((distance < 70 && distance >= 0 && !(gfx->y % div)))
 				left_arm_pix(gfx, index, 0, 1);
+			if ((distance < 70 && distance >= 0 && !(gfx->x % div)))
+			{
+				index->x += gfx->scale;
+				left_arm_pix(gfx, index, 0, -1);
+			}
 			index->x += gfx->scale;
 			gfx->x++;
 		}
