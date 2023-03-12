@@ -145,6 +145,7 @@ typedef struct s_audio {
 	Mix_Music	*main_menu;
 	Mix_Music	*bluehole;
 	Mix_Chunk	*timer_hit;
+	Mix_Chunk	*inhale;
 }	t_audio;
 
 typedef struct s_vector {

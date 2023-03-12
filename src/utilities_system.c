@@ -20,7 +20,7 @@ void		collect_airbottle(t_drown *d)
 		d->gfx.frame.bubble--;
 	if (d->gfx.frame.bubble > 0)
 		d->gfx.frame.bubble--;
-	//play sound effect;
+	Mix_PlayChannel(-1, d->audio.inhale, 0);
 	d->gfx.frame.right_arm = 3;
 }
 
