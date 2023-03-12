@@ -6,7 +6,7 @@
 /*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 18:24:05 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/08 18:42:43 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/12 17:39:16 by tturto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 static int	initialize_player(t_drown *d)
 {
 	d->player.dir = PI;
-	d->player.x = BITS * 2;
-	d->player.y = BITS * 2;
+	d->player.x = get_player_start(&d->map, &d->editor.images, 'x');
+	d->player.y = get_player_start(&d->map, &d->editor.images, 'y');
 	d->player.dx = cosf(PI);
 	d->player.dy = sinf(PI);
 	d->player.height = 512;
