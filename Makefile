@@ -65,7 +65,8 @@ FILES				=	\
 						editor_is_new_map_valid \
 						editor_utilities_img3_texts \
 						editor_utilities_param_check \
-						editor_utilities_open_read_check
+						editor_utilities_open_read_check \
+						editor_get_player_start
 						
 
 SRC					=	$(addprefix src/, $(addsuffix .c, $(FILES)))

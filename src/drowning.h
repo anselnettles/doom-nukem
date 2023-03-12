@@ -6,7 +6,7 @@
 /*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/12 17:22:47 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/12 17:43:03 by tturto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -536,5 +536,6 @@ int			i0_is_3(t_drown *data, t_index *i, int i0);
 int			i0_is_4(t_drown *data, t_index *i, int i0);
 void		read_check(int fd, int *ret, char *buf, int size);
 void		open_check(int *fd, char *map_file);
+int			get_player_start(t_map *map, t_editor_images *images, char axis);
 
 #endif
