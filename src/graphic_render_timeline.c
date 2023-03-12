@@ -12,6 +12,16 @@
 
 #include "drowning.h"
 
+static int	event_string(t_drown *d, int s)
+{
+	if (d->map.map[(int)roundf(d->player.y / 64)]
+			[(int)roundf(d->player.x / 64)][3] == '$')
+		if (gfx_write((d->gfx.width / 3), (d->gfx.height / 2), &d->gfx,
+				"PRESS 'E' TO COLLECT") == ERROR)
+			return (ERROR);
+	return (0);
+}
+
 static int	ending_string(t_drown *d, int s)
 {
 	clear_surface(d);
@@ -43,6 +53,8 @@ int	string_timeline(t_drown *d, int s)
 	if (d->gfx.frame.bubble >= 13)
 		if (gfx_write(TXT_X * s, TXT_Y * s, &d->gfx, "GAME OVER.") == ERROR)
 			return (ERROR);
+	if (event_string(d, s) == ERROR)
+		return (ERROR);
 	if (d->system.ending_state == REGULAR_ENDING)
 		if (ending_string(d, s) == ERROR)
 			return (ERROR);
