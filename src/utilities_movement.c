@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 14:16:37 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/13 13:12:16 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/13 13:33:45 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	delta_time_move(t_drown *data)
 			data->player.y += data->player.velocity.x * data->system.frame_time * data->player.dy;
 		}
 		//KORJAA TAMA >
-		data->player.altitude = (data->map.map[(int)roundf(data->player.y / 64)][(int)roundf(data->player.x / 64)][0] - '0') * 8;
+		data->player.altitude = (data->map.map[(int)roundf(data->player.y / 64)][(int)roundf(data->player.x / 64)][0] - '0') * 32;
 		data->player.velocity.y -= (GRAVITY / 2);
 		data->player.height += (data->player.velocity.y / 8) * data->system.frame_time;
 		if (data->player.height <= data->player.base_height + data->player.altitude)

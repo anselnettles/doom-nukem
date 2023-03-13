@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 10:03:55 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/03/13 13:06:52 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/13 13:39:06 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,13 +238,13 @@ int	draw_wall_top(t_ray *ray, t_wall wall, int win_y, int wall_height)
 	win_y_limit = ray->height + (((BITS) / limit * ray->gfx.proj_dist) / 2);
 	win_y_limit += ((ray->player.height - 32)
 			/ limit * ray->gfx.proj_dist);
-	win_y_limit -= ((BITS / 8) / limit * ray->gfx.proj_dist) * wall_height;
+	win_y_limit -= ((BITS / 2) / limit * ray->gfx.proj_dist) * wall_height;
 	while (win_y > ray->gfx.height)
 			win_y--;
 	while (win_y >= 0)
 	{
 		txtr = cast_floor(ray, &wall, win_y,
-				ray->player.height - (float)(wall_height * 8));
+				ray->player.height - (float)(wall_height * 32));
 		if (wall.distance <= 0 || win_y < win_y_limit)//wall.distance > limit)
 			break ;
 		if (check_boundary(wall, win_y))
@@ -259,10 +259,10 @@ int	draw_wall_top(t_ray *ray, t_wall wall, int win_y, int wall_height)
 
 int	calc_wall_values(t_minmax *y, t_minmax *h, t_ray *ray, t_wall *wall)
 {
-	h->min = 64;
+	h->min = 26;
 	if (get_value(ray->map, wall->x, wall->y, 0) != '#')
 		h->min = get_value(ray->map, wall->x, wall->y, 0) - '0';
-	h->max = ((BITS / 8) / wall->distance * ray->gfx.proj_dist) * h->min;
+	h->max = ((BITS / 2) / wall->distance * ray->gfx.proj_dist) * h->min;
 	y->max = ray->height + (((BITS) / wall->distance * ray->gfx.proj_dist) / 2);
 	y->max += ((ray->player.height - 32)
 			/ wall->distance * ray->gfx.proj_dist);
@@ -290,7 +290,7 @@ void	draw_thread(t_ray *ray, float distance, t_wall *wall)
 	draw_sprite(ray, wall, y.min, distance);
 	if (get_value(ray->map, wall->x, wall->y, 3) == 'Z')
 		draw_goal_point(ray, wall, y.min, distance);
-	if (h.min * 8 < ray->player.height && h.min != 0)
+	if (h.min * 32 < ray->player.height && h.min != 0)
 		wall->prev_y = draw_wall_top(ray, *wall, scaled_y_max - h.max, h.min);
 	if (y.min < wall->prev_y)
 		wall->prev_y = y.min;
