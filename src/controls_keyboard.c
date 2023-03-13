@@ -12,6 +12,19 @@
 
 #include "drowning.h"
 
+void		scale_window(t_gfx *gfx)
+{
+	if (gfx->scale == 1)
+		gfx->scale = 2;
+	else
+		gfx->scale = 1;
+	gfx->width = (WIDTH * gfx->scale);
+	gfx->height = (HEIGHT * gfx->scale);
+	SDL_SetWindowSize(gfx->window, gfx->width, gfx->height);
+	gfx->screen = SDL_GetWindowSurface(gfx->window);
+	gfx->centre = ((gfx->width / 2) / tan(30 * DEGREES));
+}
+
 void	deal_key(int key, t_drown *data)
 {
 	if (data->system.keyboard_state[SDL_SCANCODE_ESCAPE])
