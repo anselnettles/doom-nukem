@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 14:16:37 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/13 15:49:13 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/13 17:21:15 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,36 +20,19 @@ void	crouch(t_drown *data)
 		data->player.base_height = 32;
 }
 
-void	delta_move_player(t_drown *data)
+float	get_move_dir(t_drown *data)
 {
-	static float			dir = 0.f;
+	float	dir;
 
-	if (data->player.velocity.x >= 1)
-		data->player.velocity.x -= 0.8f;
-	else if (data->player.velocity.x < 2)
-		data->player.velocity.x = 0;
-//	dir -= 0.1f;
-	//dir = 0.f;
-	if (data->system.keyboard_state[SDL_SCANCODE_A] || data->system.keyboard_state[SDL_SCANCODE_W]
-		|| data->system.keyboard_state[SDL_SCANCODE_D] ||data->system.keyboard_state[SDL_SCANCODE_S])
-	{
-		dir = 0.f;
-		if (data->player.velocity.x < 10)
-			data->player.velocity.x += 2.f;
-	}
+	dir = 0.f;
 	if (data->system.keyboard_state[SDL_SCANCODE_S]  && !data->system.keyboard_state[SDL_SCANCODE_W])
-	{
-		dir = 0.f;
 		dir -= 180.F * DEGREES;
-	}
 	if (data->system.keyboard_state[SDL_SCANCODE_A]  && !data->system.keyboard_state[SDL_SCANCODE_D])
 	{
 		dir = 0.f;
 		dir -= 90.f * DEGREES;
 		if (data->system.keyboard_state[SDL_SCANCODE_W])
-		{
 			dir += 45 * DEGREES;
-		}
 		if (data->system.keyboard_state[SDL_SCANCODE_S])
 			dir -= 45 * DEGREES;
 	}
@@ -61,6 +44,23 @@ void	delta_move_player(t_drown *data)
 			dir -= 45 * DEGREES;
 		if (data->system.keyboard_state[SDL_SCANCODE_S])
 			dir += 45 * DEGREES;
+	}
+	return (dir);
+}
+void	delta_move_player(t_drown *data)
+{
+	float			dir = 0.f;
+
+	if (data->player.velocity.x >= 1)
+		data->player.velocity.x -= 0.8f;
+	else if (data->player.velocity.x < 2)
+		data->player.velocity.x = 0;
+	if (data->system.keyboard_state[SDL_SCANCODE_A] || data->system.keyboard_state[SDL_SCANCODE_W]
+		|| data->system.keyboard_state[SDL_SCANCODE_D] ||data->system.keyboard_state[SDL_SCANCODE_S])
+	{
+		dir = get_move_dir(data);
+		if (data->player.velocity.x < 10)
+			data->player.velocity.x += 2.f;
 	}
 	if (data->system.keyboard_state[SDL_SCANCODE_LSHIFT] && data->player.velocity.x < 20)
 		data->player.velocity.x *= 1.1;
