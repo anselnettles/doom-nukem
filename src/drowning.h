@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   drowning.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/13 16:01:07 by tturto           ###   ########.fr       */
+/*   Updated: 2023/03/13 17:34:47 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -435,7 +435,7 @@ typedef enum e_error
 }	t_error;
 
 //	Non-static functions.
-float		algo_dda(t_ray *ray, t_wall *wall, t_dda *dda);
+float		algo_dda(t_wall *wall, t_dda *dda);
 int			animation_loop(t_drown *d);
 float		calc_limit(t_wall wall, t_ray *ray);
 void		choose_to_reset_map_or_exit(t_drown *data);
