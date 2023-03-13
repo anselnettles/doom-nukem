@@ -6,7 +6,7 @@
 #    By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/16 17:04:55 by aviholai          #+#    #+#              #
-#    Updated: 2023/03/12 17:07:06 by aviholai         ###   ########.fr        #
+#    Updated: 2023/03/13 12:50:34 by aviholai         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,8 @@ FILES				=	\
 						editor_map_editor \
 						editor_param_to_modify \
 						editor_parse_textures \
-						editor_parse_textures_malloc \
+						editor_parse_textures_alloc \
+						editor_parse_textures_confirm \
 						editor_pix_put \
 						editor_read_map \
 						editor_select_new_param_value \
@@ -58,7 +59,6 @@ FILES				=	\
 						utilities_system \
 						dda \
 						editor_colouring_img2_img3 \
-						editor_parse_textures_malloc_batches \
 						editor_validate \
 						editor_value_of_parameter_0 \
 						editor_img2_texts \
