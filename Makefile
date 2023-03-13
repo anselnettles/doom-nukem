@@ -6,7 +6,7 @@
 #    By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/16 17:04:55 by aviholai          #+#    #+#              #
-#    Updated: 2023/03/13 12:50:34 by aviholai         ###   ########.fr        #
+#    Updated: 2023/03/13 16:25:32 by aviholai         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,15 +20,21 @@ FILES				=	\
 						animate_right_arm\
 						controls_keyboard\
 						controls_mouse\
+						dda \
 						editor_choose_to_reset_map_or_exit\
 						editor_clear_surface \
 						editor_close_program \
+						editor_colouring_img2_img3 \
 						editor_draw_grid_of_squares \
 						editor_draw_one_square \
 						editor_element_colour \
+						editor_get_player_start \
 						editor_img1_img2_img3 \
 						editor_img1_img2_is_mouse_in_grid \
+						editor_img2_texts \
 						editor_img3_is_mouse_in_grid \
+						editor_img3_texts \
+						editor_is_new_map_valid \
 						editor_map_editor \
 						editor_param_to_modify \
 						editor_parse_textures \
@@ -41,8 +47,14 @@ FILES				=	\
 						editor_set_values_for_parameters \
 						editor_swap_red_with_blue \
 						editor_tt_errors \
+						editor_utilities_img3_texts \
+						editor_utilities_open_read_check \
+						editor_utilities_param_check \
+						editor_utilities_value_of_param \
+						editor_validate \
 						editor_validate_buffer_format \
 						editor_validate_map \
+						editor_value_of_parameter_0 \
 						error_management \
 						graphic_render \
 						graphic_render_draw \
@@ -57,19 +69,6 @@ FILES				=	\
 						utilities_graphic \
 						utilities_movement \
 						utilities_system \
-						dda \
-						editor_colouring_img2_img3 \
-						editor_validate \
-						editor_value_of_parameter_0 \
-						editor_utilities_value_of_param \
-						editor_img2_texts \
-						editor_img3_texts \
-						editor_is_new_map_valid \
-						editor_utilities_img3_texts \
-						editor_utilities_param_check \
-						editor_utilities_open_read_check \
-						editor_get_player_start \
-						
 
 SRC					=	$(addprefix src/, $(addsuffix .c, $(FILES)))
 OBJ					=	$(addprefix obj/, $(addsuffix .o, $(FILES)))
