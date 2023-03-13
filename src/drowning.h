@@ -6,7 +6,7 @@
 /*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/13 15:19:50 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/13 15:52:24 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -435,7 +435,9 @@ typedef enum e_error
 }	t_error;
 
 //	Non-static functions.
+float		algo_dda(t_ray *ray, t_wall *wall, t_dda *dda);
 int			animation_loop(t_drown *d);
+float		calc_limit(t_wall wall, t_ray *ray);
 void		choose_to_reset_map_or_exit(t_drown *data);
 void		clear_surface(t_drown *data);
 void		close_program(t_gfx *gfx);
@@ -445,6 +447,7 @@ uint32_t	colouring_img2_img3(t_map *map,
 int			confirm_memory_allocation_first_batch(t_gfx *gfx, int t, int f);
 int			confirm_memory_allocation_second_batch(t_gfx *gfx, int t, int f);
 char		*copy_line(char *line, t_map *data);
+void		crouch(t_drown *data);
 void		deal_key(int key, t_drown *data);
 void		deal_mouse(t_drown *data);
 void		delta_move_player(t_drown *data);
@@ -461,29 +464,53 @@ void		draw_skybox(t_drown *data);
 void		draw_scanlines(t_gfx *gfx, uint32_t *pix, uint32_t color);
 void		draw_texture(t_ray *ray, t_minmax y, t_wall wall, int scaled_y);
 void		draw_thread(t_ray *ray, float distance, t_wall *wall);
+void		flow_adjustment(t_drown *d);
 int			editor_pix_put(t_gfx *gfx, int x, int y, uint32_t colour);
 uint32_t	element_colour(t_map *map,
 				int row_now, int col_now, int image_switch);
 int			error(int code);
-void		fill_gaps(char *line);
-void		*ft_raycast_thread(void *args);
-int			gfx_write(int x_start, int y_start, t_gfx *gfx, char *s);
 uint32_t	fade_brightness(uint32_t color, int multiplier);
+void		fill_gaps(char *line);
+void		ft_bzero2(void *dst, size_t n);
+int			ft_calc_diagonal(t_wall *wall, t_ray *ray);
+int			ft_diagonal_1(t_wall *wall, t_ray *ray);
+int			ft_diagonal_2(t_wall *wall, t_ray *ray);
+int			ft_diagonal_3(t_wall *wall, t_ray *ray);
+int			ft_diagonal_4(t_wall *wall, t_ray *ray);
+void		*ft_raycast_thread(void *args);
+int			get_player_start(t_map *map, t_editor_images *images, char axis);
+int			get_value(t_map map, float x, float y, int z);
+int			gfx_write(int x_start, int y_start, t_gfx *gfx, char *s);
+void		hud_animation_loop(t_drown *d);
+int			i0_is_0(t_drown *data, t_index *i, int i0);
+int			i0_is_1(t_drown *data, t_index *i, int i0);
+int			i0_is_2(t_drown *data, t_index *i, int i0);
+int			i0_is_3(t_drown *data, t_index *i, int i0);
+int			i0_is_4(t_drown *data, t_index *i, int i0);
 void		img1_img2_img3(t_drown *data);
 int			img1_img2_is_mouse_in_grid(t_drown *data);
+void		img2_texts(t_drown *data);
+void		img3_texts(t_drown *data, int param_to_modify);
+void		init_dda(t_ray *ray, t_wall *wall, t_dda *dda);
 int			img3_is_mouse_in_grid(t_drown *data);
+void		init_new_wall(t_ray *ray, t_wall *wall);
 void		init_player(t_player *player);
 int			init_sdl(SDL_Window *window, SDL_Surface *screen);
+void		init_thread(t_ray *ray, t_drown *data, int i);
 int			init(t_gfx *gfx);
+int			is_new_map_valid(t_map *map, t_editor_images *images);
 int			map_editor(char *map_file, t_drown *data);
 void		map_len(char *file, t_map *data);
 int			memory_allocate_textures(t_gfx *gfx, int f);
 int			menu_string(t_gfx *gfx, int s);
 void		move_forward_back(t_drown *data);
 void		move_strafe(t_drown *data);
+void		open_check(int *fd, char *map_file);
+void		overworld_sprite_loop(t_drown *d);
 void		param_to_modify(t_map *map);
 int			pixel_put(t_gfx *gfx, int x_src, int y_src, uint32_t color);
 int			player_object_collision(t_drown *d, int s);
+void		read_check(int fd, int *ret, char *buf, int size);
 int			read_map(char *map_file, t_drown *data);
 int			render_hud(t_index *index, t_gfx *gfx, int scale);
 int			render_overlay(t_drown *d);
@@ -499,6 +526,11 @@ void		set_values_for_parameters(t_character *chars);
 int			string_timeline(t_drown *d, int s);
 uint32_t	swap_red_with_blue(uint32_t hex_value);
 int			texture_allocation(char *buf, t_index *i, t_gfx *gfx);
+void		text_param_selection_0(int x, int y, t_drown *data);
+void		text_param_selection_1(int x, int y, t_drown *data);
+void		text_param_selection_2(int x, int y, t_drown *data);
+void		text_param_selection_3(int x, int y, t_drown *data);
+void		text_param_selection_4(int x, int y, t_drown *data);
 void		tt_errors(char *error_msg);
 void		tt_errors_exit(char *error_msg);
 int			validate(char *buf, t_editor_images *images,
@@ -509,37 +541,5 @@ int			validate_map(t_drown *data);
 void		value_of_parameter_0(t_map *map, t_character *chars);
 void		x_right_arm_flail(t_gfx *gfx);
 void		y_right_arm_flail(t_gfx *gfx);
-int			ft_calc_diagonal(t_wall *wall, t_ray *ray);
-int			ft_diagonal_1(t_wall *wall, t_ray *ray);
-int			ft_diagonal_2(t_wall *wall, t_ray *ray);
-int			ft_diagonal_3(t_wall *wall, t_ray *ray);
-int			ft_diagonal_4(t_wall *wall, t_ray *ray);
-void		crouch(t_drown *data);
-void		init_dda(t_ray *ray, t_wall *wall, t_dda *dda);
-float		algo_dda(t_ray *ray, t_wall *wall, t_dda *dda);
-void		flow_adjustment(t_drown *d);
-void		overworld_sprite_loop(t_drown *d);
-void		hud_animation_loop(t_drown *d);
-void		init_thread(t_ray *ray, t_drown *data, int i);
-int			get_value(t_map map, float x, float y, int z);
-float		calc_limit(t_wall wall, t_ray *ray);
-void		init_new_wall(t_ray *ray, t_wall *wall);
-void		ft_bzero2(void *dst, size_t n);
-void		img2_texts(t_drown *data);
-void		img3_texts(t_drown *data, int param_to_modify);
-int			is_new_map_valid(t_map *map, t_editor_images *images);
-void		text_param_selection_0(int x, int y, t_drown *data);
-void		text_param_selection_1(int x, int y, t_drown *data);
-void		text_param_selection_2(int x, int y, t_drown *data);
-void		text_param_selection_3(int x, int y, t_drown *data);
-void		text_param_selection_4(int x, int y, t_drown *data);
-int			i0_is_0(t_drown *data, t_index *i, int i0);
-int			i0_is_1(t_drown *data, t_index *i, int i0);
-int			i0_is_2(t_drown *data, t_index *i, int i0);
-int			i0_is_3(t_drown *data, t_index *i, int i0);
-int			i0_is_4(t_drown *data, t_index *i, int i0);
-void		read_check(int fd, int *ret, char *buf, int size);
-void		open_check(int *fd, char *map_file);
-int			get_player_start(t_map *map, t_editor_images *images, char axis);
 
 #endif
