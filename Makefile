@@ -69,6 +69,7 @@ FILES				=	\
 						utilities_graphic \
 						utilities_movement \
 						utilities_system \
+						utilities_movement_crouch
 
 SRC					=	$(addprefix src/, $(addsuffix .c, $(FILES)))
 OBJ					=	$(addprefix obj/, $(addsuffix .o, $(FILES)))
