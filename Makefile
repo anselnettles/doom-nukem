@@ -61,13 +61,14 @@ FILES				=	\
 						editor_colouring_img2_img3 \
 						editor_validate \
 						editor_value_of_parameter_0 \
+						editor_utilities_value_of_param \
 						editor_img2_texts \
 						editor_img3_texts \
 						editor_is_new_map_valid \
 						editor_utilities_img3_texts \
 						editor_utilities_param_check \
 						editor_utilities_open_read_check \
-						editor_get_player_start
+						editor_get_player_start \
 						
 
 SRC					=	$(addprefix src/, $(addsuffix .c, $(FILES)))

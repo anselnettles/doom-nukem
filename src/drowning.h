@@ -6,7 +6,7 @@
 /*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/13 15:52:24 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/13 16:01:07 by tturto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -539,6 +539,10 @@ int			validate(char *buf, t_editor_images *images,
 int			validate_buffer_format(char *buf, t_editor_images *images);
 int			validate_map(t_drown *data);
 void		value_of_parameter_0(t_map *map, t_character *chars);
+void		value_of_parameter_1(t_map *map, t_character *chars);
+void		value_of_parameter_2(t_map *map, t_character *chars);
+void		value_of_parameter_3(t_map *map, t_character *chars);
+void		value_of_parameter_4(t_map *map, t_character *chars);
 void		x_right_arm_flail(t_gfx *gfx);
 void		y_right_arm_flail(t_gfx *gfx);
 
