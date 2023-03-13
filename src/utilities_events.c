@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utilities_events.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/13 12:22:04 by aviholai          #+#    #+#             */
+/*   Updated: 2023/03/13 12:28:04 by aviholai         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "drowning.h"
 
-void		collect_airbottle(t_drown *d)
+void	collect_airbottle(t_drown *d)
 {
 	if (d->gfx.frame.bubble > 0)
 		d->gfx.frame.bubble--;
@@ -12,7 +24,7 @@ void		collect_airbottle(t_drown *d)
 	d->gfx.frame.right_arm = 3;
 }
 
-int		player_object_collision(t_drown *d, int s)
+int	player_object_collision(t_drown *d, int s)
 {
 	if (d->map.map[(int)roundf(d->player.y / 64)]
 		[(int)roundf(d->player.x / 64)][3] == 'Z')
@@ -27,5 +39,5 @@ int		player_object_collision(t_drown *d, int s)
 			collect_airbottle(d);
 		}
 	}
-		return (0);
+	return (0);
 }
