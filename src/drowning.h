@@ -6,7 +6,7 @@
 /*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/13 12:49:54 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/13 15:19:50 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,66 +190,66 @@ typedef struct s_utilities
 
 typedef struct s_editor_images
 {
-    unsigned short int  img1_x_min;
-    unsigned short int  img1_x_max;
-    unsigned short int  img2_x_min;
-    unsigned short int  img2_x_max;
-    unsigned short int  img3_x_min;
-    unsigned short int  img3_x_max;
-    unsigned short int  img_y_min;
-    unsigned short int  img_y_max;
-    unsigned short int  img_switch;
-    unsigned short int  row1;
-    unsigned short int  column1;
-    unsigned short int  row2;
-    unsigned short int  column2;
-    unsigned short int  row3;
-    unsigned short int  column3;
-    unsigned short int	buffer_rows;
+	unsigned short int	img1_x_min;
+	unsigned short int	img1_x_max;
+	unsigned short int	img2_x_min;
+	unsigned short int	img2_x_max;
+	unsigned short int	img3_x_min;
+	unsigned short int	img3_x_max;
+	unsigned short int	img_y_min;
+	unsigned short int	img_y_max;
+	unsigned short int	img_switch;
+	unsigned short int	row1;
+	unsigned short int	column1;
+	unsigned short int	row2;
+	unsigned short int	column2;
+	unsigned short int	row3;
+	unsigned short int	column3;
+	unsigned short int	buffer_rows;
 	unsigned short int	buffer_columns;
-}   t_editor_images;
+}	t_editor_images;
 
-typedef struct  s_character
+typedef struct s_character
 {
-    char    param0_choice0;
-    char    param0_choice1;
-    char    param0_choice2;
-    char    param0_choice3;
-    char    param0_choice4;
-    char    param0_choice5;
-    char    param0_choice6;
-    char    param0_choice7;
-    char    param0_choice8;
-    char    param0_choice9;
-    char    param0_choice10;
-    char    param0_choice11;
-    char    param1_choice0;
-    char    param1_choice1;
-    char    param1_choice2;
-    char    param1_choice3;
-    char    param2_choice0;
-    char    param2_choice1;
-    char    param2_choice2;
-    char    param2_choice3;
-    char    param2_choice4;
-    char    param3_choice0;
-    char    param3_choice1;
-    char    param3_choice2;
-    char    param3_choice3;
-    char    param3_choice4;
-    char    param3_choice5;
-    char    param4_choice0;
-    char    param4_choice1;
-    char    param4_choice2;
-    char    param4_choice3;
-    char    param4_choice4;
-}   t_character;
+	char	param0_choice0;
+	char	param0_choice1;
+	char	param0_choice2;
+	char	param0_choice3;
+	char	param0_choice4;
+	char	param0_choice5;
+	char	param0_choice6;
+	char	param0_choice7;
+	char	param0_choice8;
+	char	param0_choice9;
+	char	param0_choice10;
+	char	param0_choice11;
+	char	param1_choice0;
+	char	param1_choice1;
+	char	param1_choice2;
+	char	param1_choice3;
+	char	param2_choice0;
+	char	param2_choice1;
+	char	param2_choice2;
+	char	param2_choice3;
+	char	param2_choice4;
+	char	param3_choice0;
+	char	param3_choice1;
+	char	param3_choice2;
+	char	param3_choice3;
+	char	param3_choice4;
+	char	param3_choice5;
+	char	param4_choice0;
+	char	param4_choice1;
+	char	param4_choice2;
+	char	param4_choice3;
+	char	param4_choice4;
+}	t_character;
 
 typedef struct s_mouse
 {
-    int x;
-    int y;
-}   t_mouse;
+	int	x;
+	int	y;
+}	t_mouse;
 
 typedef struct s_row_col
 {
@@ -261,17 +261,17 @@ typedef struct s_row_col
 
 typedef struct s_xy_start_end
 {
-    int         x_start;
-    int         x_end;
-    int         y_start;
-    int         y_end;
-    uint32_t    colour;
-}   t_xy_start_end;
+	int			x_start;
+	int			x_end;
+	int			y_start;
+	int			y_end;
+	uint32_t	colour;
+}	t_xy_start_end;
 
 typedef struct s_editor
 {
-	t_editor_images images;
-    t_character     chars;
+	t_editor_images	images;
+	t_character		chars;
 	t_xy_start_end	interval;
 	t_mouse			mouse;
 	t_utilities		rules;
@@ -282,17 +282,17 @@ typedef struct s_editor
 //	the extracted level. Variable 'p' stands for the map's third dimension:
 //	environmental parameters within the XY location.
 typedef struct s_index {
-	int				i;
-	int				x;
-	int				y;
-	int				p;
-	int				f;
-	int				width;
-	int				hex_count;
-	int				hex_step;
-	unsigned short int  i0;
-    unsigned short int  i1;
-    unsigned short int  i2;
+	int					i;
+	int					x;
+	int					y;
+	int					p;
+	int					f;
+	int					width;
+	int					hex_count;
+	int					hex_step;
+	unsigned short int	i0;
+	unsigned short int	i1;
+	unsigned short int	i2;
 }	t_index;
 
 //	Player location and movement structure. Mother to collision struct.
@@ -335,13 +335,13 @@ typedef struct s_animation {
 
 typedef struct s_image {
 	uint32_t	*pixels;
-	int	width;
-	int	height;
+	int			width;
+	int			height;
 }	t_image;
 
 typedef struct s_texture {
 	t_image	frame[10];
-	int	frame_count;
+	int		frame_count;
 }	t_texture;
 
 //	Graphical-wise variables used for SDL and graphical drawing.
@@ -374,21 +374,19 @@ typedef struct s_graphics {
 	float			nearest;
 }	t_gfx;
 
-typedef struct s_map
-{
-    char                ***map;
-    unsigned short int  map_x;
-    unsigned short int  map_y;
-    unsigned short int  param_x_to_modify;
-    unsigned short int  param_y_to_modify;
-    unsigned short int  param_to_modify;
-    unsigned short int  selection_x;
-    unsigned short int  selection_y; 
-    unsigned short int  selection_index;
+typedef struct s_map {
+	char				***map;
+	unsigned short int	map_x;
+	unsigned short int	map_y;
+	unsigned short int	param_x_to_modify;
+	unsigned short int	param_y_to_modify;
+	unsigned short int	param_to_modify;
+	unsigned short int	selection_x;
+	unsigned short int	selection_y;
+	unsigned short int	selection_index;
 }	t_map;
 
-typedef struct s_ray
-{
+typedef struct s_ray {
 	t_gfx		gfx;
 	t_player	player;
 	t_map		map;
