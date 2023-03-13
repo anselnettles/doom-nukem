@@ -6,7 +6,7 @@
 /*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/13 12:31:52 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/13 12:49:54 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@
 
 //	SPRITE DIMENSIONS DEFINITIONS
 # define FLOOR 0						//Floor texture. AKA. texture 'A'.
-# define WALL_TEXTURE 1					//Wall texture. AKA. texture 'B'.
-# define PILLAR_TEXTURE 2				//Pillar texture. AKA. texture 'C'.
+# define WALL 1							//Wall texture. AKA. texture 'B'.
+# define PILLAR 2						//Pillar texture. AKA. texture 'C'.
 # define CRATE 3						//Crate texture. AKA. texture 'D'.
 # define TEXTURE_HEIGHT 64				//Standard texture height.
 # define TEXTURE_WIDTH 64				//Standard texture width.
@@ -444,6 +444,8 @@ void		close_program(t_gfx *gfx);
 void		collect_airbottle(t_drown *d);
 uint32_t	colouring_img2_img3(t_map *map,
 				int row_now, int col_now, int image_switch);
+int			confirm_memory_allocation_first_batch(t_gfx *gfx, int t, int f);
+int			confirm_memory_allocation_second_batch(t_gfx *gfx, int t, int f);
 char		*copy_line(char *line, t_map *data);
 void		deal_key(int key, t_drown *data);
 void		deal_mouse(t_drown *data);
@@ -478,7 +480,6 @@ int			init(t_gfx *gfx);
 int			map_editor(char *map_file, t_drown *data);
 void		map_len(char *file, t_map *data);
 int			memory_allocate_textures(t_gfx *gfx, int f);
-void		memory_allocate_textures_second_batch(t_gfx *gfx);
 int			menu_string(t_gfx *gfx, int s);
 void		move_forward_back(t_drown *data);
 void		move_strafe(t_drown *data);
