@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 14:16:37 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/13 15:49:13 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/13 16:14:46 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	crouch(t_drown *data)
 	if (data->system.keyboard_state[SDL_SCANCODE_C])
 		data->player.base_height = 16;
 	else
-		data->player.base_height = 32;
+		data->player.base_height = 38;
 }
 
 void	delta_move_player(t_drown *data)
