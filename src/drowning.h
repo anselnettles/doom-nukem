@@ -6,7 +6,7 @@
 /*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/12 17:43:03 by tturto           ###   ########.fr       */
+/*   Updated: 2023/03/13 12:31:52 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,7 @@
 typedef struct s_system {
 	int				play_state;
 	int				user_request;
+	int				hard_mode;
 	int				ending_state;
 	const uint8_t	*keyboard_state;
 	uint32_t		time;
