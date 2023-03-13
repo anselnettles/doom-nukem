@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 10:03:55 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/03/10 16:46:44 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/13 13:06:52 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -230,17 +230,22 @@ int	check_boundary(t_wall wall, int win_y)
 int	draw_wall_top(t_ray *ray, t_wall wall, int win_y, int wall_height)
 {
 	t_vector	txtr;
+	int			win_y_limit;
 	float		limit;
 	float		dir;
 
-	limit = calc_limit(wall, ray);
+	limit = calc_limit(wall, ray) * cosf(ray->player.dir - wall.dir);
+	win_y_limit = ray->height + (((BITS) / limit * ray->gfx.proj_dist) / 2);
+	win_y_limit += ((ray->player.height - 32)
+			/ limit * ray->gfx.proj_dist);
+	win_y_limit -= ((BITS / 8) / limit * ray->gfx.proj_dist) * wall_height;
 	while (win_y > ray->gfx.height)
 			win_y--;
 	while (win_y >= 0)
 	{
 		txtr = cast_floor(ray, &wall, win_y,
-				ray->player.height - (float)wall_height * 8.f);
-		if (wall.distance <= 0 || wall.distance > limit)
+				ray->player.height - (float)(wall_height * 8));
+		if (wall.distance <= 0 || win_y < win_y_limit)//wall.distance > limit)
 			break ;
 		if (check_boundary(wall, win_y))
 			pixel_put(&ray->gfx, ray->x, win_y,
@@ -248,7 +253,7 @@ int	draw_wall_top(t_ray *ray, t_wall wall, int win_y, int wall_height)
 		win_y--;
 	}
 	if (win_y < wall.prev_y)
-		return (win_y);
+		return (win_y_limit);
 	return (wall.prev_y);
 }
 
@@ -259,7 +264,7 @@ int	calc_wall_values(t_minmax *y, t_minmax *h, t_ray *ray, t_wall *wall)
 		h->min = get_value(ray->map, wall->x, wall->y, 0) - '0';
 	h->max = ((BITS / 8) / wall->distance * ray->gfx.proj_dist) * h->min;
 	y->max = ray->height + (((BITS) / wall->distance * ray->gfx.proj_dist) / 2);
-	y->max += ((ray->player.height - ray->player.base_height)
+	y->max += ((ray->player.height - 32)
 			/ wall->distance * ray->gfx.proj_dist);
 	y->min = y->max - h->max;
 	return (y->max);

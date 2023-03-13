@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 15:49:19 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/10 15:07:50 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/13 12:33:52 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,12 @@ void	init_new_wall(t_ray *ray, t_wall *wall)
 		wall->dir += 2 * PI;
 	wall->dx = cosf(wall->dir);
 	wall->dy = sinf(wall->dir);
-	wall->x = ray->player.x;
-	wall->y = ray->player.y;
+	wall->x = ray->player.x + 1;
+	if (wall->dx > 0)
+		wall->x -= 2;
+	wall->y = ray->player.y + 1;
+	if (wall->dy > 0)
+		wall->y -= 2;
 	wall->prev_y = ray->gfx.height;
 	ray->x++;
 	ray->count++;

@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 00:24:32 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/03/09 14:35:37 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/13 12:43:56 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ float	algo_dda(t_ray *ray, t_wall *wall, t_dda *dda)
 
 	collx = (int)roundf(31.5f - wall->dx);
 	colly = (int)roundf(31.5f - wall->dy);
+	dda->hit = 0;
 	while (dda->hit == 0)// && wall->x > 0 && wall->y > 0 && wall->x < 28 * 64 && wall->y < 28 * 64)
 	{
 		if (dda->side_dist.x < dda->side_dist.y)
