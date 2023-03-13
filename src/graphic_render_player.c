@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 17:00:34 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/12 17:07:55 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/13 12:26:10 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	draw_right_arm(t_index *i, t_gfx *gfx, int s)
 {
-	uint32_t *pixels;
+	uint32_t	*pixels;
 
 	gfx->f = gfx->frame.right_arm;
 	pixels = gfx->texture[RIGHT_ARM].frame[gfx->f].pixels;
@@ -49,8 +49,8 @@ static void	left_arm_pix(t_gfx *gfx, t_index *index, int x, int y)
 	if ((pixels[(gfx->x + x) + ((gfx->y + y) * LARM_WTH)])
 		&& (pixels[(gfx->x + x) + ((gfx->y + y) * LARM_WTH)] != YELLOW))
 		pixel_put(gfx, (index->x + (x * gfx->scale)),
-				(index->y + (y * gfx->scale)),
-				pixels[(gfx->x + x) + ((gfx->y + y) * LARM_WTH)]);
+			(index->y + (y * gfx->scale)),
+			pixels[(gfx->x + x) + ((gfx->y + y) * LARM_WTH)]);
 	else if (pixels[(gfx->x + x) + ((gfx->y + y) * LARM_WTH)] == YELLOW)
 		pixel_put(gfx, (index->x + x), (index->y + y), GRAY);
 }
@@ -65,9 +65,7 @@ static void	left_arm_loop(t_index *index, t_gfx *gfx, float distance, int div)
 		{
 			left_arm_pix(gfx, index, 0, 0);
 			if ((distance < 70 && distance >= 0 && !(gfx->x % div)))
-			{
 				left_arm_pix(gfx, index, 1, 0);
-			}
 			if ((distance < 70 && distance >= 0 && !(gfx->y % div)))
 				left_arm_pix(gfx, index, 0, 1);
 			if ((distance < 70 && distance >= 0 && !(gfx->x % div)))
