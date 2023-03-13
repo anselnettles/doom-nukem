@@ -52,9 +52,10 @@ FILES				=	\
 						graphic_render_raycast \
 						graphic_render_timeline \
 						main \
+						utilities_events \
 						utilities_graphic \
 						utilities_movement \
-						utilities_system\
+						utilities_system \
 						dda \
 						editor_colouring_img2_img3 \
 						editor_parse_textures_malloc_batches \

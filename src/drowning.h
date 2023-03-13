@@ -483,6 +483,7 @@ void		move_forward_back(t_drown *data);
 void		move_strafe(t_drown *data);
 void		param_to_modify(t_map *map);
 int			pixel_put(t_gfx *gfx, int x_src, int y_src, uint32_t color);
+int			player_object_collision(t_drown *d, int s);
 int			read_map(char *map_file, t_drown *data);
 int			render_hud(t_index *index, t_gfx *gfx, int scale);
 int			render_overlay(t_drown *d);

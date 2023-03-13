@@ -12,6 +12,14 @@
 
 #include "drowning.h"
 
+void	crouch(t_drown *data)
+{
+	if (data->system.keyboard_state[SDL_SCANCODE_C])
+		data->player.base_height = 16;
+	else
+		data->player.base_height = 32;
+}
+
 void	delta_move_player(t_drown *data)
 {
 	static float			dir = 0.f;
