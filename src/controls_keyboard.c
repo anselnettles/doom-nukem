@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 14:16:37 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/13 13:03:42 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/13 13:56:34 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	deal_key(int key, t_drown *data)
 		scale_window(&data->gfx);
 	if (key == SDLK_SPACE && data->player.in_air == 0)
 	{
-		data->player.velocity.y = 70.f;
+		data->player.velocity.y = 90.f;
 		if (data->system.overlay_toggle == TRUE)
 			data->player.in_air = 1;
 	}
