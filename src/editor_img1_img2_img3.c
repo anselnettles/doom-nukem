@@ -6,7 +6,7 @@
 /*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 19:19:47 by tturto            #+#    #+#             */
-/*   Updated: 2023/03/10 15:15:02 by tturto           ###   ########.fr       */
+/*   Updated: 2023/03/13 15:45:51 by tturto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,11 @@ void	img1_img2_img3(t_drown *data)
 		}
 		else if (data->gfx.event.button.button == SDL_BUTTON_LEFT
 			&& data->editor.images.img_switch == 2)
+		{
+			img2_img3(data);
+		}
+		else if (data->gfx.event.button.button == SDL_BUTTON_LEFT
+			&& data->editor.images.img_switch == 3)
 		{
 			img2_img3(data);
 		}
