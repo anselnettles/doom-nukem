@@ -6,7 +6,7 @@
 /*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/13 16:01:07 by tturto           ###   ########.fr       */
+/*   Updated: 2023/03/13 18:04:17 by tturto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -435,15 +435,14 @@ typedef enum e_error
 }	t_error;
 
 //	Non-static functions.
-float		algo_dda(t_ray *ray, t_wall *wall, t_dda *dda);
+float		algo_dda(t_wall *wall, t_dda *dda);
 int			animation_loop(t_drown *d);
 float		calc_limit(t_wall wall, t_ray *ray);
 void		choose_to_reset_map_or_exit(t_drown *data);
 void		clear_surface(t_drown *data);
 void		close_program(t_gfx *gfx);
 void		collect_airbottle(t_drown *d);
-uint32_t	colouring_img2_img3(t_map *map,
-				int row_now, int col_now, int image_switch);
+uint32_t	colouring_img2_img3(int image_switch);
 int			confirm_memory_allocation_first_batch(t_gfx *gfx, int t, int f);
 int			confirm_memory_allocation_second_batch(t_gfx *gfx, int t, int f);
 char		*copy_line(char *line, t_map *data);
@@ -499,7 +498,7 @@ int			init_sdl(SDL_Window *window, SDL_Surface *screen);
 void		init_thread(t_ray *ray, t_drown *data, int i);
 int			init(t_gfx *gfx);
 int			is_new_map_valid(t_map *map, t_editor_images *images);
-int			map_editor(char *map_file, t_drown *data);
+int			map_editor(t_drown *data);
 void		map_len(char *file, t_map *data);
 int			memory_allocate_textures(t_gfx *gfx, int f);
 int			menu_string(t_gfx *gfx, int s);

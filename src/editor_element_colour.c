@@ -6,7 +6,7 @@
 /*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 16:27:29 by tturto            #+#    #+#             */
-/*   Updated: 2023/03/10 18:35:46 by tturto           ###   ########.fr       */
+/*   Updated: 2023/03/13 18:08:59 by tturto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,27 @@ static uint32_t	colour_entity(t_map *map, int row_now, int col_now)
 		colour = 0x008A8D8F;
 	else if (map->map[row_now][col_now][3] == 'K')
 		colour = 0x008A8D8F;
+	else
+		colour = 0x00000000;
 	return (colour);
+}
+
+static uint32_t	split_colour_wall(t_map *map, int row_now,
+	int col_now, uint32_t *colour)
+{
+	if (map->map[row_now][col_now][0] == '5')
+		*colour = 0x00AA9900;
+	else if (map->map[row_now][col_now][0] == '6')
+		*colour = 0x00BBAA00;
+	else if (map->map[row_now][col_now][0] == '7')
+		*colour = 0x00CCBB00;
+	else if (map->map[row_now][col_now][0] == '8')
+		*colour = 0x00DDCC00;
+	else if (map->map[row_now][col_now][0] == '9')
+		*colour = 0x00FFDD00;
+	else
+		*colour = 0x00000000;
+	return (*colour);
 }
 
 /*
@@ -65,16 +85,8 @@ static uint32_t	colour_wall(t_map *map, int row_now, int col_now)
 		colour = 0x00887700;
 	else if (map->map[row_now][col_now][0] == '4')
 		colour = 0x00998800;
-	else if (map->map[row_now][col_now][0] == '5')
-		colour = 0x00AA9900;
-	else if (map->map[row_now][col_now][0] == '6')
-		colour = 0x00BBAA00;
-	else if (map->map[row_now][col_now][0] == '7')
-		colour = 0x00CCBB00;
-	else if (map->map[row_now][col_now][0] == '8')
-		colour = 0x00DDCC00;
-	else if (map->map[row_now][col_now][0] == '9')
-		colour = 0x00FFDD00;
+	else
+		split_colour_wall(map, row_now, col_now, &colour);
 	return (colour);
 }
 
@@ -111,8 +123,10 @@ uint32_t	element_colour(t_map *map, int row_now, int col_now,
 	if (image_switch == 1)
 		colour = img1_colouring(map, row_now, col_now);
 	else if (image_switch == 2)
-		colour = colouring_img2_img3(map, row_now, col_now, 2);
+		colour = colouring_img2_img3(2);
 	else if (image_switch == 3)
-		colour = colouring_img2_img3(map, row_now, col_now, 3);
+		colour = colouring_img2_img3(3);
+	else
+		colour = 0x00000000;
 	return (colour);
 }

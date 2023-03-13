@@ -6,7 +6,7 @@
 /*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 17:23:46 by tturto            #+#    #+#             */
-/*   Updated: 2023/03/03 17:40:52 by tturto           ###   ########.fr       */
+/*   Updated: 2023/03/13 18:03:11 by tturto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ static int	is_mouse_in_grid(t_drown *data, unsigned short int img_switch,
 	int	col_count;
 	int	row_count;
 
+	x = 0;
+	y = 0;
 	col_count = 0;
 	row_count = 0;
 	if (img_switch == 1)
