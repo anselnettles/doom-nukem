@@ -6,13 +6,13 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 14:16:37 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/28 14:16:35 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/13 13:03:42 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "drowning.h"
 
-void		scale_window(t_gfx *gfx)
+void	scale_window(t_gfx *gfx)
 {
 	if (gfx->scale == 1)
 		gfx->scale = 2;
@@ -34,7 +34,7 @@ void	deal_key(int key, t_drown *data)
 	if (key == SDLK_SPACE && data->player.in_air == 0)
 	{
 		data->player.velocity.y = 70.f;
-		if(data->system.overlay_toggle == TRUE)
+		if (data->system.overlay_toggle == TRUE)
 			data->player.in_air = 1;
 	}
 	if (data->system.keyboard_state[SDL_SCANCODE_F2])
@@ -94,7 +94,8 @@ void	deal_key(int key, t_drown *data)
 // 	}
 // 	if (data->system.overlay_toggle == TRUE)
 // 	data->player.height
-// 		= data->player.base_height + (data->map.map[(int)roundf(data->player.y / BITS)]
+// 		= data->player.base_height
+// 		+ (data->map.map[(int)roundf(data->player.y / BITS)]
 // 		[(int)roundf(data->player.x / BITS)][0] - '0') * 8.f;
 // 	/*data->player.altitude = (data->map.map[(int)roundf(data->player.y / BITS)]
 // 		[(int)roundf(data->player.x / BITS)][0] - '0') * 8.f;*/
@@ -146,7 +147,8 @@ void	deal_key(int key, t_drown *data)
 // 	}
 // 	if (data->system.overlay_toggle == TRUE)
 // 	data->player.height
-// 		= data->player.base_height + (data->map.map[(int)roundf(data->player.y / BITS)]
+// 		= data->player.base_height
+// 		+ (data->map.map[(int)roundf(data->player.y / BITS)]
 // 			[(int)roundf(data->player.x / BITS)][0] - '0') * 8;
 // 	/*data->player.altitude = (data->map.map[(int)roundf(data->player.y / BITS)]
 // 		[(int)roundf(data->player.x / BITS)][0] - '0') * 8.f;*/
