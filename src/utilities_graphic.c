@@ -6,7 +6,7 @@
 /*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 13:35:22 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/08 17:51:30 by tturto           ###   ########.fr       */
+/*   Updated: 2023/03/13 15:04:18 by tturto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,13 @@ int	pixel_put(t_gfx *gfx, int x, int y, uint32_t color)
 	return (0);
 }
 
-static int	draw_letter(t_gfx *gfx, int x_start, int y_start, int start_gfx_x)
+static int	draw_letter(t_gfx *gfx, int x_start, int y, int start_gfx_x)
 {
-	int	y;
 	int	x;
+	int	goal_x;
 
-	int goal_x;                             //was moved here from function arguments
-	goal_x = start_gfx_x + LETTER_WIDTH;    //goal_x formerly called as (gfx->x + LETTER_WIDTH) | note that start_gfx_x = gfx->x  
-
+	goal_x = start_gfx_x + LETTER_WIDTH;
 	x = x_start;
-	y = y_start;
 	while (gfx->y < LETTER_HEIGHT)
 	{
 		while (gfx->x < (goal_x))
@@ -74,15 +71,11 @@ static int	draw_letter(t_gfx *gfx, int x_start, int y_start, int start_gfx_x)
 	This is a modified versions to ami's gfx_write(), to include start
 		coordinates (x, y) of a string to be written.
 */
-int gfx_write(int x_start, int y_start, t_gfx *gfx, char *s)
+int	gfx_write(int x_start, int y_start, t_gfx *gfx, char *s)
 {
 	int	i;
-	int	x;
-	int y;
 
 	i = 0;
-	x = x_start;
-	y = y_start;
 	while (s[i] != '\0')
 	{
 		if ((s[i] >= ',' && s[i] <= '.') || (s[i] >= 'A' && s[i] <= 'Z')
@@ -90,17 +83,17 @@ int gfx_write(int x_start, int y_start, t_gfx *gfx, char *s)
 		{
 			gfx->x = s[i] * LETTER_WIDTH;
 			gfx->y = 0;
-			if (draw_letter(gfx, x, y, gfx->x) == ERROR)
+			if (draw_letter(gfx, x_start, y_start, gfx->x) == ERROR)
 				return (error(GFX_WRITE_ERROR));
 		}
 		else if (s[i] == ' ')
-			x += LETTER_WIDTH;
+			x_start += LETTER_WIDTH;
 		else
 			return (error(GFX_WRITE_ERROR));
 		i++;
-		x += (LETTER_WIDTH * gfx->scale);
+		x_start += (LETTER_WIDTH * gfx->scale);
 		if (s[i - 1] == 'I' || s[i - 1] == '!' || s[i - 1] == '\'')
-			x -= 6;
+			x_start -= 6;
 	}
 	return (0);
 }
