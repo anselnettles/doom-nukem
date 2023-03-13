@@ -6,17 +6,17 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 17:50:06 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/09 16:56:17 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/13 12:30:41 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "drowning.h"
 
-int		get_value(t_map map, float x, float y, int z)
+int	get_value(t_map map, float x, float y, int z)
 {
 	if (map.map[(int)roundf(y / BITS)][(int)roundf(x / BITS)][z] == '.')
-		return(0);
-	return(map.map[(int)roundf(y / BITS)][(int)roundf(x / BITS)][z]);
+		return (0);
+	return (map.map[(int)roundf(y / BITS)][(int)roundf(x / BITS)][z]);
 }
 
 int	animation_loop(t_drown *d)
@@ -30,25 +30,25 @@ int	animation_loop(t_drown *d)
 
 static void	track_time(t_drown *d)
 {
-		d->system.time = SDL_GetTicks();
-		d->system.delta_time = (d->system.time - d->system.last_time);
-		if ((d->system.time / 1000) >= d->system.second)
-				d->system.second++;
-		if ((d->system.second / 5 >= d->system.five_second)
-				&& (d->gfx.frame.bubble < 13))
-		{
-			Mix_PlayChannel(-1, d->audio.timer_hit, 0);
-			d->system.five_second++;
-			d->gfx.frame.bubble++;
-		}
-		d->system.frame_time = d->system.delta_time / 100.f;
-		animation_loop(d);
+	d->system.time = SDL_GetTicks();
+	d->system.delta_time = (d->system.time - d->system.last_time);
+	if ((d->system.time / 1000) >= d->system.second)
+		d->system.second++;
+	if ((d->system.second / 5 >= d->system.five_second)
+		&& (d->gfx.frame.bubble < 13))
+	{
+		Mix_PlayChannel(-1, d->audio.timer_hit, 0);
+		d->system.five_second++;
+		d->gfx.frame.bubble++;
+	}
+	d->system.frame_time = d->system.delta_time / 100.f;
+	animation_loop(d);
 }
 
 //	Sdl_loop() keeps Simple Direct MediaLayer's PollEvent constantly
 //	running and checks for control calls while rerendering the graphical
 //	view.
-void		sdl_loop(t_drown *d)
+void	sdl_loop(t_drown *d)
 {
 	d->system.keyboard_state = SDL_GetKeyboardState(NULL);
 	while (d->system.play_state == PLAY)
@@ -62,7 +62,8 @@ void		sdl_loop(t_drown *d)
 				deal_key(d->event.key.keysym.sym, d);
 			else if (d->event.type == SDL_MOUSEMOTION)
 				deal_mouse(d);
-			if (d->event.type == SDL_KEYDOWN || d->event.type == SDL_MOUSEMOTION)
+			if (d->event.type == SDL_KEYDOWN
+				|| d->event.type == SDL_MOUSEMOTION)
 				x_right_arm_flail(&d->gfx);
 		}
 		delta_move_player(d);
