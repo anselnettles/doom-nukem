@@ -6,7 +6,7 @@
 /*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 18:24:05 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/12 17:39:16 by tturto           ###   ########.fr       */
+/*   Updated: 2023/03/13 12:31:27 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static int	initialize_menu(t_gfx *gfx, t_system *system, SDL_Event *event)
 					return (0);
 				else if (system->keyboard_state[SDL_SCANCODE_X])
 				{
-					//TURN ON HARD MODE.
+					system->hard_mode = TRUE;
 					return (0);
 				}
 				else if (system->keyboard_state[SDL_SCANCODE_C])
