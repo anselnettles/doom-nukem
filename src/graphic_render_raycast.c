@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 15:49:19 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/13 16:08:22 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/13 17:35:52 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	*ft_raycast_thread(void *args)
 		while (get_value(ray->map, wall.x, wall.y, 0) != '#' && wall.prev_y)
 		{
 			init_dda(ray, &wall, &dda);
-			wall.distance = algo_dda(ray, &wall, &dda)
+			wall.distance = algo_dda(&wall, &dda)
 				* cosf(ray->player.dir - wall.dir);
 			ray->nearest = check_nearest(ray, wall);
 			draw_thread(ray, wall.distance, &wall);
