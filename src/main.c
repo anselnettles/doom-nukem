@@ -6,7 +6,7 @@
 /*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 18:24:05 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/13 12:31:27 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/13 18:06:23 by tturto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ int	main(void)
 		return (error(SDL_FAIL));
 	initialize_audio(&data);
 	if (initialize_menu(&data.gfx, &data.system, &data.event) == RUN_EDITOR)
-		if (map_editor("maps/bluehole.dn", &data) == ERROR)
+		if (map_editor(&data) == ERROR)
 			return (error(EDITOR_FAIL));
 	if (initialize_player(&data) == ERROR)
 		return (error(PLAYER_FAIL));

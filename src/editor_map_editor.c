@@ -6,13 +6,13 @@
 /*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 17:57:40 by tturto            #+#    #+#             */
-/*   Updated: 2023/03/10 18:25:43 by tturto           ###   ########.fr       */
+/*   Updated: 2023/03/13 18:04:03 by tturto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "drowning.h"
 
-static void	initialize_editor(char *map_file, t_drown *data)
+static void	initialize_editor(t_drown *data)
 {
 	data->editor.rules.quit = 0;
 	data->editor.rules.valid = 1;
@@ -46,9 +46,9 @@ static void	img_render(t_drown *data)
     Visualizes a three dimensional character array and allows
         the user to modify the X-values of the array (<array>[][][X]).
 */
-int	map_editor(char *map_file, t_drown *data)
+int	map_editor(t_drown *data)
 {
-	initialize_editor(map_file, data);
+	initialize_editor(data);
 	while (data->editor.rules.quit == 0)
 	{
 		while (SDL_PollEvent(&data->gfx.event))
