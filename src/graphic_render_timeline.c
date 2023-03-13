@@ -6,7 +6,7 @@
 /*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 12:34:59 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/12 17:10:19 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/13 12:22:51 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ int	menu_string(t_gfx *gfx, int s)
 {
 	if (gfx_write(TXT_X * s, gfx->height / 4, gfx, "D R O W N I N G"))
 		return (ERROR);
-	if (gfx_write(TXT_X * s, TXT_Y * s, gfx, 
-				"PRESS 'Z' TO PLAY .. 'X' HARD MODE .. 'C' EDITOR"))
+	if (gfx_write(TXT_X * s, TXT_Y * s, gfx,
+			"PRESS 'Z' TO PLAY .. 'X' HARD MODE .. 'C' EDITOR"))
 		return (ERROR);
 	return (0);
 }
