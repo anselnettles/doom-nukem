@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 15:49:19 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/13 12:33:52 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/13 15:56:56 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ void	*ft_raycast_thread(void *args)
 	while (ray->count < (ray->gfx.width / 6))
 	{
 		init_new_wall(ray, &wall);
+		if (get_value(ray->map, wall.x, wall.y, 0) == '#')
+			draw_thread(ray, 5.f, &wall);
 		while (get_value(ray->map, wall.x, wall.y, 0) != '#' && wall.prev_y)
 		{
 			init_dda(ray, &wall, &dda);
