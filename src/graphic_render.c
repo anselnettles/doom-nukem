@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 10:05:39 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/07 19:17:44 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/13 12:27:17 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	draw_skybox_collumn(t_drown *data, int x, int tx)
 	while (y < data->gfx.height)
 	{
 		i = 0;
-		while(i < stretch && tx < 720)
+		while (i < stretch && tx < 720)
 		{
 			pixel_put(&data->gfx, x, y + i,
 				data->gfx.texture[SKYBOX].frame[0].pixels[tx + ty * 720]);
