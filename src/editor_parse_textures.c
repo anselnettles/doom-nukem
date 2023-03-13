@@ -6,20 +6,13 @@
 /*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 19:46:58 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/07 20:40:12 by tturto           ###   ########.fr       */
+/*   Updated: 2023/03/13 12:39:35 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "drowning.h"
 
-//	Applies the parsed HEX color value string to a suitable 'uint32_t' variable.
-//	Due to the colors being in faulty blue-green-red format, they're reinstated
-//	to suitable red-green-blue.
-//	The hex values are saved one-by-one in the 'gfx->texture' arrays.
-//	'Identity - 65' corresponds to the correct texture array, since in ASCII
-//	table conversion to decimal numbers 65 is the difference of 'A' to 0.
-
-static void	norminette2(char *buf, t_index *i, char *str)
+static void	hex_check_first(char *buf, t_index *i, char *str)
 {
 	i->hex_step = 0;
 	while (buf[i->i] != ',' && buf[i->i] != '}'
@@ -31,7 +24,7 @@ static void	norminette2(char *buf, t_index *i, char *str)
 	str[i->hex_step] = '\0';
 }
 
-static void	norminette1(char *buf, t_index *i)
+static void	hex_check_second(char *buf, t_index *i)
 {
 	if (buf[i->i++] == ',')
 		i->hex_count++;
@@ -41,6 +34,12 @@ static void	norminette1(char *buf, t_index *i)
 		i->i++;
 }
 
+//	Applies the parsed HEX color value string to a suitable 'uint32_t' variable.
+//	Due to the colors being in faulty blue-green-red format, they're reinstated
+//	to suitable red-green-blue.
+//	The hex values are saved one-by-one in the 'gfx->texture' arrays.
+//	'Identity - 65' corresponds to the correct texture array, since in ASCII
+//	table conversion to decimal numbers 65 is the difference of 'A' to 0.
 static void	store_graphic(char identity, char *str, t_index *i, t_gfx *gfx)
 {
 	uint32_t	hex_value;
@@ -48,7 +47,6 @@ static void	store_graphic(char identity, char *str, t_index *i, t_gfx *gfx)
 	hex_value = (uint32_t)strtol(str, NULL, 16);
 	hex_value = swap_red_with_blue(hex_value);
 	gfx->texture[identity - 65].frame[i->f].pixels[i->hex_count] = hex_value;
-	//printf("ID: %d. Frame: %d. Index: %d HEX: %d\n", (identity - 65), i->f, i->hex_count, gfx->texture[identity - 65].frame[i->f].pixels[i->hex_count]);
 }
 
 //	Parses through the map file's textures' HEX color values. Saves them in
@@ -69,11 +67,11 @@ static int	parse_textures(char identity, t_index *i, t_gfx *gfx, char *buf)
 				i->hex_count = 0;
 				while (buf[i->i] != '}')
 				{
-					norminette2(buf, i, str);
+					hex_check_first(buf, i, str);
 					store_graphic(identity, str, i, gfx);
-					if (buf[i->i] == '}' && i->i++ > -1)	//incrementation hack, see orig.vers. in the bottom. test!
+					if (buf[i->i] == '}' && i->i++ > -1)
 						break ;
-					norminette1(buf, i);
+					hex_check_second(buf, i);
 				}
 				i->f++;
 			}
@@ -107,10 +105,10 @@ int	texture_allocation(char *buf, t_index *i, t_gfx *gfx)
 	if (memory_allocate_textures(gfx, 0) == ERROR)
 		return (error(MALLOC_FAIL));
 	identity = 'A';
-	while (identity <= 'Q' )	//This used to be 'N'. 
+	while (identity <= 'Q' )
 	{
-		i->i = 0;	//ami: due to norminette, moved here from parse_textures()
-		i->f = 0;	//ami: due to norminette, moved here from parse_textures()
+		i->i = 0;
+		i->f = 0;
 		if (parse_textures(identity, i, gfx, buf) == ERROR)
 			return (error(PARSE_FAIL));
 		identity++;
