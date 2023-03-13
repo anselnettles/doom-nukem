@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 17:50:06 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/13 15:14:36 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/13 17:32:03 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	get_value(t_map map, float x, float y, int z)
 
 	if ((int)roundf(x / 64) >= 28 || (int)roundf(y / 64) >= 20
 		|| y <= 0 || x <= 0)
-		return(0);
+		return (0);
 	if (map.map[(int)roundf(y / BITS)][(int)roundf(x / BITS)][z] == '.')
 		return (0);
 	if (z == 1)
@@ -27,7 +27,7 @@ int	get_value(t_map map, float x, float y, int z)
 		if (tmp < 3 && tmp >= 0)
 			return (tmp);
 		else
-			return(0);
+			return (0);
 	}
 	return (map.map[(int)roundf(y / BITS)][(int)roundf(x / BITS)][z]);
 }

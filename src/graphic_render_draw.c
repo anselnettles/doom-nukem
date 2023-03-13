@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 10:03:55 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/03/13 15:22:20 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/13 17:48:34 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	get_texture_x(t_ray *ray, t_wall wall)
 {
 	if (wall.side == 0)
 	{
-		if (wall.dx < 0)
+		if (wall.dx > 0)
 			return (BITS - (int)wall.y % BITS);
 		return ((int)wall.y % BITS);
 	}
@@ -121,6 +121,36 @@ int	draw_goal_point(t_ray *ray, t_wall *wall, int win_y, float distance)
 int	draw_sprite(t_ray *ray, t_wall *wall, int win_y, float distance)
 {
 	float		texture_at_distance;
+	float		j;
+	int			f;
+	t_vectorif	txtr;
+
+	if (get_value(ray->map, wall->x, wall->y, 3) != '$')
+		return (win_y);
+	texture_at_distance = 64 / distance * ray->gfx.proj_dist;
+	j = init_texture(ray, *wall, &txtr, 0);
+	f = ray->gfx.frame.bottle;
+	while (win_y >= 0 && txtr.x < 38 && txtr.y > 0)
+	{
+		/*while (txtr.y < 0)
+			txtr.y += 64;*/
+		if (ray->gfx.texture[8].frame[f].pixels[txtr.x + ((int)txtr.y * 38)]
+			&& win_y < ray->gfx.height && win_y < wall->prev_y)
+		{
+			pixel_put(&ray->gfx, ray->x, win_y,
+				ray->gfx.texture[8].frame[f].pixels[txtr.x
+				+ ((int)txtr.y * 38)]);
+			wall->lock[win_y] = '1';
+		}
+		win_y--;
+		txtr.y -= j;
+	}
+	return (win_y);
+}
+/*
+int	draw_sprite(t_ray *ray, t_wall *wall, int win_y, float distance)
+{
+	float		texture_at_distance;
 	float		i;
 	int			j;
 	int			f;
@@ -128,8 +158,8 @@ int	draw_sprite(t_ray *ray, t_wall *wall, int win_y, float distance)
 
 	if (get_value(ray->map, wall->x, wall->y, 3) != '$')
 		return (0);
-	texture_at_distance = 64 / distance * ray->gfx.proj_dist;//replace 64 with sprite_height
-	i = 64 / texture_at_distance;//63 == sprite_height - 1
+	texture_at_distance = 64 / distance * ray->gfx.proj_dist;
+	i = 64 / texture_at_distance;
 	j = 0;
 	f = ray->gfx.frame.bottle;
 	txtr.x = get_texture_x(ray, *wall);
@@ -148,7 +178,7 @@ int	draw_sprite(t_ray *ray, t_wall *wall, int win_y, float distance)
 		txtr.y -= i;
 	}
 	return (win_y - j);
-}	
+}	*/
 
 t_vector	cast_floor(t_ray *ray, t_wall *wall, int win_y, float height)
 {
@@ -216,7 +246,7 @@ float	calc_limit(t_wall wall, t_ray *ray)
 	t_dda	dda;
 
 	init_dda(ray, &wall, &dda);
-	limit = algo_dda(ray, &wall, &dda);
+	limit = algo_dda(&wall, &dda);
 	return (limit);
 }
 

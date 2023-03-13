@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 00:24:32 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/03/13 12:43:56 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/13 17:34:28 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int     diagonal_dda(t_ray *ray, t_wall *wall, t_dda *dda)
 	return(1);
 }*/
 
-float	algo_dda(t_ray *ray, t_wall *wall, t_dda *dda)
+float	algo_dda(t_wall *wall, t_dda *dda)
 {
 	int		collx;
 	int		colly;
