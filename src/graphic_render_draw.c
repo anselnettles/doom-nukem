@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 10:03:55 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/03/13 13:39:06 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/13 15:22:20 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,13 @@ float	init_texture(t_ray *ray, t_wall wall, t_vectorif *texture, int skip)
 	return (j);
 }
 
-uint32_t	get_color(t_ray *ray, t_vectorif texture, int wall_layer)
+uint32_t	get_color(t_ray *ray, t_vectorif texture, int wall_layer, t_wall wall)
 {
 	uint32_t	color;
+	int			i;
 
-	color = ray->gfx.texture[1].frame[0].pixels[texture.x
+	i = get_value(ray->map, wall.x, wall.y, 1);
+	color = ray->gfx.texture[i].frame[0].pixels[texture.x
 		+ ((int)texture.y * 64)];
 	if (wall_layer && ray->gfx.texture[13].frame[(wall_layer - 1)
 			+ ray->gfx.frame.algae].pixels[texture.x + ((int)texture.y * 64)])
@@ -77,7 +79,7 @@ void	draw_texture(t_ray *ray, t_minmax y, t_wall wall, int scaled_y)
 			texture.y += 63;
 		if (wall.lock[y.max] == '0' && y.max >= 0 && y.max < ray->gfx.height)
 		{
-			color = get_color(ray, texture, wall_layer);
+			color = get_color(ray, texture, wall_layer, wall);
 			color = fade_brightness(color, (int)((wall.distance
 							/ 500) + (j / 4)) + shade_multiplier);
 			pixel_put(&ray->gfx, ray->x, y.max, color);
@@ -163,6 +165,7 @@ t_vector	cast_floor(t_ray *ray, t_wall *wall, int win_y, float height)
 	return (texture);
 }
 
+
 void	draw_floor(t_ray *ray, t_wall wall, int win_y)
 {
 	t_vector	txtr;
@@ -219,9 +222,9 @@ float	calc_limit(t_wall wall, t_ray *ray)
 
 int	check_boundary(t_wall wall, int win_y)
 {
-	if ((int)roundf(wall.x / 64) >= 28 || (int)roundf(wall.y / 64) >= 20
+	/*if ((int)roundf(wall.x / 64) >= 28 || (int)roundf(wall.y / 64) >= 20
 		|| wall.y <= 0 || wall.x <= 0)
-		return (0);
+		return (0);*/
 	if (win_y < 0 || wall.lock[win_y] != '0' || win_y >= wall.prev_y)
 		return (0);
 	return (1);
@@ -230,10 +233,12 @@ int	check_boundary(t_wall wall, int win_y)
 int	draw_wall_top(t_ray *ray, t_wall wall, int win_y, int wall_height)
 {
 	t_vector	txtr;
+	int			i;
 	int			win_y_limit;
 	float		limit;
 	float		dir;
 
+	i  = get_value(ray->map, wall.x, wall.y, 1);
 	limit = calc_limit(wall, ray) * cosf(ray->player.dir - wall.dir);
 	win_y_limit = ray->height + (((BITS) / limit * ray->gfx.proj_dist) / 2);
 	win_y_limit += ((ray->player.height - 32)
@@ -245,11 +250,11 @@ int	draw_wall_top(t_ray *ray, t_wall wall, int win_y, int wall_height)
 	{
 		txtr = cast_floor(ray, &wall, win_y,
 				ray->player.height - (float)(wall_height * 32));
-		if (wall.distance <= 0 || win_y < win_y_limit)//wall.distance > limit)
+		if (wall.distance <= 0 || win_y < win_y_limit || wall.distance > 100000)//wall.distance > limit)
 			break ;
 		if (check_boundary(wall, win_y))
 			pixel_put(&ray->gfx, ray->x, win_y,
-				ray->gfx.texture[1].frame[0].pixels[txtr.x + (txtr.y * 64)]);
+				ray->gfx.texture[i].frame[0].pixels[txtr.x + (txtr.y * 64)]);
 		win_y--;
 	}
 	if (win_y < wall.prev_y)
