@@ -65,6 +65,9 @@ FILES				=	\
 						graphic_render_raycast \
 						graphic_render_timeline \
 						main \
+						thread \
+						utilities_draw \
+						utilities_draw_texture\
 						utilities_events \
 						utilities_graphic \
 						utilities_movement \

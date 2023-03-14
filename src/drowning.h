@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   drowning.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/13 18:26:06 by tturto           ###   ########.fr       */
+/*   Updated: 2023/03/14 14:33:27 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -438,6 +438,9 @@ typedef enum e_error
 float		algo_dda(t_wall *wall, t_dda *dda);
 int			animation_loop(t_drown *d);
 float		calc_limit(t_wall wall, t_ray *ray);
+int			calc_win_y(float limit, t_ray *ray, t_wall wall, int wall_height);
+t_vector	cast_floor(t_ray *ray, t_wall *wall, int win_y, float height);
+int			check_boundary(t_wall wall, int win_y);
 void		choose_to_reset_map_or_exit(t_drown *data);
 void		clear_surface(t_drown *data);
 void		close_program(t_gfx *gfx);
@@ -455,11 +458,14 @@ void		draw_ceiling(t_ray *ray, t_wall wall, int win_y);
 void		draw_collumn(t_ray *ray, int y, int y_max, Uint32 color);
 void		draw_color_filter(t_gfx *gfx, uint32_t *pix, uint32_t color);
 void		draw_floor(t_ray *ray, t_wall wall, int win_y);
+int			draw_goal_point(t_ray *ray,
+				t_wall *wall, int win_y, float distance);
 void		draw_grid_of_squares(t_drown *data);
 void		draw_map(t_drown *data);
 void		draw_one_square(t_gfx *gfx, t_xy_start_end *interval);
 int			draw_player(t_index *index, t_gfx *gfx);
 void		draw_skybox(t_drown *data);
+int			draw_sprite(t_ray *ray, t_wall *wall, int win_y, float distance);
 void		draw_scanlines(t_gfx *gfx, uint32_t *pix, uint32_t color);
 void		draw_texture(t_ray *ray, t_minmax y, t_wall wall, int scaled_y);
 void		draw_thread(t_ray *ray, float distance, t_wall *wall);
@@ -471,14 +477,12 @@ int			error(int code);
 uint32_t	fade_brightness(uint32_t color, int multiplier);
 void		fill_gaps(char *line);
 void		ft_bzero2(void *dst, size_t n);
-int			ft_calc_diagonal(t_wall *wall, t_ray *ray);
-int			ft_diagonal_1(t_wall *wall, t_ray *ray);
-int			ft_diagonal_2(t_wall *wall, t_ray *ray);
-int			ft_diagonal_3(t_wall *wall, t_ray *ray);
-int			ft_diagonal_4(t_wall *wall, t_ray *ray);
-void		*ft_raycast_thread(void *args);
+void		*ft_raycast(void *args);
+uint32_t	get_color(t_ray *ray, t_vectorif texture, int layer, t_wall wall);
 int			get_player_start(t_map *map, t_editor_images *images, char axis);
+int			get_texture_x(t_ray *ray, t_wall wall);
 int			get_value(t_map map, float x, float y, int z);
+int			get_wall_layer(int c);
 int			gfx_write(int x_start, int y_start, t_gfx *gfx, char *s);
 void		hud_animation_loop(t_drown *d);
 int			i0_is_0(t_drown *data, t_index *i, int i0);
@@ -496,6 +500,8 @@ void		init_new_wall(t_ray *ray, t_wall *wall);
 void		init_player(t_player *player);
 int			init_sdl(SDL_Window *window, SDL_Surface *screen);
 void		init_thread(t_ray *ray, t_drown *data, int i);
+float		init_texture(t_ray *ray,
+				t_wall wall, t_vectorif *texture, int skip);
 int			init(t_gfx *gfx);
 int			is_new_map_valid(t_map *map, t_editor_images *images);
 int			map_editor(t_drown *data);
