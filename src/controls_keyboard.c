@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 14:16:37 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/14 16:09:33 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/14 16:43:59 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int	quit_program(t_drown *d)
 	SDL_FreeSurface(d->gfx.screen);
 	SDL_DestroyWindow(d->gfx.window);
 	SDL_Quit();
+	(void)d;
 	exit(0);
 	return (0);
 }
