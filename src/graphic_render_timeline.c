@@ -6,7 +6,7 @@
 /*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 12:34:59 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/14 14:36:31 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/14 15:04:35 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ static int	event_string(t_drown *d, int s)
 		if (gfx_write((d->gfx.width / 3), (d->gfx.height / 2), &d->gfx,
 				"PRESS 'E' TO COLLECT") == ERROR)
 			return (ERROR);
+	(void) s;
 	return (0);
 }
 
