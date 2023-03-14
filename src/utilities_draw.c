@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 14:16:55 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/03/14 16:02:57 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/14 16:54:27 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,32 @@ int	check_boundary(t_wall wall, int win_y)
 	if (win_y < 0 || wall.lock[win_y] != '0' || win_y >= wall.prev_y)
 		return (0);
 	return (1);
+}
+
+int	draw_player_tile(t_ray *ray, t_wall wall)
+{
+	t_vector	txtr;
+	int			i;
+	int			win_y_limit;
+	float		limit;
+	int			wall_height;
+
+	if (get_value(ray->map, wall.x, wall.y, 0)
+		!= get_value(ray->map, ray->player.x, ray->player.y, 0))
+		return (wall.prev_y);
+	wall_height = (get_value(ray->map, ray->player.x, ray->player.y, 0) - '0');
+	i = get_value (ray->map, wall.x, wall.y, 1);
+	limit = calc_limit(wall, ray) * cosf(ray->player.dir - wall.dir);
+	win_y_limit = calc_win_y(limit, ray, wall_height);
+	while (wall.prev_y >= win_y_limit && wall.prev_y > 0)
+	{
+		txtr = cast_floor(ray, &wall, wall.prev_y, ray->player.height
+				- (float)(wall_height * 32.f));
+		if (wall.distance <= 0 || wall.distance > 100000)
+			break ;
+		pixel_put(&ray->gfx, ray->x, wall.prev_y,
+			ray->gfx.texture[i].frame[0].pixels[txtr.x + (txtr.y * 64)]);
+		wall.prev_y--;
+	}
+	return (wall.prev_y);
 }
