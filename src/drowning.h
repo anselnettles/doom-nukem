@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/14 14:33:27 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/14 14:42:41 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,7 @@ typedef struct s_system {
 	int				ending_state;
 	const uint8_t	*keyboard_state;
 	uint32_t		time;
+	uint32_t		start_time;
 	uint32_t		last_time;
 	uint32_t		delta_time;
 	float			frame_time;
