@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 17:50:06 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/13 17:32:03 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/14 14:49:06 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	animation_loop(t_drown *d)
 
 static void	track_time(t_drown *d)
 {
-	d->system.time = SDL_GetTicks();
+	d->system.time = (SDL_GetTicks() - d->system.start_time);
 	d->system.delta_time = (d->system.time - d->system.last_time);
 	if ((d->system.time / 1000) >= d->system.second)
 		d->system.second++;
@@ -53,6 +53,8 @@ static void	track_time(t_drown *d)
 		Mix_PlayChannel(-1, d->audio.timer_hit, 0);
 		d->system.five_second++;
 		d->gfx.frame.bubble++;
+		if (d->gfx.frame.bubble < 13)
+			d->gfx.frame.bubble += d->system.hard_mode;
 	}
 	d->system.frame_time = d->system.delta_time / 100.f;
 	animation_loop(d);
