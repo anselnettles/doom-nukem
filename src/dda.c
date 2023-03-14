@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 00:24:32 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/03/14 13:49:40 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/14 16:27:41 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,21 @@ float	absf(float value)
 	return (value);
 }
 
+void	init_collision(t_wall *wall, t_vector *coll)
+{
+	coll->x = 32;
+	coll->y = 32;
+	if (wall->dx > 0)
+		coll->x = 31;
+	if (wall->dy > 0)
+		coll->y = 31;
+}
+
 float	algo_dda(t_wall *wall, t_dda *dda)
 {
 	t_vector	coll;
 
-	coll.x = (int)roundf(31.51f - wall->dx);
-	coll.y = (int)roundf(31.51f - wall->dy);
+	init_collision(wall, &coll);
 	dda->hit = 0;
 	while (dda->hit == 0)
 	{
