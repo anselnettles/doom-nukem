@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/14 16:32:21 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/14 16:58:58 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -513,13 +513,13 @@ int			memory_allocate_textures(t_gfx *gfx, int f);
 int			menu_string(t_gfx *gfx, int s);
 void		move_forward_back(t_drown *data);
 void		move_strafe(t_drown *data);
-void		open_check(int *fd, char *map_file);
+int			open_check(int *fd, char *map_file);
 void		overworld_sprite_loop(t_drown *d);
 void		param_to_modify(t_map *map);
 int			pixel_put(t_gfx *gfx, int x_src, int y_src, uint32_t color);
 int			player_object_collision(t_drown *d);
 int			quit_program(t_drown *d);
-void		read_check(int fd, int *ret, char *buf, int size);
+int			read_check(int fd, int *ret, char *buf, int size);
 int			read_map(char *map_file, t_drown *data);
 int			render_hud(t_index *index, t_gfx *gfx, int scale);
 int			render_overlay(t_drown *d);
@@ -541,7 +541,7 @@ void		text_param_selection_2(int x, int y, t_drown *data);
 void		text_param_selection_3(int x, int y, t_drown *data);
 void		text_param_selection_4(int x, int y, t_drown *data);
 void		tt_errors(char *error_msg);
-void		tt_errors_exit(char *error_msg);
+void		tt_errors_exit(char *error_msg, t_drown *d);
 int			validate(char *buf, t_editor_images *images,
 				unsigned short int index_buf_column,
 				unsigned short int index_buf_row);

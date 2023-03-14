@@ -6,7 +6,7 @@
 /*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 19:04:35 by tturto            #+#    #+#             */
-/*   Updated: 2023/03/12 17:15:09 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/14 16:43:40 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	buffer_to_3d_map_array(char *buf, t_map *map)
 	}
 }
 
-static void	malloc_3d_map_array(t_map *map, t_editor_images *images)
+static void	malloc_3d_map_array(t_map *map, t_editor_images *images, t_drown *d)
 {
 	int	row;
 	int	col;
@@ -52,19 +52,19 @@ static void	malloc_3d_map_array(t_map *map, t_editor_images *images)
 	row = 0;
 	map->map = (char ***)malloc(sizeof(char **) * images->row1);
 	if (!map->map)
-		tt_errors_exit("malloc_3d_map_array(): map[X][][]");
+		tt_errors_exit("malloc_3d_map_array(): map[X][][]", d);
 	while (row < images->row1)
 	{
 		map->map[row] = (char **)malloc(sizeof(char *) * images->column1);
 		if (!map->map[row])
-			tt_errors_exit("malloc_3d_map_array(): map[][X][]");
+			tt_errors_exit("malloc_3d_map_array(): map[][X][]", d);
 		col = 0;
 		while (col < images->column1)
 		{
 			map->map[row][col] = (char *)malloc(sizeof(char)
 					* (PARAM_COUNT + 1));
 			if (!map->map[row][col])
-				tt_errors_exit("malloc_3d_map_array() fail: map[][][X]");
+				tt_errors_exit("malloc_3d_map_array() fail: map[][][X]", d);
 			map->map[row][col][PARAM_COUNT] = '\0';
 			col++;
 		}
@@ -101,7 +101,7 @@ static void	count_map_data(char *buf, t_editor_images *images)
 	}
 }
 
-int	calculate_map_size(char *map_file)
+static int	calculate_map_size(t_drown *d, char *map_file)
 {
 	int		size;
 	int		ret;
@@ -111,7 +111,7 @@ int	calculate_map_size(char *map_file)
 	size = 0;
 	fd = open(map_file, O_RDONLY);
 	if (fd == -1)
-		exit (-1);
+		quit_program(d);
 	ret = read(fd, buf, 1000);
 	while (ret)
 	{
@@ -120,9 +120,9 @@ int	calculate_map_size(char *map_file)
 		ret = read(fd, buf, 1000);
 	}
 	if (ret == (-1))
-		exit (-1);
+		quit_program(d);
 	if (close(fd) == -1)
-		exit (-1);
+		quit_program(d);
 	return (size);
 }
 
@@ -139,20 +139,22 @@ int	read_map(char *map_file, t_drown *data)
 	int		size;
 	char	*buf;
 
-	size = calculate_map_size(map_file);
+	size = calculate_map_size(data, map_file);
 	buf = (char *)malloc(sizeof(char) * size + 1);
 	if (buf == NULL)
-		exit (-1);
-	open_check(&fd, map_file);
-	read_check(fd, &ret, buf, size);
+		quit_program(data);
+	if (open_check(&fd, map_file) == ERROR)
+		quit_program(data);
+	if (read_check(fd, &ret, buf, size) == ERROR)
+		quit_program(data);
 	buf[ret] = '\0';
 	if (validate_buffer_format(buf, &data->editor.images) != 1)
-		tt_errors_exit("read_map: validate_buffer_format() fail.");
+		tt_errors_exit("read_map: validate_buffer_format() fail.", data);
 	close(fd);
 	if (texture_allocation(buf, &data->index, &data->gfx) == ERROR)
 		return (ERROR);
 	count_map_data(buf, &data->editor.images);
-	malloc_3d_map_array(&data->map, &data->editor.images);
+	malloc_3d_map_array(&data->map, &data->editor.images, data);
 	buffer_to_3d_map_array(buf, &data->map);
 	return (0);
 }
