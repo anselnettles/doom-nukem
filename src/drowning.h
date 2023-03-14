@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/14 17:38:30 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/14 17:53:56 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 //	LIBRARIES
 # include <math.h>							// Math library.
 # include <unistd.h>						//UNIX Standard library.
+# include <stdlib.h>						//Standard library.
 # include <fcntl.h>							//File Control library.
 # include <pthread.h>
 # include <SDL2/SDL.h>						//Simple DirectMedia Layer.
