@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/14 17:53:56 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/14 18:09:57 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -444,7 +444,6 @@ t_vector	cast_floor(t_ray *ray, t_wall *wall, int win_y, float height);
 int			check_boundary(t_wall wall, int win_y);
 void		choose_to_reset_map_or_exit(t_drown *data);
 void		clear_surface(t_drown *data);
-void		close_program(t_gfx *gfx);
 void		collect_airbottle(t_drown *d);
 uint32_t	colouring_img2_img3(int image_switch);
 int			confirm_memory_allocation_first_batch(t_gfx *gfx, int t, int f);
