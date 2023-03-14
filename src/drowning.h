@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/14 15:16:36 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/14 16:06:19 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -516,6 +516,7 @@ void		overworld_sprite_loop(t_drown *d);
 void		param_to_modify(t_map *map);
 int			pixel_put(t_gfx *gfx, int x_src, int y_src, uint32_t color);
 int			player_object_collision(t_drown *d);
+int			quit_program(t_drown *d);
 void		read_check(int fd, int *ret, char *buf, int size);
 int			read_map(char *map_file, t_drown *data);
 int			render_hud(t_index *index, t_gfx *gfx, int scale);
