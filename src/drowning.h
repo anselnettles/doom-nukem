@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/14 16:58:58 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/14 17:38:30 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -406,7 +406,6 @@ typedef struct s_project_drowning {
 	t_editor				editor;
 	t_player				player;
 	t_gfx					gfx;
-	SDL_Rect				rect;
 	SDL_Event				event;
 	t_map					map;
 	float					delta_time;
