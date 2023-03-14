@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 15:49:19 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/14 14:49:12 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/14 16:21:38 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,33 @@ void	ft_bzero_char(void *dst, size_t n)
 	}
 }
 
+int	draw_player_tile(t_ray *ray, t_wall wall)
+{
+	t_vector	txtr;
+	int			i;
+	int			win_y_limit;
+	float		limit;
+	int			wall_height;
+
+	wall_height = (get_value(ray->map, ray->player.x, ray->player.y, 0) - '0');
+	i = get_value (ray->map, wall.x, wall.y, 1);
+	limit = calc_limit(wall, ray) * cosf(ray->player.dir - wall.dir);
+	win_y_limit = calc_win_y(limit, ray, wall_height);
+	while (wall.prev_y >= win_y_limit && wall.prev_y > 0)
+	{
+		txtr = cast_floor(ray, &wall, wall.prev_y, ray->player.height - (float)(wall_height * 32.f));
+		if (wall.distance <= 0 || wall.prev_y < win_y_limit || wall.distance > 100000)
+			break ;
+		pixel_put(&ray->gfx, ray->x, wall.prev_y,
+			ray->gfx.texture[i].frame[0].pixels[txtr.x + (txtr.y * 64)]);
+		wall.prev_y--;
+	}
+	return(wall.prev_y);
+}
+
 void	init_new_wall(t_ray *ray, t_wall *wall)
 {
+	wall->distance = 0;
 	if (wall->dir > 2 * PI)
 		wall->dir -= 2 * PI;
 	if (wall->dir < 0)
@@ -39,10 +64,11 @@ void	init_new_wall(t_ray *ray, t_wall *wall)
 	wall->y = ray->player.y + 1;
 	if (wall->dy > 0)
 		wall->y -= 2;
-	wall->prev_y = ray->gfx.height;
 	ray->x++;
 	ray->count++;
 	ft_bzero_char(wall->lock, ray->gfx.height);
+	wall->prev_y = ray->gfx.height;
+	wall->prev_y = draw_player_tile(ray, *wall);
 }
 
 float	check_nearest(t_ray *ray, t_wall wall)
