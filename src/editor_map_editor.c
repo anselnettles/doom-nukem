@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor_map_editor.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 17:57:40 by tturto            #+#    #+#             */
-/*   Updated: 2023/03/13 18:04:03 by tturto           ###   ########.fr       */
+/*   Updated: 2023/03/14 17:39:26 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	map_editor(t_drown *data)
 		while (SDL_PollEvent(&data->gfx.event))
 		{
 			if (data->gfx.event.type == SDL_QUIT)
-				data->editor.rules.quit = 1;
+				quit_program(data);
 			if (data->gfx.event.type == SDL_MOUSEMOTION)
 				SDL_GetMouseState(&data->editor.mouse.x, &data->editor.mouse.y);
 			img_render(data);
