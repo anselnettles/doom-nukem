@@ -6,13 +6,13 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 15:49:19 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/13 17:35:52 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/14 14:15:37 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "drowning.h"
 
-void	ft_bzero2(void *dst, size_t n)
+void	ft_bzero_char(void *dst, size_t n)
 {
 	char	*s;
 
@@ -42,7 +42,7 @@ void	init_new_wall(t_ray *ray, t_wall *wall)
 	wall->prev_y = ray->gfx.height;
 	ray->x++;
 	ray->count++;
-	ft_bzero2(wall->lock, ray->gfx.height);
+	ft_bzero_char(wall->lock, ray->gfx.height);
 }
 
 float	check_nearest(t_ray *ray, t_wall wall)
@@ -55,7 +55,15 @@ float	check_nearest(t_ray *ray, t_wall wall)
 	return (ray->nearest);
 }
 
-void	*ft_raycast_thread(void *args)
+void	init_wall_lock(t_wall *wall, t_ray *ray)
+{
+	wall->lock = (char *)malloc(sizeof(char) * ray->gfx.height + 1);
+	if (wall->lock == NULL)
+		exit(-1);
+	wall->lock[ray->gfx.height + 1] = '\0';
+}
+
+void	*ft_raycast(void *args)
 {
 	t_ray		*ray;
 	t_wall		wall;
@@ -63,14 +71,12 @@ void	*ft_raycast_thread(void *args)
 
 	ray = args;
 	wall.dir = ray->dir;
-	wall.lock = (char *)malloc(sizeof(char) * ray->gfx.height + 1);
-	if (wall.lock == NULL)
-		exit(-1);
-	wall.lock[ray->gfx.height + 1] = '\0';
+	init_wall_lock(&wall, ray);
 	while (ray->count < (ray->gfx.width / 6))
 	{
 		init_new_wall(ray, &wall);
-		if (get_value(ray->map, wall.x, wall.y, 0) != get_value(ray->map, ray->player.x, ray->player.y, 0))
+		if (get_value(ray->map, wall.x, wall.y, 0)
+			!= get_value(ray->map, ray->player.x, ray->player.y, 0))
 			draw_thread(ray, 5.f, &wall);
 		while (get_value(ray->map, wall.x, wall.y, 0) != '#' && wall.prev_y)
 		{
@@ -83,50 +89,4 @@ void	*ft_raycast_thread(void *args)
 		wall.dir += (60 * DEGREES) / ray->gfx.width;
 	}
 	return (NULL);
-}
-
-void	init_thread(t_ray *ray, t_drown *data, int i)
-{
-	ray->count = 0;
-	if (i == 0)
-	{
-		ray->x = 0;
-		ray->dir = (data->player.dir - 30 * DEGREES);
-	}
-	if (i != 0)
-	{
-		ray->x = i * (data->gfx.width / 6);
-		ray->dir = (data->player.dir - 30 * DEGREES)
-			+ (i * (data->gfx.width / 6) * (60 * DEGREES / data->gfx.width));
-	}
-	ray->height = data->gfx.centre;
-	ray->gfx = data->gfx;
-	ray->player = data->player;
-	ray->map = data->map;
-	ray->nearest = 6000;
-}
-
-void	render_thread(t_drown *data)
-{
-	pthread_t	threads[THREAD];
-	t_ray		ray[THREAD];
-	int			i;
-	int			rc;
-
-	i = 0;
-	while (i < THREAD)
-	{
-		init_thread(&ray[i], data, i);
-		rc = pthread_create(&threads[i], NULL, ft_raycast_thread, &ray[i]);
-		i++;
-	}
-	i = 0;
-	while (i < THREAD)
-	{
-		rc = pthread_join(threads[i], NULL);
-		i++;
-	}
-	data->gfx.nearest = ray[0].nearest;
-	if (ray[1].nearest < ray[0].nearest)
-		data->gfx.nearest = ray[1].nearest;
 }

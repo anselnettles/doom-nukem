@@ -3,14 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   utilities_graphic.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 13:35:22 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/13 15:04:18 by tturto           ###   ########.fr       */
+/*   Updated: 2023/03/14 14:26:32 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "drowning.h"
+
+int	get_wall_layer(int c)
+{
+	if (c == '\'')
+		return (1);
+	if (c == '"')
+		return (3);
+	return (0);
+}
+
+uint32_t	get_color(t_ray *ray, t_vectorif texture, int layer, t_wall wall)
+{
+	uint32_t	color;
+	int			i;
+
+	i = get_value(ray->map, wall.x, wall.y, 1);
+	color = ray->gfx.texture[i].frame[0].pixels[texture.x
+		+ ((int)texture.y * 64)];
+	if (layer && ray->gfx.texture[13].frame[(layer - 1)
+			+ ray->gfx.frame.algae].pixels[texture.x + ((int)texture.y * 64)])
+		color = ray->gfx.texture[13].frame[(layer - 1)
+			+ ray->gfx.frame.algae].pixels[texture.x + ((int)texture.y * 64)];
+	return (color);
+}
 
 //	A pixel drawing function for the SDL surface, created to make the rendering
 //	process more simpler.
