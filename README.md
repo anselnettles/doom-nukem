@@ -17,12 +17,9 @@ This was the final "core-studies project" of the game-graphics branch in HIVE He
 #
 ![drowning_optimized_demo](https://user-images.githubusercontent.com/70949716/225095125-ea451c08-9c18-4272-ac6b-9a13600a5af2.gif)
 
-
+&emsp;&emsp;<sup><b>As of January 24th 2023, the work became a  collaboration project with @Dofidog (Topi Paaso) and @UItsi (Timo Turto).</sup></b><br>
 &emsp;&emsp;<sup><b>Project Drowning will be fully finished by April 2023.</sup></b>
 #
-
-This C program is tagged with my school's "42" user account "aviholai". <br>
-As of January 24th 2023, the work became a  collaboration project with @Dofidog (Topi Paaso) and @UItsi (Timo Turto).<br>
 
 <h3>Controls:</h3>
 
