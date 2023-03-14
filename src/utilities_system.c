@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 17:50:06 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/14 14:49:06 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/14 15:17:01 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	sdl_loop(t_drown *d)
 		}
 		delta_move_player(d);
 		delta_time_move(d);
-		player_object_collision(d, d->gfx.scale);
+		player_object_collision(d);
 		if (d->system.frame_time < 16.6666f)
 			SDL_Delay(16.6666f - d->system.frame_time);
 		draw_skybox(d);
