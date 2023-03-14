@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 15:49:19 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/14 14:15:37 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/14 14:49:12 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,5 +88,6 @@ void	*ft_raycast(void *args)
 		}
 		wall.dir += (60 * DEGREES) / ray->gfx.width;
 	}
+	free(wall.lock);
 	return (NULL);
 }
