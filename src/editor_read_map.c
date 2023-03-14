@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor_read_map.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 19:04:35 by tturto            #+#    #+#             */
-/*   Updated: 2023/03/14 16:43:40 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/14 17:15:24 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,5 +156,6 @@ int	read_map(char *map_file, t_drown *data)
 	count_map_data(buf, &data->editor.images);
 	malloc_3d_map_array(&data->map, &data->editor.images, data);
 	buffer_to_3d_map_array(buf, &data->map);
+	free (buf);
 	return (0);
 }
