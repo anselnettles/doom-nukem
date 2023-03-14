@@ -6,7 +6,7 @@
 /*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 18:24:05 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/14 14:25:32 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/14 16:05:47 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,5 +125,6 @@ int	main(void)
 	}
 	SDL_SetRelativeMouseMode(SDL_TRUE);
 	sdl_loop(&data);
+	quit_program(&data);
 	return (0);
 }
