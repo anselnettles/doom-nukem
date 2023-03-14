@@ -6,7 +6,7 @@
 /*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 18:18:42 by tturto            #+#    #+#             */
-/*   Updated: 2023/03/10 18:44:12 by tturto           ###   ########.fr       */
+/*   Updated: 2023/03/14 16:41:31 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	tt_errors(char *error_msg)
 	write(1, "\n", 1);
 }
 
-void	tt_errors_exit(char *error_msg)
+void	tt_errors_exit(char *error_msg, t_drown *d)
 {
 	while (*error_msg != '\0')
 	{
@@ -30,5 +30,5 @@ void	tt_errors_exit(char *error_msg)
 		error_msg++;
 	}
 	write(1, "\n", 1);
-	exit (-1);
+	quit_program(d);
 }
