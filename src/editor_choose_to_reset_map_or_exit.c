@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor_choose_to_reset_map_or_exit.c               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 16:14:40 by tturto            #+#    #+#             */
-/*   Updated: 2023/03/03 16:14:56 by tturto           ###   ########.fr       */
+/*   Updated: 2023/03/14 17:37:26 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,6 @@ void	choose_to_reset_map_or_exit(t_drown *data)
 	if (data->gfx.event.type == SDL_KEYDOWN)
 	{
 		if (data->gfx.event.key.keysym.sym == SDLK_ESCAPE)
-			close_program(&data->gfx);
+			quit_program(data);
 	}
 }
