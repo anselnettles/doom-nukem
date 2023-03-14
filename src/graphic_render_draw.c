@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 10:03:55 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/03/14 14:31:44 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/14 15:14:16 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	draw_floor(t_ray *ray, t_wall wall, int win_y)
 {
 	t_vector	txtr;
-	float		dir;
 	uint32_t	color;
 	int			shade_multiplier;
 
@@ -62,11 +61,10 @@ int	draw_wall_top(t_ray *ray, t_wall wall, int win_y, int wall_height)
 	int			i;
 	int			win_y_limit;
 	float		limit;
-	float		dir;
 
 	i = get_value(ray->map, wall.x, wall.y, 1);
 	limit = calc_limit(wall, ray) * cosf(ray->player.dir - wall.dir);
-	win_y_limit = calc_win_y(limit, ray, wall, wall_height);
+	win_y_limit = calc_win_y(limit, ray, wall_height);
 	while (win_y > ray->gfx.height)
 			win_y--;
 	while (win_y >= 0)
