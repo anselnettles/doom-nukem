@@ -6,7 +6,7 @@
 /*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 19:13:30 by tturto            #+#    #+#             */
-/*   Updated: 2023/03/10 18:34:39 by tturto           ###   ########.fr       */
+/*   Updated: 2023/03/14 17:50:36 by tturto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,12 @@ static void	draw_grid_of_squares_mod(t_drown *data, int cat, int img_x_min)
 */
 void	draw_grid_of_squares(t_drown *data)
 {
+	gfx_write(data->editor.images.img1_x_min, data->gfx.height * 0.7,
+		&data->gfx, "MOUSE-ONE TO SELECT AN ELEMENT");
+	gfx_write(data->editor.images.img1_x_min, data->gfx.height * 0.72,
+		&data->gfx, "MOUSE-TWO TO CLOSE SELECTION COLUMNS");
+	gfx_write(data->editor.images.img1_x_min, data->gfx.height * 0.76,
+		&data->gfx, "Z TO PLAY");
 	if (data->editor.images.img_switch == 1)
 		draw_grid_of_squares_mod(data, IMG1_CATHETUS,
 			data->editor.images.img1_x_min);
