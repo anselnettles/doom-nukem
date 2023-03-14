@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   controls_mouse.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 18:36:33 by aviholai          #+#    #+#             */
-/*   Updated: 2023/02/17 18:36:51 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/14 16:52:39 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,6 @@ void	deal_mouse(t_drown *data)
 	data->gfx.centre -= data->event.motion.yrel * 8;
 	if (data->gfx.centre > data->gfx.height)
 		data->gfx.centre = data->gfx.height;
-	if (data->gfx.centre < 0)
-		data->gfx.centre = 0;
+	if (data->gfx.centre < -1)
+		data->gfx.centre = -1;
 }

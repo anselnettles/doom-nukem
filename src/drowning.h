@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/14 16:41:44 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/14 16:58:58 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -465,6 +465,7 @@ void		draw_grid_of_squares(t_drown *data);
 void		draw_map(t_drown *data);
 void		draw_one_square(t_gfx *gfx, t_xy_start_end *interval);
 int			draw_player(t_index *index, t_gfx *gfx);
+int			draw_player_tile(t_ray *ray, t_wall wall);
 void		draw_skybox(t_drown *data);
 int			draw_sprite(t_ray *ray, t_wall *wall, int win_y, float distance);
 void		draw_scanlines(t_gfx *gfx, uint32_t *pix, uint32_t color);
@@ -495,8 +496,9 @@ void		img1_img2_img3(t_drown *data);
 int			img1_img2_is_mouse_in_grid(t_drown *data);
 void		img2_texts(t_drown *data);
 void		img3_texts(t_drown *data, int param_to_modify);
-void		init_dda(t_ray *ray, t_wall *wall, t_dda *dda);
 int			img3_is_mouse_in_grid(t_drown *data);
+void		init_collision(t_wall *wall, t_vector *coll);
+void		init_dda(t_ray *ray, t_wall *wall, t_dda *dda);
 void		init_new_wall(t_ray *ray, t_wall *wall);
 void		init_player(t_player *player);
 int			init_sdl(SDL_Window *window, SDL_Surface *screen);
