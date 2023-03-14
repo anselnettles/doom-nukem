@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 14:16:55 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/03/14 14:34:45 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/14 15:12:25 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ float	calc_limit(t_wall wall, t_ray *ray)
 	return (limit);
 }
 
-int	calc_win_y(float limit, t_ray *ray, t_wall wall, int wall_height)
+int	calc_win_y(float limit, t_ray *ray, int wall_height)
 {
 	int	win_y_limit;
 

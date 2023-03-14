@@ -6,7 +6,7 @@
 /*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 18:24:05 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/13 18:06:23 by tturto           ###   ########.fr       */
+/*   Updated: 2023/03/14 14:25:32 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ int	main(void)
 	{
 		Mix_PlayMusic(data.audio.bluehole, -1);
 		Mix_VolumeMusic(50);
+		data.system.start_time = SDL_GetTicks();
 		if (render(&data) == ERROR)
 			return (error(RENDER_FAIL));
 	}

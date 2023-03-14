@@ -6,13 +6,13 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 14:24:34 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/03/14 14:32:22 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/14 15:15:41 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "drowning.h"
 
-int	get_texture_x(t_ray *ray, t_wall wall)
+int	get_texture_x(t_wall wall)
 {
 	if (wall.side == 0)
 	{
@@ -33,7 +33,7 @@ float	init_texture(t_ray *ray, t_wall wall, t_vectorif *texture, int skip)
 	float	j;
 
 	j = 64.f / (BITS / wall.distance * ray->gfx.proj_dist);
-	texture->x = get_texture_x(ray, wall);
+	texture->x = get_texture_x(wall);
 	texture->y = 63.f - (float)skip * j;
 	return (j);
 }

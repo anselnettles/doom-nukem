@@ -6,7 +6,7 @@
 /*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 12:34:59 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/13 12:22:51 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/14 15:04:35 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,19 @@
 
 int	menu_string(t_gfx *gfx, int s)
 {
-	if (gfx_write(TXT_X * s, gfx->height / 4, gfx, "D R O W N I N G"))
+	if (gfx_write(TXT_X * s, gfx->height / 4 - 60, gfx, "D R O W N I N G"))
+		return (ERROR);
+	if (gfx_write((TXT_X) * s, gfx->height / 3, gfx,
+			"THE ATROCIOUS CAPTAIN OF THE FISHING BOAT 'WISH ME WELL'"))
+		return (ERROR);
+	if (gfx_write((TXT_X) * s, gfx->height / 3 + 40, gfx,
+			"HAS THROWN YOU OVERBOARD! YOU ONLY HAVE MERE SECONDS TO"))
+		return (ERROR);
+	if (gfx_write((TXT_X) * s, gfx->height / 3 + 80, gfx,
+			"ASURFACE BEFORE THE WATERY GRAVE CLAIMS YOUR LIFE!"))
+		return (ERROR);
+	if (gfx_write((TXT_X) * s, gfx->height / 3 + 220, gfx,
+			"CLIMB THE CHAIN! SEEK OXYGEN BOTTLES FOR A QUICK RELIEF!"))
 		return (ERROR);
 	if (gfx_write(TXT_X * s, TXT_Y * s, gfx,
 			"PRESS 'Z' TO PLAY .. 'X' HARD MODE .. 'C' EDITOR"))
@@ -29,6 +41,7 @@ static int	event_string(t_drown *d, int s)
 		if (gfx_write((d->gfx.width / 3), (d->gfx.height / 2), &d->gfx,
 				"PRESS 'E' TO COLLECT") == ERROR)
 			return (ERROR);
+	(void) s;
 	return (0);
 }
 

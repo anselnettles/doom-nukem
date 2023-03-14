@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 17:00:34 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/13 12:26:10 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/14 15:04:19 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ static int	draw_left_arm(t_index *index, t_gfx *gfx, int f, int s)
 			div = LARM_WTH / distance;
 	}
 	left_arm_loop(index, gfx, distance, div);
+	(void) f;
 	return (0);
 }
 

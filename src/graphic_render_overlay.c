@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 11:08:33 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/12 17:06:06 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/14 14:48:14 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int	render_overlay(t_drown *d)
 	if (d->system.filters == TRUE)
 		draw_color_filter(&d->gfx, 0, 0);
 	if (d->gfx.frame.bubble >= 13)
-		SDL_FillRect(d->gfx.screen, NULL, 0);
+		clear_surface(d);
 	if (render_hud(&d->index, &d->gfx, d->gfx.scale) == ERROR)
 		return (ERROR);
 	if (string_timeline(d, d->gfx.scale) == ERROR)

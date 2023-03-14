@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/14 14:33:27 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/14 15:16:36 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,7 @@ typedef struct s_system {
 	int				ending_state;
 	const uint8_t	*keyboard_state;
 	uint32_t		time;
+	uint32_t		start_time;
 	uint32_t		last_time;
 	uint32_t		delta_time;
 	float			frame_time;
@@ -438,7 +439,7 @@ typedef enum e_error
 float		algo_dda(t_wall *wall, t_dda *dda);
 int			animation_loop(t_drown *d);
 float		calc_limit(t_wall wall, t_ray *ray);
-int			calc_win_y(float limit, t_ray *ray, t_wall wall, int wall_height);
+int			calc_win_y(float limit, t_ray *ray, int wall_height);
 t_vector	cast_floor(t_ray *ray, t_wall *wall, int win_y, float height);
 int			check_boundary(t_wall wall, int win_y);
 void		choose_to_reset_map_or_exit(t_drown *data);
@@ -480,7 +481,7 @@ void		ft_bzero2(void *dst, size_t n);
 void		*ft_raycast(void *args);
 uint32_t	get_color(t_ray *ray, t_vectorif texture, int layer, t_wall wall);
 int			get_player_start(t_map *map, t_editor_images *images, char axis);
-int			get_texture_x(t_ray *ray, t_wall wall);
+int			get_texture_x(t_wall wall);
 int			get_value(t_map map, float x, float y, int z);
 int			get_wall_layer(int c);
 int			gfx_write(int x_start, int y_start, t_gfx *gfx, char *s);
@@ -514,7 +515,7 @@ void		open_check(int *fd, char *map_file);
 void		overworld_sprite_loop(t_drown *d);
 void		param_to_modify(t_map *map);
 int			pixel_put(t_gfx *gfx, int x_src, int y_src, uint32_t color);
-int			player_object_collision(t_drown *d, int s);
+int			player_object_collision(t_drown *d);
 void		read_check(int fd, int *ret, char *buf, int size);
 int			read_map(char *map_file, t_drown *data);
 int			render_hud(t_index *index, t_gfx *gfx, int scale);
