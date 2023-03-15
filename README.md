@@ -11,7 +11,7 @@ This was the final "core-studies project" of the game-graphics branch in HIVE He
 • A feature-rich game stage, with a variety of environmental heights, nooks and un-even terrain.<br>
 • Fully original environmental textures, parsed internally from a HEX sprite graphics map.<br> 
 • Collectible items, environmental events and details that are constantly shifting.<br> 
-• An atmospheric setting and background music to support the moody story setting.<br> 
+• An atmospheric setting and background music to support the moody story.<br> 
 • A level-editor that allows the user to edit and adjust the game stage to their likings.</h3> 
 </input></p></br>
 
