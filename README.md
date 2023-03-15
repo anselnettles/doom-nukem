@@ -7,11 +7,12 @@ This was the final "core-studies project" of the game-graphics branch in HIVE He
 <div align="left"><b>This game features:</b><br>
 
 <p><input size="120">
-• Real-time three-dimensional movement and view angles via keyboard and mouse.<br> 
+<h3>• Real-time three-dimensional movement and view angles via keyboard and mouse.<br> 
 • A feature-rich game stage, with a variety of environmental heights, nooks and un-even terrain.<br>
-• Fully original textured environmental graphics, parsed internally from a HEX graphics map.<br> 
+• Fully original environmental textures, parsed internally from a HEX sprite graphics map.<br> 
 • Collectible items, environmental events and details that are constantly shifting.<br> 
-• A level-editor that allows the user to edit and adjust the game stage to their likings.<br> 
+• An atmospheric setting and background music to support the moody story setting.<br> 
+• A level-editor that allows the user to edit and adjust the game stage to their likings.</h3> 
 </input></p></br>
 
 #
@@ -25,8 +26,12 @@ This was the final "core-studies project" of the game-graphics branch in HIVE He
 
 <b>• `W`, `A`,`S`,`D`, moves and strafes the player underwater. `Left Shift` allows you to run.</b><br>
  &emsp;&emsp;<sup>The player slowly builds up speed and momentum when in motion, making stopping also more difficult.</sup><br>
-<b>• `E` picks up items.</b><br>
 <b>• `Space` lets you jump.</b><br>
+ &emsp;&emsp;<sup>Being underwater, the jump has quite a bit of floaty momentum to it. See how far you can reach!</sup><br>
+<b>• `C` makes the character crouch.</b><br>
+ &emsp;&emsp;<sup>You can slightly adjust viewing angle with a crouch.</sup><br>
+<b>• `E` picks up items.</b><br>
+ &emsp;&emsp;<sup>The lake bottom is scattered with collectible items, such as oxygen flasks and harpoons for the player to find.</sup><br>
 <b>• `F3` toggles Dev Mode.</b><br>
  &emsp;&emsp;<sup>Developer mode off color filters and overlay textures. Allows the user to swim upwards by tapping the jump key.</sup><br><br>
 
