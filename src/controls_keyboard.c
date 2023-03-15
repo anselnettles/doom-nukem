@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 14:16:37 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/14 16:43:59 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/15 12:47:37 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,13 @@ void	scale_window(t_gfx *gfx)
 
 int	quit_program(t_drown *d)
 {
-	Mix_Quit();
+	Mix_FreeMusic(d->audio.main_menu);
+	Mix_FreeMusic(d->audio.bluehole);
+	Mix_FreeChunk(d->audio.inhale);
+	Mix_FreeChunk(d->audio.timer_hit);
 	SDL_FreeSurface(d->gfx.screen);
 	SDL_DestroyWindow(d->gfx.window);
-	SDL_Quit();
-	(void)d;
+	Mix_Quit();
 	exit(0);
 	return (0);
 }
