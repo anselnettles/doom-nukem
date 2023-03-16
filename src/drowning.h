@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/14 18:09:57 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/16 11:27:32 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,7 @@ typedef struct s_audio {
 	Mix_Music	*bluehole;
 	Mix_Chunk	*timer_hit;
 	Mix_Chunk	*inhale;
+	Mix_Chunk	*switch_flip;
 }	t_audio;
 
 typedef struct s_vector {
@@ -539,6 +540,7 @@ void		text_param_selection_1(int x, int y, t_drown *data);
 void		text_param_selection_2(int x, int y, t_drown *data);
 void		text_param_selection_3(int x, int y, t_drown *data);
 void		text_param_selection_4(int x, int y, t_drown *data);
+void		toggle_lantern(t_drown *d);
 void		tt_errors(char *error_msg);
 void		tt_errors_exit(char *error_msg, t_drown *d);
 int			validate(char *buf, t_editor_images *images,
