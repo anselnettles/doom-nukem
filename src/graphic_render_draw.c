@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 10:03:55 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/03/14 16:18:13 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/17 14:59:06 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,18 @@ void	draw_floor(t_ray *ray, t_wall wall, int win_y)
 {
 	t_vector	txtr;
 	uint32_t	color;
-	int			shade_multiplier;
+	uint32_t	*texture;
 
-	shade_multiplier = 3;
+	texture = ray->gfx.texture[FLOOR].frame[0].pixels;
 	while (win_y < wall.prev_y && win_y < ray->gfx.height && win_y > 0)
 	{
 		txtr = cast_floor(ray, &wall, win_y, ray->player.height);
 		if (wall.distance < 0 || wall.distance > 10000)
 			break ;
-		color = ray->gfx.texture[0].frame[0].pixels[txtr.x + (txtr.y * 64)];
-		color = fade_brightness(ray->gfx.texture[0].frame[0].pixels[txtr.x
-				+ (txtr.y * 64)], wall.distance / 100 * shade_multiplier);
+		color = fade_brightness(texture[txtr.x + (txtr.y * TEXTURE_WIDTH)],
+				((wall.distance) / 45));
 		if (win_y < ray->gfx.height && wall.lock[win_y] == '0')
 			pixel_put(&ray->gfx, ray->x, win_y, color);
-		shade_multiplier += 0.2;
 		win_y++;
 	}
 }
