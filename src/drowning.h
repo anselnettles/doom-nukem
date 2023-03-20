@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/16 10:59:10 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/20 12:44:35 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -376,6 +376,7 @@ typedef struct s_graphics {
 	t_frame			frame;
 	SDL_Event		event;
 	float			nearest;
+	int				lantern;
 }	t_gfx;
 
 typedef struct s_map {
