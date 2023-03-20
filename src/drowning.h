@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/14 17:38:30 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/16 10:59:10 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -320,6 +320,7 @@ typedef struct s_wall {
 	float		dy;
 	float		distance;
 	int			prev_y;
+	int			prev_y_max;
 	char		*lock;
 	int			side;
 }	t_wall;
@@ -397,6 +398,7 @@ typedef struct s_ray {
 	int			count;
 	int			height;
 	float		nearest;
+	char		*lock;
 }	t_ray;
 
 //	Mother structure.
@@ -440,7 +442,7 @@ int			animation_loop(t_drown *d);
 float		calc_limit(t_wall wall, t_ray *ray);
 int			calc_win_y(float limit, t_ray *ray, int wall_height);
 t_vector	cast_floor(t_ray *ray, t_wall *wall, int win_y, float height);
-int			check_boundary(t_wall wall, int win_y);
+int			check_boundary(t_wall wall, int win_y, t_ray *ray);
 void		choose_to_reset_map_or_exit(t_drown *data);
 void		clear_surface(t_drown *data);
 void		close_program(t_gfx *gfx);
@@ -454,7 +456,7 @@ void		deal_key(int key, t_drown *data);
 void		deal_mouse(t_drown *data);
 void		delta_move_player(t_drown *data);
 void		delta_time_move(t_drown *data);
-void		draw_ceiling(t_ray *ray, t_wall wall, int win_y);
+int			draw_ceiling(t_ray *ray, t_wall wall, int win_y, int roof_h);
 void		draw_collumn(t_ray *ray, int y, int y_max, Uint32 color);
 void		draw_color_filter(t_gfx *gfx, uint32_t *pix, uint32_t color);
 void		draw_floor(t_ray *ray, t_wall wall, int win_y);
