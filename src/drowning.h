@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/20 13:00:54 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/20 13:24:23 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@
 # define THREADRAY 142				//Topi's build.
 # define EXIT 0						//Topi's build.
 # define PLAY 1						//Topi's build.
+# define LANTERN_OFF 1.8
 # define RUN_EDITOR 2				//Reference for main function level editor.
 # define GRAVITY 6.f
 # define DEGREES 0.0174532
