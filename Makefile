@@ -6,7 +6,7 @@
 #    By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/16 17:04:55 by aviholai          #+#    #+#              #
-#    Updated: 2023/03/14 15:02:32 by aviholai         ###   ########.fr        #
+#    Updated: 2023/03/14 18:09:25 by aviholai         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,6 @@ FILES				=	\
 						dda \
 						editor_choose_to_reset_map_or_exit\
 						editor_clear_surface \
-						editor_close_program \
 						editor_colouring_img2_img3 \
 						editor_draw_grid_of_squares \
 						editor_draw_one_square \

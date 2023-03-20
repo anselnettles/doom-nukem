@@ -16,6 +16,7 @@
 //	LIBRARIES
 # include <math.h>							// Math library.
 # include <unistd.h>						//UNIX Standard library.
+# include <stdlib.h>						//Standard library.
 # include <fcntl.h>							//File Control library.
 # include <pthread.h>
 # include <SDL2/SDL.h>						//Simple DirectMedia Layer.
@@ -148,6 +149,7 @@ typedef struct s_audio {
 	Mix_Music	*bluehole;
 	Mix_Chunk	*timer_hit;
 	Mix_Chunk	*inhale;
+	Mix_Chunk	*switch_flip;
 }	t_audio;
 
 typedef struct s_vector {
@@ -445,7 +447,6 @@ t_vector	cast_floor(t_ray *ray, t_wall *wall, int win_y, float height);
 int			check_boundary(t_wall wall, int win_y, t_ray *ray);
 void		choose_to_reset_map_or_exit(t_drown *data);
 void		clear_surface(t_drown *data);
-void		close_program(t_gfx *gfx);
 void		collect_airbottle(t_drown *d);
 uint32_t	colouring_img2_img3(int image_switch);
 int			confirm_memory_allocation_first_batch(t_gfx *gfx, int t, int f);
@@ -541,6 +542,7 @@ void		text_param_selection_1(int x, int y, t_drown *data);
 void		text_param_selection_2(int x, int y, t_drown *data);
 void		text_param_selection_3(int x, int y, t_drown *data);
 void		text_param_selection_4(int x, int y, t_drown *data);
+void		toggle_lantern(t_drown *d);
 void		tt_errors(char *error_msg);
 void		tt_errors_exit(char *error_msg, t_drown *d);
 int			validate(char *buf, t_editor_images *images,

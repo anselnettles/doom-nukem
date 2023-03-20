@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 14:16:37 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/14 16:43:59 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/16 11:26:53 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,13 @@ void	scale_window(t_gfx *gfx)
 
 int	quit_program(t_drown *d)
 {
-	Mix_Quit();
+	Mix_FreeMusic(d->audio.main_menu);
+	Mix_FreeMusic(d->audio.bluehole);
+	Mix_FreeChunk(d->audio.inhale);
+	Mix_FreeChunk(d->audio.timer_hit);
 	SDL_FreeSurface(d->gfx.screen);
 	SDL_DestroyWindow(d->gfx.window);
-	SDL_Quit();
-	(void)d;
+	Mix_Quit();
 	exit(0);
 	return (0);
 }
@@ -39,9 +41,7 @@ int	quit_program(t_drown *d)
 void	deal_key(int key, t_drown *data)
 {
 	if (data->system.keyboard_state[SDL_SCANCODE_ESCAPE])
-	{
 		data->system.play_state = EXIT;
-	}
 	if (data->system.keyboard_state[SDL_SCANCODE_F1])
 		scale_window(&data->gfx);
 	if (key == SDLK_SPACE && data->player.in_air == 0)
@@ -62,4 +62,6 @@ void	deal_key(int key, t_drown *data)
 	if (data->system.keyboard_state[SDL_SCANCODE_F5]
 		&& data->gfx.frame.bubble > 1)
 		collect_airbottle(data);
+	if (data->system.keyboard_state[SDL_SCANCODE_F])
+			toggle_lantern(data);
 }

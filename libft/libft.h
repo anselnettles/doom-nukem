@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 13:09:23 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/01/05 13:34:48 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/15 11:44:44 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 
 # include <unistd.h>
 # include <stdlib.h>
-# include <string.h>
 
 typedef struct s_list
 {
@@ -89,6 +88,5 @@ int		ft_islower(int c);
 int		ft_isupper(int c);
 int		get_next_line(const int fd, char **line);
 void	ft_exit(char *str);
-float	ft_pythagoras(float a, float b, float c);
 
 #endif
