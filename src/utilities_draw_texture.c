@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 14:24:34 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/03/20 12:57:44 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/20 13:38:57 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	draw_texture(t_ray *ray, t_minmax y, t_wall wall, int scaled_y)
 	{
 		while (texture.y < 0)
 			texture.y += 63;
-		if (ray->lock[y.max] == '0' && y.max >= 0 && y.max < ray->gfx.height && y.max > wall.prev_y_max)
+		if (ray->lock[y.max] == '0' && y.max >= 0 && y.max < ray->gfx.height && y.max > wall.prev_y_max && y.max < wall.prev_y)
 		{
 			color = get_color(ray, texture, wall_layer, wall);
 			color = shader(&ray->gfx, color,
