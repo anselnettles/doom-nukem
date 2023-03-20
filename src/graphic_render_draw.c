@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 10:03:55 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/03/20 12:08:25 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/20 12:27:43 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	draw_floor(t_ray *ray, t_wall wall, int win_y)
 			break ;
 		color = fade_brightness(texture[txtr.x + (txtr.y * TEXTURE_WIDTH)],
 				((wall.distance) / 45));
-		if (win_y < ray->gfx.height && wall.lock[win_y] == '0')
+		if (win_y < ray->gfx.height && ray->lock[win_y] == '0')
 			pixel_put(&ray->gfx, ray->x, win_y, color);
 		win_y++;
 	}
