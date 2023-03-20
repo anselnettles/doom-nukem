@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 17:40:31 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/07 19:13:13 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/20 13:04:25 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	draw_color_filter(t_gfx *gfx, uint32_t *pix, uint32_t color)
 	}
 }
 
-uint32_t	fade_brightness(uint32_t color, int multiplier)
+uint32_t	shader(t_gfx *gfx, uint32_t color, int multiplier)
 {
 	float		redf;
 	float		greenf;
@@ -52,9 +52,9 @@ uint32_t	fade_brightness(uint32_t color, int multiplier)
 	greenf = (uint32_t)greenf >> 24;
 	bluef = (uint32_t)color << 24;
 	bluef = (uint32_t)bluef >> 24;
-	redf /= (float)(multiplier);
-	greenf /= (float)(multiplier);
-	bluef /= (float)(multiplier);
+	redf /= (float)((gfx->lantern) * (multiplier));
+	greenf /= (float)((gfx->lantern) * (multiplier));
+	bluef /= (float)((gfx->lantern) * (multiplier));
 	color = (((uint32_t)redf & 0xFF) << 16)
 		| (((uint32_t)greenf & 0xff) << 8) | ((uint32_t)bluef & 0xFF);
 	return (color);
