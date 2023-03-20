@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/20 12:44:35 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/20 13:00:54 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -376,7 +376,7 @@ typedef struct s_graphics {
 	t_frame			frame;
 	SDL_Event		event;
 	float			nearest;
-	int				lantern;
+	double			lantern;
 }	t_gfx;
 
 typedef struct s_map {
@@ -479,7 +479,7 @@ int			editor_pix_put(t_gfx *gfx, int x, int y, uint32_t colour);
 uint32_t	element_colour(t_map *map,
 				int row_now, int col_now, int image_switch);
 int			error(int code);
-uint32_t	fade_brightness(uint32_t color, int multiplier);
+uint32_t	shader(t_gfx *gfx, uint32_t color, int multiplier);
 void		fill_gaps(char *line);
 void		ft_bzero2(void *dst, size_t n);
 void		*ft_raycast(void *args);
