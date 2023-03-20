@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 14:16:55 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/03/14 20:00:41 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/20 13:08:54 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ int	check_boundary(t_wall wall, int win_y, t_ray *ray)
 int	draw_player_tile(t_ray *ray, t_wall wall)
 {
 	t_vector	txtr;
+	uint32_t	color;
+	uint32_t	*texture;
 	int			i;
 	int			win_y_limit;
 	float		limit;
@@ -68,6 +70,7 @@ int	draw_player_tile(t_ray *ray, t_wall wall)
 		return (wall.prev_y);
 	wall_height = (get_value(ray->map, ray->player.x, ray->player.y, 0) - '0');
 	i = get_value (ray->map, wall.x, wall.y, 1);
+	texture = ray->gfx.texture[i].frame[0].pixels;
 	limit = calc_limit(wall, ray) * cosf(ray->player.dir - wall.dir);
 	win_y_limit = calc_win_y(limit, ray, wall_height);
 	while (wall.prev_y >= win_y_limit && wall.prev_y > 0)
@@ -76,8 +79,9 @@ int	draw_player_tile(t_ray *ray, t_wall wall)
 				- (float)(wall_height * 32.f));
 		if (wall.distance <= 0 || wall.distance > 100000)
 			break ;
-		pixel_put(&ray->gfx, ray->x, wall.prev_y,
-			ray->gfx.texture[i].frame[0].pixels[txtr.x + (txtr.y * 64)]);
+		color = shader(&ray->gfx, texture[txtr.x + (txtr.y * TEXTURE_WIDTH)],
+			wall.distance / 45);
+		pixel_put(&ray->gfx, ray->x, wall.prev_y, color);
 		wall.prev_y--;
 	}
 	return (wall.prev_y);
