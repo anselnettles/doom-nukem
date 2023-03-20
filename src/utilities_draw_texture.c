@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 14:24:34 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/03/16 13:02:08 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/20 12:57:44 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ void	draw_texture(t_ray *ray, t_minmax y, t_wall wall, int scaled_y)
 		if (ray->lock[y.max] == '0' && y.max >= 0 && y.max < ray->gfx.height && y.max > wall.prev_y_max)
 		{
 			color = get_color(ray, texture, wall_layer, wall);
-			color = fade_brightness(color, (int)((wall.distance
-							/ 500) + (j / 4)) + shade_multiplier);
+			color = shader(&ray->gfx, color,
+					(int)((wall.distance / 500) + (j / 4)) + shade_multiplier);
 			pixel_put(&ray->gfx, ray->x, y.max, color);
 			shade_multiplier -= 0.004;
 		}
