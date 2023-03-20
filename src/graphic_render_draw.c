@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 10:03:55 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/03/20 12:27:43 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/20 12:56:49 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void	draw_floor(t_ray *ray, t_wall wall, int win_y)
 		txtr = cast_floor(ray, &wall, win_y, ray->player.height);
 		if (wall.distance < 0 || wall.distance > 10000)
 			break ;
-		color = fade_brightness(texture[txtr.x + (txtr.y * TEXTURE_WIDTH)],
-				((wall.distance) / 45));
+		color = shader(&ray->gfx, texture[txtr.x + (txtr.y * TEXTURE_WIDTH)],
+			((wall.distance) / 45));
 		if (win_y < ray->gfx.height && ray->lock[win_y] == '0')
 			pixel_put(&ray->gfx, ray->x, win_y, color);
 		win_y++;
