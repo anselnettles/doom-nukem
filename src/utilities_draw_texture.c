@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 14:24:34 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/03/14 16:42:50 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/16 13:02:08 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,11 @@ void	draw_texture(t_ray *ray, t_minmax y, t_wall wall, int scaled_y)
 	wall_layer = get_wall_layer(get_value(ray->map, wall.x, wall.y, 4));
 	shade_multiplier = 5;
 	j = init_texture(ray, wall, &texture, scaled_y - y.max);
-	while (y.max > y.min && y.max >= 0)
+	while (y.max > y.min && y.max >= 0 && y.max >= wall.prev_y_max)
 	{
 		while (texture.y < 0)
 			texture.y += 63;
-		if (wall.lock[y.max] == '0' && y.max >= 0 && y.max < ray->gfx.height)
+		if (ray->lock[y.max] == '0' && y.max >= 0 && y.max < ray->gfx.height && y.max > wall.prev_y_max)
 		{
 			color = get_color(ray, texture, wall_layer, wall);
 			color = fade_brightness(color, (int)((wall.distance
@@ -81,12 +81,12 @@ int	draw_goal_point(t_ray *ray, t_wall *wall, int win_y, float distance)
 		while (txtr.y < 0)
 			txtr.y += 64;
 		if (ray->gfx.texture[14].frame[f].pixels[txtr.x + ((int)txtr.y * 16)]
-			&& win_y < ray->gfx.height && win_y < wall->prev_y)
+			&& win_y < ray->gfx.height && win_y < wall->prev_y && win_y >= wall->prev_y_max)
 		{
 			pixel_put(&ray->gfx, ray->x, win_y,
 				ray->gfx.texture[14].frame[f].pixels[txtr.x
 				+ ((int)txtr.y * 16)]);
-			wall->lock[win_y] = '1';
+			ray->lock[win_y] = '1';
 		}
 		win_y--;
 		txtr.y -= j;
@@ -110,12 +110,12 @@ int	draw_sprite(t_ray *ray, t_wall *wall, int win_y, float distance)
 	while (win_y >= 0 && txtr.x < 38 && txtr.y > 0)
 	{
 		if (ray->gfx.texture[8].frame[f].pixels[txtr.x + ((int)txtr.y * 38)]
-			&& win_y < ray->gfx.height && win_y < wall->prev_y)
+			&& win_y < ray->gfx.height && win_y < wall->prev_y && win_y >= wall->prev_y_max)
 		{
 			pixel_put(&ray->gfx, ray->x, win_y,
 				ray->gfx.texture[8].frame[f].pixels[txtr.x
 				+ ((int)txtr.y * 38)]);
-			wall->lock[win_y] = '1';
+			ray->lock[win_y] = '1';
 		}
 		win_y--;
 		txtr.y -= j;

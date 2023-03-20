@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 14:16:55 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/03/14 16:54:27 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/14 20:00:41 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ int	calc_win_y(float limit, t_ray *ray, int wall_height)
 	return (win_y_limit);
 }
 
-int	check_boundary(t_wall wall, int win_y)
+int	check_boundary(t_wall wall, int win_y, t_ray *ray)
 {
-	if (win_y < 0 || wall.lock[win_y] != '0' || win_y >= wall.prev_y)
+	if (win_y < 0 || ray->lock[win_y] != '0' || win_y >= wall.prev_y)
 		return (0);
 	return (1);
 }

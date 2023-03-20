@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 10:03:55 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/03/17 14:59:06 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/20 12:08:25 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,25 +32,34 @@ void	draw_floor(t_ray *ray, t_wall wall, int win_y)
 	}
 }
 
-void	draw_ceiling(t_ray *ray, t_wall wall, int win_y)
+int		draw_ceiling(t_ray *ray, t_wall wall, int win_y, int wall_height)
 {
 	t_vector	txtr;
-	float		dir;
+	int			i;
+	int			roof_y;
+	int			win_y_limit;
+	float		limit;
 
-	while (win_y >= 0)
+	i = get_value(ray->map, wall.x, wall.y, 1);
+	limit = calc_limit(wall, ray) * cosf(ray->player.dir - wall.dir);
+	roof_y =  ((BITS / 2) / wall.distance * ray->gfx.proj_dist) * 2;
+	roof_y = win_y - roof_y;
+	win_y_limit = calc_win_y(limit, ray, wall_height + 2);
+	txtr.x = 0;
+	/*while (win_y >= 0 && ray->player.height < (wall_height + 2) * 32)
 	{
-		dir = atanf((float)(win_y - ray->height) / ray->gfx.proj_dist);
-		wall.distance = 512 / dir;
-		wall.distance /= cosf(ray->player.dir - wall.dir);
-		wall.x = ray->player.x + wall.dx * wall.distance;
-		wall.y = ray->player.y + wall.dy * wall.distance;
-		txtr.x = (int)roundf(wall.x) % 128;
-		txtr.y = (int)roundf(wall.y) % 64;
-		if (win_y < ray->gfx.height && wall.lock[win_y] == '0')
-			pixel_put(&ray->gfx, ray->x, win_y,
-				ray->gfx.texture[4].frame[0].pixels[txtr.x + (txtr.y * 128)]);
-		win_y--;
-	}
+		txtr = cast_floor(ray, &wall, ray->gfx.height - win_y_limit, (float)((wall_height + 2) * 32) - ray->player.height);
+		if (wall.distance <= 0 || roof_y < win_y_limit || wall.distance > 100000)
+			break ;
+		if (check_boundary(wall, win_y_limit, ray) && win_y_limit > wall.prev_y_max)
+		{
+			pixel_put(&ray->gfx, ray->x, win_y_limit, ray->gfx.texture[i].frame[0].pixels[txtr.x + (txtr.y * 64)]);
+			ray->lock[win_y_limit] = '1';
+		}
+		win_y_limit--;
+		//roof_y -= 2;
+	}*/
+	return(roof_y);
 }
 
 int	draw_wall_top(t_ray *ray, t_wall wall, int win_y, int wall_height)
@@ -71,7 +80,7 @@ int	draw_wall_top(t_ray *ray, t_wall wall, int win_y, int wall_height)
 				ray->player.height - (float)(wall_height * 32));
 		if (wall.distance <= 0 || win_y < win_y_limit || wall.distance > 100000)
 			break ;
-		if (check_boundary(wall, win_y))
+		if (check_boundary(wall, win_y, ray) && win_y > wall.prev_y_max)
 			pixel_put(&ray->gfx, ray->x, win_y,
 				ray->gfx.texture[i].frame[0].pixels[txtr.x + (txtr.y * 64)]);
 		win_y--;
@@ -98,6 +107,7 @@ void	draw_thread(t_ray *ray, float distance, t_wall *wall)
 {
 	t_minmax	y;
 	t_minmax	h;
+	//t_minmax 	tmp;
 	int			scaled_y_max;
 
 	if (distance < 5)
@@ -117,6 +127,14 @@ void	draw_thread(t_ray *ray, float distance, t_wall *wall)
 		draw_goal_point(ray, wall, y.min, distance);
 	if (h.min * 32 < ray->player.height && h.min != 0)
 		wall->prev_y = draw_wall_top(ray, *wall, scaled_y_max - h.max, h.min);
+	/*if (get_value(ray->map, wall->x, wall->y, 4) == 'R')
+	{
+		tmp.max = draw_ceiling(ray, *wall, scaled_y_max - h.max, h.min);
+		tmp.min = 0;
+		draw_texture(ray, tmp, *wall, tmp.max);
+		if (tmp.max > wall->prev_y_max)
+			wall->prev_y_max = tmp.max;
+	}*/
 	if (y.min < wall->prev_y)
 		wall->prev_y = y.min;
 }

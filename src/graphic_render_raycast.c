@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 15:49:19 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/14 16:31:52 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/16 10:59:37 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,9 @@ void	init_new_wall(t_ray *ray, t_wall *wall)
 		wall->y -= 2;
 	ray->x++;
 	ray->count++;
-	ft_bzero_char(wall->lock, ray->gfx.height);
+	ft_bzero_char(ray->lock, ray->gfx.height);
 	wall->prev_y = ray->gfx.height;
+	wall->prev_y_max = 0;
 	wall->prev_y = draw_player_tile(ray, *wall);
 }
 
@@ -57,12 +58,12 @@ float	check_nearest(t_ray *ray, t_wall wall)
 	return (ray->nearest);
 }
 
-void	init_wall_lock(t_wall *wall, t_ray *ray)
+void	init_wall_lock(t_ray *ray)
 {
-	wall->lock = (char *)malloc(sizeof(char) * ray->gfx.height + 1);
-	if (wall->lock == NULL)
+	ray->lock = (char *)malloc(sizeof(char) * ray->gfx.height + 1);
+	if (ray->lock == NULL)
 		exit(-1);
-	wall->lock[ray->gfx.height + 1] = '\0';
+	ray->lock[ray->gfx.height + 1] = '\0';
 }
 
 void	*ft_raycast(void *args)
@@ -73,7 +74,7 @@ void	*ft_raycast(void *args)
 
 	ray = args;
 	wall.dir = ray->dir;
-	init_wall_lock(&wall, ray);
+	init_wall_lock(ray);
 	while (ray->count < (ray->gfx.width / 6))
 	{
 		init_new_wall(ray, &wall);
