@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/20 13:24:23 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/21 20:17:37 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,7 @@ typedef struct s_audio {
 	Mix_Chunk	*timer_hit;
 	Mix_Chunk	*inhale;
 	Mix_Chunk	*switch_flip;
+	Mix_Chunk	*light_response;
 }	t_audio;
 
 typedef struct s_vector {
