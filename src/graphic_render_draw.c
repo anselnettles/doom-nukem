@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 10:03:55 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/03/20 12:56:49 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/20 13:40:56 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	draw_floor(t_ray *ray, t_wall wall, int win_y)
 	uint32_t	*texture;
 
 	texture = ray->gfx.texture[FLOOR].frame[0].pixels;
-	while (win_y < wall.prev_y && win_y < ray->gfx.height && win_y > 0)
+	while (win_y < wall.prev_y && win_y < ray->gfx.height && win_y > 0 && win_y > wall.prev_y_max)
 	{
 		txtr = cast_floor(ray, &wall, win_y, ray->player.height);
 		if (wall.distance < 0 || wall.distance > 10000)
@@ -107,7 +107,7 @@ void	draw_thread(t_ray *ray, float distance, t_wall *wall)
 {
 	t_minmax	y;
 	t_minmax	h;
-	//t_minmax 	tmp;
+	t_minmax 	tmp;
 	int			scaled_y_max;
 
 	if (distance < 5)
@@ -127,14 +127,14 @@ void	draw_thread(t_ray *ray, float distance, t_wall *wall)
 		draw_goal_point(ray, wall, y.min, distance);
 	if (h.min * 32 < ray->player.height && h.min != 0)
 		wall->prev_y = draw_wall_top(ray, *wall, scaled_y_max - h.max, h.min);
-	/*if (get_value(ray->map, wall->x, wall->y, 4) == 'R')
+	if (get_value(ray->map, wall->x, wall->y, 4) == 'R')
 	{
 		tmp.max = draw_ceiling(ray, *wall, scaled_y_max - h.max, h.min);
 		tmp.min = 0;
 		draw_texture(ray, tmp, *wall, tmp.max);
 		if (tmp.max > wall->prev_y_max)
 			wall->prev_y_max = tmp.max;
-	}*/
+	}
 	if (y.min < wall->prev_y)
 		wall->prev_y = y.min;
 }
