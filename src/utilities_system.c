@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 17:50:06 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/16 10:08:29 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/22 14:16:23 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int	get_value(t_map map, float x, float y, int z)
 int	animation_loop(t_drown *d)
 {
 	right_arm_loop(d);
+	left_arm_loop(d);
 	hud_animation_loop(d);
 	overworld_sprite_loop(d);
 	flow_adjustment(d);
