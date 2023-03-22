@@ -6,7 +6,7 @@
 #    By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/16 17:04:55 by aviholai          #+#    #+#              #
-#    Updated: 2023/03/14 18:09:25 by aviholai         ###   ########.fr        #
+#    Updated: 2023/03/22 14:15:39 by aviholai         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ NAME				=	doom-nukem
 CC					=	gcc
 FILES				=	\
 						animate_hud\
+						animate_left_arm\
 						animate_right_arm\
 						controls_keyboard\
 						controls_mouse\
