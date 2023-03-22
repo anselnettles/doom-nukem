@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 17:00:34 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/14 15:04:19 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/22 14:27:05 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static void	left_arm_pix(t_gfx *gfx, t_index *index, int x, int y)
 		pixel_put(gfx, (index->x + x), (index->y + y), GRAY);
 }
 
-static void	left_arm_loop(t_index *index, t_gfx *gfx, float distance, int div)
+static void	left_arm_scale(t_index *index, t_gfx *gfx, float distance, int div)
 {
 	while ((gfx->y) < (LARM_HT) && (index->y) < (gfx->height))
 	{
@@ -98,7 +98,7 @@ static int	draw_left_arm(t_index *index, t_gfx *gfx, int f, int s)
 		if (distance >= 0)
 			div = LARM_WTH / distance;
 	}
-	left_arm_loop(index, gfx, distance, div);
+	left_arm_scale(index, gfx, distance, div);
 	(void) f;
 	return (0);
 }
