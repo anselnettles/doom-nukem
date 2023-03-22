@@ -6,18 +6,22 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 12:22:04 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/20 13:23:51 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/22 14:39:16 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "drowning.h"
 
+
 void	toggle_lantern(t_drown *d)
 {
 	Mix_PlayChannel(-1, d->audio.switch_flip, 0);
-	if (d->gfx.lantern != TRUE)
-		d->gfx.lantern = TRUE;
-	else
+	if (d->gfx.lantern == LANTERN_OFF)
+	{
+		Mix_PlayChannel(-1, d->audio.light_response, 0);
+		d->gfx.lantern = TURN_ON;
+	}
+	else if (d->gfx.lantern == TRUE)
 		d->gfx.lantern = LANTERN_OFF;
 }
 
