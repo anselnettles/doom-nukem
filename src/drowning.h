@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/21 20:17:37 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/22 14:40:23 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@
 //	SYSTEM MECHANICS GLOBAL DEFINITIONS
 # define TRUE 1						//Set to true.
 # define FALSE 0					//Set to false.
+# define UNTRUE -1					//Set to untrue.
 # define ERROR 1					//Reference to return value.
 # define NEW_LINE 2					//Reference to file parser return value.
 # define SDL_ERROR -1				//Reference to SDL function's return.
@@ -51,7 +52,8 @@
 # define THREADRAY 142				//Topi's build.
 # define EXIT 0						//Topi's build.
 # define PLAY 1						//Topi's build.
-# define LANTERN_OFF 1.8
+# define LANTERN_OFF 1.8			//Value when the lantern is off.
+# define TURN_ON 1.4				//Value when the lantern is in process.
 # define RUN_EDITOR 2				//Reference for main function level editor.
 # define GRAVITY 6.f
 # define DEGREES 0.0174532
@@ -512,6 +514,8 @@ float		init_texture(t_ray *ray,
 				t_wall wall, t_vectorif *texture, int skip);
 int			init(t_gfx *gfx);
 int			is_new_map_valid(t_map *map, t_editor_images *images);
+void		lantern_on_flicker(t_drown *d);
+void		left_arm_loop(t_drown *d);
 int			map_editor(t_drown *data);
 void		map_len(char *file, t_map *data);
 int			memory_allocate_textures(t_gfx *gfx, int f);
