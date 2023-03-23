@@ -6,7 +6,7 @@
 /*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 18:24:05 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/22 14:01:29 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/23 14:18:39 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ static void	initialize_audio(t_drown *d)
 	d->audio.inhale = Mix_LoadWAV("src/audio/se_inhale.ogg");
 	d->audio.switch_flip = Mix_LoadWAV("src/audio/se_switch_flip.ogg");
 	d->audio.light_response = Mix_LoadWAV("src/audio/se_light_response.ogg");
+	d->audio.light_hum = Mix_LoadWAV("src/audio/se_light_hum.ogg");
 	Mix_PlayMusic(d->audio.main_menu, 0);
 }
 
@@ -121,7 +122,7 @@ int	main(void)
 	if (data.system.play_state == PLAY)
 	{
 		Mix_PlayMusic(data.audio.bluehole, -1);
-		Mix_VolumeMusic(40);
+		Mix_VolumeMusic(20);
 		data.system.start_time = SDL_GetTicks();
 		if (render(&data) == ERROR)
 			return (error(RENDER_FAIL));

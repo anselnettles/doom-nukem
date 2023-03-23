@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 14:14:11 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/22 15:11:30 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/23 14:29:41 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,19 @@
 
 void	lantern_on_flicker(t_drown *d)
 {
-	static uint32_t	duration = 0;
+	static uint32_t	durtion = 0;
 
-	if (d->system.time >= duration)
-		duration++;
-	if ((duration >= 2 && duration <= 3) || (duration >= 5 && duration <= 6)
-		|| (duration >= 8 && duration <= 9) || (duration >= 12 && duration <= 13)
-			|| (duration >= 14 && duration <= 16) || duration >= 17)
+	if (d->system.time >= durtion)
+		durtion++;
+	if ((durtion >= 8 && durtion <= 9) || (durtion >= 11 && durtion <= 12)
+		|| (durtion >= 15 && durtion <= 16) || (durtion >= 24 && durtion <= 126)
+		|| (durtion >= 29 && durtion <= 31) || durtion >= 36)
 		d->gfx.lantern = (TRUE + 0.1);
 	else
 		d->gfx.lantern = TURN_ON;
-	if (duration >= 130)
+	if (durtion >= 130)
 	{
-		duration = 0;
+		durtion = 0;
 		d->gfx.lantern = TRUE;
 	}
 }
@@ -34,5 +34,8 @@ void	lantern_on_flicker(t_drown *d)
 void	left_arm_loop(t_drown *d)
 {
 	if (d->gfx.lantern <= TURN_ON && d->gfx.lantern > TRUE)
+	{
 		lantern_on_flicker(d);
+		Mix_PlayChannel(-1, d->audio.light_hum, 0);
+	}
 }
