@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 17:00:34 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/22 14:27:05 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/24 13:48:13 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ static void	left_arm_scale(t_index *index, t_gfx *gfx, float distance, int div)
 	}
 }
 
-static int	draw_left_arm(t_index *index, t_gfx *gfx, int f, int s)
+static int	draw_left_arm(t_index *index, t_gfx *gfx, t_audio *audio, int s)
 {
 	float	distance;
 	int		div;
@@ -92,22 +92,31 @@ static int	draw_left_arm(t_index *index, t_gfx *gfx, int f, int s)
 	index->y = MARGIN * s * 3;
 	distance = 70;
 	div = -1;
+
 	if (gfx->nearest < 70)
 	{
+		while (!(Mix_Playing(6)))
+		{
+			if ((int)gfx->nearest % 3 == 0)
+				Mix_PlayChannel(6, audio->lantern01, 0);
+			if ((int)gfx->nearest % 3 == 1)
+				Mix_PlayChannel(6, audio->lantern02, 0);
+			if ((int)gfx->nearest % 3 == 2)
+				Mix_PlayChannel(6, audio->lantern03, 0);
+		}
 		distance -= (gfx->nearest);
 		if (distance >= 0)
 			div = LARM_WTH / distance;
 	}
 	left_arm_scale(index, gfx, distance, div);
-	(void) f;
 	return (0);
 }
 
-int	draw_player(t_index *index, t_gfx *gfx)
+int	draw_player(t_drown *d)
 {
-	if (draw_right_arm(index, gfx, gfx->scale) == ERROR)
+	if (draw_right_arm(&d->index, &d->gfx, d->gfx.scale) == ERROR)
 		return (ERROR);
-	if (draw_left_arm(index, gfx, gfx->frame.bottle, gfx->scale) == ERROR)
+	if (draw_left_arm(&d->index, &d->gfx, &d->audio, d->gfx.scale) == ERROR)
 		return (ERROR);
 	return (0);
 }
