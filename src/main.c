@@ -6,7 +6,7 @@
 /*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 18:24:05 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/23 14:18:39 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/24 13:36:09 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,9 @@ static void	initialize_audio(t_drown *d)
 	d->audio.switch_flip = Mix_LoadWAV("src/audio/se_switch_flip.ogg");
 	d->audio.light_response = Mix_LoadWAV("src/audio/se_light_response.ogg");
 	d->audio.light_hum = Mix_LoadWAV("src/audio/se_light_hum.ogg");
+	d->audio.lantern01 = Mix_LoadWAV("src/audio/se_lantern01.ogg");
+	d->audio.lantern02 = Mix_LoadWAV("src/audio/se_lantern02.ogg");
+	d->audio.lantern03 = Mix_LoadWAV("src/audio/se_lantern03.ogg");
 	Mix_PlayMusic(d->audio.main_menu, 0);
 }
 
