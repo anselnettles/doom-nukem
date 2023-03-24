@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:26:57 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/23 14:19:01 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/24 13:18:12 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,9 @@ typedef struct s_audio {
 	Mix_Chunk	*timer_hit;
 	Mix_Chunk	*inhale;
 	Mix_Chunk	*switch_flip;
+	Mix_Chunk	*lantern01;
+	Mix_Chunk	*lantern02;
+	Mix_Chunk	*lantern03;
 	Mix_Chunk	*light_response;
 	Mix_Chunk	*light_hum;
 }	t_audio;
@@ -472,7 +475,7 @@ int			draw_goal_point(t_ray *ray,
 void		draw_grid_of_squares(t_drown *data);
 void		draw_map(t_drown *data);
 void		draw_one_square(t_gfx *gfx, t_xy_start_end *interval);
-int			draw_player(t_index *index, t_gfx *gfx);
+int			draw_player(t_drown *d);
 int			draw_player_tile(t_ray *ray, t_wall wall);
 void		draw_skybox(t_drown *data);
 int			draw_sprite(t_ray *ray, t_wall *wall, int win_y, float distance);
