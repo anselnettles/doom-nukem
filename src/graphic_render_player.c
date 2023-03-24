@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 17:00:34 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/24 13:48:13 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/24 17:27:10 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,9 @@ int	draw_player(t_drown *d)
 {
 	if (draw_right_arm(&d->index, &d->gfx, d->gfx.scale) == ERROR)
 		return (ERROR);
+	if (d->gfx.lantern == TRUE || d->gfx.lantern == TRUE + 0.1)
+		if (draw_lantern_glow(&d->gfx, d->gfx.scale) == ERROR)
+			return (ERROR);
 	if (draw_left_arm(&d->index, &d->gfx, &d->audio, d->gfx.scale) == ERROR)
 		return (ERROR);
 	return (0);
