@@ -6,11 +6,32 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 17:40:31 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/20 13:04:25 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/24 17:38:37 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "drowning.h"
+
+int		draw_lantern_glow(t_gfx *gfx, int scale)
+{
+	uint32_t	*color;
+
+	color = gfx->screen->pixels;
+	gfx->y = 0;
+	while (gfx->y < gfx->height / 6)
+	{
+		gfx->x = 0;
+		while (gfx->x < gfx->width / 6)
+		{
+			pixel_put(gfx, gfx->x, gfx->y, 0xFFFFFFFF);
+				//color[((gfx->x + scale) * scale) + (gfx->y * gfx->width)]);
+			gfx->x += scale;
+		}
+		gfx->y += scale;
+	}
+
+	return (0);
+}
 
 void	draw_color_filter(t_gfx *gfx, uint32_t *pix, uint32_t color)
 {
