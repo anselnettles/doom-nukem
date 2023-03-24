@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 10:03:55 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/03/20 13:40:56 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/24 15:16:35 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,11 @@ int	draw_wall_top(t_ray *ray, t_wall wall, int win_y, int wall_height)
 	int			i;
 	int			win_y_limit;
 	float		limit;
+	uint32_t	color;
+	uint32_t	*texture;
 
 	i = get_value(ray->map, wall.x, wall.y, 1);
+	texture = ray->gfx.texture[i].frame[0].pixels;
 	limit = calc_limit(wall, ray) * cosf(ray->player.dir - wall.dir);
 	win_y_limit = calc_win_y(limit, ray, wall_height);
 	while (win_y > ray->gfx.height)
@@ -81,8 +84,18 @@ int	draw_wall_top(t_ray *ray, t_wall wall, int win_y, int wall_height)
 		if (wall.distance <= 0 || win_y < win_y_limit || wall.distance > 100000)
 			break ;
 		if (check_boundary(wall, win_y, ray) && win_y > wall.prev_y_max)
-			pixel_put(&ray->gfx, ray->x, win_y,
-				ray->gfx.texture[i].frame[0].pixels[txtr.x + (txtr.y * 64)]);
+		{
+			if (ray->gfx.lantern == LANTERN_OFF)
+				color = shader(&ray->gfx, texture[txtr.x + (txtr.y * TEXTURE_WIDTH)], ((wall.distance) / 45));
+			else
+			{
+				if (wall.distance >= 600)
+					color = shader(&ray->gfx, texture[txtr.x + (txtr.y * TEXTURE_WIDTH)], ((wall.distance) / 400));
+				else
+					color = shader(&ray->gfx, texture[txtr.x + (txtr.y * TEXTURE_WIDTH)], 1);
+			}
+			pixel_put(&ray->gfx, ray->x, win_y, color);
+		}
 		win_y--;
 	}
 	if (win_y < wall.prev_y)
