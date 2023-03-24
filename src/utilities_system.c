@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 17:50:06 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/22 14:16:23 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/24 12:53:21 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static void	track_time(t_drown *d)
 	if ((d->system.second / 5 >= d->system.five_second)
 		&& (d->gfx.frame.bubble < 13))
 	{
-		Mix_PlayChannel(-1, d->audio.timer_hit, 0);
+		Mix_PlayChannel(5, d->audio.timer_hit, 0);
 		d->system.five_second++;
 		d->gfx.frame.bubble++;
 		if (d->gfx.frame.bubble < 13)

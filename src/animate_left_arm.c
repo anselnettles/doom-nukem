@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 14:14:11 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/23 14:29:41 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/24 12:55:55 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,6 @@ void	left_arm_loop(t_drown *d)
 	if (d->gfx.lantern <= TURN_ON && d->gfx.lantern > TRUE)
 	{
 		lantern_on_flicker(d);
-		Mix_PlayChannel(-1, d->audio.light_hum, 0);
+		Mix_PlayChannel(3, d->audio.light_hum, 0);
 	}
 }

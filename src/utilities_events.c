@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 12:22:04 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/23 14:23:11 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/24 12:52:06 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 
 void	toggle_lantern(t_drown *d)
 {
-	Mix_PlayChannel(-1, d->audio.switch_flip, 0);
+	Mix_PlayChannel(0, d->audio.switch_flip, 0);
 	if (d->gfx.lantern == LANTERN_OFF)
 	{
-		Mix_PlayChannel(-1, d->audio.light_response, 0);
+		Mix_PlayChannel(1, d->audio.light_response, 0);
 		d->gfx.lantern = TURN_ON;
 	}
 	else if (d->gfx.lantern == TRUE)
@@ -33,7 +33,7 @@ void	collect_airbottle(t_drown *d)
 		d->gfx.frame.bubble--;
 	if (d->gfx.frame.bubble > 0)
 		d->gfx.frame.bubble--;
-	Mix_PlayChannel(-1, d->audio.inhale, 0);
+	Mix_PlayChannel(2, d->audio.inhale, 0);
 	d->gfx.frame.right_arm = 3;
 }
 
