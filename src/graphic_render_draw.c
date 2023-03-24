@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 10:03:55 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/03/24 15:16:35 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/24 16:53:25 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	draw_wall_top(t_ray *ray, t_wall wall, int win_y, int wall_height)
 				color = shader(&ray->gfx, texture[txtr.x + (txtr.y * TEXTURE_WIDTH)], ((wall.distance) / 45));
 			else
 			{
-				if (wall.distance >= 600)
+				if (wall.distance >= 400)
 					color = shader(&ray->gfx, texture[txtr.x + (txtr.y * TEXTURE_WIDTH)], ((wall.distance) / 400));
 				else
 					color = shader(&ray->gfx, texture[txtr.x + (txtr.y * TEXTURE_WIDTH)], 1);
