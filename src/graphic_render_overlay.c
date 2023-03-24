@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 11:08:33 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/14 14:48:14 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/24 13:19:13 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ static void	draw_transition(t_drown *d, int s, int f)
 int	render_overlay(t_drown *d)
 {
 	underwater_effect(d, &d->gfx, d->gfx.scale, 0);
-	if (draw_player(&d->index, &d->gfx) == ERROR)
+	if (draw_player(d) == ERROR)
 		return (ERROR);
 	if (d->system.filters == TRUE)
 		draw_color_filter(&d->gfx, 0, 0);
