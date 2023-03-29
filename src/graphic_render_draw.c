@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 10:03:55 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/03/24 16:53:25 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/29 12:17:58 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,7 @@ int		draw_ceiling(t_ray *ray, t_wall wall, int win_y, int wall_height)
 	roof_y =  ((BITS / 2) / wall.distance * ray->gfx.proj_dist) * 2;
 	roof_y = win_y - roof_y;
 	win_y_limit = calc_win_y(limit, ray, wall_height + 2);
-	txtr.x = 0;
-	/*while (win_y >= 0 && ray->player.height < (wall_height + 2) * 32)
+	while (win_y_limit >= 0 && ray->player.height < (wall_height + 2) * 32)
 	{
 		txtr = cast_floor(ray, &wall, ray->gfx.height - win_y_limit, (float)((wall_height + 2) * 32) - ray->player.height);
 		if (wall.distance <= 0 || roof_y < win_y_limit || wall.distance > 100000)
@@ -58,8 +57,8 @@ int		draw_ceiling(t_ray *ray, t_wall wall, int win_y, int wall_height)
 		}
 		win_y_limit--;
 		//roof_y -= 2;
-	}*/
-	return(roof_y);
+	}
+	return(win_y_limit);
 }
 
 int	draw_wall_top(t_ray *ray, t_wall wall, int win_y, int wall_height)

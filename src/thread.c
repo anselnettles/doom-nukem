@@ -6,7 +6,7 @@
 /*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 14:13:05 by tpaaso            #+#    #+#             */
-/*   Updated: 2023/03/15 14:02:55 by tpaaso           ###   ########.fr       */
+/*   Updated: 2023/03/28 13:56:29 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,20 +37,19 @@ void	render_thread(t_drown *data)
 {
 	pthread_t	threads[THREAD];
 	t_ray		ray[THREAD];
-	int			i;
-	int			rc;
+	int			i; 
 
 	i = 0;
 	while (i < THREAD)
 	{
 		init_thread(&ray[i], data, i);
-		rc = pthread_create(&threads[i], NULL, ft_raycast, &ray[i]);
+		pthread_create(&threads[i], NULL, ft_raycast, &ray[i]);
 		i++;
 	}
 	i = 0;
 	while (i < THREAD)
 	{
-		rc = pthread_join(threads[i], NULL);
+		pthread_join(threads[i], NULL);
 		i++;
 	}
 	data->gfx.nearest = ray[0].nearest;
