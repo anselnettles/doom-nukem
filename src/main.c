@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tturto <tturto@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tpaaso <tpaaso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 18:24:05 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/24 13:36:09 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/28 13:52:02 by tpaaso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,25 @@ static int	initialize_player(t_drown *d)
 	return (0);
 }
 
+int		clear_screen(t_gfx *gfx)
+{
+	int x;
+	int	y;
+
+	y = 0;
+	while (y < gfx->height)
+	{
+		x = 0;
+		while (x < gfx->width)
+		{
+			pixel_put(gfx, x, y, 0x000000);
+			x++;
+		}
+		y++;
+	}
+	return (0);
+}
+
 //	Runs the "main menu" user interface.
 //	Awaits the player's input and returns back to 'main()', branching
 //	to "normal mode", "hard mode" and level editor.
@@ -33,6 +52,7 @@ static int	initialize_menu(t_gfx *gfx, t_system *system, SDL_Event *event)
 {
 	while (system->play_state == PLAY)
 	{
+		clear_screen(gfx);
 		menu_string(gfx, gfx->scale);
 		while (SDL_PollEvent(event))
 		{
