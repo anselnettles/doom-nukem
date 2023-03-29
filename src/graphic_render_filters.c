@@ -6,30 +6,51 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 17:40:31 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/24 17:38:37 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/28 18:13:04 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "drowning.h"
 
+static int	circle(t_gfx *gfx, int x, int y, int radius)
+{
+	float	xpos;
+	float	ypos;
+	float	radasqr;
+	float	xsqr;
+
+	xpos = x - radius;
+	while (xpos <= x + radius)
+	{
+		radasqr = pow(radius, 2);
+		xsqr = pow(xpos - x, 2);
+		ypos = sqrt(fabs(radasqr - xsqr));
+		pixel_put(gfx, rintf(xpos), rintf(ypos) + y, 0xFFFFFFFF);
+		pixel_put(gfx, rintf(xpos), rintf(-ypos) + y, 0xFFFFFFFF);
+		xpos += 0.1;
+	}
+	return (0);
+}
+
 int		draw_lantern_glow(t_gfx *gfx, int scale)
 {
-	uint32_t	*color;
+//	uint32_t	*color;
 
-	color = gfx->screen->pixels;
-	gfx->y = 0;
-	while (gfx->y < gfx->height / 6)
-	{
-		gfx->x = 0;
-		while (gfx->x < gfx->width / 6)
-		{
-			pixel_put(gfx, gfx->x, gfx->y, 0xFFFFFFFF);
-				//color[((gfx->x + scale) * scale) + (gfx->y * gfx->width)]);
-			gfx->x += scale;
-		}
-		gfx->y += scale;
-	}
+//	color = gfx->screen->pixels;
 
+	circle(gfx, 90 * scale, 160 * scale, 80 * scale);
+//	gfx->y = 100 * scale;
+//	while (gfx->y < 220 * scale)
+//	{
+//		gfx->x = 40 * scale;
+//		while (gfx->x < 160 * scale)
+//		{
+//			pixel_put(gfx, gfx->x, gfx->y, 0xFFFFFFFF);
+//				//color[((gfx->x + scale) * scale) + (gfx->y * gfx->width)]);
+//			gfx->x += scale;
+//		}
+//		gfx->y += scale;
+//	}
 	return (0);
 }
 
