@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 17:40:31 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/28 18:13:04 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/29 13:34:32 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,28 @@
 
 static int	circle(t_gfx *gfx, int x, int y, int radius)
 {
-	float	xpos;
-	float	ypos;
-	float	radasqr;
-	float	xsqr;
+	int	xpos;
+	int	ypos;
+	int	yfill;
+	int	radasqr;
+	int	xsqr;
 
 	xpos = x - radius;
 	while (xpos <= x + radius)
 	{
 		radasqr = pow(radius, 2);
 		xsqr = pow(xpos - x, 2);
-		ypos = sqrt(fabs(radasqr - xsqr));
+		ypos = sqrt(abs(radasqr - xsqr));
 		pixel_put(gfx, rintf(xpos), rintf(ypos) + y, 0xFFFFFFFF);
-		pixel_put(gfx, rintf(xpos), rintf(-ypos) + y, 0xFFFFFFFF);
-		xpos += 0.1;
+		yfill = ypos;
+		while (yfill >= -ypos)
+			pixel_put(gfx, xpos, (int)yfill-- + y, 0xFFFFFFFF);
+		xpos++;
 	}
 	return (0);
 }
 
-int		draw_lantern_glow(t_gfx *gfx, int scale)
+int	draw_lantern_glow(t_gfx *gfx, int scale)
 {
 //	uint32_t	*color;
 
