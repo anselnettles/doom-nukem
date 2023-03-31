@@ -6,11 +6,35 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 17:40:31 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/29 13:34:32 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/03/31 14:55:39 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "drowning.h"
+
+static uint32_t	circle_color(t_gfx *gfx, uint32_t color)
+{
+			gfx->red = color >> 16;
+			gfx->green = color >> 8;
+			gfx->green = gfx->green << 24;
+			gfx->green = gfx->green >> 24;
+			gfx->blue = color << 24;
+			gfx->blue = gfx->blue >> 24;
+			gfx->red *= 1.045;
+			if (gfx->red >= 255)
+				return (0xFFFFFFFF);
+			gfx->green *= 1.04;
+			if (gfx->green >= 255)
+				return (0xFFFFFFFF);
+			gfx->blue *= 1.02;
+			if (gfx->blue >= 255)
+				return (0xFFFFFFFF);
+			color = ((gfx->red & 0xFF) << 16)
+				| ((gfx->green & 0xff) << 8) | (gfx->blue & 0xFF);
+			if (color == 0)
+				return (0xFF191919);
+	return (color);
+}
 
 static int	circle(t_gfx *gfx, int x, int y, int radius)
 {
@@ -19,17 +43,23 @@ static int	circle(t_gfx *gfx, int x, int y, int radius)
 	int	yfill;
 	int	radasqr;
 	int	xsqr;
+	uint32_t	color;
+	uint32_t	*pix;
 
+	pix = gfx->screen->pixels;
 	xpos = x - radius;
 	while (xpos <= x + radius)
 	{
 		radasqr = pow(radius, 2);
 		xsqr = pow(xpos - x, 2);
 		ypos = sqrt(abs(radasqr - xsqr));
-		pixel_put(gfx, rintf(xpos), rintf(ypos) + y, 0xFFFFFFFF);
 		yfill = ypos;
 		while (yfill >= -ypos)
-			pixel_put(gfx, xpos, (int)yfill-- + y, 0xFFFFFFFF);
+		{
+				color = circle_color(gfx, pix[xpos + ((yfill + y) * gfx->width)]);
+			pixel_put(gfx, xpos, yfill + y, color);
+			yfill--;
+		}
 		xpos++;
 	}
 	return (0);
