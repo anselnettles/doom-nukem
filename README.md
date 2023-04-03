@@ -19,7 +19,6 @@ This was the final "core-studies project" of the game-graphics branch in HIVE He
 ![drowning_optimized_demo](https://user-images.githubusercontent.com/70949716/225095125-ea451c08-9c18-4272-ac6b-9a13600a5af2.gif)
 
 &emsp;&emsp;<sup><b>As of January 24th 2023, the work became a  collaboration project with @Dofidog (Topi Paaso) and @UItsi (Timo Turto).</sup></b><br>
-&emsp;&emsp;<sup><b>Project Drowning will be fully finished by April 2023.</sup></b>
 #
 
 <h3>Controls:</h3>
@@ -35,7 +34,7 @@ This was the final "core-studies project" of the game-graphics branch in HIVE He
  <b>• `F` turns on the lantern light.</b><br>
  &emsp;&emsp;<sup>It's imperative to use the light to see where you're stepping in the dark abyss.</sup><br>
 <b>• `F3` toggles Dev Mode.</b><br>
- &emsp;&emsp;<sup>Developer mode off color filters and overlay textures. Allows the user to swim upwards by tapping the jump key.</sup><br><br>
+ &emsp;&emsp;<sup>Developer mode off color filters and overlay textures. Allows the user to swim upwards by tapping the jump key.</sup><br>
 <b>• `Esc` quits the program.</b><br>
 &emsp;&emsp;<sup>Immediately quits and closes the software and frees all of its allocations.</sup><br><br>
 
