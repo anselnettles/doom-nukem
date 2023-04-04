@@ -32,7 +32,7 @@ This was the final "core-studies project" of the game-graphics branch in HIVE He
 <b>• `E` picks up items.</b><br>
  &emsp;&emsp;<sup>The lake bottom is scattered with collectible items, such as oxygen flasks and harpoons for the player to find.</sup><br>
  <b>• `F` turns on the lantern light.</b><br>
- &emsp;&emsp;<sup>It's imperative to use the light to see where you're stepping in the dark abyss.</sup><br>
+ &emsp;&emsp;<sup>It's imperative to use the light to see where you're stepping in the dark abyss. The light turns on after a flickering delay and especially illuminates the stone platforms particularly well. It may abruptly turn off due to an enemy impact, however! Stay vigilant!</sup><br>
 <b>• `F3` toggles Dev Mode.</b><br>
  &emsp;&emsp;<sup>Developer mode off color filters and overlay textures. Allows the user to swim upwards by tapping the jump key.</sup><br>
 <b>• `Esc` quits the program.</b><br>
