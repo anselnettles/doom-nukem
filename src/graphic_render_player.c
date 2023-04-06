@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 17:00:34 by aviholai          #+#    #+#             */
-/*   Updated: 2023/03/24 17:27:10 by aviholai         ###   ########.fr       */
+/*   Updated: 2023/04/06 16:23:12 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ static void	left_arm_pix(t_gfx *gfx, t_index *index, int x, int y)
 			(index->y + (y * gfx->scale)),
 			pixels[(gfx->x + x) + ((gfx->y + y) * LARM_WTH)]);
 	else if (pixels[(gfx->x + x) + ((gfx->y + y) * LARM_WTH)] == YELLOW)
-		pixel_put(gfx, (index->x + x), (index->y + y), GRAY);
+		if (!(gfx->lantern <= TURN_ON || gfx->lantern == TRUE))
+			pixel_put(gfx, (index->x + x), (index->y + y), GRAY);
 }
 
 static void	left_arm_scale(t_index *index, t_gfx *gfx, float distance, int div)
